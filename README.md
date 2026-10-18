@@ -2,7 +2,7 @@
 
 Prototype giao diện các màn của Lavatu, xuất từ Claude Design (Project archive). Mỗi màn có **thanh "Trạng thái"** màu tối ở trên cùng để chuyển giữa các trạng thái; mở thẳng một trạng thái bằng `?state=<mã>`.
 
-- **Xem online:** https://nemonguyen2604.github.io/lavatu-ui-ux/ – trang sơ đồ `index.html` liệt kê mọi màn và mọi trạng thái.
+- **Xem online:** https://nemonguyen2604.github.io/Lavatu-UI-UX/ – trang sơ đồ `index.html` liệt kê mọi màn và mọi trạng thái.
 - **Đặc tả chức năng (nguồn chính):** Google Sheet `Lavatu_DacTaChucNang_v2`, tab **DEV**. Mã `SCR-xxx` trùng với cột *Màn hình* trong Sheet.
 
 ## Cách dùng cho dev
