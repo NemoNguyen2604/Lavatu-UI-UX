@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="ext-resource-dependency" content="./Contact Block.dc.html" data-resource-id="./Contact%20Block.dc.html">
+<script src="./support.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#003527"><svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg"><rect x="470" y="240" width="260" height="320" rx="24" fill="#0f6554"/><path d="M530 410l50 50 90-100" fill="none" stroke="#84cc16" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/></svg></template>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/styles.css">
+  <script src="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/_ds_bundle.js"></script>
+  <style>
+    @keyframes lv-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    @keyframes lv-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    @keyframes lv-fade{from{opacity:0}to{opacity:1}}
+    @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+    html,body{margin:0;height:100%}
+    a{color:#0f6554}
+    a:hover{color:#074638}
+    input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+  </style>
+</helmet>
+<div data-screen-label="SCR-007 Chi tiết đơn" style="position:relative;height:100vh;overflow:hidden;background:var(--color-bg-page);font-family:var(--font-sans);min-width:1440px">
+<div ref="{{ scrollRef }}" style="height:100%;overflow:auto">
+
+<header style="position:sticky;top:0;z-index:20;background:var(--color-bg-brand)">
+  <div style="height:72px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;gap:var(--space-6)">
+    <div style="display:flex;align-items:center;gap:var(--space-12)">
+      <img src="assets/logo.png" alt="Lavatu" style="height:32px;filter:brightness(0) invert(1)">
+      <nav style="display:flex;gap:var(--space-7);font:var(--type-body-md)">
+        <a href="#" style="color:rgba(255,255,255,0.72);text-decoration:none;padding:6px 0;white-space:nowrap">Trang chủ</a>
+        <a href="Nguon vat lieu - Ban chinh.dc.html" style="color:rgba(255,255,255,0.72);text-decoration:none;padding:6px 0;white-space:nowrap">Sản phẩm</a>
+        <a href="#" style="color:rgba(255,255,255,0.72);text-decoration:none;padding:6px 0;white-space:nowrap">Tin tức</a>
+        <a href="#" style="color:rgba(255,255,255,0.72);text-decoration:none;padding:6px 0;white-space:nowrap">Giải pháp</a>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:var(--space-5);font:var(--type-body-md)">
+      <button type="button" aria-label="Chọn ngôn ngữ" style="display:flex;align-items:center;gap:6px;height:36px;padding:0 8px;border:none;background:transparent;color:rgba(255,255,255,0.86);cursor:pointer;font:var(--type-label-md)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>VI</button>
+      <a href="#" style="color:rgba(255,255,255,0.72);text-decoration:none;white-space:nowrap">Hỗ trợ</a>
+      <a href="Gio hang - Ban chinh.dc.html" aria-label="Giỏ hàng, 4 sản phẩm" style="position:relative;width:40px;height:40px;flex-shrink:0;border-radius:var(--radius-full);background:rgba(255,255,255,0.12);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg><span style="position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;padding:0 4px;box-sizing:border-box;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-text-heading);font:var(--type-label-sm);font-size:11px;display:flex;align-items:center;justify-content:center">4</span></a>
+      <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" hint-size="88px,40px">Tư vấn</x-import>
+      <span style="display:flex;align-items:center;gap:var(--space-2);color:var(--color-text-inverse);font:var(--type-label-md)"><span style="width:36px;height:36px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">{{ me.ini }}</span>{{ me.name }}</span>
+    </div>
+  </div>
+</header>
+
+<div style="padding:var(--space-4) 40px;border-bottom:1px solid var(--color-border-default);background:var(--color-bg-page)">
+  <nav aria-label="Breadcrumb" style="display:flex;align-items:center;gap:var(--space-2);font:var(--type-body-sm)">
+    <a href="#" style="color:var(--color-text-muted);text-decoration:none">Tài khoản</a><span style="color:var(--color-text-subtle)">/</span>
+    <a href="{{ listHref }}" style="color:var(--color-text-muted);text-decoration:none">{{ listLabel }}</a><span style="color:var(--color-text-subtle)">/</span>
+    <span style="color:var(--color-text-heading);font-weight:600">DH-261013-0004</span>
+  </nav>
+</div>
+
+<main style="background:var(--color-bg-subtle);padding:var(--space-8) 40px var(--space-16);display:grid;grid-template-columns:272px minmax(0,1fr);gap:var(--space-8);align-items:start">
+
+  <aside aria-label="Tài khoản" style="position:sticky;top:96px;display:flex;flex-direction:column;gap:var(--space-1);padding:var(--space-3);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card)">
+    <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-3) var(--space-4);margin-bottom:var(--space-2);border-bottom:1px solid var(--color-border-default)">
+      <span style="width:44px;height:44px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-md)">{{ me.ini }}</span>
+      <span style="display:flex;flex-direction:column;gap:2px"><span style="font:var(--type-label-lg);color:var(--color-text-heading)">{{ me.name }}</span><span style="font:var(--type-caption);color:var(--color-text-muted)">{{ me.sub }}</span></span>
+    </div>
+    <sc-for list="{{ nav }}" as="n" hint-placeholder-count="6">
+      <a href="{{ n.href }}" aria-current="{{ n.cur }}" style="display:flex;align-items:center;gap:var(--space-3);min-height:44px;padding:0 var(--space-4);border-radius:var(--radius-md);font:var(--type-label-md);color:{{ n.color }};background:{{ n.bg }};text-decoration:none">
+        <span style="width:8px;height:8px;border-radius:var(--radius-full);background:{{ n.dot }}"></span>{{ n.label }}
+      </a>
+    </sc-for>
+  </aside>
+
+  <div style="display:flex;flex-direction:column;gap:var(--space-5);min-width:0">
+    <section style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-6);animation:lv-rise 600ms ease-out both">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4)">
+        <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <div style="display:flex;align-items:center;gap:var(--space-3)">
+            <h1 style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">DH-261013-0004</h1>
+            <sc-if value="{{ badge.ds }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="{{ badge.tone }}" hint-size="auto,24px">{{ badge.label }}</x-import></sc-if>
+            <sc-if value="{{ badge.blue }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-full);font:var(--type-label-sm);white-space:nowrap;background:color-mix(in oklch, var(--color-material-plastic) 10%, white);color:var(--color-material-plastic)"><span style="width:6px;height:6px;border-radius:50%;background:var(--color-material-plastic)"></span>{{ badge.label }}</span></sc-if>
+          </div>
+          <span style="font:var(--type-body-sm);color:var(--color-text-muted)">Gửi yêu cầu lúc 21:30 13/10/2026</span>
+        </div>
+        <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" hint-size="190px,40px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>{{ chatLabel }}</x-import>
+      </div>
+      <ol aria-label="Tiến trình đơn" style="margin:0;padding:0;list-style:none;display:flex;align-items:flex-start">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+          <li style="flex:{{ s.flex }};display:flex;align-items:flex-start;min-width:0">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2);width:120px;flex-shrink:0;text-align:center">
+              <span style="width:32px;height:32px;box-sizing:border-box;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm);background:{{ s.bg }};color:{{ s.fg }};border:{{ s.border }};box-shadow:{{ s.ring }};transition:all 300ms">{{ s.mark }}</span>
+              <span style="font:{{ s.font }};color:{{ s.labelColor }}">{{ s.label }}</span>
+              <sc-if value="{{ s.tag }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="{{ s.tagTone }}" hint-size="auto,24px">{{ s.tag }}</x-import></sc-if>
+            </div>
+            <sc-if value="{{ s.line }}" hint-placeholder-val="{{ true }}"><span style="flex:1;height:2px;margin-top:15px;border-radius:2px;background:{{ s.lineBg }};transition:background 300ms"></span></sc-if>
+          </li>
+        </sc-for>
+      </ol>
+    </section>
+
+    <div style="display:grid;grid-template-columns:minmax(0,62fr) minmax(0,38fr);gap:var(--space-5);align-items:start">
+      <div style="display:flex;flex-direction:column;gap:var(--space-5);min-width:0">
+
+        <section style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-4);animation:lv-rise 600ms ease-out 60ms both">
+          <h2 style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Sản phẩm</h2>
+          <div style="border-radius:var(--radius-md);border:1px solid var(--color-border-default);overflow:hidden">
+            <div style="display:grid;grid-template-columns:{{ cols }};gap:var(--space-3);padding:var(--space-3) var(--space-4);background:var(--color-bg-subtle);font:var(--type-label-sm);color:var(--color-text-muted)">
+              <span>Sản phẩm</span><span style="text-align:right">Đơn giá</span>
+              <sc-for list="{{ qtyHeads }}" as="qh" hint-placeholder-count="1"><span style="text-align:right">{{ qh }}</span></sc-for>
+            </div>
+            <div style="display:grid;grid-template-columns:{{ cols }};gap:var(--space-3);align-items:center;padding:var(--space-4);border-top:1px solid var(--color-border-default)">
+              <span style="display:flex;align-items:center;gap:var(--space-3);min-width:0">
+                <span style="width:56px;height:56px;flex-shrink:0;border-radius:var(--radius-sm);background:color-mix(in oklch, var(--color-material-plastic) 12%, white);display:flex"><img src="assets/plastic.webp" alt="" style="width:100%;height:100%;object-fit:contain;padding:4px;box-sizing:border-box"></span>
+                <span style="display:flex;flex-direction:column;gap:4px;min-width:0"><a href="Chi tiet san pham - Ban chinh.dc.html" style="font:var(--type-label-md);text-decoration:none;text-wrap:pretty">Nhựa PP tái sinh dạng hạt, màu tự nhiên</a><span style="display:flex"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.CategoryBadge" material="plastic" hint-size="auto,22px">Nhựa</x-import></span></span>
+              </span>
+              <span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;font:var(--type-label-md);color:var(--color-text-heading);white-space:nowrap">
+                <sc-if value="{{ priceOld }}" hint-placeholder-val="{{ false }}"><s style="font:var(--type-caption);color:var(--color-text-subtle)">{{ priceOld }}</s></sc-if>
+                {{ priceNow }}
+              </span>
+              <sc-for list="{{ qtyVals }}" as="qv" hint-placeholder-count="1"><span style="text-align:right;font:var(--type-label-md);color:{{ qv.color }};white-space:nowrap">{{ qv.v }}</span></sc-for>
+            </div>
+          </div>
+          <dl style="margin:0 0 0 auto;width:100%;max-width:360px;display:flex;flex-direction:column;gap:var(--space-2)">
+            <sc-for list="{{ money }}" as="m" hint-placeholder-count="2">
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-4);padding-top:{{ m.pt }};border-top:{{ m.bt }}">
+                <dt style="font:var(--type-body-sm);color:var(--color-text-muted)">{{ m.k }}</dt>
+                <dd style="margin:0;font:{{ m.font }};color:{{ m.color }};text-align:right">{{ m.v }}</dd>
+              </div>
+            </sc-for>
+          </dl>
+        </section>
+
+        <section style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-4);animation:lv-rise 600ms ease-out 120ms both">
+          <h2 style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Giao nhận</h2>
+          <dl style="margin:0;display:grid;grid-template-columns:200px minmax(0,1fr);border-radius:var(--radius-md);border:1px solid var(--color-border-default);overflow:hidden">
+            <sc-for list="{{ ship }}" as="r" hint-placeholder-count="6">
+              <dt style="padding:var(--space-3) var(--space-4);background:var(--color-bg-subtle);font:var(--type-body-sm);color:var(--color-text-muted);border-top:{{ r.bt }}">{{ r.k }}</dt>
+              <dd style="margin:0;padding:var(--space-3) var(--space-4);font:var(--type-label-md);color:var(--color-text-heading);border-top:{{ r.bt }};text-wrap:pretty">{{ r.v }}<sc-if value="{{ r.sub }}" hint-placeholder-val="{{ false }}"><span style="display:block;font:var(--type-body-sm);color:var(--color-text-muted)">{{ r.sub }}</span></sc-if></dd>
+            </sc-for>
+          </dl>
+        </section>
+
+        <section style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-4);animation:lv-rise 600ms ease-out 180ms both">
+          <h2 style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Lịch sử đơn</h2>
+          <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column">
+            <sc-for list="{{ history }}" as="h" hint-placeholder-count="2">
+              <li style="display:grid;grid-template-columns:20px minmax(0,1fr);gap:var(--space-3);animation:lv-in 300ms ease-out both">
+                <span style="display:flex;flex-direction:column;align-items:center">
+                  <span style="width:12px;height:12px;margin-top:4px;flex-shrink:0;box-sizing:border-box;border-radius:var(--radius-full);background:{{ h.dot }};border:2px solid var(--color-bg-page);box-shadow:0 0 0 1px {{ h.dotRing }}"></span>
+                  <sc-if value="{{ h.line }}" hint-placeholder-val="{{ true }}"><span style="flex:1;width:2px;background:var(--color-border-default)"></span></sc-if>
+                </span>
+                <span style="display:flex;flex-direction:column;gap:4px;padding-bottom:var(--space-5)">
+                  <span style="display:flex;gap:var(--space-2);font:var(--type-caption);color:var(--color-text-muted)"><span>{{ h.t }}</span><span>·</span><span style="color:var(--color-text-body);font-weight:600">{{ h.who }}</span></span>
+                  <span style="font:var(--type-body-sm);color:var(--color-text-heading);text-wrap:pretty">{{ h.text }}</span>
+                </span>
+              </li>
+            </sc-for>
+          </ol>
+        </section>
+      </div>
+
+      <aside style="position:sticky;top:96px;display:flex;flex-direction:column;gap:var(--space-4);min-width:0;animation:lv-rise 600ms ease-out 100ms both">
+        <section aria-label="Hành động" style="padding:var(--space-5);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-4)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-2)">
+            <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-muted)">{{ actTitle }}</span>
+            <sc-if value="{{ roundTag }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="accent" dot="{{ false }}" hint-size="auto,24px">{{ roundTag }}</x-import></sc-if>
+          </div>
+          <sc-if value="{{ info }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font:var(--type-body-md);color:var(--color-text-body);text-wrap:pretty">{{ info }}</p></sc-if>
+
+          <sc-if value="{{ hasCmp }}" hint-placeholder-val="{{ false }}">
+            <div style="border-radius:var(--radius-md);border:1px solid var(--color-border-default);overflow:hidden">
+              <div style="display:grid;grid-template-columns:{{ cmpCols }};gap:var(--space-2);padding:var(--space-2) var(--space-3);background:var(--color-bg-subtle);font:var(--type-label-sm);color:var(--color-text-muted)">
+                <span></span><sc-for list="{{ cmpHeads }}" as="ch" hint-placeholder-count="2"><span style="text-align:right">{{ ch }}</span></sc-for>
+              </div>
+              <sc-for list="{{ cmpRows }}" as="c" hint-placeholder-count="3">
+                <div style="display:grid;grid-template-columns:{{ cmpCols }};gap:var(--space-2);align-items:center;padding:var(--space-2) var(--space-3);border-top:1px solid var(--color-border-default);font:var(--type-body-sm)">
+                  <span style="color:var(--color-text-muted)">{{ c.k }}</span>
+                  <span style="text-align:right;color:var(--color-text-body)">{{ c.a }}</span>
+                  <span style="justify-self:end;text-align:right;padding:2px 6px;border-radius:var(--radius-sm);font:var(--type-label-md);color:var(--color-text-heading);background:{{ c.hl }}">{{ c.b }}</span>
+                  <sc-if value="{{ c.hasD }}" hint-placeholder-val="{{ false }}"><span style="text-align:right;font:var(--type-label-sm);color:{{ c.dColor }}">{{ c.d }}</span></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ sellerMsg }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:var(--space-2);padding:var(--space-3);border-radius:var(--radius-md);background:var(--color-bg-subtle);font:var(--type-body-sm);color:var(--color-text-body)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px;color:var(--color-text-muted)"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg><span>Lời nhắn của người bán: “{{ sellerMsg }}”</span></div>
+          </sc-if>
+          <sc-if value="{{ hasPhotos }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <span style="font:var(--type-label-sm);color:var(--color-text-muted)">Ảnh phiếu cân</span>
+              <div style="display:flex;gap:var(--space-2)">
+                <sc-for list="{{ photos }}" as="ph" hint-placeholder-count="1">
+                  <button type="button" onClick="{{ ph.open }}" aria-label="Phóng to {{ ph.name }}" style="width:72px;height:72px;padding:0;border-radius:var(--radius-sm);border:1px solid var(--color-border-default);cursor:zoom-in;background:var(--color-bg-muted) center/cover no-repeat;background-image:{{ ph.bg }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:var(--color-text-muted);font:var(--type-caption)">
+                    <sc-if value="{{ ph.ph }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>Phiếu cân</sc-if>
+                  </button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+          <sc-if value="{{ deadline }}" hint-placeholder-val="{{ true }}">
+            <span style="display:flex;align-items:center;gap:6px;font:var(--type-label-md);color:{{ dlColor }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg>{{ deadline }}</span>
+          </sc-if>
+
+          <sc-if value="{{ endInfo }}" hint-placeholder-val="{{ false }}">
+            <dl style="margin:0;display:flex;flex-direction:column;gap:var(--space-2);padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-subtle)">
+              <sc-for list="{{ endInfo }}" as="ei" hint-placeholder-count="3"><div style="display:flex;justify-content:space-between;gap:var(--space-3)"><dt style="font:var(--type-body-sm);color:var(--color-text-muted)">{{ ei.k }}</dt><dd style="margin:0;font:var(--type-label-md);color:var(--color-text-heading);text-align:right">{{ ei.v }}</dd></div></sc-for>
+            </dl>
+          </sc-if>
+
+          <sc-if value="{{ pane.none }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <sc-if value="{{ btn.accept }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" onClick="{{ act.accept }}" hint-size="100%,48px">Chấp nhận</x-import></sc-if>
+              <sc-if value="{{ btn.propose }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" onClick="{{ act.openPropose }}" hint-size="100%,48px">Đề xuất điều chỉnh</x-import></sc-if>
+              <sc-if value="{{ btn.agree }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" onClick="{{ act.agree }}" hint-size="100%,48px">Đồng ý</x-import></sc-if>
+              <sc-if value="{{ btn.declineAdj }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" onClick="{{ act.declineAdj }}" hint-size="100%,48px">Từ chối</x-import></sc-if>
+              <sc-if value="{{ btn.startShip }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" onClick="{{ act.startShip }}" hint-size="100%,48px">Bắt đầu giao</x-import></sc-if>
+              <sc-if value="{{ btn.delivered }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" onClick="{{ act.openDeliver }}" hint-size="100%,48px">Đã giao hàng</x-import></sc-if>
+              <sc-if value="{{ btn.received }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" onClick="{{ act.received }}" hint-size="100%,48px">Đã nhận hàng</x-import></sc-if>
+              <sc-if value="{{ btn.complain }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" onClick="{{ act.noop }}" hint-size="100%,48px">Khiếu nại</x-import></sc-if>
+              <sc-if value="{{ btn.danger }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ act.openDanger }}" style="min-height:44px;border:none;border-radius:var(--radius-md);background:transparent;cursor:pointer;font:var(--type-label-md);color:var(--color-danger)" style-hover="background:var(--color-danger-soft)">{{ btn.danger }}</button></sc-if>
+              <sc-if value="{{ subNote }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-caption);color:var(--color-text-muted);text-align:center;text-wrap:pretty">{{ subNote }}</span></sc-if>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ pane.propose }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);border:1px solid var(--color-border-strong);animation:lv-in 250ms ease-out">
+              <div style="display:flex;align-items:center;justify-content:space-between"><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Đề xuất điều chỉnh</span><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="accent" dot="{{ false }}" hint-size="auto,24px">{{ roundLabel }}</x-import></div>
+              <span style="font:var(--type-caption);color:var(--color-text-muted)">Nhựa PP tái sinh dạng hạt</span>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)">
+                <label style="display:flex;flex-direction:column;gap:6px;font:var(--type-label-sm);color:var(--color-text-heading)">Đơn giá (VNĐ/kg)<x-import component-from-global-scope="LavatuDesignSystem_2cb126.Input" type="number" value="{{ pf.price }}" onChange="{{ pf.onPrice }}" hint-size="100%,44px"></x-import></label>
+                <label style="display:flex;flex-direction:column;gap:6px;font:var(--type-label-sm);color:var(--color-text-heading)">Khối lượng (kg)<x-import component-from-global-scope="LavatuDesignSystem_2cb126.Input" type="number" value="{{ pf.qty }}" onChange="{{ pf.onQty }}" hint-size="100%,44px"></x-import></label>
+                <label style="display:flex;flex-direction:column;gap:6px;font:var(--type-label-sm);color:var(--color-text-heading)">Phí giao (VNĐ)<x-import component-from-global-scope="LavatuDesignSystem_2cb126.Input" type="number" value="{{ pf.fee }}" onChange="{{ pf.onFee }}" hint-size="100%,44px"></x-import></label>
+                <label style="display:flex;flex-direction:column;gap:6px;font:var(--type-label-sm);color:var(--color-text-heading)">Ngày giao<input type="date" min="2026-10-13" value="{{ pf.date }}" onChange="{{ pf.onDate }}" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:1px solid var(--color-border-strong);background:var(--color-bg-page);padding:0 12px;font:var(--type-body-sm);font-family:inherit;color:var(--color-text-heading);outline:none"></label>
+              </div>
+              <label style="display:flex;flex-direction:column;gap:6px;font:var(--type-label-sm);color:var(--color-text-heading)">Lời nhắn<textarea rows="2" maxLength="500" value="{{ pf.msg }}" onChange="{{ pf.onMsg }}" style="box-sizing:border-box;width:100%;resize:vertical;border-radius:var(--radius-md);border:1px solid var(--color-border-strong);padding:10px 12px;font:var(--type-body-sm);font-family:inherit;color:var(--color-text-heading);outline:none"></textarea></label>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;padding:var(--space-3);border-radius:var(--radius-sm);background:var(--color-bg-subtle);font:var(--type-body-sm);color:var(--color-text-muted)">Tổng<span style="display:flex;gap:var(--space-2);align-items:baseline"><s>{{ pf.oldTotal }}</s><span style="font:var(--type-label-lg);color:var(--color-text-heading)">→ {{ pf.newTotal }}</span></span></div>
+              <sc-if value="{{ pf.err }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font:var(--type-caption);color:var(--color-danger)">{{ pf.err }}</span></sc-if>
+              <div style="display:grid;grid-template-columns:1fr 2fr;gap:var(--space-2)">
+                <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="ghost" size="m" onClick="{{ act.closePane }}" hint-size="100%,40px">Huỷ</x-import>
+                <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="m" onClick="{{ act.sendPropose }}" hint-size="100%,40px">Gửi đề xuất</x-import>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ pane.reason }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);border:1px solid color-mix(in oklch, var(--color-danger) 35%, white);background:var(--color-danger-soft);animation:lv-in 250ms ease-out">
+              <span style="font:var(--type-label-lg);color:var(--color-text-heading)">{{ rf.title }}</span>
+              <sc-if value="{{ rf.hasChips }}" hint-placeholder-val="{{ false }}">
+                <div role="radiogroup" aria-label="Lý do" style="display:flex;flex-wrap:wrap;gap:var(--space-2)">
+                  <sc-for list="{{ rf.chips }}" as="rc" hint-placeholder-count="4"><button type="button" role="radio" aria-checked="{{ rc.on }}" onClick="{{ rc.pick }}" style="height:36px;padding:0 var(--space-4);border-radius:var(--radius-full);cursor:pointer;font:var(--type-label-md);border:{{ rc.border }};background:{{ rc.bg }};color:{{ rc.color }}">{{ rc.label }}</button></sc-for>
+                </div>
+              </sc-if>
+              <textarea rows="2" maxLength="500" value="{{ rf.text }}" onChange="{{ rf.onText }}" placeholder="{{ rf.ph }}" style="box-sizing:border-box;width:100%;resize:vertical;border-radius:var(--radius-md);border:1px solid var(--color-border-strong);background:var(--color-bg-page);padding:10px 12px;font:var(--type-body-sm);font-family:inherit;color:var(--color-text-heading);outline:none"></textarea>
+              <sc-if value="{{ rf.err }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font:var(--type-caption);color:var(--color-danger)">{{ rf.err }}</span></sc-if>
+              <div style="display:grid;grid-template-columns:1fr 2fr;gap:var(--space-2)">
+                <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="ghost" size="m" onClick="{{ act.closePane }}" hint-size="100%,40px">{{ rf.noLabel }}</x-import>
+                <button type="button" onClick="{{ act.sendReason }}" style="height:40px;border:none;border-radius:var(--radius-md);cursor:pointer;font:var(--type-label-md);background:var(--color-danger);color:var(--color-text-inverse)">{{ rf.yesLabel }}</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ pane.deliver }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);border:1px solid var(--color-border-strong);animation:lv-in 250ms ease-out">
+              <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Xác nhận đã giao hàng</span>
+              <label style="display:flex;flex-direction:column;gap:6px;font:var(--type-label-sm);color:var(--color-text-heading)">Khối lượng thực tế · Nhựa PP tái sinh (kg) <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Input" type="number" value="{{ df.qty }}" onChange="{{ df.onQty }}" hint-size="100%,44px"></x-import></label>
+              <label style="display:flex;flex-direction:column;gap:6px;font:var(--type-label-sm);color:var(--color-text-heading)">Số tiền thực tế (VNĐ)<x-import component-from-global-scope="LavatuDesignSystem_2cb126.Input" type="number" value="{{ df.amount }}" onChange="{{ df.onAmount }}" hint-size="100%,44px"></x-import><span style="font:var(--type-caption);color:var(--color-text-muted)">Gợi ý: {{ df.hint }}</span></label>
+              <div style="display:flex;flex-direction:column;gap:6px">
+                <span style="font:var(--type-label-sm);color:var(--color-text-heading)">Ảnh phiếu cân (tuỳ chọn, tối đa 3)</span>
+                <div style="display:flex;gap:var(--space-2)">
+                  <sc-for list="{{ df.photos }}" as="dp" hint-placeholder-count="1">
+                    <span style="position:relative;width:64px;height:64px;border-radius:var(--radius-sm);border:1px solid var(--color-border-default);background:var(--color-bg-muted) center/cover no-repeat;background-image:{{ dp.bg }};display:flex;align-items:center;justify-content:center;color:var(--color-text-muted)">
+                      <sc-if value="{{ dp.ph }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path></svg></sc-if>
+                      <button type="button" aria-label="Xoá ảnh" onClick="{{ dp.remove }}" style="position:absolute;top:-8px;right:-8px;width:24px;height:24px;border-radius:var(--radius-full);border:1px solid var(--color-border-default);background:var(--color-bg-page);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--color-text-muted)"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+                    </span>
+                  </sc-for>
+                  <sc-if value="{{ df.canAdd }}" hint-placeholder-val="{{ true }}">
+                    <label style="width:64px;height:64px;box-sizing:border-box;border-radius:var(--radius-sm);border:1px dashed var(--color-border-strong);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;color:var(--color-text-brand);font:var(--type-caption)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Thêm ảnh<input type="file" accept="image/*" multiple onChange="{{ df.onFiles }}" style="display:none"></label>
+                  </sc-if>
+                </div>
+              </div>
+              <sc-if value="{{ df.err }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font:var(--type-caption);color:var(--color-danger)">{{ df.err }}</span></sc-if>
+              <div style="display:grid;grid-template-columns:1fr 2fr;gap:var(--space-2)">
+                <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="ghost" size="m" onClick="{{ act.closePane }}" hint-size="100%,40px">Huỷ</x-import>
+                <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="m" onClick="{{ act.sendDeliver }}" hint-size="100%,40px">Xác nhận đã giao</x-import>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ pane.confirmCancel }}" hint-placeholder-val="{{ false }}">
+            <div role="alertdialog" aria-label="Huỷ yêu cầu này?" style="display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-warning-soft);animation:lv-in 200ms ease-out">
+              <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Huỷ yêu cầu này?</span>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2)">
+                <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="ghost" size="m" onClick="{{ act.closePane }}" hint-size="100%,40px">Giữ lại</x-import>
+                <button type="button" onClick="{{ act.cancelReq }}" style="height:40px;border:none;border-radius:var(--radius-md);cursor:pointer;font:var(--type-label-md);background:var(--color-danger);color:var(--color-text-inverse)">Huỷ yêu cầu</button>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ rate.form }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+              <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Đánh giá người bán</span>
+              <div role="radiogroup" aria-label="Số sao" style="display:flex;gap:var(--space-1)">
+                <sc-for list="{{ rate.stars }}" as="st" hint-placeholder-count="5"><button type="button" role="radio" aria-checked="{{ st.on }}" aria-label="{{ st.label }}" onClick="{{ st.pick }}" style="width:44px;height:44px;border:none;background:none;cursor:pointer;color:{{ st.color }};display:flex;align-items:center;justify-content:center;transition:transform 150ms" style-hover="transform:scale(1.08)"><svg width="28" height="28" viewBox="0 0 24 24" fill="{{ st.fill }}" stroke="currentColor" style="stroke-width:1.5;stroke-linejoin:round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></button></sc-for>
+              </div>
+              <textarea rows="3" maxLength="500" value="{{ rate.text }}" onChange="{{ rate.onText }}" placeholder="Nhận xét về chất lượng hàng, giao nhận…" style="box-sizing:border-box;width:100%;resize:vertical;border-radius:var(--radius-md);border:1px solid var(--color-border-strong);padding:10px 12px;font:var(--type-body-sm);font-family:inherit;color:var(--color-text-heading);outline:none"></textarea>
+              <span style="align-self:flex-end;font:var(--type-caption);color:var(--color-text-muted)">{{ rate.count }}/500</span>
+              <sc-if value="{{ rate.err }}" hint-placeholder-val="{{ false }}"><span role="alert" style="font:var(--type-caption);color:var(--color-danger)">Chọn số sao.</span></sc-if>
+              <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" onClick="{{ act.sendRate }}" hint-size="100%,48px">Gửi đánh giá</x-import>
+            </div>
+          </sc-if>
+          <sc-if value="{{ rate.shown }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:var(--space-2);padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-subtle)">
+              <span style="display:flex;align-items:center;gap:var(--space-2);font:var(--type-label-md);color:var(--color-text-heading)"><span style="display:flex;gap:2px;color:var(--color-warning)"><sc-for list="{{ rate.shownStars }}" as="x" hint-placeholder-count="5"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" style="stroke-width:1.5;stroke-linejoin:round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></sc-for></span>{{ rate.shownLabel }}</span>
+              <sc-if value="{{ rate.shownText }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font:var(--type-body-sm);color:var(--color-text-body);text-wrap:pretty">“{{ rate.shownText }}”</p></sc-if>
+            </div>
+          </sc-if>
+        </section>
+
+        <section aria-label="Bên kia giao dịch" style="padding:var(--space-5);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-4)">
+          <div style="display:flex;align-items:center;gap:var(--space-3)">
+            <span style="width:48px;height:48px;flex-shrink:0;border-radius:var(--radius-md);background:var(--color-bg-brand);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center;font:var(--type-label-lg)">{{ other.ini }}</span>
+            <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+              <span style="font:var(--type-caption);color:var(--color-text-muted)">{{ other.role }}</span>
+              <span style="display:flex;align-items:center;gap:var(--space-2);flex-wrap:wrap"><span style="font:var(--type-label-lg);color:var(--color-text-heading)">{{ other.name }}</span><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Tag" hint-size="auto,22px">{{ other.acct }}</x-import><sc-if value="{{ other.verified }}" hint-placeholder-val="{{ false }}"><span title="Đã xác minh" style="display:flex;color:var(--color-text-brand)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></span></sc-if></span>
+            </span>
+          </div>
+          <sc-if value="{{ showContact }}" hint-placeholder-val="{{ false }}">
+            <dc-import name="Contact Block" variant="A" cstate="revealed" contact-name="{{ other.contact }}" phone="{{ other.phone }}" on-copy="{{ copied }}" hint-size="100%,96px"></dc-import>
+          </sc-if>
+          <sc-if value="{{ hideContact }}" hint-placeholder-val="{{ true }}">
+            <span style="font:var(--type-body-sm);color:var(--color-text-muted);text-wrap:pretty">Số điện thoại hiển thị sau khi đơn được xác nhận. Trước đó, trao đổi qua Chat.</span>
+          </sc-if>
+        </section>
+
+        <div style="display:flex;gap:var(--space-2);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-brand-soft);font:var(--type-body-sm);color:var(--color-text-heading)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-brand);flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+          Lavatu không thu tiền hộ. Hai bên thanh toán trực tiếp.
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer style="background:var(--color-bg-page);border-top:1px solid var(--color-border-default)">
+  <div style="padding:var(--space-4) 40px;display:flex;gap:var(--space-3);justify-content:space-between;font:var(--type-caption);color:var(--color-text-muted)">
+    <span>© 2026 Lavatu. Nền tảng kinh tế tuần hoàn chuyên nghiệp.</span>
+    <span style="display:flex;gap:var(--space-6)"><a href="#" style="color:var(--color-text-heading);text-decoration:none">Facebook</a><a href="#" style="color:var(--color-text-heading);text-decoration:none">LinkedIn</a><a href="#" style="color:var(--color-text-heading);text-decoration:none">Youtube</a></span>
+  </div>
+</footer>
+</div>
+
+<sc-if value="{{ lightbox }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-label="Ảnh phiếu cân" onClick="{{ closeLb }}" style="position:absolute;inset:0;z-index:45;display:flex;align-items:center;justify-content:center;background:rgba(2,6,23,0.85);animation:lv-fade 200ms ease-out;cursor:zoom-out">
+    <div style="width:560px;height:720px;border-radius:var(--radius-lg);background:var(--color-bg-subtle) center/contain no-repeat;background-image:{{ lightbox.bg }};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-2);color:var(--color-text-muted);font:var(--type-body-sm)">
+      <sc-if value="{{ lightbox.ph }}" hint-placeholder-val="{{ true }}"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.25;stroke-linecap:round;stroke-linejoin:round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path><path d="M14 2v4a2 2 0 0 0 2 2h4"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>{{ lightbox.name }}</sc-if>
+    </div>
+  </div>
+</sc-if>
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+  <div role="status" style="position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-brand);color:var(--color-text-inverse);font:var(--type-label-md);box-shadow:var(--shadow-raised);white-space:nowrap;animation:lv-in 200ms ease-out">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-accent)"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>{{ toast }}
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;role&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;seller&quot;,&quot;buyer&quot;],&quot;default&quot;:&quot;seller&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;stage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;pending&quot;,&quot;await_adjust&quot;,&quot;confirmed&quot;,&quot;shipping&quot;,&quot;await_receive&quot;,&quot;done&quot;,&quot;rejected&quot;,&quot;expired&quot;,&quot;cancelled&quot;],&quot;default&quot;:&quot;pending&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype&quot;}}">
+class Component extends DCLogic {
+  static REQ = { price: 25000, qty: 2000 };
+  static PROP = { price: 24000, qty: 2000, fee: 1500000, date: '2026-10-19', msg: 'Giao được thứ 7' };
+  static ACT = { qty: 1940, amount: 48060000 };
+  static EV = {
+    sent: { t: '21:30 13/10/2026', who: 'Hoàng Lan', side: 'b', text: 'Gửi yêu cầu mua: 2.000 kg × 25.000 VNĐ/kg, người bán giao tận nơi, mong muốn nhận 18/10.' },
+    agree: { t: '10:02 14/10/2026', who: 'Hoàng Lan', side: 'b', text: 'Người mua đồng ý đề xuất. Đơn đã xác nhận, tổng đã chốt 49.500.000 VNĐ.' },
+    ship: { t: '07:30 19/10/2026', who: 'GRAC · Nguyễn Văn Minh', side: 's', text: 'Người bán bắt đầu giao hàng.' },
+    recv: { t: '09:10 20/10/2026', who: 'Hoàng Lan', side: 'b', text: 'Người mua xác nhận đã nhận đủ hàng. Đơn hoàn tất.' },
+  };
+  static STAGES = ['pending', 'await_adjust', 'confirmed', 'shipping', 'await_receive', 'done', 'rejected', 'expired', 'cancelled'];
+  scrollRef = React.createRef();
+  f = (n) => Number(n).toLocaleString('vi-VN');
+  vnd = (n) => this.f(n) + ' VNĐ';
+  dmy = (iso) => iso ? iso.split('-').slice(1).reverse().join('/') : '';
+  propEv(p, round) {
+    const parts = [];
+    if (p.price !== Component.REQ.price) parts.push('đơn giá ' + this.f(Component.REQ.price) + ' → ' + this.f(p.price) + ' VNĐ/kg');
+    if (p.qty !== Component.REQ.qty) parts.push('khối lượng ' + this.f(Component.REQ.qty) + ' → ' + this.f(p.qty) + ' kg');
+    parts.push('phí giao ' + this.vnd(p.fee), 'ngày giao ' + this.dmy(p.date));
+    return { t: round === 2 ? '15/10/2026 09:20' : '08:15 14/10/2026', who: 'GRAC · Nguyễn Văn Minh', side: 's', text: 'Người bán đề xuất điều chỉnh (vòng ' + round + '/2): ' + parts.join(', ') + (p.msg ? ', lời nhắn: “' + p.msg + '”.' : '.') };
+  }
+  delEv(a, n) { return { t: '15:40 19/10/2026', who: 'GRAC · Nguyễn Văn Minh', side: 's', text: 'Người bán báo đã giao: thực tế ' + this.f(a.qty) + ' kg, ' + this.vnd(a.amount) + (n ? ', ' + n + ' ảnh phiếu cân.' : '.') }; }
+  seed(stage) {
+    const C = Component, E = C.EV, P = { ...C.PROP };
+    const base = { stage, round: 1, proposal: null, agreed: null, actual: null, photos: [], rating: null, end: null, events: [E.sent], pane: null };
+    const ord = ['pending', 'await_adjust', 'confirmed', 'shipping', 'await_receive', 'done'];
+    const i = ord.indexOf(stage);
+    if (i >= 1) { base.proposal = P; base.events.push(this.propEv(P, 1)); }
+    if (i >= 2) { base.agreed = P; base.events.push(E.agree); }
+    if (i >= 3) base.events.push(E.ship);
+    if (i >= 4) { base.actual = { ...C.ACT }; base.photos = [{ name: 'phieu-can-1.jpg' }]; base.events.push(this.delEv(C.ACT, 1)); }
+    if (i >= 5) base.events.push(E.recv);
+    if (stage === 'rejected') { base.end = { by: 'GRAC · Nguyễn Văn Minh', at: '08:15 14/10/2026', reason: 'Hết hàng · Hàng đã bán cho khách khác' }; base.events.push({ t: base.end.at, who: base.end.by, side: 's', text: 'Người bán từ chối yêu cầu. Lý do: Hết hàng.' }); }
+    if (stage === 'expired') { base.end = { by: 'Hệ thống', at: '21:30 15/10/2026', reason: 'Người bán không phản hồi trong 48 giờ' }; base.events.push({ t: base.end.at, who: 'Hệ thống', side: 'x', text: 'Đơn hết hạn do người bán không phản hồi trong 48 giờ.' }); }
+    if (stage === 'cancelled') { base.end = { by: 'Hoàng Lan', at: '09:00 14/10/2026', reason: 'Người mua huỷ yêu cầu' }; base.events.push({ t: base.end.at, who: 'Hoàng Lan', side: 'b', text: 'Người mua huỷ yêu cầu.' }); }
+    return base;
+  }
+  initial() {
+    let role = this.props.role || 'seller', stage = this.props.stage || 'pending';
+    try { const u = new URLSearchParams(window.location.search); if (u.get('role')) role = u.get('role'); if (u.get('stage')) stage = u.get('stage'); } catch (e) {}
+    if (!Component.STAGES.includes(stage)) stage = 'pending';
+    return { role, ...this.seed(stage), pf: this.pfInit(), rf: { reason: null, text: '' }, df: { qty: '1940', amount: '', touched: false, photos: [{ name: 'phieu-can-1.jpg' }] }, rate: { stars: 0, text: '' }, tried: false, toast: '', lb: null };
+  }
+  pfInit() { const P = Component.PROP; return { price: String(P.price), qty: String(P.qty), fee: String(P.fee), date: P.date, msg: P.msg }; }
+  state = this.initial();
+  componentDidUpdate(prev) {
+    if (prev.role !== this.props.role && this.props.role) this.setState({ role: this.props.role, pane: null });
+    if (prev.stage !== this.props.stage && this.props.stage) this.setState({ ...this.seed(this.props.stage), tried: false });
+  }
+  componentWillUnmount() { clearTimeout(this.tt); }
+  flash = (m) => { clearTimeout(this.tt); this.setState({ toast: m }); this.tt = setTimeout(() => this.setState({ toast: '' }), 2600); };
+  go = (patch, ev, msg) => { this.setState((s) => ({ ...patch, events: ev ? [...s.events, ...[].concat(ev)] : s.events, pane: null, tried: false })); if (msg) this.flash(msg); };
+  totals() {
+    const s = this.state, C = Component, a = s.agreed;
+    return { reqTotal: C.REQ.price * C.REQ.qty, agreedTotal: a ? a.price * a.qty + a.fee : 0 };
+  }
+  renderVals() {
+    const s = this.state, C = Component, f = this.f, vnd = this.vnd;
+    const seller = s.role === 'seller', st = s.stage;
+    const ended = ['rejected', 'expired', 'cancelled'].includes(st);
+    const confirmedPlus = ['confirmed', 'shipping', 'await_receive', 'done'].includes(st);
+    const { reqTotal, agreedTotal } = this.totals();
+    const A = s.agreed, P = s.proposal, X = s.actual;
+    const B = { pending: seller ? ['Chờ bạn xác nhận', 'warning'] : ['Chờ người bán xác nhận', 'neutral'], await_adjust: seller ? ['Chờ người mua đồng ý điều chỉnh', 'neutral'] : ['Chờ bạn đồng ý điều chỉnh', 'warning'],
+      confirmed: ['Đã xác nhận', 'blue'], shipping: ['Đang giao', 'blue'], await_receive: seller ? ['Chờ người mua xác nhận', 'neutral'] : ['Chờ bạn xác nhận nhận hàng', 'warning'],
+      done: ['Hoàn tất', 'success'], rejected: [seller ? 'Bạn đã từ chối' : 'Bị từ chối', 'danger'], expired: ['Hết hạn', 'neutral'], cancelled: ['Đã huỷ', 'neutral'] }[st];
+    // progress
+    const cur = { pending: 1, await_adjust: 1, confirmed: 2, shipping: 2, await_receive: 3, done: 4 }[st];
+    const stopAt = ended ? (s.end && s.end.atStep != null ? s.end.atStep : 1) : null;
+    const steps = ['Gửi yêu cầu', 'Xác nhận', 'Giao hàng', 'Hoàn tất'].map((label, i) => {
+      const done = ended ? i < stopAt : i < cur || st === 'done';
+      const isCur = !ended && i === cur && st !== 'done';
+      const isStop = ended && i === stopAt;
+      const grey = ended;
+      return { label, flex: i < 3 ? '1' : '0 0 auto', line: i < 3, mark: done ? '✓' : String(i + 1),
+        bg: done ? (grey ? 'var(--color-text-subtle)' : 'var(--color-action-primary)') : isCur ? 'var(--color-bg-page)' : 'var(--color-bg-muted)',
+        fg: done ? 'var(--color-text-inverse)' : isCur ? 'var(--color-action-primary)' : 'var(--color-text-subtle)',
+        border: isCur ? '2px solid var(--color-action-primary)' : isStop ? '2px solid var(--color-text-subtle)' : '2px solid transparent',
+        ring: isCur ? '0 0 0 4px color-mix(in oklch, var(--color-accent) 30%, transparent)' : 'none',
+        font: isCur || isStop ? 'var(--type-label-md)' : 'var(--type-body-sm)', labelColor: isCur ? 'var(--color-text-heading)' : done ? 'var(--color-text-body)' : 'var(--color-text-muted)',
+        lineBg: (ended ? i < stopAt - 0 && i + 1 <= stopAt - 0 && i < stopAt : (i < cur - 0 && i + 1 <= cur) || st === 'done') ? (grey ? 'var(--color-text-subtle)' : 'var(--color-action-primary)') : 'var(--color-border-default)',
+        tag: isStop ? B[0] : '', tagTone: st === 'rejected' ? 'danger' : 'neutral' };
+    });
+    // product table
+    const heads = ['Yêu cầu'], vals = [{ v: f(C.REQ.qty) + ' kg', color: confirmedPlus ? 'var(--color-text-muted)' : 'var(--color-text-heading)' }];
+    if (confirmedPlus && A) { heads.push('Đã chốt'); vals.push({ v: f(A.qty) + ' kg', color: X ? 'var(--color-text-muted)' : 'var(--color-text-heading)' }); }
+    if (X) { heads.push('Thực tế'); vals.push({ v: f(X.qty) + ' kg', color: 'var(--color-text-heading)' }); }
+    const cols = 'minmax(0,1fr) 110px' + ' 90px'.repeat(heads.length);
+    const adj = A && A.price !== C.REQ.price;
+    const money = [{ k: 'Tạm tính', v: vnd(reqTotal) }];
+    if (confirmedPlus && A) { money.push({ k: 'Phí giao', v: A.fee ? vnd(A.fee) : 'Không có' }, { k: 'Tổng đã chốt', v: vnd(agreedTotal), strong: !X }); }
+    else if (!ended) money.push({ k: 'Phí giao', v: 'Người bán báo khi xác nhận', soft: true });
+    if (X) money.push({ k: 'Thực tế', v: vnd(X.amount), strong: true });
+    const moneyRows = money.map((m, i) => ({ ...m, pt: m.strong ? 'var(--space-2)' : '0', bt: m.strong ? '1px solid var(--color-border-default)' : 'none', font: m.strong ? 'var(--type-h4)' : m.soft ? 'var(--type-body-sm)' : 'var(--type-label-md)', color: m.strong ? 'var(--color-text-brand)' : 'var(--color-text-heading)' }));
+    const shipRows = [
+      { k: 'Cách giao nhận', v: 'Người bán giao tận nơi' },
+      { k: 'Ngày mong muốn', v: '18/10/2026' },
+      ...(A ? [{ k: 'Ngày giao đã chốt', v: this.dmy(A.date) + '/2026' }] : []),
+      { k: 'Địa chỉ nhận', v: 'Kho Tân Uyên, Bình Dương', sub: 'Lô B2, KCN Nam Tân Uyên, TP. Tân Uyên, Bình Dương' },
+      { k: 'Thanh toán dự kiến', v: 'Chuyển khoản' },
+      { k: 'Ghi chú của người mua', v: '“Giao giờ hành chính”' },
+    ].map((r, i) => ({ ...r, sub: r.sub || '', bt: i ? '1px solid var(--color-border-default)' : 'none' }));
+    const evs = [...s.events].reverse();
+    const history = evs.map((e, i) => ({ ...e, line: i < evs.length - 1, dot: i === 0 ? 'var(--color-action-primary)' : 'var(--color-border-strong)', dotRing: i === 0 ? 'var(--color-action-primary)' : 'var(--color-border-strong)' }));
+    // action block
+    let actTitle = 'TRẠNG THÁI', info = '', deadline = '', dlColor = 'var(--color-text-muted)', subNote = '', roundTag = '';
+    const btn = { accept: false, propose: false, agree: false, declineAdj: false, startShip: false, delivered: false, received: false, complain: false, danger: '' };
+    let cmpHeads = [], cmpRows = [], cmpCols = '1fr 1fr 1fr', sellerMsg = '', photos = [], endInfo = null;
+    const rate = { form: false, shown: false };
+    const paneName = s.pane;
+    if (st === 'pending' && seller) {
+      actTitle = 'PHẢN HỒI YÊU CẦU'; deadline = s.round === 2 ? 'Phản hồi trước 09:20 17/10' : 'Phản hồi trước 21:30 15/10'; dlColor = 'var(--color-warning)';
+      if (s.round === 2) { roundTag = 'Vòng 2/2'; info = 'Người mua đã từ chối đề xuất vòng 1. Bạn có thể chấp nhận yêu cầu ban đầu, đề xuất lại lần cuối hoặc từ chối.'; }
+      btn.accept = true; btn.propose = true; btn.danger = 'Từ chối';
+    } else if (st === 'pending') {
+      actTitle = 'CHỜ NGƯỜI BÁN'; info = s.round === 2 ? 'Bạn đã từ chối đề xuất vòng 1. Người bán có thể đề xuất lại một lần.' : 'Yêu cầu đã gửi đến GRAC. Bạn sẽ nhận thông báo khi người bán phản hồi.';
+      deadline = s.round === 2 ? 'Người bán phản hồi trước 09:20 17/10' : 'Người bán phản hồi trước 21:30 15/10'; btn.danger = 'Huỷ yêu cầu';
+    } else if (st === 'await_adjust') {
+      roundTag = 'Vòng ' + s.round + '/2';
+      const rows = [['Đơn giá', f(C.REQ.price) + ' VNĐ/kg', f(P.price) + ' VNĐ/kg'], ['Khối lượng', f(C.REQ.qty) + ' kg', f(P.qty) + ' kg'], ['Phí giao', 'Chưa báo', vnd(P.fee)], ['Ngày giao', '18/10', this.dmy(P.date)], ['Tổng', vnd(reqTotal), vnd(P.price * P.qty + P.fee)]];
+      cmpHeads = seller ? ['Người mua yêu cầu', 'Bạn đề xuất'] : ['Yêu cầu của bạn', 'Đề xuất của người bán'];
+      cmpRows = rows.map(([k, a, b]) => ({ k, a, b, hl: a !== b ? 'var(--color-bg-accent-soft)' : 'transparent', hasD: false, d: '' }));
+      sellerMsg = P.msg || '';
+      if (seller) { actTitle = 'CHỜ NGƯỜI MUA'; deadline = 'Chờ người mua phản hồi đến ' + (s.round === 2 ? '09:20 17/10' : '08:15 16/10'); }
+      else { actTitle = 'ĐỀ XUẤT ĐIỀU CHỈNH'; deadline = 'Phản hồi trước ' + (s.round === 2 ? '09:20 17/10' : '08:15 16/10'); dlColor = 'var(--color-warning)'; btn.agree = true; btn.declineAdj = true;
+        subNote = s.round === 1 ? 'Nếu từ chối, người bán có thể đề xuất lại một lần.' : 'Nếu từ chối, đơn sẽ bị huỷ.'; }
+    } else if ((st === 'confirmed' || st === 'shipping') && seller) {
+      actTitle = 'GIAO HÀNG'; info = 'Ngày giao đã chốt ' + this.dmy(A.date) + '. Sau khi giao, nhập khối lượng và số tiền thực tế để người mua xác nhận.';
+      btn.startShip = st === 'confirmed'; btn.delivered = true; btn.danger = 'Huỷ đơn';
+    } else if (st === 'confirmed' || st === 'shipping') {
+      actTitle = st === 'shipping' ? 'ĐANG GIAO' : 'ĐÃ XÁC NHẬN'; info = (st === 'shipping' ? 'Người bán đang giao hàng' : 'Chờ người bán giao hàng') + ', ngày giao đã chốt ' + this.dmy(A.date) + '.'; btn.danger = 'Huỷ đơn';
+    } else if (st === 'await_receive') {
+      const pct = (a, b) => { const v = (a - b) / b * 100; return (v < 0 ? '−' : '+') + Math.abs(v).toFixed(1).replace('.', ',') + '%'; };
+      cmpHeads = ['Đã chốt', 'Thực tế', 'Chênh']; cmpCols = '1fr 1fr 1fr 56px';
+      cmpRows = [['Khối lượng', f(A.qty) + ' kg', f(X.qty) + ' kg', pct(X.qty, A.qty)], ['Số tiền', vnd(agreedTotal), vnd(X.amount), pct(X.amount, agreedTotal)]]
+        .map(([k, a, b, d]) => ({ k, a, b, d, hasD: true, hl: a !== b ? 'var(--color-bg-accent-soft)' : 'transparent', dColor: d.startsWith('−') ? 'var(--color-danger)' : 'var(--color-text-muted)' }));
+      photos = s.photos.map((p, i) => ({ ...p, ph: !p.url, bg: p.url ? 'url("' + p.url + '")' : 'none', open: () => this.setState({ lb: i }) }));
+      if (seller) { actTitle = 'CHỜ NGƯỜI MUA'; deadline = 'Chờ người mua xác nhận đến 26/10'; }
+      else { actTitle = 'XÁC NHẬN NHẬN HÀNG'; deadline = 'Đơn tự hoàn tất vào 26/10 nếu bạn không phản hồi'; dlColor = 'var(--color-warning)'; btn.received = true; btn.complain = true; }
+    } else if (st === 'done') {
+      actTitle = 'ĐƠN HOÀN TẤT';
+      if (s.rating) { rate.shown = true; } else if (!seller) { rate.form = true; } else { info = 'Người mua chưa đánh giá đơn này.'; }
+    } else if (ended) {
+      actTitle = 'ĐƠN ĐÃ ĐÓNG';
+      endInfo = [{ k: 'Trạng thái', v: B[0] }, { k: 'Lý do', v: s.end.reason }, { k: 'Người thực hiện', v: s.end.by }, { k: 'Thời điểm', v: s.end.at }];
+    }
+    const showActions = !paneName;
+    // forms
+    const pf = s.pf, num = (v) => Number(String(v).trim());
+    const pNew = num(pf.price) * num(pf.qty) + num(pf.fee || 0);
+    const pErr = s.tried && paneName === 'propose' && (!(num(pf.price) > 0) || !(num(pf.qty) > 0) || !pf.date) ? 'Nhập đơn giá, khối lượng (> 0) và ngày giao.' : '';
+    const reasonPane = paneName === 'reject' || paneName === 'cancelOrder';
+    const chips = ['Hết hàng', 'Không giao được khu vực này', 'Giá không phù hợp', 'Khác'];
+    const rfErr = s.tried && reasonPane ? (paneName === 'reject' ? (!s.rf.reason ? 'Chọn lý do từ chối.' : s.rf.reason === 'Khác' && !s.rf.text.trim() ? 'Ghi rõ lý do.' : '') : (!s.rf.text.trim() ? 'Nhập lý do huỷ đơn.' : '')) : '';
+    const agreedBase = A ? A.price : C.REQ.price, fee = A ? A.fee : 0;
+    const dq = num(s.df.qty), hintAmt = dq > 0 ? agreedBase * dq + fee : 0;
+    const dfErr = s.tried && paneName === 'deliver' && (!(dq > 0) || !((s.df.touched ? num(s.df.amount) : hintAmt) > 0)) ? 'Khối lượng và số tiền thực tế phải lớn hơn 0.' : '';
+    const me = seller ? { ini: 'NM', name: 'Nguyễn Văn Minh', sub: 'GRAC · Doanh nghiệp' } : { ini: 'HL', name: 'Hoàng Lan', sub: 'Doanh nghiệp' };
+    const navItems = [['Hồ sơ', '#'], ['Đơn mua', 'Don mua cua toi - Ban chinh.dc.html'], ['Đơn bán', 'Don ban - Ban chinh.dc.html'], ['Giỏ hàng', '#'], ['Sổ địa chỉ', '#'], ['Thông báo', '#']];
+    const activeNav = seller ? 'Đơn bán' : 'Đơn mua';
+    const other = seller ? { ini: 'HL', role: 'Người mua', name: 'Hoàng Lan', acct: 'Doanh nghiệp', verified: false, contact: 'Hoàng Lan', phone: '0938456789' }
+      : { ini: 'GR', role: 'Người bán', name: 'GRAC', acct: 'Doanh nghiệp', verified: true, contact: 'Nguyễn Văn Minh', phone: '0909123456' };
+    const lbP = s.lb != null ? s.photos[s.lb] : null;
+    const SE = 'GRAC · Nguyễn Văn Minh';
+    return {
+      scrollRef: this.scrollRef, me, other, chatLabel: seller ? 'Chat với người mua' : 'Chat với người bán',
+      listHref: seller ? 'Don ban - Ban chinh.dc.html' : 'Don mua cua toi - Ban chinh.dc.html', listLabel: seller ? 'Đơn bán' : 'Đơn mua',
+      nav: navItems.map(([label, href]) => { const on = label === activeNav; return { label, href, cur: on ? 'page' : 'false', color: on ? 'var(--color-text-inverse)' : 'var(--color-text-body)', bg: on ? 'var(--color-action-primary)' : 'transparent', dot: on ? 'var(--color-accent)' : 'var(--color-border-strong)' }; }),
+      badge: { label: B[0], tone: B[1] === 'blue' ? 'neutral' : B[1], ds: B[1] !== 'blue', blue: B[1] === 'blue' },
+      steps, cols, qtyHeads: heads, qtyVals: vals, priceOld: adj ? f(C.REQ.price) + ' VNĐ/kg' : '', priceNow: f(A ? A.price : C.REQ.price) + ' VNĐ/kg',
+      money: moneyRows, ship: shipRows, history,
+      hasCmp: cmpRows.length > 0, hasPhotos: photos.length > 0, actTitle, info, deadline, dlColor, subNote, roundTag, roundLabel: 'Vòng ' + s.round + '/2', btn: { ...btn }, cmpHeads, cmpRows, cmpCols, sellerMsg, photos, endInfo,
+      pane: { none: showActions, propose: paneName === 'propose', reason: reasonPane, deliver: paneName === 'deliver', confirmCancel: paneName === 'confirmCancel' },
+      showContact: confirmedPlus, hideContact: !confirmedPlus,
+      pf: { ...pf, onPrice: (e) => this.setState({ pf: { ...s.pf, price: e.target.value } }), onQty: (e) => this.setState({ pf: { ...s.pf, qty: e.target.value } }), onFee: (e) => this.setState({ pf: { ...s.pf, fee: e.target.value } }),
+        onDate: (e) => this.setState({ pf: { ...s.pf, date: e.target.value } }), onMsg: (e) => this.setState({ pf: { ...s.pf, msg: e.target.value } }),
+        oldTotal: vnd(reqTotal), newTotal: pNew > 0 ? vnd(pNew) : '—', err: pErr },
+      rf: { title: paneName === 'reject' ? 'Từ chối yêu cầu' : 'Huỷ đơn', hasChips: paneName === 'reject', text: s.rf.text, err: rfErr,
+        ph: paneName === 'reject' ? 'Ghi thêm cho người mua (tuỳ chọn, bắt buộc nếu chọn Khác)' : 'Lý do huỷ đơn (bắt buộc)',
+        yesLabel: paneName === 'reject' ? 'Xác nhận từ chối' : 'Xác nhận huỷ đơn', noLabel: paneName === 'reject' ? 'Huỷ' : 'Giữ đơn',
+        onText: (e) => this.setState({ rf: { ...s.rf, text: e.target.value } }),
+        chips: chips.map((label) => { const on = s.rf.reason === label; return { label, on, pick: () => this.setState({ rf: { ...s.rf, reason: label } }), border: on ? '1px solid var(--color-danger)' : '1px solid var(--color-border-strong)', bg: on ? 'var(--color-bg-page)' : 'var(--color-bg-page)', color: on ? 'var(--color-danger)' : 'var(--color-text-body)' }; }) },
+      df: { qty: s.df.qty, amount: s.df.touched ? s.df.amount : (hintAmt ? String(hintAmt) : ''), hint: f(agreedBase) + ' × ' + (dq > 0 ? f(dq) : '…') + ' kg + phí giao ' + f(fee) + ' = ' + (hintAmt ? vnd(hintAmt) : '—'), err: dfErr,
+        onQty: (e) => this.setState({ df: { ...s.df, qty: e.target.value } }), onAmount: (e) => this.setState({ df: { ...s.df, amount: e.target.value, touched: true } }),
+        canAdd: s.df.photos.length < 3,
+        photos: s.df.photos.map((p, i) => ({ ph: !p.url, bg: p.url ? 'url("' + p.url + '")' : 'none', remove: () => this.setState({ df: { ...s.df, photos: s.df.photos.filter((_, j) => j !== i) } }) })),
+        onFiles: (e) => { const fl = Array.from(e.target.files || []).slice(0, 3 - s.df.photos.length).map((fi) => ({ name: fi.name, url: URL.createObjectURL(fi) })); this.setState({ df: { ...s.df, photos: [...s.df.photos, ...fl] } }); } },
+      rate: { ...rate, text: s.rate.text, count: s.rate.text.length, err: s.tried && rate.form && !s.rate.stars,
+        onText: (e) => this.setState({ rate: { ...s.rate, text: e.target.value.slice(0, 500) } }),
+        stars: [1, 2, 3, 4, 5].map((n) => ({ label: n + ' sao', on: s.rate.stars === n, fill: n <= s.rate.stars ? 'currentColor' : 'none', color: n <= s.rate.stars ? 'var(--color-warning)' : 'var(--color-border-strong)', pick: () => this.setState({ rate: { ...s.rate, stars: n } }) })),
+        shownStars: s.rating ? Array.from({ length: s.rating.stars }, (_, i) => i) : [], shownLabel: s.rating ? 'Người mua đánh giá ' + s.rating.stars + '/5' : '', shownText: s.rating ? s.rating.text : '' },
+      act: {
+        noop: () => {}, closePane: () => this.setState({ pane: null, tried: false }),
+        openPropose: () => this.setState({ pane: 'propose', pf: this.pfInit(), tried: false }),
+        openDeliver: () => this.setState({ pane: 'deliver', tried: false }),
+        openDanger: () => this.setState({ pane: st === 'pending' ? (seller ? 'reject' : 'confirmCancel') : 'cancelOrder', rf: { reason: null, text: '' }, tried: false }),
+        accept: () => this.go({ stage: 'confirmed', agreed: { price: C.REQ.price, qty: C.REQ.qty, fee: 0, date: '2026-10-18', msg: '' } }, { t: '08:15 14/10/2026', who: SE, side: 's', text: 'Người bán chấp nhận yêu cầu. Đơn đã xác nhận, tổng đã chốt ' + vnd(reqTotal) + '.' }, 'Đã xác nhận đơn'),
+        sendPropose: () => { if (!(num(pf.price) > 0) || !(num(pf.qty) > 0) || !pf.date) { this.setState({ tried: true }); return; }
+          const p = { price: num(pf.price), qty: num(pf.qty), fee: num(pf.fee || 0), date: pf.date, msg: pf.msg.trim() }; this.go({ stage: 'await_adjust', proposal: p }, this.propEv(p, s.round), 'Đã gửi đề xuất'); },
+        agree: () => this.go({ stage: 'confirmed', agreed: P }, { ...C.EV.agree, text: 'Người mua đồng ý đề xuất vòng ' + s.round + '. Đơn đã xác nhận, tổng đã chốt ' + vnd(P.price * P.qty + P.fee) + '.' }, 'Đã đồng ý điều chỉnh'),
+        declineAdj: () => s.round === 1
+          ? this.go({ stage: 'pending', round: 2 }, { t: '10:02 14/10/2026', who: 'Hoàng Lan', side: 'b', text: 'Người mua từ chối đề xuất vòng 1.' }, 'Đã từ chối đề xuất')
+          : this.go({ stage: 'cancelled', end: { by: 'Hoàng Lan', at: '10:02 16/10/2026', reason: 'Người mua từ chối đề xuất vòng 2', atStep: 1 } }, { t: '10:02 16/10/2026', who: 'Hoàng Lan', side: 'b', text: 'Người mua từ chối đề xuất vòng 2. Đơn đã huỷ.' }, 'Đơn đã huỷ'),
+        cancelReq: () => this.go({ stage: 'cancelled', end: { by: 'Hoàng Lan', at: '09:00 14/10/2026', reason: 'Người mua huỷ yêu cầu', atStep: 1 } }, { t: '09:00 14/10/2026', who: 'Hoàng Lan', side: 'b', text: 'Người mua huỷ yêu cầu.' }, 'Đã huỷ yêu cầu'),
+        sendReason: () => {
+          if (paneName === 'reject') { if (!s.rf.reason || (s.rf.reason === 'Khác' && !s.rf.text.trim())) { this.setState({ tried: true }); return; }
+            const r = s.rf.reason + (s.rf.text.trim() ? ' · ' + s.rf.text.trim() : ''); this.go({ stage: 'rejected', end: { by: SE, at: '08:15 14/10/2026', reason: r, atStep: 1 } }, { t: '08:15 14/10/2026', who: SE, side: 's', text: 'Người bán từ chối yêu cầu. Lý do: ' + r + '.' }, 'Đã từ chối yêu cầu'); return; }
+          if (!s.rf.text.trim()) { this.setState({ tried: true }); return; }
+          const by = seller ? SE : 'Hoàng Lan', r = s.rf.text.trim();
+          this.go({ stage: 'cancelled', end: { by, at: '16:00 17/10/2026', reason: r, atStep: 2 } }, { t: '16:00 17/10/2026', who: by, side: seller ? 's' : 'b', text: (seller ? 'Người bán' : 'Người mua') + ' huỷ đơn. Lý do: ' + r + '.' }, 'Đã huỷ đơn'); },
+        startShip: () => this.go({ stage: 'shipping' }, C.EV.ship, 'Đã chuyển sang Đang giao'),
+        sendDeliver: () => { const amt = s.df.touched ? num(s.df.amount) : hintAmt; if (!(dq > 0) || !(amt > 0)) { this.setState({ tried: true }); return; }
+          const a = { qty: dq, amount: amt }; this.go({ stage: 'await_receive', actual: a, photos: s.df.photos }, this.delEv(a, s.df.photos.length), 'Đã báo giao hàng'); },
+        received: () => this.go({ stage: 'done' }, C.EV.recv, 'Đơn đã hoàn tất'),
+        sendRate: () => { if (!s.rate.stars) { this.setState({ tried: true }); return; } this.go({ rating: { stars: s.rate.stars, text: s.rate.text.trim() } }, { t: '09:30 20/10/2026', who: 'Hoàng Lan', side: 'b', text: 'Người mua đánh giá ' + s.rate.stars + '/5 sao.' }, 'Đã gửi đánh giá'); },
+      },
+      copied: () => this.flash('Đã sao chép số'), toast: s.toast,
+      lightbox: lbP ? { ph: !lbP.url, bg: lbP.url ? 'url("' + lbP.url + '")' : 'none', name: lbP.name } : null, closeLb: () => this.setState({ lb: null }),
+    };
+  }
+}
+</script>
+</body>
+</html>

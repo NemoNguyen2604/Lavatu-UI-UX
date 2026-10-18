@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/styles.css">
+  <script src="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/_ds_bundle.js"></script>
+  <style>
+    @keyframes lv-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    @keyframes lv-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    @keyframes lv-spin{to{transform:rotate(360deg)}}
+    @keyframes lv-drift{from{transform:translate(0,0) scale(1)}to{transform:translate(-60px,40px) scale(1.12)}}
+    @keyframes lv-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+    @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+    html,body{margin:0;height:100%}
+    a{color:#0f6554}
+    a:hover{color:#074638}
+    .lv-hero-select option{color:#003527}
+  </style>
+</helmet>
+<div data-screen-label="Trang chủ" style="position:relative;height:100vh;overflow:hidden;background:var(--color-bg-page);font-family:var(--font-sans);min-width:1440px">
+<div ref="{{ scrollRef }}" style="height:100%;overflow:auto">
+
+<header style="position:sticky;top:0;z-index:20;background:var(--color-bg-brand)">
+  <div style="height:72px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;gap:var(--space-6)">
+    <div style="display:flex;align-items:center;gap:var(--space-12)">
+      <a href="#" aria-label="Lavatu – Trang chủ" style="display:flex"><img src="assets/logo.png" alt="Lavatu" style="height:32px;filter:brightness(0) invert(1)"></a>
+      <nav style="display:flex;gap:var(--space-7);font:var(--type-body-md)">
+        <a href="Nguon vat lieu - Ban chinh.dc.html" style="color:rgba(255,255,255,0.78);text-decoration:none;padding:6px 0;white-space:nowrap" style-hover="color:#fff">Nguồn vật liệu</a>
+        <a href="#" style="color:rgba(255,255,255,0.78);text-decoration:none;padding:6px 0;white-space:nowrap" style-hover="color:#fff">Đơn vị thu gom &amp; tái chế</a>
+        <a href="#cach-hoat-dong" onClick="{{ goHow }}" style="color:rgba(255,255,255,0.78);text-decoration:none;padding:6px 0;white-space:nowrap" style-hover="color:#fff">Cách hoạt động</a>
+        <a href="#" style="color:rgba(255,255,255,0.78);text-decoration:none;padding:6px 0;white-space:nowrap" style-hover="color:#fff">Tin tức</a>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:var(--space-4);font:var(--type-body-md)">
+      <a href="Gio hang - Ban chinh.dc.html" aria-label="Giỏ hàng, 4 sản phẩm" style="position:relative;width:40px;height:40px;flex-shrink:0;border-radius:var(--radius-full);background:rgba(255,255,255,0.12);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg><span style="position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;padding:0 4px;box-sizing:border-box;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-text-heading);font:var(--type-label-sm);font-size:11px;display:flex;align-items:center;justify-content:center">4</span></a>
+      <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" onClick="{{ goPost }}" hint-size="190px,40px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Đăng nguồn vật liệu</x-import>
+      <sc-if value="{{ guest }}" hint-placeholder-val="{{ true }}"><a href="#" onClick="{{ doLogin }}" style="color:var(--color-text-inverse);font:var(--type-label-md);text-decoration:none;white-space:nowrap;padding:8px 4px" style-hover="text-decoration:underline">Đăng nhập</a></sc-if>
+      <sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:var(--space-2);color:var(--color-text-inverse);font:var(--type-label-md)"><span style="width:36px;height:36px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">HL</span>Hoàng Lan</span></sc-if>
+    </div>
+  </div>
+</header>
+
+<section aria-label="Tìm nguồn vật liệu" style="position:relative;overflow:hidden;background:linear-gradient(181deg,#003716 16%,#007254 63%)">
+  <div aria-hidden="true" style="position:absolute;right:40px;top:-120px;width:720px;height:720px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,0.14) 0%,rgba(255,255,255,0) 62%);pointer-events:none"></div>
+  <div aria-hidden="true" style="position:absolute;left:-160px;bottom:-280px;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(132,204,22,0.18) 0%,rgba(132,204,22,0) 65%);pointer-events:none;animation:lv-drift 20s ease-in-out infinite alternate"></div>
+  <div style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) 480px;gap:var(--space-12);align-items:center;padding:var(--space-16) 40px var(--space-16)">
+    <div style="display:flex;flex-direction:column;gap:var(--space-6);min-width:0">
+      <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-accent);animation:lv-rise 700ms ease-out both">SÀN VẬT LIỆU THỨ CẤP</span>
+      <h1 style="margin:0;max-width:760px;font:var(--type-display);letter-spacing:var(--tracking-heading);color:var(--color-text-inverse);text-wrap:balance;animation:lv-rise 700ms ease-out 80ms both">Mua bán vật liệu thứ cấp trực tiếp với người bán</h1>
+      <p style="margin:0;max-width:640px;font:var(--type-body-lg);color:rgba(255,255,255,0.84);text-wrap:pretty;animation:lv-rise 700ms ease-out 160ms both">Nhựa, kim loại, giấy, vải, phụ phẩm nông nghiệp và hơn thế. Xem thông số rõ ràng, liên hệ ngay người phụ trách lô hàng.</p>
+
+      <form role="search" onSubmit="{{ onSearch }}" style="margin:var(--space-2) 0 0;display:flex;align-items:center;height:64px;padding:8px 8px 8px 20px;box-sizing:border-box;border-radius:var(--radius-full);background:var(--color-bg-page);box-shadow:0 12px 32px rgba(0,30,20,0.28);animation:lv-rise 700ms ease-out 240ms both">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-subtle);flex-shrink:0"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        <input aria-label="Từ khoá" value="{{ q }}" onChange="{{ onQ }}" placeholder="Tìm vật liệu, loại phế liệu, nguyên liệu…" style="flex:1;min-width:0;height:100%;margin-left:12px;border:none;outline:none;background:none;font:var(--type-body-md);color:var(--color-text-heading)">
+        <span aria-hidden="true" style="width:1px;height:28px;background:var(--color-border-default);flex-shrink:0"></span>
+        <span style="position:relative;display:flex;align-items:center;width:190px;flex-shrink:0">
+          {{ catSelect }}
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" style="position:absolute;right:12px;pointer-events:none"><path d="M1 1.5L6 6.5L11 1.5" stroke="#707974" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </span>
+        <span aria-hidden="true" style="width:1px;height:28px;background:var(--color-border-default);flex-shrink:0"></span>
+        <span style="position:relative;display:flex;align-items:center;width:180px;flex-shrink:0">
+          {{ provSelect }}
+          <svg width="12" height="8" viewBox="0 0 12 8" fill="none" style="position:absolute;right:12px;pointer-events:none"><path d="M1 1.5L6 6.5L11 1.5" stroke="#707974" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        </span>
+        <button type="submit" style="height:48px;padding:0 28px;flex-shrink:0;border:none;border-radius:var(--radius-full);background:var(--color-action-primary);color:var(--color-action-on-primary);font:var(--type-label-lg);cursor:pointer;transition:background-color 150ms" style-hover="background:var(--color-action-primary-hover)">Tìm kiếm</button>
+      </form>
+
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2);font:var(--type-body-sm);color:rgba(255,255,255,0.78);animation:lv-rise 700ms ease-out 300ms both">
+        <span style="margin-right:var(--space-1)">Phổ biến:</span>
+        <sc-for list="{{ popular }}" as="p" hint-placeholder-count="5">
+          <a href="{{ p.href }}" style="display:inline-flex;align-items:center;height:32px;padding:0 14px;border-radius:var(--radius-full);border:1px solid rgba(255,255,255,0.24);background:rgba(255,255,255,0.06);color:var(--color-text-inverse);font:var(--type-label-sm);text-decoration:none;transition:background-color 150ms" style-hover="background:rgba(255,255,255,0.16);color:#fff">{{ p.label }}</a>
+        </sc-for>
+      </div>
+
+      <dl style="margin:var(--space-4) 0 0;display:flex;gap:var(--space-10);animation:lv-rise 700ms ease-out 360ms both">
+        <div style="display:flex;flex-direction:column-reverse;gap:2px"><dt style="font:var(--type-body-sm);color:rgba(255,255,255,0.74)">tin đang bán</dt><dd style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-inverse)">1.326</dd></div>
+        <div style="width:1px;background:rgba(255,255,255,0.18)"></div>
+        <div style="display:flex;flex-direction:column-reverse;gap:2px"><dt style="font:var(--type-body-sm);color:rgba(255,255,255,0.74)">doanh nghiệp đã xác minh</dt><dd style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-inverse)">214</dd></div>
+        <div style="width:1px;background:rgba(255,255,255,0.18)"></div>
+        <div style="display:flex;flex-direction:column-reverse;gap:2px"><dt style="font:var(--type-body-sm);color:rgba(255,255,255,0.74)">tấn đã giao dịch</dt><dd style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-inverse)">3.480</dd></div>
+      </dl>
+    </div>
+
+    <div aria-hidden="true" style="position:relative;width:480px;height:480px;animation:lv-rise 900ms ease-out 200ms both">
+      <span style="position:absolute;left:70px;top:70px;width:340px;height:340px;box-sizing:border-box;border-radius:50%;border:2px dashed rgba(255,255,255,0.28);animation:lv-spin 60s linear infinite"></span>
+      <span style="position:absolute;left:150px;top:150px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);backdrop-filter:blur(8px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:var(--space-2);text-align:center">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-accent)"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"></path><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"></path><path d="m14 16-3 3 3 3"></path><path d="M8.293 13.596 7.196 9.5 3.1 10.598"></path><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"></path><path d="m13.378 9.633 4.096 1.098 1.097-4.096"></path></svg>
+        <span style="font:var(--type-label-md);color:var(--color-text-inverse);max-width:130px">Vật liệu quay lại sản xuất</span>
+      </span>
+      <sc-for list="{{ orbit }}" as="o" hint-placeholder-count="5">
+        <span style="position:absolute;left:{{ o.x }};top:{{ o.y }};width:104px;height:104px;border-radius:50%;background:var(--color-bg-page);box-shadow:0 10px 24px rgba(0,30,20,0.25);display:flex;align-items:center;justify-content:center;animation:lv-float 6s ease-in-out infinite;animation-delay:{{ o.delay }}">
+          <span style="width:84px;height:84px;border-radius:50%;background-color:{{ o.tint }};background-image:{{ o.img }};background-size:76%;background-repeat:no-repeat;background-position:center"></span>
+          <span style="position:absolute;bottom:-12px;left:50%;transform:translateX(-50%);height:24px;padding:0 10px;border-radius:var(--radius-full);background:var(--color-bg-brand);color:var(--color-text-inverse);font:var(--type-label-sm);white-space:nowrap;display:flex;align-items:center">{{ o.label }}</span>
+        </span>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-cat" style="padding:var(--space-16) 40px var(--space-14);background:var(--color-bg-page)">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-8)">
+    <h2 id="h-cat" style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">Danh mục vật liệu</h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-4)">
+    <sc-for list="{{ cats }}" as="c" hint-placeholder-count="9">
+      <a href="{{ c.href }}" style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4) var(--space-5) var(--space-4) var(--space-4);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);text-decoration:none;transition:transform 200ms ease-out,box-shadow 200ms ease-out" style-hover="transform:translateY(-2px);box-shadow:var(--shadow-raised)">
+        <span style="width:72px;height:72px;flex-shrink:0;border-radius:var(--radius-md);background-color:{{ c.tint }};background-image:{{ c.img }};background-size:82%;background-repeat:no-repeat;background-position:center;display:flex;align-items:center;justify-content:center;color:{{ c.color }}">
+          <sc-if value="{{ c.iGlass }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M5.116 4.104A1 1 0 0 1 6.11 3h11.78a1 1 0 0 1 .994 1.105L17.19 20.21A2 2 0 0 1 15.2 22H8.8a2 2 0 0 1-2-1.79z"></path><path d="M6 12a5 5 0 0 1 6 0 5 5 0 0 0 6 0"></path></svg></sc-if>
+          <sc-if value="{{ c.iBrick }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M12 9v6"></path><path d="M16 15v6"></path><path d="M16 3v6"></path><path d="M3 15h18"></path><path d="M3 9h18"></path><path d="M8 15v6"></path><path d="M8 3v6"></path></svg></sc-if>
+          <sc-if value="{{ c.iChip }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><rect width="16" height="16" x="4" y="4" rx="2"></rect><rect width="6" height="6" x="9" y="9" rx="1"></rect><path d="M15 2v2"></path><path d="M15 20v2"></path><path d="M2 15h2"></path><path d="M2 9h2"></path><path d="M20 15h2"></path><path d="M20 9h2"></path><path d="M9 2v2"></path><path d="M9 20v2"></path></svg></sc-if>
+          <sc-if value="{{ c.iBox }}" hint-placeholder-val="{{ false }}"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path><path d="M12 22V12"></path><path d="m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7"></path><path d="m7.5 4.27 9 5.15"></path></svg></sc-if>
+        </span>
+        <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+          <span style="font:var(--type-label-lg);color:var(--color-text-heading)">{{ c.label }}</span>
+          <span style="display:flex;align-items:center;gap:6px;font:var(--type-body-sm);color:var(--color-text-muted)"><span style="width:8px;height:8px;border-radius:2px;background:{{ c.color }}"></span>{{ c.countTxt }} tin</span>
+        </span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-subtle);flex-shrink:0"><path d="m9 18 6-6-6-6"></path></svg>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<section aria-labelledby="h-new" style="padding:var(--space-14) 40px var(--space-16);background:var(--color-bg-subtle)">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-8)">
+    <h2 id="h-new" style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">Nguồn vật liệu mới</h2>
+    <a href="Nguon vat lieu - Ban chinh.dc.html" style="display:flex;align-items:center;gap:var(--space-1);font:var(--type-label-md);text-decoration:none" style-hover="text-decoration:underline">Xem tất cả<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-5)">
+    <sc-for list="{{ rows }}" as="row" hint-placeholder-count="6">
+      <dc-import name="Product Card" index="{{ $index }}" item="{{ row.item }}" cstate="{{ row.cstate }}" variant="A" layout="grid" mobile="{{ false }}" on-reveal="{{ reveal }}" on-copy="{{ copied }}" hint-size="100%,560px"></dc-import>
+    </sc-for>
+  </div>
+</section>
+
+<section id="cach-hoat-dong" aria-labelledby="h-how" style="padding:var(--space-16) 40px;background:var(--color-bg-page)">
+  <h2 id="h-how" style="margin:0 0 var(--space-10);font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">Mua bán trên Lavatu như thế nào</h2>
+  <ol style="position:relative;margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-6)">
+    <span aria-hidden="true" style="position:absolute;left:28px;right:calc(25% - 4px);top:28px;height:2px;background:repeating-linear-gradient(90deg,var(--color-border-strong) 0 8px,transparent 8px 14px)"></span>
+    <li style="position:relative;display:flex;flex-direction:column;gap:var(--space-4)">
+      <span style="width:56px;height:56px;border-radius:50%;background:var(--color-bg-brand);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center;font:var(--type-h4);box-shadow:0 0 0 6px var(--color-bg-page)">1</span>
+      <span style="display:flex;align-items:center;gap:var(--space-2);color:var(--color-text-brand)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Tìm nguồn vật liệu</span></span>
+      <p style="margin:0;font:var(--type-body-sm);color:var(--color-text-body);max-width:280px;text-wrap:pretty">Tìm nguồn vật liệu và xem thông số.</p>
+    </li>
+    <li style="position:relative;display:flex;flex-direction:column;gap:var(--space-4)">
+      <span style="width:56px;height:56px;border-radius:50%;background:var(--color-bg-brand);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center;font:var(--type-h4);box-shadow:0 0 0 6px var(--color-bg-page)">2</span>
+      <span style="display:flex;align-items:center;gap:var(--space-2);color:var(--color-text-brand)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path><path d="m21.854 2.147-10.94 10.939"></path></svg><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Gửi yêu cầu mua</span></span>
+      <p style="margin:0;font:var(--type-body-sm);color:var(--color-text-body);max-width:280px;text-wrap:pretty">Gửi yêu cầu mua với khối lượng, cách giao nhận.</p>
+    </li>
+    <li style="position:relative;display:flex;flex-direction:column;gap:var(--space-4)">
+      <span style="width:56px;height:56px;border-radius:50%;background:var(--color-bg-brand);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center;font:var(--type-h4);box-shadow:0 0 0 6px var(--color-bg-page)">3</span>
+      <span style="display:flex;align-items:center;gap:var(--space-2);color:var(--color-text-brand)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Người bán phản hồi</span></span>
+      <p style="margin:0;font:var(--type-body-sm);color:var(--color-text-body);max-width:280px;text-wrap:pretty">Người bán xác nhận hoặc đề xuất điều chỉnh trong 48 giờ.</p>
+    </li>
+    <li style="position:relative;display:flex;flex-direction:column;gap:var(--space-4)">
+      <span style="width:56px;height:56px;border-radius:50%;background:var(--color-accent);color:var(--color-text-heading);display:flex;align-items:center;justify-content:center;font:var(--type-h4);box-shadow:0 0 0 6px var(--color-bg-page)">4</span>
+      <span style="display:flex;align-items:center;gap:var(--space-2);color:var(--color-text-brand)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="m11 17 2 2a1 1 0 1 0 3-3"></path><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"></path><path d="m21 3 1 11h-2"></path><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"></path><path d="M3 4h8"></path></svg><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Giao nhận, thanh toán</span></span>
+      <p style="margin:0;font:var(--type-body-sm);color:var(--color-text-body);max-width:280px;text-wrap:pretty">Hai bên giao nhận và thanh toán trực tiếp.</p>
+    </li>
+  </ol>
+  <div role="note" style="margin-top:var(--space-10);display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4) var(--space-5);border-radius:var(--radius-lg);background:var(--color-bg-brand-soft);font:var(--type-body-md);color:var(--color-text-heading)">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-brand);flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+    Lavatu không thu tiền hộ và không vận chuyển. Hai bên thanh toán trực tiếp.
+  </div>
+</section>
+
+<section aria-labelledby="h-org" style="padding:var(--space-14) 40px var(--space-16);background:var(--color-bg-subtle)">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-8)">
+    <h2 id="h-org" style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">Doanh nghiệp đã xác minh</h2>
+    <a href="#" style="display:flex;align-items:center;gap:var(--space-1);font:var(--type-label-md);text-decoration:none" style-hover="text-decoration:underline">Khám phá đơn vị<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-5)">
+    <sc-for list="{{ sellers }}" as="s" hint-placeholder-count="4">
+      <a href="Thong tin nguoi ban - Ban chinh.dc.html" style="display:flex;flex-direction:column;gap:var(--space-4);padding:var(--space-5);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);text-decoration:none;transition:transform 200ms ease-out,box-shadow 200ms ease-out" style-hover="transform:translateY(-2px);box-shadow:var(--shadow-raised)">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3)">
+          <span style="width:56px;height:56px;flex-shrink:0;border-radius:var(--radius-md);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-h4)">{{ s.initials }}</span>
+          <span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:var(--radius-full);border:1px solid var(--color-border-strong);color:var(--color-text-body);font:var(--type-label-sm)">{{ s.type }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <span style="min-height:44px;font:var(--type-label-lg);color:var(--color-text-heading);text-wrap:pretty">{{ s.name }}</span>
+          <span style="align-self:flex-start;display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-full);background:var(--color-success-soft);color:var(--color-success);font:var(--type-label-sm)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>Đã xác minh</span>
+        </div>
+        <div style="margin-top:auto;display:flex;flex-direction:column;gap:6px;padding-top:var(--space-3);border-top:1px solid var(--color-border-default);font:var(--type-body-sm);color:var(--color-text-body)">
+          <span style="display:flex;align-items:center;gap:6px;color:var(--color-text-muted)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>{{ s.place }}</span>
+          <span style="display:flex;align-items:center;gap:6px;color:var(--color-text-heading)">{{ s.listings }} tin đang bán<span style="color:var(--color-text-subtle)">·</span><span style="display:inline-flex;align-items:center;gap:3px;font-weight:600">{{ s.rating }}<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="color:var(--color-warning)"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg></span></span>
+        </div>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<section aria-labelledby="h-why" style="padding:var(--space-16) 40px var(--space-8);background:var(--color-bg-page)">
+  <h2 id="h-why" style="margin:0 0 var(--space-10);font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">Vì sao chọn Lavatu</h2>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-10)">
+    <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+      <span style="width:52px;height:52px;border-radius:var(--radius-md);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg></span>
+      <h3 style="margin:var(--space-2) 0 0;font:var(--type-h4);color:var(--color-text-heading)">Liên hệ trực tiếp</h3>
+      <p style="margin:0;font:var(--type-body-md);color:var(--color-text-body);text-wrap:pretty">Mỗi tin có người phụ trách và số điện thoại riêng.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+      <span style="width:52px;height:52px;border-radius:var(--radius-md);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="m3 17 2 2 4-4"></path><path d="m3 7 2 2 4-4"></path><path d="M13 6h8"></path><path d="M13 12h8"></path><path d="M13 18h8"></path></svg></span>
+      <h3 style="margin:var(--space-2) 0 0;font:var(--type-h4);color:var(--color-text-heading)">Thông số rõ ràng</h3>
+      <p style="margin:0;font:var(--type-body-md);color:var(--color-text-body);text-wrap:pretty">Tạp chất, độ ẩm, quy cách đóng gói theo từng loại vật liệu.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+      <span style="width:52px;height:52px;border-radius:var(--radius-md);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
+      <h3 style="margin:var(--space-2) 0 0;font:var(--type-h4);color:var(--color-text-heading)">Đánh giá từ đơn thật</h3>
+      <p style="margin:0;font:var(--type-body-md);color:var(--color-text-body);text-wrap:pretty">Chỉ người mua có đơn hoàn tất mới được đánh giá.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding:var(--space-10) 40px var(--space-16);background:var(--color-bg-page)">
+  <div style="position:relative;overflow:hidden;display:flex;flex-wrap:wrap;gap:var(--space-8);align-items:center;justify-content:space-between;padding:48px;border-radius:var(--radius-xl);background:linear-gradient(181deg,#003716 16%,#007254 63%)">
+    <div style="position:absolute;left:-120px;bottom:-220px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(132,204,22,0.22) 0%,rgba(132,204,22,0) 65%);pointer-events:none;animation:lv-drift 20s ease-in-out infinite alternate"></div>
+    <img src="assets/leaf-watermark.svg" alt="" aria-hidden="true" style="position:absolute;right:24px;top:-20px;width:220px;opacity:0.12;pointer-events:none">
+    <div style="position:relative;flex:1 1 420px;display:flex;flex-direction:column;gap:var(--space-3)">
+      <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-accent)">BÁN PHẾ LIỆU</span>
+      <h2 style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-inverse)">Bạn đang có nguồn vật liệu?</h2>
+      <p style="margin:0;font:var(--type-body-md);color:rgba(255,255,255,0.8);max-width:520px;text-wrap:pretty">Đưa nguồn vật liệu lên Lavatu và kết nối với doanh nghiệp, đơn vị thu gom, tái chế trên toàn quốc.</p>
+      <div style="display:flex;align-items:center;gap:var(--space-4);padding-top:var(--space-2)">
+        <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" onClick="{{ goPost }}" hint-size="220px,48px">Đăng nguồn vật liệu<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></x-import>
+        <span style="font:var(--type-body-sm);color:rgba(255,255,255,0.8)">Miễn phí đăng tin. Tin hiển thị ngay.</span>
+      </div>
+    </div>
+    <ul style="position:relative;flex:1 1 300px;max-width:420px;padding:var(--space-2) var(--space-5);border-radius:var(--radius-lg);background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.14);backdrop-filter:blur(8px);margin:0;list-style:none;display:flex;flex-direction:column">
+      <sc-for list="{{ benefits }}" as="b" hint-placeholder-count="3">
+        <li style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4) 0;border-bottom:{{ b.border }};font:var(--type-label-md);color:var(--color-text-inverse)">
+          <span style="width:36px;height:36px;flex-shrink:0;border-radius:var(--radius-full);background:rgba(255,255,255,0.08);color:var(--color-accent);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="{{ b.d1 }}"></path><path d="{{ b.d2 }}"></path></svg></span>{{ b.text }}
+        </li>
+      </sc-for>
+    </ul>
+  </div>
+</section>
+
+<footer style="background:var(--color-bg-page);border-top:1px solid var(--color-border-default)">
+  <div style="padding:var(--space-12) 40px var(--space-10);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-8)">
+    <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+      <span style="font:var(--type-h4);color:var(--color-text-heading)">Lavatu</span>
+      <p style="margin:0;font:var(--type-body-sm);color:var(--color-text-muted);max-width:300px">Nền tảng thương mại điện tử hàng đầu cho kinh tế tuần hoàn B2B, hướng tới một tương lai không rác thải.</p>
+      <div style="display:flex;gap:var(--space-2);color:var(--color-text-heading)">
+        <a href="#" aria-label="Website" style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-full);border:1px solid var(--color-border-default);color:var(--color-text-heading)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg></a>
+        <a href="#" aria-label="Email" style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-full);border:1px solid var(--color-border-default);color:var(--color-text-heading)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="4"></circle><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"></path></svg></a>
+        <a href="#" aria-label="Chia sẻ" style="width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-full);border:1px solid var(--color-border-default);color:var(--color-text-heading)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line></svg></a>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-3);font:var(--type-body-sm);color:var(--color-text-muted)">
+      <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Liên hệ</span>
+      <span>29 Tiền Giang, Phường Tân Sơn Hòa, Thành phố Hồ Chí Minh, Việt Nam</span>
+      <span>Email: thienan@grac.vn</span>
+      <span>Hotline 1: 0898215221 - Mr. Thiên Ân</span>
+      <span>Hotline 2: 0356988320 - Ms. Ngọc Mai</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-3);font:var(--type-body-sm)">
+      <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Hỗ trợ</span>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Điều khoản sử dụng</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Chính sách bảo mật</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Liên hệ</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">FAQ</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-3);font:var(--type-body-sm)">
+      <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Công ty</span>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Về chúng tôi</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Quy trình</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Giải pháp ESG</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Báo cáo ESG</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Dữ liệu vật liệu</a>
+    </div>
+  </div>
+  <div style="padding:var(--space-4) 40px;border-top:1px solid var(--color-border-default);display:flex;gap:var(--space-3);justify-content:space-between;font:var(--type-caption);color:var(--color-text-muted)">
+    <span>© 2026 Lavatu. Nền tảng kinh tế tuần hoàn chuyên nghiệp.</span>
+    <span style="display:flex;gap:var(--space-6)"><a href="#" style="color:var(--color-text-heading);text-decoration:none">Facebook</a><a href="#" style="color:var(--color-text-heading);text-decoration:none">LinkedIn</a><a href="#" style="color:var(--color-text-heading);text-decoration:none">Youtube</a></span>
+  </div>
+</footer>
+</div>
+
+<sc-if value="{{ loginOpen }}" hint-placeholder-val="{{ false }}">
+  <div style="position:absolute;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:var(--space-4)">
+    <div onClick="{{ closeLogin }}" style="position:absolute;inset:0;background:rgba(2,6,23,0.45)"></div>
+    <div role="dialog" aria-modal="true" aria-label="Đăng nhập để xem số" style="position:relative;width:100%;max-width:400px;display:flex;flex-direction:column;gap:var(--space-4);padding:var(--space-6);border-radius:var(--radius-lg);background:var(--color-bg-page);box-shadow:var(--shadow-raised);animation:lv-in 200ms ease-out">
+      <button type="button" aria-label="Đóng" onClick="{{ closeLogin }}" style="position:absolute;top:8px;right:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:none;background:none;cursor:pointer;color:var(--color-text-muted)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+      <span style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
+      <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+        <span style="font:var(--type-h4);color:var(--color-text-heading)">Đăng nhập để xem số điện thoại</span>
+        <span style="font:var(--type-body-sm);color:var(--color-text-body);text-wrap:pretty">Số của người liên hệ <strong style="color:var(--color-text-heading)">{{ loginName }}</strong> chỉ hiển thị với tài khoản đã đăng nhập. Đăng nhập xong sẽ quay lại trang này và số tự hiện.</span>
+      </div>
+      <div style="display:grid;gap:var(--space-2)">
+        <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" onClick="{{ doLogin }}" hint-size="100%,48px">Đăng nhập</x-import>
+        <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="ghost" size="l" onClick="{{ closeLogin }}" hint-size="100%,48px">Để sau</x-import>
+      </div>
+    </div>
+  </div>
+</sc-if>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+  <div role="status" style="position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-brand);color:var(--color-text-inverse);font:var(--type-label-md);box-shadow:var(--shadow-raised);white-space:nowrap;animation:lv-in 200ms ease-out">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-accent)"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>{{ toast }}
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;label&quot;:&quot;Đã đăng nhập&quot;}}">
+class Component extends DCLogic {
+  static IMG = (p) => (window.__lvImg ? window.__lvImg(p) : p);
+  static CATS = [
+    ['Nhựa', 412, 'var(--color-material-plastic)', 'assets/plastic.webp'],
+    ['Kim loại', 268, 'var(--color-material-metal)', 'assets/metal.webp'],
+    ['Giấy carton', 190, 'var(--color-material-paper)', 'assets/paper.webp'],
+    ['Thuỷ tinh', 64, '#1d6f86', '', 'glass'],
+    ['Vật liệu xây dựng', 88, '#99573a', '', 'brick'],
+    ['Phụ phẩm nông nghiệp', 121, 'var(--color-material-agri)', 'assets/agri.webp'],
+    ['Rác điện tử', 47, 'var(--color-material-e-waste)', '', 'chip'],
+    ['Vải dệt may', 96, 'var(--color-material-textile)', 'assets/textile.webp'],
+    ['Vật liệu khác', 40, 'var(--color-text-body)', '', 'box'],
+  ];
+  static ITEMS = [
+    { id: 'h1', title: 'Trấu ép kiện', cat: 'Phụ phẩm nông nghiệp', catKey: 'agri', qty: 30000, unit: 'kg', price: 1200, company: 'HTX Nông sản Mekong', region: 'TP. Cần Thơ', contact: 'Lý Văn Phước', phone: '0939284716', img: 'assets/agri.webp' },
+    { id: 'h2', title: 'Vải vụn cotton phân màu', cat: 'Vải dệt may', catKey: 'textile', qty: 3000, unit: 'kg', price: 6000, company: 'May Mặc Thành Công', region: 'TP. Hồ Chí Minh', contact: 'Châu Thị Mỹ', phone: '0965172384', img: 'assets/textile.webp' },
+    { id: 'h3', title: 'Hạt nhựa PP tái sinh màu đen', cat: 'Nhựa', catKey: 'plastic', qty: 15000, unit: 'kg', price: 25000, company: 'Nhựa Tái Sinh Minh Phát', region: 'TP. Hồ Chí Minh', contact: 'Trần Thị Ngọc Lan', phone: '0909123456', img: 'assets/plastic.webp' },
+    { id: 'h4', title: 'Nhôm lon phế liệu đã ép', cat: 'Kim loại', catKey: 'metal', qty: 150, unit: 'kg', price: 35000, company: 'Nguyễn Văn Hùng', region: 'TP. Hồ Chí Minh', contact: 'Nguyễn Văn Hùng', phone: '0938765432', img: 'assets/metal.webp' },
+    { id: 'h5', title: 'Giấy carton ép kiện', cat: 'Giấy carton', catKey: 'paper', qty: 20000, unit: 'kg', price: 3200, company: 'Giấy Đông Á', region: 'Tỉnh Đồng Nai', contact: 'Lê Quốc Bảo', phone: '0938456120', img: 'assets/paper.webp' },
+    { id: 'h6', title: 'Bo mạch điện thoại cũ', cat: 'Rác điện tử', catKey: 'e-waste', qty: 500, unit: 'kg', price: 180000, company: 'Tái chế Điện tử Xanh', region: 'TP. Hà Nội', contact: 'Đỗ Quang Huy', phone: '0903222111', img: null },
+  ];
+  static SELLERS = [
+    { name: 'Cty TNHH Nhựa Tái Sinh Minh Phát', initials: 'MP', type: 'Tái chế', place: 'TP. Hồ Chí Minh', listings: 18, rating: '4,7' },
+    { name: 'Cty CP Tái chế Điện tử Xanh', initials: 'ĐX', type: 'Tái chế', place: 'Hà Nội', listings: 9, rating: '4,8' },
+    { name: 'Cty TNHH Giấy Đông Á', initials: 'ĐA', type: 'Thu gom', place: 'Đồng Nai', listings: 14, rating: '4,5' },
+    { name: 'HTX Nông sản Mekong', initials: 'NM', type: 'Thu gom', place: 'Cần Thơ', listings: 7, rating: '4,6' },
+  ];
+  static PROVS = ['Hà Nội', 'Huế', 'Hải Phòng', 'Đà Nẵng', 'TP. Hồ Chí Minh', 'Cần Thơ', 'An Giang', 'Bắc Ninh', 'Cà Mau', 'Cao Bằng', 'Đắk Lắk', 'Điện Biên', 'Đồng Nai', 'Đồng Tháp', 'Gia Lai', 'Hà Tĩnh', 'Hưng Yên', 'Khánh Hoà', 'Lai Châu', 'Lâm Đồng', 'Lạng Sơn', 'Lào Cai', 'Nghệ An', 'Ninh Bình', 'Phú Thọ', 'Quảng Ngãi', 'Quảng Ninh', 'Quảng Trị', 'Sơn La', 'Tây Ninh', 'Thái Nguyên', 'Thanh Hoá', 'Tuyên Quang', 'Vĩnh Long'];
+  static ORBIT = [['Nhựa', 'plastic', 188, 18], ['Kim loại', 'metal', 350, 136], ['Giấy', 'paper', 288, 326], ['Vải', 'textile', 88, 326], ['Nông nghiệp', 'agri', 26, 136]];
+  scrollRef = React.createRef();
+  state = { q: '', cat: '', prov: '', contact: {}, loggedIn: null, loginFor: null, toast: '' };
+  componentWillUnmount() { clearTimeout(this.tt); clearTimeout(this.rt); }
+  isIn() { return this.state.loggedIn ?? (this.props.loggedIn === true || this.props.loggedIn === 'true'); }
+  flash(m) { clearTimeout(this.tt); this.setState({ toast: m }); this.tt = setTimeout(() => this.setState({ toast: '' }), 2400); }
+  reveal = (id) => {
+    if (!this.isIn()) { this.setState({ loginFor: id }); return; }
+    this.setState((s) => ({ contact: { ...s.contact, [id]: 'loading' } }));
+    this.rt = setTimeout(() => this.setState((s) => ({ contact: { ...s.contact, [id]: 'revealed' } })), 900);
+  };
+  copied = () => this.flash('Đã sao chép số');
+  sel(label, value, onChange, opts) {
+    return React.createElement('select', { 'aria-label': label, value, onChange, className: 'lv-hero-select', style: { width: '100%', height: 44, appearance: 'none', border: 'none', outline: 'none', background: 'none', padding: '0 32px 0 16px', font: 'var(--type-body-sm)', color: value ? 'var(--color-text-heading)' : 'var(--color-text-muted)', cursor: 'pointer' } }, opts.map(([v, l]) => React.createElement('option', { key: v || '_', value: v }, l)));
+  }
+  renderVals() {
+    const s = this.state, C = Component, fmt = (n) => Number(n).toLocaleString('vi-VN');
+    const toList = (params) => { const u = new URLSearchParams(); Object.entries(params).forEach(([k, v]) => v && u.set(k, v)); const qs = u.toString(); return 'Nguon vat lieu - Ban chinh.dc.html' + (qs ? '?' + qs : ''); };
+    const loggedIn = this.isIn();
+    const mix = (c, p) => 'color-mix(in oklch, ' + c + ' ' + p + '%, white)';
+    return {
+      scrollRef: this.scrollRef, loggedIn, guest: !loggedIn,
+      goPost: () => { window.location.href = 'Dang tin ban - Ban chinh.dc.html'; },
+      goHow: (e) => { e.preventDefault(); const sc = this.scrollRef.current, el = document.getElementById('cach-hoat-dong'); if (sc && el) sc.scrollTo({ top: el.getBoundingClientRect().top - sc.getBoundingClientRect().top + sc.scrollTop - 72, behavior: 'smooth' }); },
+      q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
+      cat: s.cat, onCat: (e) => this.setState({ cat: e.target.value }), catColor: s.cat ? 'var(--color-text-heading)' : 'var(--color-text-muted)',
+      prov: s.prov, onProv: (e) => this.setState({ prov: e.target.value }), provColor: s.prov ? 'var(--color-text-heading)' : 'var(--color-text-muted)',
+      catSelect: this.sel('Danh mục', s.cat, (e) => this.setState({ cat: e.target.value }), [['', 'Tất cả danh mục'], ...C.CATS.map(([l]) => [l, l])]),
+      provSelect: this.sel('Tỉnh/thành', s.prov, (e) => this.setState({ prov: e.target.value }), [['', 'Toàn quốc'], ...C.PROVS.map((p) => [p, p])]),
+      onSearch: (e) => { e.preventDefault(); window.location.href = toList({ q: s.q.trim(), cat: s.cat, region: s.prov }); },
+      popular: ['Hạt nhựa PP', 'Nhôm lon', 'Giấy carton', 'Vải vụn cotton', 'Trấu'].map((label) => ({ label, href: toList({ q: label }) })),
+      orbit: C.ORBIT.map(([label, k, x, y], n) => ({ label, x: x + 'px', y: y + 'px', delay: (n * 0.8) + 's', tint: mix('var(--color-material-' + k + ')', 14), img: 'url("' + C.IMG('assets/' + k + '.webp') + '")' })),
+      cats: C.CATS.map(([label, count, color, img, icon]) => ({ label, countTxt: fmt(count), color, tint: mix(color, 12), img: img ? 'url("' + C.IMG(img) + '")' : 'none', href: toList({ cat: label }),
+        iGlass: icon === 'glass', iBrick: icon === 'brick', iChip: icon === 'chip', iBox: icon === 'box' })),
+      rows: C.ITEMS.map((it) => ({ item: { ...it, img: it.img ? C.IMG(it.img) : null }, cstate: s.contact[it.id] || 'masked' })),
+      reveal: this.reveal, copied: this.copied,
+      sellers: C.SELLERS,
+      benefits: [
+        { border: '1px solid rgba(255,255,255,0.12)', text: 'Tiếp cận nhiều đối tác hơn', d1: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75', d2: 'M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8' },
+        { border: '1px solid rgba(255,255,255,0.12)', text: 'Đăng tin nhanh, quản lý dễ dàng', d1: 'M12 6v6l4 2', d2: 'M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20' },
+        { border: 'none', text: 'Góp phần vào kinh tế tuần hoàn', d1: 'M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z', d2: 'M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12' },
+      ],
+      loginOpen: !!s.loginFor, loginName: s.loginFor ? (C.ITEMS.find((i) => i.id === s.loginFor) || {}).contact : '',
+      closeLogin: () => this.setState({ loginFor: null }),
+      doLogin: (e) => { if (e && e.preventDefault) e.preventDefault(); const id = s.loginFor; this.setState({ loggedIn: true, loginFor: null }, () => { if (id) this.reveal(id); }); },
+      toast: s.toast,
+    };
+  }
+}
+</script>
+</body>
+</html>

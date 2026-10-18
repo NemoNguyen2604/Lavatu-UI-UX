@@ -1,0 +1,63 @@
+/* Lavatu DS v2 — Figma "Lavatu/Primitives" (33, hidden) + "Lavatu/Color" (semantic, alias primitives) */
+:root{
+/* ── Primitives — never use directly in UI ── */
+--prim-green-50:#ecf7f2;--prim-green-100:#d3eee3;--prim-green-200:#b0f0d6;--prim-green-300:#80bea6;--prim-green-400:#4a9c84;--prim-green-500:#1f7f69;--prim-green-600:#0f6554;--prim-green-700:#0b5546;--prim-green-800:#074638;--prim-green-900:#033d2f;--prim-green-950:#003527;
+--prim-lime-100:#ecfccb;--prim-lime-500:#84cc16;--prim-lime-700:#4d7c0f;
+--prim-slate-50:#f8fafc;--prim-slate-100:#f1f5f9;--prim-slate-200:#e2e8f0;--prim-slate-300:#cbd5e1;--prim-slate-400:#94a3b8;--prim-slate-500:#64748b;--prim-slate-600:#475569;--prim-slate-700:#334155;--prim-slate-800:#1e293b;--prim-slate-900:#0f172a;--prim-slate-950:#020617;
+--prim-red-50:#fdeeee;--prim-red-600:#ba1a1a;
+--prim-amber-50:#fbf3e3;--prim-amber-600:#bc7f11;
+--prim-blue-700:#04309e;
+--prim-olive-600:#828009;
+--prim-gray-500:#7b7c86;
+--prim-periwinkle-400:#8990b1;
+--prim-white:#ffffff;
+
+/* ── Semantic — Text ── */
+--color-text-heading:var(--prim-green-950);
+--color-text-body:var(--prim-slate-700);
+--color-text-muted:var(--prim-slate-500);
+--color-text-subtle:var(--prim-slate-400);
+--color-text-inverse:var(--prim-white);
+--color-text-brand:var(--prim-green-600);
+--color-link:var(--prim-green-600);
+--color-link-hover:var(--prim-green-800);
+/* Surface */
+--color-bg-page:var(--prim-white);
+--color-bg-subtle:var(--prim-slate-50);
+--color-bg-muted:var(--prim-slate-100);
+--color-bg-brand:var(--prim-green-950);
+--color-bg-brand-soft:var(--prim-green-50);
+--color-bg-accent-soft:var(--prim-lime-100);
+/* Border */
+--color-border-default:var(--prim-slate-200);
+--color-border-strong:var(--prim-slate-300);
+--color-border-focus:var(--prim-green-600);
+/* Action */
+--color-action-primary:var(--prim-green-600);
+--color-action-primary-hover:var(--prim-green-700);
+--color-action-on-primary:var(--prim-white);
+--color-action-secondary:var(--prim-green-50);
+--color-action-secondary-hover:var(--prim-green-100);
+--color-action-secondary-border:var(--prim-green-200);
+--color-action-on-secondary:var(--prim-green-700);
+--color-action-ghost-hover:var(--prim-slate-100);
+--color-action-disabled:var(--prim-slate-100);
+--color-action-on-disabled:var(--prim-slate-400);
+/* Accent */
+--color-accent:var(--prim-lime-500);
+--color-accent-strong:var(--prim-lime-700);
+/* Feedback */
+--color-success:var(--prim-green-600);
+--color-success-soft:var(--prim-green-50);
+--color-warning:var(--prim-amber-600);
+--color-warning-soft:var(--prim-amber-50);
+--color-danger:var(--prim-red-600);
+--color-danger-soft:var(--prim-red-50);
+/* Material categories */
+--color-material-e-waste:var(--prim-green-600);
+--color-material-textile:var(--prim-amber-600);
+--color-material-agri:var(--prim-olive-600);
+--color-material-metal:var(--prim-gray-500);
+--color-material-plastic:var(--prim-blue-700);
+--color-material-paper:var(--prim-periwinkle-400);
+}

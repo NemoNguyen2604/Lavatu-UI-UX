@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<meta name="ext-resource-dependency" content="assets/plastic.webp" data-resource-id="imgPlastic" />
+<meta name="ext-resource-dependency" content="assets/metal.webp" data-resource-id="imgMetal" />
+<meta name="ext-resource-dependency" content="assets/paper.webp" data-resource-id="imgPaper" />
+<script>window.__lvImg=function(p){var r=window.__resources||{};return p==='assets/plastic.webp'?(r.imgPlastic||p):p==='assets/metal.webp'?(r.imgMetal||p):p==='assets/paper.webp'?(r.imgPaper||p):p;};</script>
+
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/styles.css">
+  <script src="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/_ds_bundle.js"></script>
+  <style>html,body{margin:0;height:100%}a{color:#0f6554}a:hover{color:#074638}</style>
+</helmet>
+<div data-screen-label="SCR-001 Nguồn vật liệu" style="width:100%;min-width:1440px;height:100vh">
+  <dc-import name="Nguon vat lieu Page" device="desktop" variant="A" logged-in="{{ loggedIn }}" page-state="{{ pageState }}" reveal-error="{{ revealError }}" style="width:100%;height:100vh" hint-size="100%,100vh"></dc-import>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Trạng thái&quot;},&quot;pageState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;data&quot;,&quot;loading&quot;,&quot;empty&quot;,&quot;error&quot;],&quot;default&quot;:&quot;data&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Trạng thái&quot;},&quot;revealError&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Trạng thái&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const p = this.props, b = (v) => v === true || v === 'true';
+    return { loggedIn: b(p.loggedIn), pageState: p.pageState || 'data', revealError: b(p.revealError) };
+  }
+}
+</script>
+<template id="__bundler_thumbnail" data-bg-color="#003527"><svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg"><rect width="120" height="120" fill="#003527"/><path d="M60 30c-18 10-26 26-22 44 16 2 32-6 40-22 4-8 4-16 2-22-6-2-14-2-20 0z" fill="#84cc16"/><path d="M42 80c8-14 18-24 30-32" stroke="#003527" stroke-width="3" fill="none" stroke-linecap="round"/></svg></template>
+</body>
+</html>

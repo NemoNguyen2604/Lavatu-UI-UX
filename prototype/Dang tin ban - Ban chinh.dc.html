@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/styles.css">
+  <script src="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/_ds_bundle.js"></script>
+  <script src="state-bar.js"></script>
+  <style>
+    @keyframes lv-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    @keyframes lv-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+    html,body{margin:0;height:100%}
+    a{color:#0f6554}
+    a:hover{color:#074638}
+    input::placeholder,textarea::placeholder{color:#94a3b8}
+  </style>
+</helmet>
+<div data-screen-label="{{ screenLabel }}" style="position:relative;height:100vh;overflow:hidden;background:var(--color-bg-page);font-family:var(--font-sans);min-width:1440px">
+<div ref="{{ scrollRef }}" style="height:100%;overflow:auto">
+
+<header style="position:sticky;top:0;z-index:20;background:var(--color-bg-brand)">
+  <div style="height:72px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;gap:var(--space-6)">
+    <div style="display:flex;align-items:center;gap:var(--space-12)">
+      <img src="assets/logo.png" alt="Lavatu" style="height:32px;filter:brightness(0) invert(1)">
+      <nav style="display:flex;gap:var(--space-7);font:var(--type-body-md)">
+        <a href="#" style="color:rgba(255,255,255,0.72);text-decoration:none;padding:6px 0;white-space:nowrap">Trang chủ</a>
+        <a href="Nguon vat lieu - Ban chinh.dc.html" style="color:rgba(255,255,255,0.72);text-decoration:none;padding:6px 0;white-space:nowrap">Sản phẩm</a>
+        <a href="#" style="color:rgba(255,255,255,0.72);text-decoration:none;padding:6px 0;white-space:nowrap">Tin tức</a>
+        <a href="#" style="color:rgba(255,255,255,0.72);text-decoration:none;padding:6px 0;white-space:nowrap">Giải pháp</a>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:var(--space-5);font:var(--type-body-md)">
+      <button type="button" aria-label="Chọn ngôn ngữ" style="display:flex;align-items:center;gap:6px;height:36px;padding:0 8px;border:none;background:transparent;color:rgba(255,255,255,0.86);cursor:pointer;font:var(--type-label-md)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>VI</button>
+      <a href="#" style="color:rgba(255,255,255,0.72);text-decoration:none;white-space:nowrap">Hỗ trợ</a>
+      <a href="Gio hang - Ban chinh.dc.html" aria-label="Giỏ hàng, 4 sản phẩm" style="position:relative;width:40px;height:40px;flex-shrink:0;border-radius:var(--radius-full);background:rgba(255,255,255,0.12);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg><span style="position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;padding:0 4px;box-sizing:border-box;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-text-heading);font:var(--type-label-sm);font-size:11px;display:flex;align-items:center;justify-content:center">4</span></a>
+      <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" hint-size="88px,40px">Tư vấn</x-import>
+      <span style="display:flex;align-items:center;gap:var(--space-2);color:var(--color-text-inverse);font:var(--type-label-md)"><span style="width:36px;height:36px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">{{ acct.initials }}</span>{{ acct.short }}</span>
+    </div>
+  </div>
+</header>
+
+<div style="padding:var(--space-4) 40px;border-bottom:1px solid var(--color-border-default);background:var(--color-bg-page)">
+  <nav aria-label="Breadcrumb" style="display:flex;align-items:center;gap:var(--space-2);font:var(--type-body-sm)">
+    <a href="#" style="color:var(--color-text-muted);text-decoration:none">Trang chủ</a><span style="color:var(--color-text-subtle)">/</span>
+    <a href="Nguon vat lieu - Ban chinh.dc.html" style="color:var(--color-text-muted);text-decoration:none">Nguồn vật liệu</a><span style="color:var(--color-text-subtle)">/</span>
+    <span style="color:var(--color-text-heading);font-weight:600">{{ pageTitle }}</span>
+  </nav>
+</div>
+
+<main style="background:var(--color-bg-subtle);padding:var(--space-8) 40px 0;min-height:640px">
+
+<sc-if value="{{ isForm }}" hint-placeholder-val="{{ true }}">
+<div style="display:grid;grid-template-columns:760px 360px;gap:var(--space-12);justify-content:center;align-items:start;padding-bottom:var(--space-10)">
+  <div style="display:flex;flex-direction:column;gap:var(--space-5);min-width:0">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-6);margin-bottom:var(--space-1);animation:lv-rise 600ms ease-out both">
+      <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+        <h1 style="margin:0;font:var(--type-h1);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">{{ pageTitle }}</h1>
+        <p style="margin:0;font:var(--type-body-md);color:var(--color-text-body)">{{ pageSub }}</p>
+        <span style="display:flex;align-items:center;gap:var(--space-2);font:var(--type-body-sm);color:var(--color-text-muted)">Đăng với tư cách <strong style="color:var(--color-text-heading);font-weight:600">{{ acct.name }}</strong><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="{{ acct.tone }}" hint-size="auto,22px">{{ acct.badge }}</x-import></span>
+      </div>
+      <sc-if value="{{ isEdit }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:var(--space-2);flex-shrink:0">
+          <button type="button" onClick="{{ askRemove }}" style="display:flex;align-items:center;gap:6px;min-height:40px;padding:0 var(--space-3);border:none;border-radius:var(--radius-md);background:transparent;cursor:pointer;font:var(--type-label-md);color:var(--color-danger)" style-hover="background:var(--color-danger-soft)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>Gỡ tin</button>
+        </div>
+      </sc-if>
+    </div>
+    <sc-if value="{{ confirmRemove }}" hint-placeholder-val="{{ false }}">
+      <div role="alertdialog" aria-label="Xác nhận gỡ tin" style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-4) var(--space-5);border-radius:var(--radius-md);background:var(--color-danger-soft);animation:lv-in 200ms ease-out">
+        <div style="display:flex;flex-direction:column;gap:2px">
+          <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Gỡ tin này?</span>
+          <span style="font:var(--type-body-sm);color:var(--color-text-body)">Tin sẽ không còn hiển thị trên Nguồn vật liệu. Các đơn đang xử lý không bị ảnh hưởng.</span>
+        </div>
+        <div style="display:flex;gap:var(--space-2);flex-shrink:0">
+          <button type="button" onClick="{{ doRemove }}" style="height:40px;padding:0 var(--space-4);border-radius:var(--radius-md);border:none;background:var(--color-danger);color:var(--color-text-inverse);font:var(--type-label-md);font-family:inherit;cursor:pointer">Gỡ tin</button>
+          <button type="button" onClick="{{ cancelRemove }}" style="height:40px;padding:0 var(--space-4);border-radius:var(--radius-md);border:1px solid var(--color-border-strong);background:var(--color-bg-page);color:var(--color-text-heading);font:var(--type-label-md);font-family:inherit;cursor:pointer">Huỷ</button>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ removed }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4) var(--space-5);border-radius:var(--radius-md);background:var(--color-bg-muted);font:var(--type-body-sm);color:var(--color-text-heading)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-muted);flex-shrink:0"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"></path><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"></path><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"></path><path d="m2 2 20 20"></path></svg>
+        <span>Tin đã được gỡ và không còn hiển thị công khai.</span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isPersonal }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4) var(--space-5);border-radius:var(--radius-md);background:var(--color-bg-brand-soft);font:var(--type-body-sm);color:var(--color-text-heading)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-brand);flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+        <span>Tài khoản cá nhân đăng được tối đa 200 kg mỗi tin.</span>
+      </div>
+    </sc-if>
+
+    <fieldset disabled="{{ sending }}" style="border:none;margin:0;padding:0;min-width:0;display:flex;flex-direction:column;gap:var(--space-5);opacity:{{ formOpacity }};transition:opacity 200ms">
+
+      <section ref="{{ refs.g1 }}" style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-5);animation:lv-rise 600ms ease-out 60ms both">
+        <div style="display:flex;align-items:center;gap:var(--space-3)"><span style="width:28px;height:28px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">1</span><h2 style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Danh mục và tiêu đề</h2></div>
+        <div ref="{{ refs.cat }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <span style="font:var(--type-label-md);color:var(--color-text-heading)">Danh mục <span style="color:var(--color-danger)">*</span></span>
+          <div role="radiogroup" aria-label="Danh mục" style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-3)">
+            <sc-for list="{{ cats }}" as="c" hint-placeholder-count="9">
+              <div style="position:relative" onMouseEnter="{{ c.enter }}" onMouseLeave="{{ c.leave }}">
+                <button type="button" role="radio" aria-checked="{{ c.on }}" aria-disabled="{{ c.locked }}" onClick="{{ c.pick }}" style="width:100%;display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3);text-align:left;cursor:{{ c.cursor }};border-radius:var(--radius-md);border:{{ c.border }};background:{{ c.bg }};opacity:{{ c.opacity }};transition:border-color 150ms, background 150ms">
+                  <span style="width:40px;height:40px;flex-shrink:0;border-radius:var(--radius-md);background:{{ c.tint }};color:{{ c.color }};display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="{{ c.d1 }}"></path><path d="{{ c.d2 }}"></path><path d="{{ c.d3 }}"></path><path d="{{ c.d4 }}"></path></svg></span>
+                  <span style="flex:1;min-width:0;font:var(--type-label-md);color:var(--color-text-heading);text-wrap:pretty">{{ c.label }}</span>
+                  <sc-if value="{{ c.locked }}" hint-placeholder-val="{{ false }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-label="Đã khoá" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-muted);flex-shrink:0"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></sc-if>
+                  <sc-if value="{{ c.on }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-brand);flex-shrink:0"><path d="M20 6 9 17l-5-5"></path></svg></sc-if>
+                </button>
+                <sc-if value="{{ c.showTip }}" hint-placeholder-val="{{ false }}">
+                  <span role="tooltip" style="position:absolute;left:50%;bottom:calc(100% + 8px);transform:translateX(-50%);z-index:5;width:240px;padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);background:var(--color-text-heading);color:var(--color-text-inverse);font:var(--type-caption);text-align:center;box-shadow:var(--shadow-raised);animation:lv-in 150ms ease-out">Danh mục Rác điện tử chỉ dành cho doanh nghiệp đã xác minh</span>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ f.cat.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.cat.err }}</span></sc-if>
+        </div>
+        <div ref="{{ refs.title }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <label for="tieu-de" style="font:var(--type-label-md);color:var(--color-text-heading)">Tiêu đề tin <span style="color:var(--color-danger)">*</span></label>
+          <input id="tieu-de" type="text" value="{{ f.title.value }}" onChange="{{ f.title.onChange }}" placeholder="VD: Hạt nhựa PP tái sinh màu đen, độ ẩm dưới 0,5%" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:{{ f.title.border }};background:var(--color-bg-page);padding:0 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none">
+          <div style="display:flex;justify-content:space-between;gap:var(--space-3)">
+            <span style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><sc-if value="{{ f.title.hasErr }}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.title.err }}</sc-if></span>
+            <span style="font:var(--type-caption);color:{{ titleCountColor }}">{{ titleCount }}/120</span>
+          </div>
+        </div>
+        <div ref="{{ refs.origin }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <span style="font:var(--type-label-md);color:var(--color-text-heading)">Nguồn gốc <span style="color:var(--color-danger)">*</span></span>
+          <div role="radiogroup" aria-label="Nguồn gốc" style="display:flex;gap:var(--space-2)">
+            <sc-for list="{{ origins }}" as="o" hint-placeholder-count="2">
+              <button type="button" role="radio" aria-checked="{{ o.on }}" onClick="{{ o.pick }}" style="height:40px;padding:0 var(--space-5);border-radius:var(--radius-full);cursor:pointer;font:var(--type-label-md);font-family:inherit;border:{{ o.border }};background:{{ o.bg }};color:{{ o.color }};transition:background 150ms" style-hover="background:var(--color-bg-brand-soft)">{{ o.label }}</button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ f.origin.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.origin.err }}</span></sc-if>
+        </div>
+      </section>
+
+      <section ref="{{ refs.g2 }}" style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-5);animation:lv-rise 600ms ease-out 100ms both">
+        <div style="display:flex;align-items:center;gap:var(--space-3)"><span style="width:28px;height:28px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">2</span><h2 style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Thông số vật liệu</h2><sc-if value="{{ hasCat }}" hint-placeholder-val="{{ true }}"><span style="font:var(--type-body-sm);color:var(--color-text-muted)">· {{ catLabel }}</span></sc-if></div>
+        <sc-if value="{{ noCat }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2);padding:var(--space-8);border-radius:var(--radius-md);border:1px dashed var(--color-border-strong);background:var(--color-bg-subtle);font:var(--type-body-sm);color:var(--color-text-muted);text-align:center">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"></path><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"></path><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"></path></svg>
+            Chọn danh mục để hiện các trường thông số
+          </div>
+        </sc-if>
+        <sc-if value="{{ hasCat }}" hint-placeholder-val="{{ true }}">
+          <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-5)">
+            <div ref="{{ refs.type }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <span style="font:var(--type-label-md);color:var(--color-text-heading)">Loại vật liệu <span style="color:var(--color-danger)">*</span></span>
+              <div style="border-radius:var(--radius-md);box-shadow:{{ f.type.ring }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Select" options="{{ typeOptions }}" value="{{ f.type.value }}" onChange="{{ f.type.onChange }}" hint-size="100%,44px"></x-import></div>
+              <sc-if value="{{ f.type.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.type.err }}</span></sc-if>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <span style="font:var(--type-label-md);color:var(--color-text-heading)">Dạng <span style="font:var(--type-caption);color:var(--color-text-muted)">(không bắt buộc)</span></span>
+              <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Select" options="{{ formOptions }}" value="{{ f.form.value }}" onChange="{{ f.form.onChange }}" hint-size="100%,44px"></x-import>
+            </div>
+            <div ref="{{ refs.source }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <label for="nguon-ps" style="font:var(--type-label-md);color:var(--color-text-heading)">Nguồn phát sinh <span style="color:var(--color-danger)">*</span></label>
+              <input id="nguon-ps" type="text" value="{{ f.source.value }}" onChange="{{ f.source.onChange }}" placeholder="VD: phế phẩm sản xuất bao bì" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:{{ f.source.border }};background:var(--color-bg-page);padding:0 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none">
+              <sc-if value="{{ f.source.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.source.err }}</span></sc-if>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <label for="mau-sac" style="font:var(--type-label-md);color:var(--color-text-heading)">Màu sắc <span style="font:var(--type-caption);color:var(--color-text-muted)">(không bắt buộc)</span></label>
+              <input id="mau-sac" type="text" value="{{ f.color.value }}" onChange="{{ f.color.onChange }}" placeholder="VD: đen" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:1px solid var(--color-border-strong);background:var(--color-bg-page);padding:0 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none">
+            </div>
+            <div ref="{{ refs.impurity }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <label for="tap-chat" style="font:var(--type-label-md);color:var(--color-text-heading)">Tạp chất <span style="font:var(--type-caption);color:var(--color-text-muted)">(không bắt buộc)</span></label>
+              <div style="position:relative"><input id="tap-chat" type="text" inputMode="decimal" value="{{ f.impurity.value }}" onChange="{{ f.impurity.onChange }}" placeholder="0" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:{{ f.impurity.border }};background:var(--color-bg-page);padding:0 44px 0 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none"><span style="position:absolute;right:16px;top:12px;font:var(--type-body-sm);color:var(--color-text-muted);pointer-events:none">%</span></div>
+              <sc-if value="{{ f.impurity.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.impurity.err }}</span></sc-if>
+            </div>
+            <div ref="{{ refs.moisture }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <label for="do-am" style="font:var(--type-label-md);color:var(--color-text-heading)">Độ ẩm <span style="font:var(--type-caption);color:var(--color-text-muted)">(không bắt buộc)</span></label>
+              <div style="position:relative"><input id="do-am" type="text" inputMode="decimal" value="{{ f.moisture.value }}" onChange="{{ f.moisture.onChange }}" placeholder="0" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:{{ f.moisture.border }};background:var(--color-bg-page);padding:0 44px 0 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none"><span style="position:absolute;right:16px;top:12px;font:var(--type-body-sm);color:var(--color-text-muted);pointer-events:none">%</span></div>
+              <sc-if value="{{ f.moisture.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.moisture.err }}</span></sc-if>
+            </div>
+            <sc-if value="{{ isPlastic }}" hint-placeholder-val="{{ true }}">
+              <div ref="{{ refs.mfi }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+                <label for="mfi" style="font:var(--type-label-md);color:var(--color-text-heading)">MFI <span style="font:var(--type-caption);color:var(--color-text-muted)">(không bắt buộc)</span></label>
+                <div style="position:relative"><input id="mfi" type="text" inputMode="decimal" value="{{ f.mfi.value }}" onChange="{{ f.mfi.onChange }}" placeholder="0" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:{{ f.mfi.border }};background:var(--color-bg-page);padding:0 104px 0 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none"><span style="position:absolute;right:16px;top:12px;font:var(--type-body-sm);color:var(--color-text-muted);pointer-events:none">g/10 phút</span></div>
+                <sc-if value="{{ f.mfi.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.mfi.err }}</span></sc-if>
+              </div>
+            </sc-if>
+            <div ref="{{ refs.packing }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+              <label for="quy-cach" style="font:var(--type-label-md);color:var(--color-text-heading)">Quy cách đóng gói <span style="color:var(--color-danger)">*</span></label>
+              <input id="quy-cach" type="text" value="{{ f.packing.value }}" onChange="{{ f.packing.onChange }}" placeholder="VD: bao 25 kg" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:{{ f.packing.border }};background:var(--color-bg-page);padding:0 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none">
+              <sc-if value="{{ f.packing.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.packing.err }}</span></sc-if>
+            </div>
+          </div>
+        </sc-if>
+      </section>
+
+      <section ref="{{ refs.g3 }}" style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-5);animation:lv-rise 600ms ease-out 140ms both">
+        <div style="display:flex;align-items:center;gap:var(--space-3)"><span style="width:28px;height:28px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">3</span><h2 style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Số lượng và giá</h2></div>
+        <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <span style="font:var(--type-label-md);color:var(--color-text-heading)">Đơn vị tính <span style="color:var(--color-danger)">*</span></span>
+          <div role="radiogroup" aria-label="Đơn vị tính" style="display:inline-flex;align-self:flex-start;padding:4px;gap:4px;border-radius:var(--radius-md);background:var(--color-bg-muted)">
+            <sc-for list="{{ units }}" as="u" hint-placeholder-count="2">
+              <button type="button" role="radio" aria-checked="{{ u.on }}" onClick="{{ u.pick }}" style="min-width:88px;height:36px;padding:0 var(--space-4);border:none;border-radius:var(--radius-sm);cursor:pointer;font:var(--type-label-md);font-family:inherit;background:{{ u.bg }};color:{{ u.color }};box-shadow:{{ u.shadow }};transition:background 150ms">{{ u.label }}</button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-5)">
+          <div ref="{{ refs.avail }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+            <label for="san-co" style="font:var(--type-label-md);color:var(--color-text-heading)">Khối lượng sẵn có <span style="color:var(--color-danger)">*</span></label>
+            <div style="position:relative"><input id="san-co" type="text" inputMode="decimal" value="{{ f.avail.value }}" onChange="{{ f.avail.onChange }}" placeholder="0" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:{{ f.avail.border }};background:var(--color-bg-page);padding:0 56px 0 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none"><span style="position:absolute;right:16px;top:12px;font:var(--type-body-sm);color:var(--color-text-muted);pointer-events:none">{{ unit }}</span></div>
+            <sc-if value="{{ f.avail.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.avail.err }}</span></sc-if>
+          </div>
+          <div ref="{{ refs.minKg }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+            <label for="mua-toi-thieu" style="font:var(--type-label-md);color:var(--color-text-heading)">Mua tối thiểu <span style="color:var(--color-danger)">*</span></label>
+            <div style="position:relative"><input id="mua-toi-thieu" type="text" inputMode="decimal" value="{{ f.minKg.value }}" onChange="{{ f.minKg.onChange }}" placeholder="0" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:{{ f.minKg.border }};background:var(--color-bg-page);padding:0 48px 0 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none"><span style="position:absolute;right:16px;top:12px;font:var(--type-body-sm);color:var(--color-text-muted);pointer-events:none">kg</span></div>
+            <sc-if value="{{ f.minKg.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.minKg.err }}</span></sc-if>
+            <span style="font:var(--type-caption);color:var(--color-text-muted)">Người mua không gửi được yêu cầu dưới mức này</span>
+          </div>
+          <div ref="{{ refs.price }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+            <label for="don-gia" style="font:var(--type-label-md);color:var(--color-text-heading)">Đơn giá <span style="color:var(--color-danger)">*</span></label>
+            <div style="position:relative"><input id="don-gia" type="text" inputMode="numeric" value="{{ f.price.value }}" onChange="{{ f.price.onChange }}" placeholder="0" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:{{ f.price.border }};background:var(--color-bg-page);padding:0 96px 0 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none"><span style="position:absolute;right:16px;top:12px;font:var(--type-body-sm);color:var(--color-text-muted);pointer-events:none">VNĐ/{{ unit }}</span></div>
+            <sc-if value="{{ f.price.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.price.err }}</span></sc-if>
+            <sc-if value="{{ hasConvert }}" hint-placeholder-val="{{ true }}"><span style="font:var(--type-caption);color:var(--color-text-muted)">{{ convertText }}</span></sc-if>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+            <span style="font:var(--type-label-md);color:var(--color-text-heading)">Tình trạng</span>
+            <div role="radiogroup" aria-label="Tình trạng" style="display:flex;gap:var(--space-2)">
+              <sc-for list="{{ stocks }}" as="o" hint-placeholder-count="2">
+                <button type="button" role="radio" aria-checked="{{ o.on }}" onClick="{{ o.pick }}" style="height:44px;padding:0 var(--space-5);border-radius:var(--radius-full);cursor:pointer;font:var(--type-label-md);font-family:inherit;border:{{ o.border }};background:{{ o.bg }};color:{{ o.color }};transition:background 150ms" style-hover="background:var(--color-bg-brand-soft)">{{ o.label }}</button>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section ref="{{ refs.g4 }}" style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-5);animation:lv-rise 600ms ease-out 180ms both">
+        <div style="display:flex;align-items:center;gap:var(--space-3)"><span style="width:28px;height:28px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">4</span><h2 style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Hình ảnh và mô tả</h2></div>
+        <div ref="{{ refs.images }}" style="display:flex;flex-direction:column;gap:var(--space-3)">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-3)">
+            <span style="font:var(--type-label-md);color:var(--color-text-heading)">Ảnh <span style="color:var(--color-danger)">*</span></span>
+            <span style="font:var(--type-caption);color:var(--color-text-muted)">{{ imgCount }}/10 ảnh · kéo để sắp xếp</span>
+          </div>
+          <sc-if value="{{ hasImages }}" hint-placeholder-val="{{ true }}">
+            <div style="display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--space-3)">
+              <sc-for list="{{ images }}" as="im" hint-placeholder-count="0">
+                <div draggable="true" onDragStart="{{ im.dragStart }}" onDragOver="{{ im.dragOver }}" onDrop="{{ im.drop }}" onDragEnd="{{ im.dragEnd }}" style="position:relative;aspect-ratio:1;border-radius:var(--radius-md);overflow:hidden;border:{{ im.border }};background:var(--color-bg-subtle);cursor:grab;opacity:{{ im.opacity }};transition:border-color 150ms, opacity 150ms">
+                  <div role="img" aria-label="{{ im.name }}" style="width:100%;height:100%;background:url({{ im.src }}) center/cover no-repeat;pointer-events:none"></div>
+                  <sc-if value="{{ im.isCover }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;left:6px;bottom:6px;height:22px;padding:0 8px;display:flex;align-items:center;border-radius:var(--radius-full);background:var(--color-bg-brand);color:var(--color-text-inverse);font:var(--type-label-sm);font-size:11px">Ảnh bìa</span></sc-if>
+                  <button type="button" aria-label="Xoá ảnh" onClick="{{ im.remove }}" style="position:absolute;top:6px;right:6px;width:28px;height:28px;border:none;border-radius:var(--radius-full);background:rgba(2,6,23,0.6);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0" style-hover="background:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+          <sc-if value="{{ canAddImg }}" hint-placeholder-val="{{ true }}">
+            <label onDragOver="{{ zoneOver }}" onDragLeave="{{ zoneLeave }}" onDrop="{{ zoneDrop }}" style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2);padding:var(--space-6);border-radius:var(--radius-md);border:{{ zoneBorder }};background:{{ zoneBg }};cursor:pointer;text-align:center;transition:background 150ms, border-color 150ms">
+              <input type="file" multiple accept=".jpg,.jpeg,.png,image/jpeg,image/png" onChange="{{ pickFiles }}" style="display:none">
+              <span style="width:44px;height:44px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path><path d="M16 5h6"></path><path d="M19 2v6"></path><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path><circle cx="9" cy="9" r="2"></circle></svg></span>
+              <span style="font:var(--type-label-md);color:var(--color-text-heading)">Kéo thả ảnh vào đây hoặc <span style="color:var(--color-link);text-decoration:underline">chọn ảnh</span></span>
+              <span style="font:var(--type-caption);color:var(--color-text-muted)">JPG, PNG · mỗi ảnh tối đa 5 MB · tối đa 10 ảnh</span>
+            </label>
+          </sc-if>
+          <sc-if value="{{ hasUploadMsg }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ uploadMsg }}</span></sc-if>
+          <sc-if value="{{ f.images.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.images.err }}</span></sc-if>
+        </div>
+        <div ref="{{ refs.desc }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <label for="mo-ta" style="font:var(--type-label-md);color:var(--color-text-heading)">Mô tả lô hàng <span style="font:var(--type-caption);color:var(--color-text-muted)">(không bắt buộc)</span></label>
+          <textarea id="mo-ta" rows="5" value="{{ f.desc.value }}" onChange="{{ f.desc.onChange }}" placeholder="Tình trạng lô hàng, điều kiện xem hàng, lấy mẫu, thời gian có thể giao…" style="box-sizing:border-box;width:100%;resize:vertical;border-radius:var(--radius-md);border:{{ f.desc.border }};background:var(--color-bg-page);padding:12px 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none"></textarea>
+          <div style="display:flex;justify-content:space-between;gap:var(--space-3)">
+            <span style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><sc-if value="{{ f.desc.hasErr }}" hint-placeholder-val="{{ false }}">{{ f.desc.err }}</sc-if></span>
+            <span style="font:var(--type-caption);color:{{ descCountColor }}">{{ descCount }}/3.000</span>
+          </div>
+        </div>
+      </section>
+
+      <section ref="{{ refs.g5 }}" style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-5);animation:lv-rise 600ms ease-out 220ms both">
+        <div style="display:flex;align-items:center;gap:var(--space-3)"><span style="width:28px;height:28px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">5</span><h2 style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Địa điểm</h2></div>
+        <div ref="{{ refs.province }}" style="display:flex;flex-direction:column;gap:var(--space-2);max-width:360px">
+          <span style="font:var(--type-label-md);color:var(--color-text-heading)">Tỉnh/thành <span style="color:var(--color-danger)">*</span></span>
+          <div style="border-radius:var(--radius-md);box-shadow:{{ f.province.ring }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Select" options="{{ provinceOptions }}" value="{{ f.province.value }}" onChange="{{ f.province.onChange }}" hint-size="100%,44px"></x-import></div>
+          <sc-if value="{{ f.province.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.province.err }}</span></sc-if>
+          <span style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-text-muted)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg>Hiển thị công khai trên thẻ tin</span>
+        </div>
+        <div ref="{{ refs.address }}" style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <label for="dia-chi-kho" style="font:var(--type-label-md);color:var(--color-text-heading)">Địa chỉ kho chi tiết <span style="color:var(--color-danger)">*</span></label>
+          <input id="dia-chi-kho" type="text" value="{{ f.address.value }}" onChange="{{ f.address.onChange }}" placeholder="Số nhà, đường, khu công nghiệp, phường/xã" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:{{ f.address.border }};background:var(--color-bg-page);padding:0 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none">
+          <sc-if value="{{ f.address.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.address.err }}</span></sc-if>
+          <span style="display:flex;align-items:flex-start;gap:var(--space-2);padding:var(--space-3);border-radius:var(--radius-md);background:var(--color-bg-subtle);font:var(--type-body-sm);color:var(--color-text-body)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-brand);flex-shrink:0;margin-top:2px"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Không hiển thị công khai. Chỉ gửi cho người mua khi bạn xác nhận đơn tự đến lấy hàng.</span>
+        </div>
+      </section>
+
+      <section ref="{{ refs.g6 }}" style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-5);animation:lv-rise 600ms ease-out 260ms both">
+        <div style="display:flex;align-items:center;gap:var(--space-3)"><span style="width:28px;height:28px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">6</span><h2 style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Người liên hệ</h2></div>
+        <div ref="{{ refs.contactName }}" style="display:flex;flex-direction:column;gap:var(--space-2);max-width:360px">
+          <label for="ten-lh" style="font:var(--type-label-md);color:var(--color-text-heading)">Tên người liên hệ <span style="color:var(--color-danger)">*</span></label>
+          <input id="ten-lh" type="text" value="{{ f.contactName.value }}" onChange="{{ f.contactName.onChange }}" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:{{ f.contactName.border }};background:var(--color-bg-page);padding:0 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none">
+          <sc-if value="{{ f.contactName.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.contactName.err }}</span></sc-if>
+        </div>
+        <div ref="{{ refs.phone }}" style="display:flex;flex-direction:column;gap:var(--space-3)">
+          <span style="font:var(--type-label-md);color:var(--color-text-heading)">Số điện thoại hiển thị <span style="color:var(--color-danger)">*</span></span>
+          <div role="radiogroup" aria-label="Số điện thoại hiển thị" style="display:flex;flex-direction:column;gap:var(--space-2);max-width:480px">
+            <sc-for list="{{ phones }}" as="p" hint-placeholder-count="2">
+              <button type="button" role="radio" aria-checked="{{ p.on }}" onClick="{{ p.pick }}" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);text-align:left;cursor:pointer;border-radius:var(--radius-md);border:{{ p.border }};background:{{ p.bg }};transition:border-color 150ms, background 150ms">
+                <span style="width:18px;height:18px;flex-shrink:0;box-sizing:border-box;border-radius:var(--radius-full);border:{{ p.dot }};background:var(--color-bg-page)"></span>
+                <span style="flex:1;font:var(--type-label-md);color:var(--color-text-heading)">{{ p.label }}</span>
+                <sc-if value="{{ p.hasNote }}" hint-placeholder-val="{{ true }}"><span style="font:var(--type-caption);color:var(--color-text-muted)">{{ p.note }}</span></sc-if>
+              </button>
+            </sc-for>
+          </div>
+          <sc-if value="{{ isOtherPhone }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:var(--space-2);max-width:360px;animation:lv-in 200ms ease-out">
+              <label for="sdt-khac" style="font:var(--type-label-md);color:var(--color-text-heading)">Số điện thoại mới</label>
+              <input id="sdt-khac" type="tel" inputMode="numeric" maxLength="10" value="{{ f.phone.value }}" onChange="{{ f.phone.onChange }}" placeholder="0xxxxxxxxx" style="height:44px;box-sizing:border-box;width:100%;border-radius:var(--radius-md);border:{{ f.phone.border }};background:var(--color-bg-page);padding:0 16px;font:var(--type-body-md);font-family:inherit;color:var(--color-text-heading);outline:none;letter-spacing:0.02em">
+              <sc-if value="{{ f.phone.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:6px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ f.phone.err }}</span></sc-if>
+            </div>
+          </sc-if>
+          <span style="font:var(--type-caption);color:var(--color-text-muted)">Số hiển thị dạng che {{ maskedPhone }} và chỉ hiện đầy đủ với người đã đăng nhập.</span>
+        </div>
+      </section>
+    </fieldset>
+  </div>
+
+  <aside style="position:sticky;top:96px;max-height:calc(100vh - 192px);overflow:auto;display:flex;flex-direction:column;gap:var(--space-3);min-width:0;animation:lv-rise 600ms ease-out 120ms both">
+    <section aria-label="Kiểm tra thông tin" style="padding:var(--space-4) var(--space-5);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-2)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-1)">
+        <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Kiểm tra thông tin</span>
+        <span style="font:var(--type-caption);color:var(--color-text-muted)">{{ doneGroups }}/6 nhóm</span>
+      </div>
+      <sc-for list="{{ checklist }}" as="k" hint-placeholder-count="6">
+        <button type="button" onClick="{{ k.go }}" style="display:flex;align-items:center;gap:var(--space-3);min-height:32px;padding:0 var(--space-2);border:none;border-radius:var(--radius-sm);background:transparent;cursor:pointer;text-align:left" style-hover="background:var(--color-bg-subtle)">
+          <span style="width:22px;height:22px;flex-shrink:0;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;background:{{ k.bg }};color:{{ k.color }};font:var(--type-label-sm);font-size:12px">{{ k.mark }}</span>
+          <span style="flex:1;font:var(--type-body-sm);color:var(--color-text-heading)">{{ k.label }}</span>
+          <sc-if value="{{ k.missing }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-caption);color:var(--color-warning)">Còn thiếu</span></sc-if>
+        </button>
+      </sc-for>
+    </section>
+    <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-muted);margin-top:var(--space-1)">XEM TRƯỚC THẺ TIN</span>
+    <div style="pointer-events:none;zoom:0.8">
+      <dc-import name="Product Card" item="{{ previewItem }}" cstate="masked" variant="A" layout="grid" hint-size="100%,500px"></dc-import>
+    </div>
+  </aside>
+</div>
+
+<div style="position:sticky;bottom:0;z-index:15;margin:0 -40px;padding:var(--space-4) 40px;background:var(--color-bg-page);border-top:1px solid var(--color-border-default);box-shadow:0 -4px 16px rgba(2,6,23,0.06)">
+  <div style="max-width:1168px;margin:0 auto;display:flex;align-items:center;gap:var(--space-4)">
+    <sc-if value="{{ showErrSummary }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:6px;font:var(--type-label-md);color:var(--color-danger)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ errSummary }}</span></sc-if>
+    <div style="margin-left:auto;display:flex;gap:var(--space-3)">
+      <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" disabled="{{ sending }}" onClick="{{ cancel }}" hint-size="96px,48px">Huỷ</x-import>
+      <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" disabled="{{ submitDisabled }}" onClick="{{ submit }}" hint-size="160px,48px">{{ submitLabel }}</x-import>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+<sc-if value="{{ isDone }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:760px;margin:var(--space-4) auto var(--space-16);display:flex;flex-direction:column;align-items:center;gap:var(--space-6);padding:var(--space-12) var(--space-10);text-align:center;border-radius:var(--radius-xl);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);animation:lv-rise 600ms ease-out both">
+    <span style="width:64px;height:64px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px color-mix(in oklch, var(--color-accent) 18%, transparent)"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+    <div style="display:flex;flex-direction:column;gap:var(--space-2);align-items:center">
+      <h1 style="margin:0;font:var(--type-h1);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">Tin đã được đăng</h1>
+      <p style="margin:0;font:var(--type-body-md);color:var(--color-text-body)">Tin đang hiển thị trên Nguồn vật liệu.</p>
+    </div>
+    <div style="width:340px;text-align:left">
+      <dc-import name="Product Card" item="{{ previewItem }}" cstate="own" variant="A" layout="grid" hint-size="340px,500px"></dc-import>
+    </div>
+    <div style="display:flex;gap:var(--space-3)">
+      <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" onClick="{{ goView }}" hint-size="120px,48px">Xem tin</x-import>
+      <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" onClick="{{ newPost }}" hint-size="150px,48px">Đăng tin khác</x-import>
+      <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="ghost" size="l" onClick="{{ goManage }}" hint-size="170px,48px">Quản lý tin đăng</x-import>
+    </div>
+  </div>
+</sc-if>
+</main>
+
+<footer style="background:var(--color-bg-page);border-top:1px solid var(--color-border-default)">
+  <div style="padding:var(--space-12) 40px var(--space-10);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-8)">
+    <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+      <span style="font:var(--type-h4);color:var(--color-text-heading)">Lavatu</span>
+      <p style="margin:0;font:var(--type-body-sm);color:var(--color-text-muted);max-width:300px">Nền tảng thương mại điện tử hàng đầu cho kinh tế tuần hoàn B2B, hướng tới một tương lai không rác thải.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-3);font:var(--type-body-sm);color:var(--color-text-muted)">
+      <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Liên hệ</span>
+      <span>29 Tiền Giang, Phường Tân Sơn Hòa, Thành phố Hồ Chí Minh, Việt Nam</span>
+      <span>Email: thienan@grac.vn</span>
+      <span>Hotline 1: 0898215221 - Mr. Thiên Ân</span>
+      <span>Hotline 2: 0356988320 - Ms. Ngọc Mai</span>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-3);font:var(--type-body-sm)">
+      <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Hỗ trợ</span>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Điều khoản sử dụng</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Chính sách bảo mật</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Liên hệ</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">FAQ</a>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-3);font:var(--type-body-sm)">
+      <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Công ty</span>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Về chúng tôi</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Quy trình</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Giải pháp ESG</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Báo cáo ESG</a>
+      <a href="#" style="color:var(--color-text-muted);text-decoration:none">Dữ liệu vật liệu</a>
+    </div>
+  </div>
+  <div style="padding:var(--space-4) 40px;border-top:1px solid var(--color-border-default);display:flex;gap:var(--space-3);justify-content:space-between;font:var(--type-caption);color:var(--color-text-muted)">
+    <span>© 2026 Lavatu. Nền tảng kinh tế tuần hoàn chuyên nghiệp.</span>
+    <span style="display:flex;gap:var(--space-6)"><a href="#" style="color:var(--color-text-heading);text-decoration:none">Facebook</a><a href="#" style="color:var(--color-text-heading);text-decoration:none">LinkedIn</a><a href="#" style="color:var(--color-text-heading);text-decoration:none">Youtube</a></span>
+  </div>
+</footer>
+</div>
+
+<sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+  <div role="status" style="position:absolute;left:50%;bottom:104px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-brand);color:var(--color-text-inverse);font:var(--type-label-md);box-shadow:var(--shadow-raised);white-space:nowrap;animation:lv-in 200ms ease-out">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-accent)"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>{{ toastText }}
+  </div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;khung&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A – Doanh nghiệp&quot;,&quot;B – Cá nhân&quot;,&quot;C – Đăng thành công&quot;,&quot;D – Sửa tin&quot;],&quot;default&quot;:&quot;A – Doanh nghiệp&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  static STATES = [{"k":"doanh-nghiep","l":"Doanh nghiệp","p":{"khung":"A – Doanh nghiệp"}},{"k":"ca-nhan","l":"Cá nhân","p":{"khung":"B – Cá nhân"}},{"k":"co-loi","l":"Có lỗi","p":{"khung":"A – Doanh nghiệp"},"s":{"tried":true,"title":"","price":"","avail":""}},{"k":"thanh-cong","l":"Thành công","p":{"khung":"C – Đăng thành công"}},{"k":"sua-tin","l":"Sửa tin","p":{"khung":"D – Sửa tin"}},{"k":"xac-nhan-go","l":"Xác nhận gỡ tin","p":{"khung":"D – Sửa tin"},"s":{"confirmRemove":true}}];
+  static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
+  get __P() { return this.__ov(this.props); }
+  __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
+  __boot = (() => { const s = Component.__st(); window.LV_STATES = { cur: s ? s.k : Component.STATES[0].k, list: Component.STATES }; try { window.dispatchEvent(new Event('lv-states')); } catch (e) {} if (s && s.s) setTimeout(() => this.setState(s.s), 0); return 1; })();
+  static CATS = [
+    { label: 'Nhựa', key: 'plastic', color: 'var(--color-material-plastic)', d: ['M8 2h8', 'M9 2v2.789a4 4 0 0 1-.672 2.219l-.656.984A4 4 0 0 0 7 10.212V20a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9.789a4 4 0 0 0-.672-2.219l-.656-.984A4 4 0 0 1 15 4.788V2', 'M7 15a6.472 6.472 0 0 1 5 0 6.47 6.47 0 0 0 5 0', ''] },
+    { label: 'Kim loại', key: 'metal', color: 'var(--color-material-metal)', d: ['M7 10H6a4 4 0 0 1-4-4 1 1 0 0 1 1-1h4', 'M7 5a1 1 0 0 1 1-1h13a1 1 0 0 1 1 1 7 7 0 0 1-7 7H8a1 1 0 0 1-1-1z', 'M9 12v5M15 12v5', 'M5 20a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3 1 1 0 0 1-1 1H6a1 1 0 0 1-1-1'] },
+    { label: 'Giấy carton', key: 'paper', color: 'var(--color-material-paper)', d: ['M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z', 'M12 22V12', 'm3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7', 'm7.5 4.27 9 5.15'] },
+    { label: 'Thuỷ tinh', key: null, color: '#1d6f86', d: ['M8 22h8', 'M7 10h10', 'M12 15v7', 'M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z'] },
+    { label: 'Vật liệu xây dựng', key: null, color: '#99573a', d: ['M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z', 'M12 9v6M16 15v6M16 3v6M8 15v6M8 3v6', 'M3 15h18M3 9h18', ''] },
+    { label: 'Phụ phẩm nông nghiệp', key: 'agri', color: 'var(--color-material-agri)', d: ['M2 22 16 8', 'M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94ZM7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94ZM11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z', 'M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z', 'M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0ZM15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0ZM19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z'] },
+    { label: 'Rác điện tử', key: 'e-waste', color: 'var(--color-material-e-waste)', bizOnly: true, d: ['M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z', 'M9 9h6v6H9z', 'M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2', ''] },
+    { label: 'Vải dệt may', key: 'textile', color: 'var(--color-material-textile)', d: ['M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z', '', '', ''] },
+    { label: 'Vật liệu khác', key: null, color: 'var(--color-text-body)', d: ['M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z', 'm22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65', 'm22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65', ''] },
+  ];
+  static TYPES = {
+    'Nhựa': ['PP', 'PE', 'HDPE', 'LDPE', 'PET', 'PVC', 'PS', 'ABS', 'Khác'],
+    'Kim loại': ['Sắt thép', 'Nhôm', 'Đồng', 'Inox', 'Chì', 'Kẽm', 'Khác'],
+    'Giấy carton': ['Carton (OCC)', 'Giấy văn phòng', 'Giấy báo', 'Giấy hỗn hợp', 'Khác'],
+    'Thuỷ tinh': ['Thuỷ tinh trắng', 'Thuỷ tinh màu', 'Kính tấm', 'Khác'],
+    'Vật liệu xây dựng': ['Bê tông', 'Gạch', 'Đá', 'Gỗ xây dựng', 'Khác'],
+    'Phụ phẩm nông nghiệp': ['Trấu', 'Rơm rạ', 'Bã mía', 'Xơ dừa', 'Vỏ cà phê', 'Khác'],
+    'Rác điện tử': ['Bo mạch', 'Dây cáp', 'Pin', 'Thiết bị nguyên chiếc', 'Khác'],
+    'Vải dệt may': ['Cotton', 'Polyester', 'Vải pha', 'Vải vụn', 'Khác'],
+    'Vật liệu khác': ['Khác'],
+  };
+  static PLASTIC_FORMS = ['Hạt', 'Mảnh', 'Kiện', 'Cuộn', 'Phế phẩm'];
+  static FORMS = ['Rời', 'Kiện', 'Mảnh vụn', 'Nguyên chiếc', 'Phế phẩm'];
+  static PROVINCES = ['TP. Hà Nội', 'TP. Huế', 'Lai Châu', 'Điện Biên', 'Sơn La', 'Lạng Sơn', 'Quảng Ninh', 'Thanh Hoá', 'Nghệ An', 'Hà Tĩnh', 'Cao Bằng', 'Tuyên Quang', 'Lào Cai', 'Thái Nguyên', 'Phú Thọ', 'Bắc Ninh', 'Hưng Yên', 'TP. Hải Phòng', 'Ninh Bình', 'Quảng Trị', 'TP. Đà Nẵng', 'Quảng Ngãi', 'Gia Lai', 'Khánh Hoà', 'Lâm Đồng', 'Đắk Lắk', 'TP. Hồ Chí Minh', 'Đồng Nai', 'Tây Ninh', 'TP. Cần Thơ', 'Vĩnh Long', 'Đồng Tháp', 'Cà Mau', 'An Giang'];
+  static ACCTS = {
+    biz: { name: 'Công ty TNHH Nhựa Tái Sinh Minh Phát', company: 'Nhựa Tái Sinh Minh Phát', short: 'Ngọc Lan', initials: 'NL', badge: 'Doanh nghiệp đã xác minh', tone: 'success', contact: 'Trần Thị Ngọc Lan', phone: '0909123456' },
+    per: { name: 'Nguyễn Văn Hùng', company: 'Nguyễn Văn Hùng', short: 'Văn Hùng', initials: 'VH', badge: 'Cá nhân', tone: 'neutral', contact: 'Nguyễn Văn Hùng', phone: '0918234567' },
+  };
+  static FIELDS = ['cat', 'title', 'origin', 'type', 'source', 'impurity', 'moisture', 'mfi', 'packing', 'avail', 'minKg', 'price', 'images', 'desc', 'province', 'address', 'contactName', 'phone'];
+  static GROUPS = [['g1', 'Danh mục và tiêu đề', ['cat', 'title', 'origin']], ['g2', 'Thông số vật liệu', ['type', 'source', 'impurity', 'moisture', 'mfi', 'packing']], ['g3', 'Số lượng và giá', ['avail', 'minKg', 'price']], ['g4', 'Hình ảnh và mô tả', ['images', 'desc']], ['g5', 'Địa điểm', ['province', 'address']], ['g6', 'Người liên hệ', ['contactName', 'phone']]];
+  static BLANK = { cat: '', title: '', origin: '', type: '', form: '', source: '', color: '', impurity: '', moisture: '', mfi: '', packing: '', unit: 'kg', avail: '', minKg: '', price: '', stock: 'in', images: [], desc: '', province: '', address: '', phoneChoice: 'saved', phone: '' };
+  static SAMPLE_A = { cat: 'Nhựa', title: 'Hạt nhựa PP tái sinh màu đen', origin: 'post-ind', type: 'PP', form: 'Hạt', source: 'Phế phẩm sản xuất bao bì', color: 'Đen', impurity: '0,5', moisture: '0,3', mfi: '12', packing: 'Bao 25 kg', unit: 'kg', avail: '20000', minKg: '500', price: '25000', stock: 'in', images: [{ id: 'i1', src: 'assets/plastic.webp', name: 'Hạt nhựa PP' }], desc: '', province: 'TP. Hồ Chí Minh', address: 'Lô B5, KCN Sóng Thần, Phường Dĩ An', phoneChoice: 'saved', phone: '' };
+  static SAMPLE_B = { cat: 'Nhựa', title: 'Vỏ chai PET đã qua sử dụng', origin: 'post-con', type: 'PET', form: 'Kiện', source: 'Thu gom từ quán ăn, khu dân cư', color: 'Trong, xanh lá', impurity: '', moisture: '', mfi: '', packing: 'Bao tải 20–25 kg', unit: 'kg', avail: '250', minKg: '50', price: '9000', stock: 'in', images: [{ id: 'i1', src: 'assets/plastic.webp', name: 'Vỏ chai PET' }], desc: '', province: 'TP. Hồ Chí Minh', address: 'Hẻm 45 Lê Văn Thọ, Phường Thông Tây Hội', phoneChoice: 'saved', phone: '' };
+  scrollRef = React.createRef();
+  refs = Object.fromEntries([...Component.FIELDS, 'g1', 'g2', 'g3', 'g4', 'g5', 'g6'].map((k) => [k, React.createRef()]));
+  frame() { const k = String(this.__P.khung ?? 'A – Doanh nghiệp'); return k[0] || 'A'; }
+  init() {
+    const fr = this.frame(), per = fr === 'B', C = Component;
+    const acct = per ? C.ACCTS.per : C.ACCTS.biz;
+    const base = fr === 'B' ? C.SAMPLE_B : C.SAMPLE_A;
+    const data = { ...C.BLANK, ...base, images: base.images.map((i) => ({ ...i })), contactName: acct.contact };
+    if (fr === 'A') data.minKg = '0';
+    if (fr === 'D') data.desc = 'Hạt nhựa PP tái sinh màu đen, tạo hạt từ phế phẩm sản xuất bao bì dệt PP. Hàng có sẵn tại kho Sóng Thần, nhận lấy mẫu 2 kg trước khi đặt lô lớn. Xe tải đến 15 tấn vào được kho.';
+    const touched = fr === 'A' ? { minKg: true } : fr === 'B' ? { avail: true } : {};
+    return { ...data, touched, tried: false, phase: fr === 'C' ? 'done' : 'form', hoverCat: null, dragId: null, overId: null, zoneOver: false, uploadMsg: '', confirmRemove: false, removed: false, toast: null };
+  }
+  state = this.init();
+  componentDidUpdate(__raw) { const prev = this.__ov(__raw); if (prev.khung !== this.__P.khung) { this.setState(this.init()); if (this.scrollRef.current) this.scrollRef.current.scrollTop = 0; } }
+  componentWillUnmount() { clearTimeout(this.tt); clearTimeout(this.st); }
+  flash(t) { clearTimeout(this.tt); this.setState({ toast: t }); this.tt = setTimeout(() => this.setState({ toast: null }), 2600); }
+  num(v) { let s = String(v ?? '').trim(); if (!s) return NaN; if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.'); else if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, ''); return Number(s); }
+  f(n, d) { return Number(n).toLocaleString('vi-VN', { maximumFractionDigits: d ?? 2 }); }
+  errors() {
+    const s = this.state, per = this.frame() === 'B', e = {}, n = (v) => this.num(v);
+    if (!s.cat) e.cat = 'Chọn danh mục.';
+    if (!s.title.trim()) e.title = 'Nhập tiêu đề tin.'; else if (s.title.length > 120) e.title = 'Tiêu đề tối đa 120 ký tự.';
+    if (!s.origin) e.origin = 'Chọn nguồn gốc.';
+    if (s.cat) {
+      if (!s.type) e.type = 'Chọn loại vật liệu.';
+      if (!s.source.trim()) e.source = 'Nhập nguồn phát sinh.';
+      if (!s.packing.trim()) e.packing = 'Nhập quy cách đóng gói.';
+      ['impurity', 'moisture'].forEach((k) => { if (String(s[k]).trim()) { const v = n(s[k]); if (!isFinite(v) || v < 0 || v > 100) e[k] = 'Nhập số từ 0 đến 100.'; } });
+      if (s.cat === 'Nhựa' && String(s.mfi).trim()) { const v = n(s.mfi); if (!isFinite(v) || v <= 0) e.mfi = 'Nhập số lớn hơn 0.'; }
+    }
+    const a = n(s.avail), aKg = s.unit === 'tấn' ? a * 1000 : a;
+    if (!isFinite(a) || a <= 0) e.avail = 'Nhập khối lượng lớn hơn 0.'; else if (per && aKg > 200) e.avail = 'Khối lượng tối đa cho tài khoản cá nhân là 200 kg';
+    const m = n(s.minKg);
+    if (!isFinite(m) || m < 1) e.minKg = 'Mua tối thiểu phải từ 1 kg'; else if (isFinite(aKg) && aKg > 0 && m > aKg) e.minKg = 'Mua tối thiểu không vượt quá khối lượng sẵn có.';
+    const p = n(s.price); if (!isFinite(p) || p <= 0) e.price = 'Nhập đơn giá lớn hơn 0.';
+    if (!s.images.length) e.images = 'Thêm ít nhất 1 ảnh.';
+    if (s.desc.length > 3000) e.desc = 'Mô tả tối đa 3.000 ký tự.';
+    if (!s.province) e.province = 'Chọn tỉnh/thành.';
+    if (!s.address.trim()) e.address = 'Nhập địa chỉ kho chi tiết.';
+    if (!s.contactName.trim()) e.contactName = 'Nhập tên người liên hệ.';
+    if (s.phoneChoice === 'other' && !/^0\d{9}$/.test(s.phone)) e.phone = 'Số điện thoại gồm 10 số, bắt đầu bằng 0.';
+    return e;
+  }
+  scrollTo(el) { const sc = this.scrollRef.current; if (sc && el) sc.scrollTo({ top: Math.max(0, sc.scrollTop + el.getBoundingClientRect().top - sc.getBoundingClientRect().top - 104), behavior: 'smooth' }); }
+  set(k, v) { this.setState((st) => ({ [k]: v, touched: { ...st.touched, [k]: true } })); }
+  addFiles(list) {
+    const files = Array.from(list || []); if (!files.length) return;
+    const cur = this.state.images; let msg = ''; const add = [];
+    for (const fl of files) {
+      if (!/^image\/(jpeg|png)$/.test(fl.type)) { msg = 'Ảnh "' + fl.name + '" không đúng định dạng JPG, PNG.'; continue; }
+      if (fl.size > 5 * 1024 * 1024) { msg = 'Ảnh "' + fl.name + '" vượt quá 5 MB.'; continue; }
+      if (cur.length + add.length >= 10) { msg = 'Tối đa 10 ảnh mỗi tin.'; break; }
+      add.push({ id: 'u' + Date.now() + Math.random().toString(36).slice(2, 6), src: URL.createObjectURL(fl), name: fl.name });
+    }
+    this.setState((st) => ({ images: [...st.images, ...add], uploadMsg: msg, zoneOver: false, touched: { ...st.touched, images: true } }));
+  }
+  submit = () => {
+    if (this.state.phase !== 'form' || this.state.removed) return;
+    const e = this.errors();
+    const first = Component.FIELDS.find((k) => e[k]);
+    if (first) { this.setState({ tried: true }); this.scrollTo(this.refs[first].current || this.refs.g1.current); return; }
+    if (this.frame() === 'D') { this.setState({ phase: 'sending' }); this.st = setTimeout(() => { this.setState({ phase: 'form', touched: {} }); this.flash('Đã lưu thay đổi'); }, 1000); return; }
+    this.setState({ phase: 'sending' });
+    this.st = setTimeout(() => { this.setState({ phase: 'done' }); if (this.scrollRef.current) this.scrollRef.current.scrollTop = 0; }, 1200);
+  };
+  renderVals() {
+    const s = this.state, C = Component, fr = this.frame(), per = fr === 'B', edit = fr === 'D';
+    const acct = per ? C.ACCTS.per : C.ACCTS.biz;
+    const e = this.errors();
+    const show = (k) => !!e[k] && (s.tried || !!s.touched[k]);
+    const okB = '1px solid var(--color-border-strong)', errB = '1.5px solid var(--color-danger)';
+    const fld = (k, getter) => ({ value: getter ? getter() : s[k], onChange: (ev) => this.set(k, ev.target.value), hasErr: show(k), err: e[k] || '', border: show(k) ? errB : okB, ring: show(k) ? '0 0 0 2px var(--color-danger)' : 'none' });
+    const f = {}; ['cat', 'title', 'origin', 'type', 'form', 'source', 'color', 'impurity', 'moisture', 'mfi', 'packing', 'avail', 'minKg', 'price', 'images', 'desc', 'province', 'address', 'contactName'].forEach((k) => { f[k] = fld(k); });
+    f.phone = { ...fld('phone'), onChange: (ev) => this.set('phone', ev.target.value.replace(/\D/g, '').slice(0, 10)) };
+    const catObj = C.CATS.find((c) => c.label === s.cat);
+    const chip = (on) => ({ border: on ? '1px solid var(--color-action-primary)' : '1px solid var(--color-border-strong)', bg: on ? 'var(--color-bg-brand-soft)' : 'var(--color-bg-page)', color: on ? 'var(--color-text-brand)' : 'var(--color-text-body)' });
+    const price = this.num(s.price), avail = this.num(s.avail);
+    const phoneNow = s.phoneChoice === 'other' && /^0\d{9}$/.test(s.phone) ? s.phone : acct.phone;
+    const gStatus = C.GROUPS.map(([id, label, keys]) => { const missing = id === 'g2' && !s.cat ? true : keys.some((k) => e[k]); return { id, label, missing }; });
+    const errCount = C.FIELDS.filter((k) => e[k]).length;
+    const phoneFmt = (p) => p.slice(0, 4) + ' ' + p.slice(4, 7) + ' ' + p.slice(7);
+    return {
+      screenLabel: { A: 'Đăng tin – Doanh nghiệp', B: 'Đăng tin – Cá nhân', C: 'Đăng tin thành công', D: 'Sửa tin' }[fr] || 'Đăng tin',
+      scrollRef: this.scrollRef, refs: this.refs, acct,
+      pageTitle: edit ? 'Sửa tin' : 'Đăng nguồn vật liệu',
+      pageSub: edit ? 'Thay đổi hiển thị ngay sau khi lưu. Tin sai thông tin sẽ bị quản trị viên gỡ.' : 'Tin hiển thị ngay sau khi đăng. Tin sai thông tin sẽ bị quản trị viên gỡ.',
+      isEdit: edit, isPersonal: per, isForm: s.phase !== 'done', isDone: s.phase === 'done',
+      sending: s.phase === 'sending', formOpacity: s.phase === 'sending' ? 0.55 : 1,
+      f,
+      cats: C.CATS.map((c) => {
+        const locked = per && c.bizOnly, on = s.cat === c.label;
+        return { label: c.label, d1: c.d[0], d2: c.d[1], d3: c.d[2], d4: c.d[3], color: c.color, tint: 'color-mix(in oklch, ' + c.color + ' 12%, white)', on, locked,
+          border: on ? '2px solid var(--color-action-primary)' : show('cat') ? '1px solid var(--color-danger)' : '1px solid var(--color-border-default)',
+          bg: on ? 'var(--color-bg-brand-soft)' : locked ? 'var(--color-bg-subtle)' : 'var(--color-bg-page)', opacity: locked ? 0.5 : 1, cursor: locked ? 'not-allowed' : 'pointer',
+          showTip: locked && s.hoverCat === c.label,
+          enter: () => locked && this.setState({ hoverCat: c.label }), leave: () => this.setState({ hoverCat: null }),
+          pick: () => { if (locked) { this.setState({ hoverCat: c.label }); return; } if (s.cat !== c.label) this.setState((st) => ({ cat: c.label, type: '', form: '', touched: { ...st.touched, cat: true } })); } };
+      }),
+      titleCount: s.title.length, titleCountColor: s.title.length > 120 ? 'var(--color-danger)' : 'var(--color-text-muted)',
+      origins: [['post-ind', 'Sau công nghiệp'], ['post-con', 'Sau tiêu dùng']].map(([k, label]) => ({ label, on: s.origin === k, ...chip(s.origin === k), border: show('origin') ? '1px solid var(--color-danger)' : chip(s.origin === k).border, pick: () => this.set('origin', k) })),
+      hasCat: !!s.cat, noCat: !s.cat, catLabel: s.cat, isPlastic: s.cat === 'Nhựa',
+      typeOptions: [{ value: '', label: 'Chọn loại vật liệu' }, ...(C.TYPES[s.cat] || []).map((t) => ({ value: t, label: t }))],
+      formOptions: [{ value: '', label: 'Chọn dạng' }, ...(s.cat === 'Nhựa' ? C.PLASTIC_FORMS : C.FORMS).map((t) => ({ value: t, label: t }))],
+      unit: s.unit,
+      units: ['kg', 'tấn'].map((u) => ({ label: u, on: s.unit === u, bg: s.unit === u ? 'var(--color-bg-page)' : 'transparent', color: s.unit === u ? 'var(--color-text-heading)' : 'var(--color-text-muted)', shadow: s.unit === u ? 'var(--shadow-card)' : 'none', pick: () => this.setState({ unit: u }) })),
+      hasConvert: isFinite(price) && price > 0,
+      convertText: s.unit === 'kg' ? '≈ ' + this.f(price * 1000, 0) + ' VNĐ/tấn' : '≈ ' + this.f(price / 1000, 0) + ' VNĐ/kg',
+      stocks: [['in', 'Còn hàng'], ['out', 'Hết hàng']].map(([k, label]) => ({ label, on: s.stock === k, ...chip(s.stock === k), pick: () => this.setState({ stock: k }) })),
+      imgCount: s.images.length, hasImages: s.images.length > 0, canAddImg: s.images.length < 10,
+      images: s.images.map((im, i) => ({ ...im, isCover: i === 0,
+        border: s.overId === im.id && s.dragId && s.dragId !== im.id ? '2px solid var(--color-action-primary)' : '1px solid var(--color-border-default)', opacity: s.dragId === im.id ? 0.4 : 1,
+        dragStart: (ev) => { try { ev.dataTransfer.effectAllowed = 'move'; ev.dataTransfer.setData('text/plain', im.id); } catch (x) {} this.setState({ dragId: im.id }); },
+        dragOver: (ev) => { if (!this.state.dragId) return; ev.preventDefault(); if (this.state.overId !== im.id) this.setState({ overId: im.id }); },
+        drop: (ev) => { ev.preventDefault(); ev.stopPropagation(); const from = this.state.dragId; if (!from || from === im.id) { this.setState({ dragId: null, overId: null }); return; } this.setState((st) => { const arr = [...st.images]; const a = arr.findIndex((x) => x.id === from), b = arr.findIndex((x) => x.id === im.id); const [mv] = arr.splice(a, 1); arr.splice(b, 0, mv); return { images: arr, dragId: null, overId: null }; }); },
+        dragEnd: () => this.setState({ dragId: null, overId: null }),
+        remove: () => this.setState((st) => ({ images: st.images.filter((x) => x.id !== im.id), touched: { ...st.touched, images: true }, uploadMsg: '' })) })),
+      zoneBorder: s.zoneOver ? '2px dashed var(--color-action-primary)' : show('images') ? '1.5px dashed var(--color-danger)' : '1.5px dashed var(--color-border-strong)',
+      zoneBg: s.zoneOver ? 'var(--color-bg-brand-soft)' : 'var(--color-bg-subtle)',
+      zoneOver: (ev) => { if (this.state.dragId) return; ev.preventDefault(); if (!this.state.zoneOver) this.setState({ zoneOver: true }); },
+      zoneLeave: () => this.setState({ zoneOver: false }),
+      zoneDrop: (ev) => { if (this.state.dragId) return; ev.preventDefault(); this.addFiles(ev.dataTransfer && ev.dataTransfer.files); },
+      pickFiles: (ev) => { this.addFiles(ev.target.files); ev.target.value = ''; },
+      hasUploadMsg: !!s.uploadMsg, uploadMsg: s.uploadMsg,
+      descCount: this.f(s.desc.length, 0), descCountColor: s.desc.length > 3000 ? 'var(--color-danger)' : 'var(--color-text-muted)',
+      provinceOptions: [{ value: '', label: 'Chọn tỉnh/thành' }, ...C.PROVINCES.map((p) => ({ value: p, label: p }))],
+      phones: [{ k: 'saved', label: phoneFmt(acct.phone), note: 'Số trong tài khoản' }, { k: 'other', label: 'Dùng số khác', note: '' }].map((p) => { const on = s.phoneChoice === p.k; return { ...p, on, hasNote: !!p.note, border: on ? '2px solid var(--color-action-primary)' : '1px solid var(--color-border-strong)', bg: on ? 'var(--color-bg-brand-soft)' : 'var(--color-bg-page)', dot: on ? '5px solid var(--color-action-primary)' : '1.5px solid var(--color-border-strong)', pick: () => this.setState({ phoneChoice: p.k }) }; }),
+      isOtherPhone: s.phoneChoice === 'other', maskedPhone: phoneNow.slice(0, 4) + ' ••• •••',
+      previewItem: { id: 'preview', title: s.title.trim() || 'Tiêu đề tin', cat: s.cat || 'Danh mục', catKey: catObj ? catObj.key : null, catColor: catObj && !catObj.key && catObj.label !== 'Vật liệu khác' ? catObj.color : undefined, qty: isFinite(avail) && avail > 0 ? avail : 0, unit: s.unit, price: isFinite(price) && price > 0 ? price : 0, company: acct.company, region: s.province || 'Tỉnh/thành', contact: s.contactName.trim() || acct.contact, phone: phoneNow, img: s.images[0] ? s.images[0].src : null },
+      checklist: gStatus.map((g) => ({ label: g.label, missing: g.missing, mark: g.missing ? '!' : '✓', bg: g.missing ? 'var(--color-warning-soft)' : 'var(--color-success-soft)', color: g.missing ? 'var(--color-warning)' : 'var(--color-success)', go: () => this.scrollTo(this.refs[g.id].current) })),
+      doneGroups: gStatus.filter((g) => !g.missing).length,
+      showErrSummary: s.tried && errCount > 0, errSummary: 'Còn ' + errCount + ' mục cần sửa',
+      submitLabel: s.phase === 'sending' ? (edit ? 'Đang lưu…' : 'Đang đăng…') : (edit ? 'Lưu thay đổi' : 'Đăng tin'),
+      submitDisabled: s.phase === 'sending' || s.removed, submit: this.submit,
+      cancel: () => { window.location.href = 'Nguon vat lieu - Ban chinh.dc.html'; },
+      confirmRemove: s.confirmRemove && !s.removed, removed: s.removed,
+      askRemove: () => !s.removed && this.setState({ confirmRemove: true }), cancelRemove: () => this.setState({ confirmRemove: false }),
+      doRemove: () => { this.setState({ confirmRemove: false, removed: true }); this.flash('Đã gỡ tin'); },
+      goView: () => { window.location.href = 'Chi tiet san pham - Ban chinh.dc.html'; },
+      newPost: () => { this.setState({ ...C.BLANK, images: [], contactName: acct.contact, touched: {}, tried: false, phase: 'form', uploadMsg: '' }); if (this.scrollRef.current) this.scrollRef.current.scrollTop = 0; },
+      goManage: () => this.flash('Trang Quản lý tin đăng chưa có trong bản mẫu'),
+      toast: !!s.toast, toastText: s.toast || '',
+    };
+  }
+}
+</script>
+</body>
+</html>

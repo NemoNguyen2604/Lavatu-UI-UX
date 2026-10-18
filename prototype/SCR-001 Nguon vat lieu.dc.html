@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta name="design_doc_mode" content="canvas">
+  <link rel="stylesheet" href="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/styles.css">
+  <script src="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/_ds_bundle.js"></script>
+  <style>body{margin:0;background:#e2e8f0}a{color:#0f6554}a:hover{color:#074638}</style>
+</helmet>
+<section data-screen-label="Lượt 1" style="padding:80px;display:flex;flex-direction:column;gap:64px;width:max-content;font-family:var(--font-sans)">
+  <header style="display:flex;flex-direction:column;gap:8px;max-width:1200px">
+    <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-muted)">SCR-001 · MENU SẢN PHẨM · LƯỢT 1</span>
+    <h1 style="margin:0;font:var(--type-display);letter-spacing:var(--tracking-display);color:var(--color-text-heading)">Nguồn vật liệu — thiết kế lại</h1>
+    <p style="margin:0;font:var(--type-body-lg);color:var(--color-text-body)">Hai phương án cho khối người liên hệ trên thẻ sản phẩm (<a href="#1a">1a</a>, <a href="#1b">1b</a>). Phần còn lại của trang dùng chung. Mỗi khung desktop và mobile là prototype bấm được: Hiện số, đăng nhập, Sao chép, Zalo, bộ lọc, chuyển dạng xem, phân trang.</p>
+  </header>
+
+  <div style="display:flex;gap:96px;align-items:flex-start">
+    <div id="1a" style="display:flex;flex-direction:column;gap:40px;width:1440px">
+      <div style="display:flex;align-items:flex-start;gap:16px">
+        <span style="flex-shrink:0;height:40px;padding:0 14px;border-radius:var(--radius-md);background:var(--color-bg-brand);color:var(--color-text-inverse);font:var(--type-label-lg);display:flex;align-items:center">1a</span>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="display:flex;align-items:center;gap:12px;font:var(--type-h3);color:var(--color-text-heading)">Phương án A — Thẻ người liên hệ<x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="success" hint-size="80px,24px">Đã chọn</x-import></span>
+          <span style="font:var(--type-body-md);color:var(--color-text-body);max-width:1100px">Khối riêng nền slate-50, có viền mảnh: chữ cái đầu, nhãn "Người liên hệ" và tên; hàng dưới là số đã che kèm nút Hiện số. Tách bạch rõ với tên đơn vị đăng tin ở phía trên. Khi đã hiện số: số đầy đủ (bấm để gọi), nút Sao chép và Zalo.</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px;padding:32px;border-radius:var(--radius-xl);background:var(--color-bg-page)">
+        <span style="font:var(--type-h4);color:var(--color-text-heading)">Trạng thái khối liên hệ — dạng lưới</span>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px;align-items:stretch">
+          <sc-for list="{{ statesA }}" as="st" hint-placeholder-count="5">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font:var(--type-label-sm);color:var(--color-text-muted)">{{ st.label }}</span>
+              <dc-import name="Product Card" item="{{ st.item }}" cstate="{{ st.cstate }}" variant="A" layout="grid" hint-size="100%,560px"></dc-import>
+            </div>
+          </sc-for>
+        </div>
+        <span style="font:var(--type-h4);color:var(--color-text-heading);margin-top:12px">Dạng danh sách — đã hiện số</span>
+        <dc-import name="Product Card" item="{{ longItem }}" cstate="revealed" variant="A" layout="list" hint-size="100%,220px"></dc-import>
+        <span style="font:var(--type-h4);color:var(--color-text-heading);margin-top:12px">Mobile (vùng bấm 48px) — lưới số đang che · danh sách đã hiện số · lỗi</span>
+        <div style="display:flex;gap:20px;align-items:flex-start">
+          <div style="width:358px"><dc-import name="Product Card" item="{{ baseItem }}" cstate="masked" variant="A" layout="grid" mobile="{{ true }}" hint-size="100%,580px"></dc-import></div>
+          <div style="width:358px"><dc-import name="Product Card" item="{{ longItem }}" cstate="revealed" variant="A" layout="mlist" hint-size="100%,340px"></dc-import></div>
+          <div style="width:358px"><dc-import name="Product Card" item="{{ baseItem }}" cstate="error" variant="A" layout="mlist" hint-size="100%,340px"></dc-import></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Desktop 1440 — prototype (chưa đăng nhập)</span>
+        <div style="width:1440px;height:900px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-raised)">
+          <dc-import name="Nguon vat lieu Page" device="desktop" variant="A" reveal-error="{{ revealError }}" style="width:1440px;height:900px" hint-size="1440px,900px"></dc-import>
+        </div>
+      </div>
+      <div style="display:flex;gap:40px;align-items:flex-start">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Mobile 390 — số đang che</span>
+          <div style="width:390px;height:844px;border-radius:32px;overflow:hidden;box-shadow:var(--shadow-raised);border:8px solid var(--color-text-heading)">
+            <dc-import name="Nguon vat lieu Page" device="mobile" variant="A" init-scroll="470" reveal-error="{{ revealError }}" style="width:374px;height:828px" hint-size="374px,828px"></dc-import>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Mobile — popup đăng nhập</span>
+          <div style="width:390px;height:844px;border-radius:32px;overflow:hidden;box-shadow:var(--shadow-raised);border:8px solid var(--color-text-heading)">
+            <dc-import name="Nguon vat lieu Page" device="mobile" variant="A" init-scroll="470" init-login="p1" style="width:374px;height:828px" hint-size="374px,828px"></dc-import>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Mobile — đã hiện số + toast</span>
+          <div style="width:390px;height:844px;border-radius:32px;overflow:hidden;box-shadow:var(--shadow-raised);border:8px solid var(--color-text-heading)">
+            <dc-import name="Nguon vat lieu Page" device="mobile" variant="A" logged-in="true" init-revealed="p1" init-toast="true" init-scroll="470" style="width:374px;height:828px" hint-size="374px,828px"></dc-import>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="1b" style="display:flex;flex-direction:column;gap:40px;width:1440px">
+      <div style="display:flex;align-items:flex-start;gap:16px">
+        <span style="flex-shrink:0;height:40px;padding:0 14px;border-radius:var(--radius-md);background:var(--color-bg-brand);color:var(--color-text-inverse);font:var(--type-label-lg);display:flex;align-items:center">1b</span>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <span style="font:var(--type-h3);color:var(--color-text-heading)">Phương án B — Thanh hành động</span>
+          <span style="font:var(--type-body-md);color:var(--color-text-body);max-width:1100px">Tên người liên hệ nằm trên một dòng có icon. Số đã che nằm luôn trong một nút rộng hết thẻ, nên vùng bấm lớn và thẻ thấp hơn. Khi đã hiện số, nút chuyển thành thanh nền xanh nhạt: số (bấm để gọi), Sao chép và Zalo, trong đó Zalo là nút chính.</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px;padding:32px;border-radius:var(--radius-xl);background:var(--color-bg-page)">
+        <span style="font:var(--type-h4);color:var(--color-text-heading)">Trạng thái khối liên hệ — dạng lưới</span>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px;align-items:stretch">
+          <sc-for list="{{ statesA }}" as="st" hint-placeholder-count="5">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <span style="font:var(--type-label-sm);color:var(--color-text-muted)">{{ st.label }}</span>
+              <dc-import name="Product Card" item="{{ st.item }}" cstate="{{ st.cstate }}" variant="B" layout="grid" hint-size="100%,540px"></dc-import>
+            </div>
+          </sc-for>
+        </div>
+        <span style="font:var(--type-h4);color:var(--color-text-heading);margin-top:12px">Dạng danh sách — đã hiện số</span>
+        <dc-import name="Product Card" item="{{ longItem }}" cstate="revealed" variant="B" layout="list" hint-size="100%,220px"></dc-import>
+        <span style="font:var(--type-h4);color:var(--color-text-heading);margin-top:12px">Mobile (vùng bấm 48px) — lưới số đang che · danh sách đã hiện số · lỗi</span>
+        <div style="display:flex;gap:20px;align-items:flex-start">
+          <div style="width:358px"><dc-import name="Product Card" item="{{ baseItem }}" cstate="masked" variant="B" layout="grid" mobile="{{ true }}" hint-size="100%,560px"></dc-import></div>
+          <div style="width:358px"><dc-import name="Product Card" item="{{ longItem }}" cstate="revealed" variant="B" layout="mlist" hint-size="100%,320px"></dc-import></div>
+          <div style="width:358px"><dc-import name="Product Card" item="{{ baseItem }}" cstate="error" variant="B" layout="mlist" hint-size="100%,320px"></dc-import></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Desktop 1440 — prototype (chưa đăng nhập)</span>
+        <div style="width:1440px;height:900px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-raised)">
+          <dc-import name="Nguon vat lieu Page" device="desktop" variant="B" reveal-error="{{ revealError }}" style="width:1440px;height:900px" hint-size="1440px,900px"></dc-import>
+        </div>
+      </div>
+      <div style="display:flex;gap:40px;align-items:flex-start">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Mobile 390 — số đang che</span>
+          <div style="width:390px;height:844px;border-radius:32px;overflow:hidden;box-shadow:var(--shadow-raised);border:8px solid var(--color-text-heading)">
+            <dc-import name="Nguon vat lieu Page" device="mobile" variant="B" init-scroll="470" reveal-error="{{ revealError }}" style="width:374px;height:828px" hint-size="374px,828px"></dc-import>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Mobile — popup đăng nhập</span>
+          <div style="width:390px;height:844px;border-radius:32px;overflow:hidden;box-shadow:var(--shadow-raised);border:8px solid var(--color-text-heading)">
+            <dc-import name="Nguon vat lieu Page" device="mobile" variant="B" init-scroll="470" init-login="p1" style="width:374px;height:828px" hint-size="374px,828px"></dc-import>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Mobile — đã hiện số + toast</span>
+          <div style="width:390px;height:844px;border-radius:32px;overflow:hidden;box-shadow:var(--shadow-raised);border:8px solid var(--color-text-heading)">
+            <dc-import name="Nguon vat lieu Page" device="mobile" variant="B" logged-in="true" init-revealed="p1" init-toast="true" init-scroll="470" style="width:374px;height:828px" hint-size="374px,828px"></dc-import>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:32px">
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font:var(--type-h3);color:var(--color-text-heading)">Chung cho cả hai phương án</span>
+      <span style="font:var(--type-body-md);color:var(--color-text-body)">Trạng thái trang, bottom sheet bộ lọc trên mobile và toàn trang desktop. Các khung này dùng khối liên hệ của phương án A.</span>
+    </div>
+    <div style="display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;width:2976px">
+      <sc-for list="{{ pageStates }}" as="ps" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font:var(--type-label-lg);color:var(--color-text-heading)">{{ ps.label }}</span>
+          <div style="width:1440px;height:900px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-raised)">
+            <dc-import name="Nguon vat lieu Page" device="desktop" variant="A" page-state="{{ ps.state }}" init-cats="{{ ps.cats }}" init-login="{{ ps.login }}" init-scroll="380" style="width:1440px;height:900px" hint-size="1440px,900px"></dc-import>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;gap:40px;align-items:flex-start">
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Mobile — bottom sheet Bộ lọc</span>
+        <div style="width:390px;height:844px;border-radius:32px;overflow:hidden;box-shadow:var(--shadow-raised);border:8px solid var(--color-text-heading)">
+          <dc-import name="Nguon vat lieu Page" device="mobile" variant="A" init-sheet="true" init-cats="Nhựa" init-scroll="300" style="width:374px;height:828px" hint-size="374px,828px"></dc-import>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Mobile — dạng danh sách</span>
+        <div style="width:390px;height:844px;border-radius:32px;overflow:hidden;box-shadow:var(--shadow-raised);border:8px solid var(--color-text-heading)">
+          <dc-import name="Nguon vat lieu Page" device="mobile" variant="A" init-view="list" init-scroll="470" style="width:374px;height:828px" hint-size="374px,828px"></dc-import>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Mobile — đang tải</span>
+        <div style="width:390px;height:844px;border-radius:32px;overflow:hidden;box-shadow:var(--shadow-raised);border:8px solid var(--color-text-heading)">
+          <dc-import name="Nguon vat lieu Page" device="mobile" variant="A" page-state="loading" init-scroll="470" style="width:374px;height:828px" hint-size="374px,828px"></dc-import>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Mobile — không có kết quả</span>
+        <div style="width:390px;height:844px;border-radius:32px;overflow:hidden;box-shadow:var(--shadow-raised);border:8px solid var(--color-text-heading)">
+          <dc-import name="Nguon vat lieu Page" device="mobile" variant="A" page-state="empty" init-scroll="470" style="width:374px;height:828px" hint-size="374px,828px"></dc-import>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Toàn trang desktop 1440</span>
+      <div style="width:1440px;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-raised)">
+        <dc-import name="Nguon vat lieu Page" device="desktop" variant="A" style="width:1440px" hint-size="1440px,2600px"></dc-import>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;width:2976px">
+    <sc-for list="{{ notes }}" as="n" hint-placeholder-count="4">
+      <div style="display:flex;flex-direction:column;gap:12px;padding:32px;border-radius:var(--radius-xl);background:var(--color-bg-page)">
+        <span style="font:var(--type-h4);color:var(--color-text-heading)">{{ n.title }}</span>
+        <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font:var(--type-body-sm);color:var(--color-text-body)">
+          <sc-for list="{{ n.items }}" as="li" hint-placeholder-count="5"><li style="text-wrap:pretty">{{ li }}</li></sc-for>
+        </ol>
+      </div>
+    </sc-for>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;revealError&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototype&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const baseItem = { id: 'p1', title: 'Vỏ chai PET đã ép kiện', cat: 'Nhựa', catKey: 'plastic', qty: 30000, unit: 'kg', price: 12000, company: 'Giải Pháp Xanh', region: 'Tỉnh Cà Mau', contact: 'Nguyễn Văn Minh', phone: '0909123456', img: 'assets/plastic.webp' };
+    const longItem = { id: 'p2', title: 'Phế liệu nhôm lon đã ép khối, sạch nhãn, không lẫn tạp chất, giao theo lô tại kho Bình Chánh', cat: 'Kim loại', catKey: 'metal', qty: 12, unit: 'tấn', price: 28500000, company: 'Kim Loại Phương Nam', region: 'TP. Hồ Chí Minh', contact: 'Trần Thị Hạnh', phone: '0912345678', img: 'assets/metal.webp' };
+    const paper = { id: 'p3', title: 'Giấy carton vụn OCC loại 1', cat: 'Giấy carton', catKey: 'paper', qty: 50, unit: 'tấn', price: 4200000, company: 'Bao Bì Tân Phú', region: 'Tỉnh Bình Dương', contact: 'Lê Quốc Bảo', phone: '0938456120', img: 'assets/paper.webp' };
+    const own = { id: 'p9', title: 'Pallet gỗ cũ đã qua sử dụng', cat: 'Vật liệu khác', catKey: null, qty: 2400, unit: 'kg', price: 3500, company: 'Kho Vận Hoàng Lan', region: 'Tỉnh Đồng Nai', contact: 'Hoàng Thị Lan', phone: '0971556203', img: null };
+    const glass = { id: 'p5', title: 'Kính vụn trắng từ dây chuyền sản xuất kính nổi', cat: 'Thuỷ tinh', catKey: null, qty: 20, unit: 'tấn', price: 1100000, company: 'Kính Đông Á', region: 'Tỉnh Bắc Ninh', contact: 'Đỗ Mạnh Hùng', phone: '0983112470', img: null };
+    return {
+      revealError: this.props.revealError === true || this.props.revealError === 'true',
+      baseItem, longItem,
+      statesA: [
+        { label: 'Số đang che · tên dài cắt 2 dòng', item: longItem, cstate: 'masked' },
+        { label: 'Đang tải (sau khi bấm Hiện số)', item: baseItem, cstate: 'loading' },
+        { label: 'Đã hiện số · Sao chép · Zalo', item: paper, cstate: 'revealed' },
+        { label: 'Lỗi lấy số', item: glass, cstate: 'error' },
+        { label: 'Người xem là chủ tin', item: own, cstate: 'own' },
+      ],
+      pageStates: [
+        { label: 'Desktop — đang tải (skeleton)', state: 'loading', cats: '', login: '' },
+        { label: 'Desktop — không có kết quả', state: 'empty', cats: 'Thuỷ tinh,Giấy carton', login: '' },
+        { label: 'Desktop — lỗi tải danh sách', state: 'error', cats: '', login: '' },
+        { label: 'Desktop — popup đăng nhập khi bấm Hiện số', state: 'data', cats: '', login: 'p1' },
+      ],
+      notes: [
+        { title: 'Thành phần chính', items: [
+          'Header xanh green/950 dính trên cùng; mobile thu gọn thành logo + Đăng nhập + menu.',
+          'Phần đầu trang: breadcrumb, H1 Newsreader, ô Tìm kiếm (Input/Search L), chip danh mục (FilterChip), 3 thẻ lối vào dạng ngang thấp (mobile cuộn ngang).',
+          'Bộ lọc: thẻ cố định 280px bên trái (desktop) hoặc bottom sheet (mobile). Gồm Checkbox, Select, Input, Button, Badge đếm bộ lọc.',
+          'Thanh kết quả: số kết quả, chuyển lưới/danh sách, Sắp xếp. Bên dưới là lưới 3 cột, dạng danh sách và Pagination.',
+          'Thẻ sản phẩm: ảnh, nhãn danh mục (CategoryBadge), tên tối đa 2 dòng, khối lượng, đơn giá, đơn vị đăng tin, khu vực, khối liên hệ, Xem chi tiết.',
+          'Banner người bán nền green/950 có 3 lợi ích; footer 4 cột.'
+        ] },
+        { title: 'Hành vi tương tác', items: [
+          'Chip và checkbox Danh mục là cùng một điều kiện và áp dụng ngay. Chọn Tất cả sẽ bỏ hết danh mục.',
+          'Đơn vị, Khối lượng, Khu vực chỉ áp dụng khi bấm Áp dụng lọc. Xoá tất cả đặt lại mọi điều kiện, kể cả từ khoá.',
+          'Hiện số khi chưa đăng nhập: mở popup. Bấm Đăng nhập thì quay lại trang và số của thẻ vừa bấm tự hiện. Bấm Để sau hoặc đóng popup thì số vẫn che.',
+          'Hiện số khi đã đăng nhập: nút chuyển sang Đang tải khoảng 0,9 giây, rồi hiện số đầy đủ kèm Sao chép và Zalo.',
+          'Sao chép: hiện toast "Đã sao chép số" trong 2,4 giây. Zalo: mở zalo.me/{số} ở tab mới.',
+          'Lỗi lấy số: thông báo nhỏ ngay trên thẻ, bấm "thử lại" để gọi lại. Bật Tweak "Giả lập lỗi" để xem: lần đầu lỗi, lần thử lại thành công.',
+          'Số đã hiện giữ nguyên khi đổi bộ lọc, sắp xếp, phân trang hay dạng xem, cho đến khi rời trang.'
+        ] },
+        { title: 'Giả định đã dùng', items: [
+          'Popup chuyển sang trang Đăng nhập kèm tham số quay lại (đường dẫn và id thẻ). Khi quay về, trang khôi phục vị trí cuộn rồi tự gọi lấy số. Trong prototype, bước đăng nhập được giả lập.',
+          'Mọi tài khoản đã đăng nhập (Personal và Business) đều xem được số.',
+          'Chủ tin xem tin của mình: số hiện sẵn, có Sao chép, không có Zalo.',
+          'Lọc khối lượng theo đơn vị đang chọn. Khi chọn "Tất cả đơn vị" thì tính theo kg, với 1 tấn = 1.000 kg.',
+          'Sắp xếp gồm: Mới nhất, Giá thấp đến cao, Giá cao đến thấp, Khối lượng lớn nhất. Giá được so theo VNĐ/kg sau khi quy đổi.',
+          '6 tin mỗi trang. Danh mục Thuỷ tinh, Vật liệu xây dựng, Vật liệu khác dùng nhãn slate trung tính và ô ảnh trống.'
+        ] },
+        { title: 'Câu hỏi cần chốt', items: [
+          'Chọn phương án 1a hay 1b cho khối liên hệ?',
+          'Có giới hạn số lần Hiện số mỗi ngày, hoặc báo cho chủ tin khi có người xem số không? Nếu có thì cần thêm trạng thái "vượt giới hạn".',
+          'Tin không có số điện thoại, hoặc chủ tin chọn ẩn số, thì khối liên hệ hiển thị thế nào?',
+          'Số tin mỗi trang và danh sách tuỳ chọn Sắp xếp chính xác là gì?',
+          'Trên mobile, Zalo mở bằng zalo.me hay deep link vào app? Số chưa có tài khoản Zalo thì xử lý ra sao?',
+          'Nhãn Kim loại (#7b7c86) và Giấy (#8990b1) chữ trắng chưa đạt tương phản 4.5:1. Giữ nguyên màu DS hay chỉnh tone đậm hơn?'
+        ] },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
