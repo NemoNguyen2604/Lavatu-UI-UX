@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lavatu – Sơ đồ giao diện</title>
+<style>
+  :root { --bg:#f5f7f6; --card:#fff; --ink:#10231c; --muted:#5b6b64; --line:#dfe6e2; --brand:#003527; --accent:#1f8a5b; --wait:#9aa7a1; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--ink); font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; }
+  header { background:var(--brand); color:#fff; padding:28px 16px; }
+  .wrap { max-width:1120px; margin:0 auto; padding:0 16px; }
+  header h1 { font-size:24px; }
+  header p { opacity:.8; margin-top:4px; }
+  main { padding:28px 0 48px; }
+  h2 { font-size:17px; margin:28px 0 12px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(250px,1fr)); gap:12px; }
+  a.card, div.card { display:block; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:14px 16px; text-decoration:none; color:inherit; }
+  a.card:hover { border-color:var(--accent); box-shadow:0 2px 10px rgba(0,53,39,.08); }
+  .code { font:600 12px/1 ui-monospace,Menlo,monospace; color:var(--accent); }
+  .name { font-weight:600; margin:6px 0 2px; }
+  .fn { color:var(--muted); font-size:13px; }
+  div.card { opacity:.6; border-style:dashed; }
+  div.card .code { color:var(--wait); }
+  .note { margin-top:28px; color:var(--muted); font-size:13px; }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>Lavatu – Sơ đồ giao diện</h1>
+  <p>Bản desktop 1440px. Quy tắc và validation làm theo Google Sheet tab DEV; thiết kế và Sheet khác nhau thì Sheet đúng.</p>
+</div></header>
+<main class="wrap">
+  <h2>Khám phá</h2>
+  <div class="grid">
+    <a class="card" href="screens/SCR-001_nguon-vat-lieu.html"><div class="code">SCR-001</div><div class="name">Nguồn vật liệu</div><div class="fn">FN-001, FN-002</div></a>
+    <a class="card" href="screens/SCR-002_chi-tiet-san-pham.html"><div class="code">SCR-002</div><div class="name">Chi tiết sản phẩm</div><div class="fn">FN-003</div></a>
+    <a class="card" href="screens/SCR-008a_nguoi-ban-doanh-nghiep.html"><div class="code">SCR-008a</div><div class="name">Thông tin người bán – Doanh nghiệp</div><div class="fn">FN-005</div></a>
+    <a class="card" href="screens/SCR-008b_nguoi-ban-ca-nhan.html"><div class="code">SCR-008b</div><div class="name">Thông tin người bán – Cá nhân</div><div class="fn">FN-005</div></a>
+    <div class="card"><div class="code">Đang thiết kế</div><div class="name">Landing</div><div class="fn">Khách chưa đăng nhập</div></div>
+    <div class="card"><div class="code">Đang thiết kế</div><div class="name">Trang chủ cá nhân</div><div class="fn">Sau đăng nhập</div></div>
+  </div>
+
+  <h2>Mua hàng</h2>
+  <div class="grid">
+    <a class="card" href="screens/SCR-003_gui-yeu-cau-mua.html"><div class="code">SCR-003</div><div class="name">Gửi yêu cầu mua</div><div class="fn">FN-004</div></a>
+    <a class="card" href="screens/SCR-004_gio-hang.html"><div class="code">SCR-004</div><div class="name">Giỏ hàng</div><div class="fn">FN-004</div></a>
+    <a class="card" href="screens/SCR-005_don-mua.html"><div class="code">SCR-005</div><div class="name">Đơn mua của tôi</div><div class="fn">FN-004</div></a>
+    <a class="card" href="screens/SCR-007_chi-tiet-don.html"><div class="code">SCR-007</div><div class="name">Chi tiết đơn</div><div class="fn">FN-004 (dùng chung mua/bán)</div></a>
+  </div>
+
+  <h2>Bán hàng</h2>
+  <div class="grid">
+    <a class="card" href="screens/SCR-009a_dang-tin-doanh-nghiep.html"><div class="code">SCR-009a</div><div class="name">Đăng tin – Doanh nghiệp</div><div class="fn">FN-006</div></a>
+    <a class="card" href="screens/SCR-009b_dang-tin-ca-nhan.html"><div class="code">SCR-009b</div><div class="name">Đăng tin – Cá nhân</div><div class="fn">FN-006</div></a>
+    <a class="card" href="screens/SCR-006_don-ban.html"><div class="code">SCR-006</div><div class="name">Đơn bán</div><div class="fn">FN-004</div></a>
+    <div class="card"><div class="code">Đang thiết kế</div><div class="name">Tin đăng của tôi</div><div class="fn">Quản lý tin</div></div>
+    <div class="card"><div class="code">Đang thiết kế</div><div class="name">Hồ sơ người bán</div><div class="fn">Chỉnh sửa hồ sơ</div></div>
+  </div>
+
+  <h2>Quản trị</h2>
+  <div class="grid">
+    <div class="card"><div class="code">Đang thiết kế</div><div class="name">Rà soát tin đăng</div><div class="fn">T-023</div></div>
+  </div>
+
+  <p class="note">Mỗi file là standalone HTML xuất từ Claude Design, mở được trực tiếp bằng trình duyệt (cần internet lần đầu để tải font/thư viện).</p>
+</main>
+</body>
+</html>
