@@ -41,10 +41,10 @@
       <button type="button" aria-label="Chọn ngôn ngữ" style="display:flex;align-items:center;gap:6px;height:36px;padding:0 8px;border:none;background:transparent;color:rgba(255,255,255,0.86);cursor:pointer;font:var(--type-label-md)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>VI</button>
       <a href="#" style="color:rgba(255,255,255,0.72);text-decoration:none;white-space:nowrap">Hỗ trợ</a>
       <sc-if value="{{ guest }}" hint-placeholder-val="{{ true }}"><a href="#" style="color:rgba(255,255,255,0.86);text-decoration:none;white-space:nowrap">Đăng kí</a></sc-if>
-      <a href="Gio hang - Ban chinh.dc.html" aria-label="Giỏ hàng, 4 sản phẩm" style="position:relative;width:40px;height:40px;flex-shrink:0;border-radius:var(--radius-full);background:rgba(255,255,255,0.12);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg><span style="position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;padding:0 4px;box-sizing:border-box;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-text-heading);font:var(--type-label-sm);font-size:11px;display:flex;align-items:center;justify-content:center">4</span></a>
+      <sc-if value="{{ showBuy }}" hint-placeholder-val="{{ true }}"><a href="Gio hang - Ban chinh.dc.html" aria-label="Giỏ hàng, 4 sản phẩm" style="position:relative;width:40px;height:40px;flex-shrink:0;border-radius:var(--radius-full);background:rgba(255,255,255,0.12);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg><span style="position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;padding:0 4px;box-sizing:border-box;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-text-heading);font:var(--type-label-sm);font-size:11px;display:flex;align-items:center;justify-content:center">4</span></a></sc-if>
       <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" hint-size="88px,40px">Tư vấn</x-import>
       <sc-if value="{{ guest }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="m" onClick="{{ goLogin }}" hint-size="104px,40px">Đăng nhập</x-import></sc-if>
-      <sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:var(--space-2);color:var(--color-text-inverse);font:var(--type-label-md)"><span style="width:36px;height:36px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">HL</span>Hoàng Lan</span></sc-if>
+      <sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:var(--space-2);color:var(--color-text-inverse);font:var(--type-label-md)"><span style="width:36px;height:36px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">{{ userInitials }}</span>{{ userName }}</span></sc-if>
     </div>
   </div>
 </header>
@@ -132,7 +132,7 @@
       </div>
 
       <div style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-3);animation:lv-rise 600ms ease-out 80ms both">
-        <div style="display:flex"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.CategoryBadge" material="plastic" hint-size="auto,28px">{{ p.cat }}</x-import></div>
+        <div style="display:flex"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.CategoryBadge" material="{{ p.catKey }}" hint-size="auto,28px">{{ p.cat }}</x-import></div>
         <h1 style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading);text-wrap:pretty">{{ p.title }}</h1>
         <div style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2) var(--space-5);font:var(--type-body-sm);color:var(--color-text-body)">
           <sc-if value="{{ inStock }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="success" dot="{{ true }}" hint-size="auto,24px">Còn hàng</x-import></sc-if>
@@ -204,15 +204,19 @@
           <span style="font:var(--type-body-md);color:var(--color-text-body)">Tạm tính</span>
           <span style="font:var(--type-h4);color:var(--color-text-heading)">{{ subtotal }}</span>
         </div>
+        <sc-if value="{{ showBuyOrOut }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+          <sc-if value="{{ showBuy }}" hint-placeholder-val="{{ true }}">
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)">
             <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" disabled="{{ outStock }}" onClick="{{ buy }}" hint-size="100%,48px">Gửi yêu cầu mua</x-import>
             <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" disabled="{{ outStock }}" onClick="{{ noop }}" hint-size="100%,48px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>Thêm vào giỏ</x-import>
           </div>
+          </sc-if>
           <sc-if value="{{ outStock }}" hint-placeholder-val="{{ false }}">
             <span style="display:flex;align-items:center;justify-content:center;gap:6px;font:var(--type-label-sm);color:var(--color-text-muted)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>Sản phẩm tạm hết hàng</span>
           </sc-if>
         </div>
+        </sc-if>
         <dc-import name="Contact Block" variant="A" cstate="{{ mainC }}" contact-name="{{ p.contact }}" phone="{{ p.phone }}" on-reveal="{{ revealMain }}" on-copy="{{ copied }}" on-retry="{{ revealMain }}" hint-size="100%,96px"></dc-import>
       </section>
 
@@ -331,7 +335,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;pageState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;data&quot;,&quot;loading&quot;,&quot;error&quot;,&quot;notfound&quot;],&quot;default&quot;:&quot;data&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Trạng thái&quot;},&quot;stock&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;in&quot;,&quot;out&quot;],&quot;default&quot;:&quot;in&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Trạng thái&quot;},&quot;images&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Nội dung&quot;},&quot;desc&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;long&quot;,&quot;short&quot;],&quot;default&quot;:&quot;long&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Nội dung&quot;},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Trạng thái&quot;},&quot;revealError&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Trạng thái&quot;},&quot;initQty&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initContact&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initLogin&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initToast&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;},&quot;initLightbox&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;},&quot;initScroll&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;}}">
 class Component extends DCLogic {
-  static STATES = [{"k":"mac-dinh","l":"Mặc định","p":{}},{"k":"da-dang-nhap","l":"Đã đăng nhập","p":{"loggedIn":true}},{"k":"popup-dang-nhap","l":"Popup đăng nhập","p":{"initLogin":"buy"}},{"k":"da-hien-so","l":"Đã hiện số","p":{"loggedIn":true,"initContact":"revealed"}},{"k":"loi-hien-so","l":"Lỗi hiện số","p":{"loggedIn":true,"initContact":"error"}},{"k":"khoi-luong-sai","l":"Khối lượng sai","p":{"loggedIn":true,"initQty":50}},{"k":"het-hang","l":"Hết hàng","p":{"loggedIn":true,"stock":"out"}},{"k":"mo-ta-ngan","l":"Mô tả ngắn","p":{"desc":"short"}},{"k":"khong-co-anh","l":"Không có ảnh","p":{"images":false}},{"k":"xem-anh-lon","l":"Xem ảnh lớn","p":{"initLightbox":true}},{"k":"dang-tai","l":"Đang tải","p":{"pageState":"loading"}},{"k":"loi-tai","l":"Lỗi tải trang","p":{"pageState":"error"}},{"k":"khong-tim-thay","l":"Không tìm thấy","p":{"pageState":"notfound"}}];
+  static STATES = [{"k":"mac-dinh","l":"Mặc định","p":{}},{"k":"da-dang-nhap","l":"Đã đăng nhập","p":{"loggedIn":true}},{"k":"popup-dang-nhap","l":"Popup đăng nhập","p":{"initLogin":"buy"}},{"k":"da-hien-so","l":"Đã hiện số","p":{"loggedIn":true,"initContact":"revealed"}},{"k":"loi-hien-so","l":"Lỗi hiện số","p":{"loggedIn":true,"initContact":"error"}},{"k":"khoi-luong-sai","l":"Khối lượng sai","p":{"loggedIn":true,"initQty":50}},{"k":"het-hang","l":"Hết hàng","p":{"loggedIn":true,"stock":"out"}},{"k":"mo-ta-ngan","l":"Mô tả ngắn","p":{"desc":"short"}},{"k":"khong-co-anh","l":"Không có ảnh","p":{"images":false}},{"k":"xem-anh-lon","l":"Xem ảnh lớn","p":{"initLightbox":true}},{"k":"vuot-gioi-han","l":"Vượt giới hạn hiện số","p":{"loggedIn":true,"product":"nhom","initContact":"limit","initQty":1}},{"k":"tin-cua-minh","l":"Tin của mình","p":{"loggedIn":true,"me":"minh","product":"ppden","initContact":"own"}},{"k":"dot-1","l":"Đợt 1","g":"Đợt 1","p":{"phase":"1","product":"ppden25","initQty":1000}},{"k":"dot-1-het-hang","l":"Đợt 1 · Hết hàng","g":"Đợt 1","p":{"phase":"1","product":"ppden25","stock":"out"}},{"k":"dot-1-loi-khoi-luong","l":"Đợt 1 · Lỗi khối lượng","g":"Đợt 1","p":{"phase":"1","product":"ppden25","initQty":200}},{"k":"dang-tai","l":"Đang tải","p":{"pageState":"loading"}},{"k":"loi-tai","l":"Lỗi tải trang","p":{"pageState":"error"}},{"k":"khong-tim-thay","l":"Không tìm thấy","p":{"pageState":"notfound"}}];
   static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
   get __P() { return this.__ov(this.props); }
   __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
@@ -351,6 +355,21 @@ class Component extends DCLogic {
     { src: 'assets/plastic.webp', z: 1, o: '50% 50%' }, { src: 'assets/plastic.webp', z: 1.7, o: '35% 45%' },
     { src: 'assets/plastic.webp', z: 2.4, o: '62% 58%' }, { src: 'assets/plastic.webp', z: 1.25, o: '50% 80%' },
   ];
+  static ALU = {
+    P: { title: 'Nhôm phế liệu dạng lon ép kiện', cat: 'Kim loại', catKey: 'metal', price: 28000000, unit: 'tấn', avail: 5, min: 1, step: 1,
+      pack: 'Kiện ép khoảng 300–400 kg', region: 'Đồng Nai', updated: '22/10/2026', verified: true,
+      seller: 'Công ty CP Kim Loại Phương Nam', sellerPosts: 4, contact: 'Trần Thị Hạnh', phone: '0912345678' },
+    SPECS: [['Loại vật liệu', 'Nhôm (lon nước giải khát)'], ['Dạng', 'Lon ép kiện'], ['Nguồn phát sinh', 'Sau tiêu dùng'], ['Tạp chất', '≤ 2 %'], ['Độ ẩm', 'Khô, để trong kho có mái che'], ['Quy cách đóng gói', 'Kiện ép khoảng 300–400 kg']],
+    DESC_LONG: 'Lon nhôm sau tiêu dùng được thu gom từ các điểm thu mua, đã tách nhãn nhựa và ép thành kiện.\nHàng khô, không lẫn sắt hay nhựa. Có thể xem hàng tại kho trước khi giao dịch.',
+    DESC_SHORT: 'Lon nhôm sau tiêu dùng, đã ép kiện, không lẫn sắt hay nhựa.',
+    IMGS: [{ src: 'assets/metal.webp', z: 1, o: '50% 50%' }, { src: 'assets/metal.webp', z: 1.7, o: '35% 45%' }, { src: 'assets/metal.webp', z: 2.4, o: '62% 58%' }, { src: 'assets/metal.webp', z: 1.25, o: '50% 80%' }],
+  };
+  static PPDEN = {
+    P: { title: 'Hạt nhựa PP tái sinh màu đen', cat: 'Nhựa', catKey: 'plastic', price: 12000, unit: 'kg', avail: 30000, min: 1000, step: 100,
+      pack: 'Bao 25 kg hoặc bao jumbo 1.000 kg', region: 'Bình Dương', updated: '20/10/2026', verified: true,
+      seller: 'Công ty TNHH Nhựa Xanh', sellerPosts: 2, contact: 'Nguyễn Văn Minh', phone: '0909123456' },
+  };
+  get D() { const C = this.constructor; if (this.__P.product === 'ppden' || this.__P.product === 'ppden25') return { P: this.__P.product === 'ppden25' ? { ...C.PPDEN.P, price: 25000, min: 500 } : C.PPDEN.P, SPECS: C.SPECS.map(([k, v]) => [k, k === 'Màu sắc' ? 'Đen' : v]), DESC_LONG: C.DESC_LONG.replace('Hạt có màu tự nhiên trong mờ', 'Hạt màu đen'), DESC_SHORT: C.DESC_SHORT.replace('màu tự nhiên', 'màu đen'), IMGS: C.IMGS }; return this.__P.product === 'nhom' ? C.ALU : { P: { ...C.P, catKey: 'plastic' }, SPECS: C.SPECS, DESC_LONG: C.DESC_LONG, DESC_SHORT: C.DESC_SHORT, IMGS: C.IMGS }; }
   static RELATED = [
     { id: 'r1', title: 'Vỏ chai PET đã ép kiện', cat: 'Nhựa', catKey: 'plastic', qty: 30000, unit: 'kg', price: 12000, company: 'Giải Pháp Xanh', region: 'Tỉnh Cà Mau', contact: 'Trần Thị Hạnh', phone: '0912345678', img: 'assets/plastic.webp' },
     { id: 'r2', title: 'Nhựa HDPE phế liệu từ can, thùng công nghiệp, đã băm mảnh và phân loại theo màu', cat: 'Nhựa', catKey: 'plastic', qty: 8000, unit: 'kg', price: 9500, company: 'Tái Chế Miền Tây', region: 'TP. Cần Thơ', contact: 'Phạm Thu Trang', phone: '0976234517', img: 'assets/plastic.webp' },
@@ -386,7 +405,7 @@ class Component extends DCLogic {
     if (prev.initQty !== p.initQty && p.initQty != null) this.setState({ qty: String(p.initQty) });
     if (prev.initContact !== p.initContact) this.setState((s) => ({ contact: { ...s.contact, main: p.initContact || 'masked' } }));
   }
-  step = (d) => this.setState((s) => ({ img: (s.img + d + this.constructor.IMGS.length) % this.constructor.IMGS.length }));
+  step = (d) => { const n = this.D.IMGS.length; this.setState((s) => ({ img: (s.img + d + n) % n })); };
   reveal = (id) => {
     if (!this.state.loggedIn) { this.setState({ loginFor: id }); return; }
     this.setState((s) => ({ contact: { ...s.contact, [id]: 'loading' } }));
@@ -399,27 +418,28 @@ class Component extends DCLogic {
   goReq = () => { const q = Number(this.state.qty); window.location.href = 'Gui yeu cau mua - Ban chinh.dc.html' + (q ? '?qty=' + q : ''); };
   copied = () => { clearTimeout(this.tt); this.setState({ toast: true }); this.tt = setTimeout(() => this.setState({ toast: false }), 2400); };
   renderVals() {
-    const s = this.state, pr = this.__P, C = this.constructor, P = C.P;
+    const s = this.state, pr = this.__P, C = this.constructor, D = this.D, P = D.P;
     const b = (v) => v === true || v === 'true';
     const f = (n) => Number(n).toLocaleString('vi-VN');
     const out = pr.stock === 'out';
+    const ph1 = String(pr.phase) === '1';
     const hasImgs = pr.images !== false && pr.images !== 'false';
     const long = pr.desc !== 'short';
     const raw = String(s.qty).trim(), q = Number(raw);
     let err = '';
     if (!out) {
       if (raw === '' || !isFinite(q) || q <= 0) err = 'Nhập khối lượng muốn mua.';
-      else if (q < P.min) err = 'Khối lượng tối thiểu là ' + f(P.min) + ' ' + P.unit + '.';
-      else if (q > P.avail) err = 'Vượt khối lượng sẵn có (' + f(P.avail) + ' ' + P.unit + ').';
+      else if (q < P.min) err = ph1 ? 'Mua tối thiểu ' + f(P.min) + ' kg' : 'Khối lượng tối thiểu là ' + f(P.min) + ' ' + P.unit + '.';
+      else if (q > P.avail) err = ph1 ? 'Chỉ còn ' + f(P.avail) + ' ' + P.unit : 'Vượt khối lượng sẵn có (' + f(P.avail) + ' ' + P.unit + ').';
     }
     const valid = !out && !err;
-    const imgs = C.IMGS, cur = imgs[Math.min(s.img, imgs.length - 1)];
+    const imgs = D.IMGS, cur = imgs[Math.min(s.img, imgs.length - 1)];
     const ps = s.ps;
     const loginItem = s.loginFor === 'main' ? { contact: P.contact } : C.RELATED.find((r) => r.id === s.loginFor);
     const setQ = (v) => this.setState({ qty: String(Math.max(0, Math.round(v))) });
     const base = isFinite(q) ? q : P.min;
     return {
-      p: P, scrollRef: this.scrollRef, guest: !s.loggedIn, loggedIn: s.loggedIn,
+      showBuy: !ph1, showBuyOrOut: !ph1 || out, p: P, userName: pr.me === 'minh' ? 'Nguyễn Văn Minh' : 'Hoàng Lan', userInitials: pr.me === 'minh' ? 'VM' : 'HL', scrollRef: this.scrollRef, guest: !s.loggedIn, loggedIn: s.loggedIn,
       goLogin: () => this.setState({ loggedIn: true }),
       isLoading: ps === 'loading', isError: ps === 'error', isNotFound: ps === 'notfound', isData: ps === 'data',
       showCrumbName: ps === 'data' || ps === 'loading',
@@ -431,8 +451,8 @@ class Component extends DCLogic {
       openLightbox: () => this.setState({ lb: true }), closeLightbox: () => this.setState({ lb: false }),
       prevImg: () => this.step(-1), nextImg: () => this.step(1), lightbox: s.lb && hasImgs && ps === 'data',
       inStock: !out, outStock: out,
-      specs: C.SPECS.filter(([, v]) => v && String(v).trim()).map(([k, v], i) => ({ k, v, border: i ? '1px solid var(--color-border-default)' : 'none' })),
-      desc: long ? C.DESC_LONG : C.DESC_SHORT, canToggle: long, clamp: long && !s.descOpen ? 6 : 'unset',
+      specs: D.SPECS.filter(([, v]) => v && String(v).trim()).map(([k, v], i) => ({ k, v, border: i ? '1px solid var(--color-border-default)' : 'none' })),
+      desc: long ? D.DESC_LONG : D.DESC_SHORT, canToggle: long, clamp: long && !s.descOpen ? 6 : 'unset',
       toggleLabel: s.descOpen ? 'Thu gọn' : 'Xem thêm', chevRot: s.descOpen ? '180deg' : '0deg',
       toggleDesc: () => this.setState((st) => ({ descOpen: !st.descOpen })),
       priceNum: f(P.price),

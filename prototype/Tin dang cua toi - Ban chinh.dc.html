@@ -57,7 +57,7 @@
   <aside aria-label="Tài khoản" style="position:sticky;top:96px;display:flex;flex-direction:column;gap:var(--space-1);padding:var(--space-3);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);animation:lv-rise 600ms ease-out both">
     <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-3) var(--space-4);margin-bottom:var(--space-2);border-bottom:1px solid var(--color-border-default)">
       <span style="width:44px;height:44px;flex-shrink:0;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-md)">NM</span>
-      <span style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Nguyễn Văn Minh</span><span style="font:var(--type-caption);color:var(--color-text-muted)">Nhựa Tái Sinh Minh Phát · Doanh nghiệp</span></span>
+      <span style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Nguyễn Văn Minh</span><span style="font:var(--type-caption);color:var(--color-text-muted)">Công ty TNHH Nhựa Xanh · Doanh nghiệp</span></span>
     </div>
     <a href="#" style="display:flex;align-items:center;gap:var(--space-3);min-height:44px;padding:0 var(--space-4);border-radius:var(--radius-md);font:var(--type-label-md);color:var(--color-text-body);text-decoration:none" style-hover="background:var(--color-bg-subtle)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Hồ sơ</a>
     <a href="Don mua cua toi - Ban chinh.dc.html" style="display:flex;align-items:center;gap:var(--space-3);min-height:44px;padding:0 var(--space-4);border-radius:var(--radius-md);font:var(--type-label-md);color:var(--color-text-body);text-decoration:none" style-hover="background:var(--color-bg-subtle)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M16 10a4 4 0 0 1-8 0"></path><path d="M3.103 6.034h17.794"></path><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"></path></svg>Đơn mua</a>
@@ -79,13 +79,21 @@
       </sc-if>
     </div>
 
+    <sc-if value="{{ showBanner }}" hint-placeholder-val="{{ false }}">
+      <div role="status" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4) var(--space-3) var(--space-5);border-radius:var(--radius-lg);border:1px solid color-mix(in oklch, var(--color-warning) 35%, white);background:var(--color-warning-soft);animation:lv-rise 600ms ease-out 90ms both">
+        <span style="width:36px;height:36px;flex-shrink:0;border-radius:var(--radius-full);background:var(--color-bg-page);color:var(--color-warning);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"></path><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"></path><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"></path><path d="m2 2 20 20"></path></svg></span>
+        <span style="flex:1;min-width:0;font:var(--type-body-md);color:var(--color-text-heading);text-wrap:pretty"><span style="font-weight:600">{{ bannerMain }}</span> {{ bannerSub }}</span>
+        <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" onClick="{{ goHidden }}" hint-size="110px,40px">Xem ngay</x-import>
+      </div>
+    </sc-if>
+
     <sc-if value="{{ hasItems }}" hint-placeholder-val="{{ true }}">
     <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-4);animation:lv-rise 600ms ease-out 120ms both">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card)">
         <div style="display:flex;flex-direction:column;gap:var(--space-2)">
           <span style="font:var(--type-label-md);color:var(--color-text-muted)">Tin đang hiển thị</span>
           <span style="font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">{{ statShown }}</span>
-          <span style="font:var(--type-caption);color:var(--color-text-muted)">Gồm cả tin hết hàng</span>
+          <span style="font:var(--type-caption);color:var(--color-text-muted)">Gồm cả tin hết hàng, không gồm tin bị tạm ẩn</span>
         </div>
         <span style="width:44px;height:44px;flex-shrink:0;border-radius:var(--radius-md);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect width="7" height="7" x="3" y="14" rx="1"></rect><path d="M14 4h7"></path><path d="M14 9h7"></path><path d="M14 15h7"></path><path d="M14 20h7"></path></svg></span>
       </div>
@@ -109,7 +117,7 @@
 
     <div style="display:flex;flex-direction:column;border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);animation:lv-rise 600ms ease-out 180ms both">
       <div role="tablist" aria-label="Trạng thái tin" style="display:flex;gap:var(--space-1);padding:0 var(--space-4);border-bottom:1px solid var(--color-border-default)">
-        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3">
+        <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="4">
           <button type="button" role="tab" aria-selected="{{ t.on }}" onClick="{{ t.pick }}" style="display:flex;align-items:center;gap:var(--space-2);height:52px;padding:0 var(--space-3);border:none;background:none;cursor:pointer;white-space:nowrap;font:var(--type-label-md);color:{{ t.color }};box-shadow:{{ t.line }};transition:color 150ms" style-hover="color:var(--color-text-heading)">{{ t.label }}<span style="min-width:22px;height:20px;padding:0 6px;box-sizing:border-box;border-radius:var(--radius-full);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm);background:{{ t.pillBg }};color:{{ t.pillColor }}">{{ t.count }}</span></button>
         </sc-for>
       </div>
@@ -139,8 +147,20 @@
                   <x-import component-from-global-scope="LavatuDesignSystem_2cb126.CategoryBadge" material="{{ r.mat }}" hint-size="56px,28px">{{ r.cat }}</x-import>
                   <sc-if value="{{ r.isOut }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="neutral" hint-size="80px,24px">Hết hàng</x-import></sc-if>
                   <sc-if value="{{ r.bySelf }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="neutral" hint-size="88px,24px">Bạn đã gỡ</x-import></sc-if>
-                  <sc-if value="{{ r.byAdmin }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="danger" hint-size="150px,24px">Bị quản trị viên gỡ</x-import></sc-if>
+                  <sc-if value="{{ r.byAdmin }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="danger" hint-size="150px,24px">Bị quản trị viên xoá</x-import></sc-if>
+                  <sc-if value="{{ r.bySystem }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="danger" hint-size="140px,24px">Hệ thống tự xoá</x-import></sc-if>
+                  <sc-if value="{{ r.isHidden }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="warning" hint-size="110px,24px">Cần cập nhật</x-import></sc-if>
+                  <sc-if value="{{ r.isResub }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-full);background:color-mix(in oklch, var(--color-material-plastic) 10%, white);color:var(--color-material-plastic);font:var(--type-label-sm);white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:var(--color-material-plastic)"></span>Chờ duyệt lại</span></sc-if>
                 </span>
+                <sc-if value="{{ r.isHidden }}" hint-placeholder-val="{{ false }}">
+                  <span style="display:flex;flex-direction:column;gap:2px;font:var(--type-body-sm)">
+                    <span style="color:var(--color-text-heading)">Lý do: {{ r.hideReason }}</span>
+                    <sc-if value="{{ r.hideNote }}" hint-placeholder-val="{{ false }}"><span style="color:var(--color-text-body)">Ghi chú của quản trị viên: “{{ r.hideNote }}”</span></sc-if>
+                    <span style="display:flex;align-items:center;gap:4px;font:var(--type-label-sm);color:{{ r.leftColor }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg>{{ r.leftTxt }}</span>
+                  </span>
+                </sc-if>
+                <sc-if value="{{ r.isResub }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-body-sm);color:var(--color-text-body)">Đã gửi duyệt lại {{ r.resubAt }}</span></sc-if>
+                <sc-if value="{{ r.delReason }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-body-sm);color:var(--color-text-heading)">Lý do: {{ r.delReason }}</span></sc-if>
               </div>
             </div>
             <div style="display:flex;flex-direction:column;gap:2px;opacity:{{ r.dim }}">
@@ -176,6 +196,13 @@
                     </div>
                   </sc-if>
                 </span>
+              </sc-if>
+              <sc-if value="{{ r.isHidden }}" hint-placeholder-val="{{ false }}">
+                <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="ghost" size="s" onClick="{{ r.askRemove }}" hint-size="70px,32px">Gỡ tin</x-import>
+                <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="s" onClick="{{ r.edit }}" hint-size="80px,32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"></path></svg>Sửa tin</x-import>
+              </sc-if>
+              <sc-if value="{{ r.isResub }}" hint-placeholder-val="{{ false }}">
+                <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" onClick="{{ r.viewItem }}" hint-size="80px,32px">Xem tin</x-import>
               </sc-if>
               <sc-if value="{{ r.canRepost }}" hint-placeholder-val="{{ false }}">
                 <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" onClick="{{ r.repost }}" hint-size="90px,32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>Đăng lại</x-import>
@@ -297,49 +324,62 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;empty&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;label&quot;:&quot;Khung: Chưa có tin nào&quot;},&quot;showStates&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;label&quot;:&quot;Mở sẵn trạng thái mẫu (gỡ tin, nhập khối lượng)&quot;}}">
 class Component extends DCLogic {
-  static STATES = [{"k":"mac-dinh","l":"Mặc định","p":{}},{"k":"khong-mo-trang-thai","l":"Không mở trạng thái mẫu","p":{"showStates":false}},{"k":"tab-het-hang","l":"Tab Hết hàng","s":{"tab":"out"}},{"k":"tab-da-go","l":"Tab Đã gỡ","s":{"tab":"removed"}},{"k":"chua-co-tin","l":"Chưa có tin nào","p":{"empty":true}}];
+  static STATES = [{"k":"mac-dinh","l":"Mặc định","p":{}},{"k":"khong-mo-trang-thai","l":"Không mở trạng thái mẫu","p":{"showStates":false}},{"k":"tab-het-hang","l":"Tab Hết hàng","s":{"tab":"out"}},{"k":"tab-da-go","l":"Tab Đã gỡ","s":{"tab":"removed"}},{"k":"tab-can-cap-nhat","l":"Tab Cần cập nhật","p":{"showStates":false},"s":{"tab":"hidden"}},{"k":"tab-da-go-admin","l":"Tab Đã gỡ · quản trị viên xoá","p":{"showStates":false},"s":{"tab":"removed"}},{"k":"chua-co-tin","l":"Chưa có tin nào","p":{"empty":true}}];
   static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
   get __P() { return this.__ov(this.props); }
   __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
   __boot = (() => { const s = Component.__st(); window.LV_STATES = { cur: s ? s.k : Component.STATES[0].k, list: Component.STATES }; try { window.dispatchEvent(new Event('lv-states')); } catch (e) {} if (s && s.s) setTimeout(() => this.setState(s.s), 0); return 1; })();
   static ITEMS = [
-    { id: 1, name: 'Hạt nhựa PP tái sinh màu đen', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 25000, qty: 15000, held: 5000, calls: 86, pending: 2, done: 9, posted: '02/09/2026', pts: 20260902, updated: '14/10/2026', uts: 20261014, status: 'active' },
-    { id: 2, name: 'Phế liệu nhựa HDPE ép kiện', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 7500, qty: 12000, held: 0, calls: 41, pending: 1, done: 4, posted: '10/09/2026', pts: 20260910, updated: '12/10/2026', uts: 20261012, status: 'active' },
-    { id: 3, name: 'Nhựa PET vụn đã rửa', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 14000, qty: 8000, held: 0, calls: 23, pending: 0, done: 2, posted: '20/09/2026', pts: 20260920, updated: '20/09/2026', uts: 20260920, status: 'active' },
+    { id: 1, name: 'Hạt nhựa PP tái sinh màu đen', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 25000, qty: 15000, held: 0, calls: 86, pending: 0, done: 9, posted: '02/09/2026', pts: 20260902, updated: '12/10/2026', uts: 20261012, status: 'hidden', hide: { reason: 'Sai đơn vị hoặc giá', at: '12/10/2026' } },
+    { id: 2, name: 'Phế liệu nhựa HDPE dạng can', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 6000, qty: 15000, held: 0, calls: 41, pending: 0, done: 4, posted: '10/09/2026', pts: 20260910, updated: '21/10/2026', uts: 20261021, status: 'hidden', hide: { reason: 'Khác', note: 'Ảnh chụp không phải nhựa HDPE', at: '21/10/2026' } },
+    { id: 3, name: 'Nhựa PET vụn đã rửa', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 14000, qty: 8000, held: 0, calls: 23, pending: 0, done: 2, posted: '20/09/2026', pts: 20260920, updated: '22/10/2026', uts: 20261022, status: 'resubmit', resubAt: '22/10/2026' },
+    { id: 7, name: 'Nhựa PP tái sinh dạng hạt, màu tự nhiên', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 25000, qty: 20000, held: 5000, calls: 112, pending: 2, done: 11, posted: '28/08/2026', pts: 20260828, updated: '20/10/2026', uts: 20261020, status: 'active' },
+    { id: 8, name: 'Phế liệu nhựa HDPE ép kiện', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 7500, qty: 12000, held: 0, calls: 38, pending: 1, done: 4, posted: '15/09/2026', pts: 20260915, updated: '16/10/2026', uts: 20261016, status: 'active' },
     { id: 4, name: 'Nhôm định hình phế liệu 6063', mat: 'metal', cat: 'Kim loại', img: 'assets/metal.webp', price: 42000, qty: 0, held: 0, calls: 57, pending: 0, done: 6, posted: '15/08/2026', pts: 20260815, updated: '05/10/2026', uts: 20261005, status: 'out' },
     { id: 5, name: 'Màng nhựa LDPE cuộn', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 9000, qty: 4000, held: 0, calls: 18, pending: 0, done: 3, posted: '01/08/2026', pts: 20260801, updated: '01/10/2026', uts: 20261001, status: 'removed', by: 'self', removedAt: '01/10/2026' },
-    { id: 6, name: 'Hạt nhựa nguyên sinh giá sốc', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 5000, qty: 50000, held: 0, calls: 3, pending: 0, done: 0, posted: '25/09/2026', pts: 20260925, updated: '28/09/2026', uts: 20260928, status: 'removed', by: 'admin', removedAt: '28/09/2026' },
+    { id: 6, name: 'Pin cũ các loại', mat: 'e-waste', cat: 'Rác điện tử', img: 'assets/electronic.webp', price: 15000, qty: 2000, held: 0, calls: 3, pending: 0, done: 0, posted: '25/09/2026', pts: 20260925, updated: '28/09/2026', uts: 20260928, status: 'removed', by: 'admin', reason: 'Hàng cấm hoặc không được phép mua bán', removedAt: '28/09/2026' },
+    { id: 9, name: 'Nhựa PVC ống vụn', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 8000, qty: 6000, held: 0, calls: 12, pending: 0, done: 0, posted: '10/09/2026', pts: 20260910, updated: '19/10/2026', uts: 20261019, status: 'removed', by: 'system', reason: 'Quá hạn cập nhật', removedAt: '19/10/2026' },
   ];
-  // Tin ở các trang sau (không vẽ) để số đếm khớp brief: 16 · 2 · 3
-  static EXTRA = { active: 13, out: 1, removed: 1 };
-  static TABS = [['active', 'Đang hiển thị'], ['out', 'Hết hàng'], ['removed', 'Đã gỡ']];
+  // Tin ở các trang sau (không vẽ) để số đếm khớp brief
+  static EXTRA = { active: 11, out: 1, removed: 0, hidden: 0, resubmit: 0 };
+  static TODAY = '24/10/2026';
+  static toD(s) { const [d, m, y] = s.split('/').map(Number); return new Date(y, m - 1, d); }
+  static TABS = [['active', 'Đang hiển thị'], ['hidden', 'Cần cập nhật'], ['out', 'Hết hàng'], ['removed', 'Đã gỡ']];
   state = { items: Component.ITEMS.map((i) => ({ ...i })), tab: 'active', q: '', cat: 'all', sort: 'updated', menuId: null, confirmId: null, restockId: null, restockVal: '', toast: '', page: 1 };
-  componentDidMount() { if (this.__P.showStates ?? true) this.setState({ confirmId: 1, restockId: 4 }); }
+  componentDidMount() { if (this.__P.showStates ?? true) this.setState({ confirmId: 7, restockId: 4 }); }
   componentWillUnmount() { clearTimeout(this._t); }
   flash(msg) { clearTimeout(this._t); this.setState({ toast: msg }); this._t = setTimeout(() => this.setState({ toast: '' }), 2800); }
   patch(id, ch, msg) { this.setState((s) => ({ items: s.items.map((i) => i.id === id ? { ...i, ...ch } : i), menuId: null, confirmId: null, restockId: null, restockVal: '' })); if (msg) this.flash(msg); }
   renderVals() {
     const s = this.state, C = Component, fmt = (n) => Number(n).toLocaleString('vi-VN');
-    const today = { updated: '18/10/2026', uts: 20261018 };
-    const cnt = (k) => s.items.filter((i) => i.status === k).length + C.EXTRA[k];
+    const today = { updated: '24/10/2026', uts: 20261024 };
+    const cnt = (k) => k === 'hidden' ? cnt('hiddenOnly') + cnt('resubmit') : k === 'hiddenOnly' ? s.items.filter((i) => i.status === 'hidden').length : s.items.filter((i) => i.status === k).length + (C.EXTRA[k] || 0);
+    const T = C.toD(C.TODAY);
+    const leftOf = (i) => Math.max(0, Math.round((C.toD(i.hide.at).getTime() + 14 * 864e5 - T) / 864e5));
+    const hiddenItems = s.items.filter((i) => i.status === 'hidden');
+    const minLeft = hiddenItems.length ? Math.min(...hiddenItems.map(leftOf)) : 0;
     const norm = (t) => String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
     const qn = norm(s.q.trim());
-    let list = s.items.filter((i) => i.status === s.tab && (s.cat === 'all' || i.cat === s.cat) && (!qn || norm(i.name).includes(qn)));
+    const inTab = (i) => s.tab === 'hidden' ? (i.status === 'hidden' || i.status === 'resubmit') : i.status === s.tab;
+    let list = s.items.filter((i) => inTab(i) && (s.cat === 'all' || i.cat === s.cat) && (!qn || norm(i.name).includes(qn)));
     const key = { updated: (i) => i.status === 'removed' ? Number(i.removedAt.split('/').reverse().join('')) : i.uts, posted: (i) => i.pts, calls: (i) => i.calls, price: (i) => i.price }[s.sort];
     list = [...list].sort((a, b) => key(b) - key(a));
     const empty = !!this.__P.empty;
     const stop = (e) => e && e.stopPropagation && e.stopPropagation();
     const restockN = Number(String(s.restockVal).replace(/\D/g, ''));
     const hasFilter = !!s.q.trim() || s.cat !== 'all';
-    const EMPTY = { active: 'Không có tin đang hiển thị', out: 'Không có tin hết hàng', removed: 'Không có tin đã gỡ' };
+    const EMPTY = { hidden: 'Không có tin cần cập nhật', active: 'Không có tin đang hiển thị', out: 'Không có tin hết hàng', removed: 'Không có tin đã gỡ' };
     return {
       hasItems: !empty, isEmpty: empty,
+      showBanner: !empty && hiddenItems.length > 0,
+      bannerMain: 'Bạn có ' + hiddenItems.length + ' tin bị tạm ẩn cần cập nhật.', bannerSub: 'Tin gần hết hạn nhất còn ' + minLeft + ' ngày.',
+      goHidden: () => this.setState({ tab: 'hidden', menuId: null, page: 1 }),
       goPost: () => { window.location.href = 'Dang tin ban - Ban chinh.dc.html'; },
       statShown: fmt(cnt('active') + cnt('out')),
       statPending: fmt(s.items.filter((i) => i.status !== 'removed').reduce((a, i) => a + i.pending, 0)),
-      tabs: C.TABS.map(([k, label]) => { const on = s.tab === k; return { label, on, count: cnt(k), pick: () => this.setState({ tab: k, menuId: null, page: 1 }),
+      tabs: C.TABS.map(([k, label]) => { const on = s.tab === k, warn = k === 'hidden'; return { label, on, count: cnt(k), pick: () => this.setState({ tab: k, menuId: null, page: 1 }),
         color: on ? 'var(--color-text-brand)' : 'var(--color-text-muted)', line: on ? 'inset 0 -2px 0 var(--color-action-primary)' : 'none',
-        pillBg: on ? 'var(--color-action-primary)' : 'var(--color-bg-muted)', pillColor: on ? 'var(--color-text-inverse)' : 'var(--color-text-muted)' }; }),
+        pillBg: on ? (warn ? 'var(--color-warning)' : 'var(--color-action-primary)') : warn ? 'var(--color-warning-soft)' : 'var(--color-bg-muted)', pillColor: on ? 'var(--color-text-inverse)' : warn ? 'color-mix(in oklch, var(--color-warning) 62%, black)' : 'var(--color-text-muted)' }; }),
       q: s.q, onQ: (e) => this.setState({ q: e.target.value }),
       cat: s.cat, onCat: (e) => this.setState({ cat: e.target.value }),
       catOpts: [{ value: 'all', label: 'Tất cả danh mục' }, ...['Điện tử', 'Dệt may', 'Nông nghiệp', 'Kim loại', 'Nhựa', 'Giấy'].map((c) => ({ value: c, label: c }))],
@@ -351,13 +391,16 @@ class Component extends DCLogic {
       noRows: list.length === 0, noRowsText: hasFilter ? 'Không tìm thấy tin phù hợp' : EMPTY[s.tab], hasFilter, clearFilter: () => this.setState({ q: '', cat: 'all' }),
       toast: s.toast,
       rows: list.map((i) => {
-        const on = i.status === 'active', removed = i.status === 'removed';
+        const on = i.status === 'active', removed = i.status === 'removed', isHidden = i.status === 'hidden', isResub = i.status === 'resubmit';
+        const left = isHidden ? leftOf(i) : 0;
         const mv = '--color-material-' + i.mat;
-        return { ...i, on, removed, live: !removed, isOut: i.status === 'out', bySelf: removed && i.by === 'self', byAdmin: removed && i.by === 'admin', canRepost: removed && i.by === 'self',
+        return { ...i, on, removed, live: on || i.status === 'out', isHidden, isResub, isOut: i.status === 'out', bySelf: removed && i.by === 'self', byAdmin: removed && i.by === 'admin', bySystem: removed && i.by === 'system', delReason: removed && i.reason ? i.reason : '',
+          hideReason: isHidden ? i.hide.reason : '', hideNote: isHidden && i.hide.note ? i.hide.note : '', leftTxt: 'Còn ' + left + ' ngày để sửa', leftColor: left <= 3 ? 'var(--color-danger)' : 'color-mix(in oklch, var(--color-warning) 62%, black)', resubAt: i.resubAt || '',
+          viewItem: () => { window.location.href = 'Chi tiet san pham - Ban chinh.dc.html'; }, canRepost: removed && i.by === 'self',
           dim: removed ? 0.6 : 1, thumbBg: 'color-mix(in oklch, var(' + mv + ') 12%, white)', imgBg: 'url("' + i.img + '")',
           priceTxt: fmt(i.price), qtyTxt: fmt(i.qty), qtyColor: i.qty === 0 ? 'var(--color-danger)' : 'var(--color-text-body)', held: i.held > 0 && !removed, heldTxt: fmt(i.held),
           calls: fmt(i.calls), pendColor: i.pending > 0 ? 'var(--color-warning)' : 'var(--color-text-body)',
-          date1: removed ? 'Gỡ ngày ' + i.removedAt : 'Đăng ' + i.posted, date2: removed ? 'Đăng ' + i.posted : 'Cập nhật ' + i.updated,
+          date1: removed ? (i.by === 'self' ? 'Gỡ ngày ' : 'Xoá ngày ') + i.removedAt : isHidden ? 'Ẩn ngày ' + i.hide.at : isResub ? 'Gửi lại ' + i.resubAt : 'Đăng ' + i.posted, date2: removed || isHidden || isResub ? 'Đăng ' + i.posted : 'Cập nhật ' + i.updated,
           swBg: on ? 'var(--color-action-primary)' : 'var(--color-border-strong)', knob: on ? '18px' : '2px', swLabel: on ? 'Còn hàng' : 'Hết hàng', swColor: on ? 'var(--color-text-brand)' : 'var(--color-text-muted)',
           menuOpen: s.menuId === i.id, menuBtnBg: s.menuId === i.id ? 'var(--color-bg-muted)' : 'var(--color-bg-page)',
           confirming: s.confirmId === i.id, restocking: s.restockId === i.id, inputId: 'restock-' + i.id,

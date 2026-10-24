@@ -70,6 +70,18 @@
         </div>
       </sc-if>
     </div>
+    <sc-if value="{{ isHiddenEdit }}" hint-placeholder-val="{{ false }}">
+      <div role="alert" style="display:flex;gap:var(--space-4);padding:var(--space-4) var(--space-5);border-radius:var(--radius-md);border:1px solid color-mix(in oklch, var(--color-warning) 35%, white);background:var(--color-warning-soft);animation:lv-in 200ms ease-out">
+        <span style="width:36px;height:36px;flex-shrink:0;border-radius:var(--radius-full);background:var(--color-bg-page);color:var(--color-warning);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"></path><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"></path><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"></path><path d="m2 2 20 20"></path></svg></span>
+        <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
+          <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Tin đang tạm ẩn — cần cập nhật</span>
+          <span style="font:var(--type-body-sm);color:var(--color-text-heading)">Lý do: <strong style="font-weight:600">{{ hideReason }}</strong>.</span>
+          <sc-if value="{{ hideNote }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-body-sm);color:var(--color-text-heading)">Ghi chú: {{ hideNote }}</span></sc-if>
+          <span style="display:flex;align-items:center;gap:6px;font:var(--type-label-md);color:{{ hideLeftColor }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg>{{ hideLeftTxt }}</span>
+          <span style="font:var(--type-caption);color:var(--color-text-body)">Sau khi gửi, tin vẫn ẩn cho tới khi quản trị viên duyệt.</span>
+        </div>
+      </div>
+    </sc-if>
     <sc-if value="{{ confirmRemove }}" hint-placeholder-val="{{ false }}">
       <div role="alertdialog" aria-label="Xác nhận gỡ tin" style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-4) var(--space-5);border-radius:var(--radius-md);background:var(--color-danger-soft);animation:lv-in 200ms ease-out">
         <div style="display:flex;flex-direction:column;gap:2px">
@@ -332,7 +344,7 @@
     </section>
     <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-muted);margin-top:var(--space-1)">XEM TRƯỚC THẺ TIN</span>
     <div style="pointer-events:none;zoom:0.8">
-      <dc-import name="Product Card" item="{{ previewItem }}" cstate="masked" variant="A" layout="grid" hint-size="100%,500px"></dc-import>
+      <dc-import name="Product Card" item="{{ previewItem }}" cstate="masked" variant="A" layout="grid" pill="{{ previewPill }}" pill-tone="warning" hint-size="100%,500px"></dc-import>
     </div>
   </aside>
 </div>
@@ -352,17 +364,25 @@
   <div style="max-width:760px;margin:var(--space-4) auto var(--space-16);display:flex;flex-direction:column;align-items:center;gap:var(--space-6);padding:var(--space-12) var(--space-10);text-align:center;border-radius:var(--radius-xl);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);animation:lv-rise 600ms ease-out both">
     <span style="width:64px;height:64px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px color-mix(in oklch, var(--color-accent) 18%, transparent)"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M20 6 9 17l-5-5"></path></svg></span>
     <div style="display:flex;flex-direction:column;gap:var(--space-2);align-items:center">
-      <h1 style="margin:0;font:var(--type-h1);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">Tin đã được đăng</h1>
-      <p style="margin:0;font:var(--type-body-md);color:var(--color-text-body)">Tin đang hiển thị trên Nguồn vật liệu.</p>
+      <h1 style="margin:0;font:var(--type-h1);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">{{ doneTitle }}</h1>
+      <p style="margin:0;max-width:520px;font:var(--type-body-md);color:var(--color-text-body);text-wrap:pretty">{{ doneText }}</p>
     </div>
     <div style="width:340px;text-align:left">
-      <dc-import name="Product Card" item="{{ previewItem }}" cstate="own" variant="A" layout="grid" hint-size="340px,500px"></dc-import>
+      <dc-import name="Product Card" item="{{ previewItem }}" cstate="own" variant="A" layout="grid" pill="{{ donePill }}" pill-tone="info" hint-size="340px,500px"></dc-import>
     </div>
+    <sc-if value="{{ isResubDone }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;gap:var(--space-3)">
+        <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" onClick="{{ goMyPosts }}" hint-size="200px,48px">Về Tin đăng của tôi</x-import>
+        <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" onClick="{{ newPost }}" hint-size="150px,48px">Đăng tin khác</x-import>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isNormalDone }}" hint-placeholder-val="{{ true }}">
     <div style="display:flex;gap:var(--space-3)">
       <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" onClick="{{ goView }}" hint-size="120px,48px">Xem tin</x-import>
       <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" onClick="{{ newPost }}" hint-size="150px,48px">Đăng tin khác</x-import>
       <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="ghost" size="l" onClick="{{ goManage }}" hint-size="170px,48px">Quản lý tin đăng</x-import>
     </div>
+    </sc-if>
   </div>
 </sc-if>
 </main>
@@ -410,9 +430,9 @@
 </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;khung&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A – Doanh nghiệp&quot;,&quot;B – Cá nhân&quot;,&quot;C – Đăng thành công&quot;,&quot;D – Sửa tin&quot;],&quot;default&quot;:&quot;A – Doanh nghiệp&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;hidden&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;khung&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A – Doanh nghiệp&quot;,&quot;B – Cá nhân&quot;,&quot;C – Đăng thành công&quot;,&quot;D – Sửa tin&quot;],&quot;default&quot;:&quot;A – Doanh nghiệp&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
-  static STATES = [{"k":"doanh-nghiep","l":"Doanh nghiệp","p":{"khung":"A – Doanh nghiệp"}},{"k":"ca-nhan","l":"Cá nhân","p":{"khung":"B – Cá nhân"}},{"k":"co-loi","l":"Có lỗi","p":{"khung":"A – Doanh nghiệp"},"s":{"tried":true,"title":"","price":"","avail":""}},{"k":"thanh-cong","l":"Thành công","p":{"khung":"C – Đăng thành công"}},{"k":"sua-tin","l":"Sửa tin","p":{"khung":"D – Sửa tin"}},{"k":"xac-nhan-go","l":"Xác nhận gỡ tin","p":{"khung":"D – Sửa tin"},"s":{"confirmRemove":true}}];
+  static STATES = [{"k":"doanh-nghiep","l":"Doanh nghiệp","p":{"khung":"A – Doanh nghiệp"}},{"k":"ca-nhan","l":"Cá nhân","p":{"khung":"B – Cá nhân"}},{"k":"co-loi","l":"Có lỗi","p":{"khung":"A – Doanh nghiệp"},"s":{"tried":true,"title":"","price":"","avail":""}},{"k":"thanh-cong","l":"Thành công","p":{"khung":"C – Đăng thành công"}},{"k":"sua-tin","l":"Sửa tin","p":{"khung":"D – Sửa tin"}},{"k":"xac-nhan-go","l":"Xác nhận gỡ tin","p":{"khung":"D – Sửa tin"},"s":{"confirmRemove":true}},{"k":"sua-tin-bi-an","l":"Sửa tin bị ẩn","g":"Tin bị tạm ẩn","p":{"khung":"D – Sửa tin","hidden":"sai"}},{"k":"sua-tin-bi-an-khac","l":"Sửa tin bị ẩn · Khác","g":"Tin bị tạm ẩn","p":{"khung":"D – Sửa tin","hidden":"khac"}},{"k":"gui-duyet-lai-thanh-cong","l":"Gửi duyệt lại thành công","g":"Tin bị tạm ẩn","p":{"khung":"D – Sửa tin","hidden":"sai"},"s":{"phase":"done"}}];
   static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
   get __P() { return this.__ov(this.props); }
   __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
@@ -454,6 +474,8 @@ class Component extends DCLogic {
   scrollRef = React.createRef();
   refs = Object.fromEntries([...Component.FIELDS, 'g1', 'g2', 'g3', 'g4', 'g5', 'g6'].map((k) => [k, React.createRef()]));
   frame() { const k = String(this.__P.khung ?? 'A – Doanh nghiệp'); return k[0] || 'A'; }
+  static HIDE = { sai: { reason: 'Sai đơn vị hoặc giá', note: '', left: 9 }, khac: { reason: 'Khác', note: 'Ảnh chụp không phải nhựa HDPE', left: 2 } };
+  hid() { return this.frame() === 'D' ? Component.HIDE[this.__P.hidden] || null : null; }
   init() {
     const fr = this.frame(), per = fr === 'B', C = Component;
     const acct = per ? C.ACCTS.per : C.ACCTS.biz;
@@ -461,11 +483,12 @@ class Component extends DCLogic {
     const data = { ...C.BLANK, ...base, images: base.images.map((i) => ({ ...i })), contactName: acct.contact };
     if (fr === 'A') data.minKg = '0';
     if (fr === 'D') data.desc = 'Hạt nhựa PP tái sinh màu đen, tạo hạt từ phế phẩm sản xuất bao bì dệt PP. Hàng có sẵn tại kho Sóng Thần, nhận lấy mẫu 2 kg trước khi đặt lô lớn. Xe tải đến 15 tấn vào được kho.';
+    if (this.hid()) { data.unit = 'tấn'; data.avail = '20'; }
     const touched = fr === 'A' ? { minKg: true } : fr === 'B' ? { avail: true } : {};
     return { ...data, touched, tried: false, phase: fr === 'C' ? 'done' : 'form', hoverCat: null, dragId: null, overId: null, zoneOver: false, uploadMsg: '', confirmRemove: false, removed: false, toast: null };
   }
   state = this.init();
-  componentDidUpdate(__raw) { const prev = this.__ov(__raw); if (prev.khung !== this.__P.khung) { this.setState(this.init()); if (this.scrollRef.current) this.scrollRef.current.scrollTop = 0; } }
+  componentDidUpdate(__raw) { const prev = this.__ov(__raw); if (prev.khung !== this.__P.khung || prev.hidden !== this.__P.hidden) { this.setState(this.init()); if (this.scrollRef.current) this.scrollRef.current.scrollTop = 0; } }
   componentWillUnmount() { clearTimeout(this.tt); clearTimeout(this.st); }
   flash(t) { clearTimeout(this.tt); this.setState({ toast: t }); this.tt = setTimeout(() => this.setState({ toast: null }), 2600); }
   num(v) { let s = String(v ?? '').trim(); if (!s) return NaN; if (s.includes(',')) s = s.replace(/\./g, '').replace(',', '.'); else if (/^\d{1,3}(\.\d{3})+$/.test(s)) s = s.replace(/\./g, ''); return Number(s); }
@@ -513,6 +536,7 @@ class Component extends DCLogic {
     const e = this.errors();
     const first = Component.FIELDS.find((k) => e[k]);
     if (first) { this.setState({ tried: true }); this.scrollTo(this.refs[first].current || this.refs.g1.current); return; }
+    if (this.hid()) { this.setState({ phase: 'sending' }); this.st = setTimeout(() => { this.setState({ phase: 'done' }); if (this.scrollRef.current) this.scrollRef.current.scrollTop = 0; }, 1200); return; }
     if (this.frame() === 'D') { this.setState({ phase: 'sending' }); this.st = setTimeout(() => { this.setState({ phase: 'form', touched: {} }); this.flash('Đã lưu thay đổi'); }, 1000); return; }
     this.setState({ phase: 'sending' });
     this.st = setTimeout(() => { this.setState({ phase: 'done' }); if (this.scrollRef.current) this.scrollRef.current.scrollTop = 0; }, 1200);
@@ -533,11 +557,19 @@ class Component extends DCLogic {
     const gStatus = C.GROUPS.map(([id, label, keys]) => { const missing = id === 'g2' && !s.cat ? true : keys.some((k) => e[k]); return { id, label, missing }; });
     const errCount = C.FIELDS.filter((k) => e[k]).length;
     const phoneFmt = (p) => p.slice(0, 4) + ' ' + p.slice(4, 7) + ' ' + p.slice(7);
+    const hd = this.hid();
     return {
+      isHiddenEdit: !!hd, hideReason: hd ? hd.reason : '', hideNote: hd && hd.note ? hd.note : '',
+      hideLeftTxt: hd ? 'Còn ' + hd.left + ' ngày để sửa. Quá hạn tin sẽ bị xoá.' : '', hideLeftColor: hd && hd.left <= 3 ? 'var(--color-danger)' : 'color-mix(in oklch, var(--color-warning) 62%, black)',
+      previewPill: hd ? 'Đang tạm ẩn' : '', donePill: hd ? 'Chờ duyệt lại' : '',
+      isResubDone: !!hd, isNormalDone: !hd,
+      doneTitle: hd ? 'Đã gửi duyệt lại' : 'Tin đã được đăng',
+      doneText: hd ? 'Quản trị viên sẽ xem xét. Tin hiển thị lại sau khi được duyệt. Bạn sẽ nhận thông báo khi có kết quả.' : 'Tin đang hiển thị trên Nguồn vật liệu.',
+      goMyPosts: () => { window.location.href = 'Tin dang cua toi - Ban chinh.dc.html'; },
       screenLabel: { A: 'Đăng tin – Doanh nghiệp', B: 'Đăng tin – Cá nhân', C: 'Đăng tin thành công', D: 'Sửa tin' }[fr] || 'Đăng tin',
       scrollRef: this.scrollRef, refs: this.refs, acct,
       pageTitle: edit ? 'Sửa tin' : 'Đăng nguồn vật liệu',
-      pageSub: edit ? 'Thay đổi hiển thị ngay sau khi lưu. Tin sai thông tin sẽ bị quản trị viên gỡ.' : 'Tin hiển thị ngay sau khi đăng. Tin sai thông tin sẽ bị quản trị viên gỡ.',
+      pageSub: hd ? 'Sửa các thông tin theo lý do bên dưới rồi gửi duyệt lại.' : edit ? 'Thay đổi hiển thị ngay sau khi lưu. Tin sai thông tin sẽ bị quản trị viên gỡ.' : 'Tin hiển thị ngay sau khi đăng. Tin sai thông tin sẽ bị quản trị viên gỡ.',
       isEdit: edit, isPersonal: per, isForm: s.phase !== 'done', isDone: s.phase === 'done',
       sending: s.phase === 'sending', formOpacity: s.phase === 'sending' ? 0.55 : 1,
       f,
@@ -583,7 +615,7 @@ class Component extends DCLogic {
       checklist: gStatus.map((g) => ({ label: g.label, missing: g.missing, mark: g.missing ? '!' : '✓', bg: g.missing ? 'var(--color-warning-soft)' : 'var(--color-success-soft)', color: g.missing ? 'var(--color-warning)' : 'var(--color-success)', go: () => this.scrollTo(this.refs[g.id].current) })),
       doneGroups: gStatus.filter((g) => !g.missing).length,
       showErrSummary: s.tried && errCount > 0, errSummary: 'Còn ' + errCount + ' mục cần sửa',
-      submitLabel: s.phase === 'sending' ? (edit ? 'Đang lưu…' : 'Đang đăng…') : (edit ? 'Lưu thay đổi' : 'Đăng tin'),
+      submitLabel: s.phase === 'sending' ? (hd ? 'Đang gửi…' : edit ? 'Đang lưu…' : 'Đang đăng…') : (hd ? 'Gửi duyệt lại' : edit ? 'Lưu thay đổi' : 'Đăng tin'),
       submitDisabled: s.phase === 'sending' || s.removed, submit: this.submit,
       cancel: () => { window.location.href = 'Nguon vat lieu - Ban chinh.dc.html'; },
       confirmRemove: s.confirmRemove && !s.removed, removed: s.removed,

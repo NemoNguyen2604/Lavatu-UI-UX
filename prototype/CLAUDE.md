@@ -20,7 +20,9 @@
 - Thông tin chưa chốt: tự chọn phương án hợp lý, ghi rõ là giả định, liệt kê câu hỏi cần chốt. Không tự thêm chức năng ngoài phạm vi.
 
 ## Quyết định đã chốt
+- Thanh Trạng thái (Travis chốt 18/10/2026): MỌI màn thiết kế mới đều phải có thanh Trạng thái giống các màn khác — load `state-bar.js` trong helmet (sau `_ds_bundle.js`), khai báo `static STATES = [{k, l, g?, p?, s?}]` trong class (k = slug không dấu, l = nhãn, g = nhóm, p = props ghi đè, s = state khởi tạo), kèm khối helper `__st` / `get __P` / `__ov` / `__boot` như các màn hiện có, và đọc props qua `this.__P` (không dùng `this.props`). Liệt kê đủ mọi trạng thái đã thiết kế; hỗ trợ mở thẳng bằng `?state=<k>`. Màn bọc (wrapper) dùng lại thanh của màn con.
 - Phạm vi đầu ra (Travis chốt 13/10/2026): mỗi màn hình chỉ làm 1 trang trường hợp đúng (happy path) — prototype tương tác, chưa đăng nhập. KHÔNG làm canvas trạng thái (loading, lỗi, rỗng, hết hàng, lỗi nhập…) trừ khi được yêu cầu riêng, kể cả khi brief có liệt kê.
+- Quản trị (Travis chốt 24/10/2026): chỉ 1 vai trò Admin, 1 tài khoản chung — bỏ Sub-admin. Xử lý tin có 2 thao tác: "Ẩn chờ cập nhật" (sai thông tin, 14 ngày để sửa, quá hạn hệ thống tự xoá) và "Xoá tin" (không đúng mục tiêu sàn).
 - SCR-001 Nguồn vật liệu: chọn phương án A (khối "Thẻ người liên hệ") cho khối liên hệ trên thẻ sản phẩm.
 
 ## 4. Design system: Lavatu Design System

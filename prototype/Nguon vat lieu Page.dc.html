@@ -44,7 +44,7 @@
         <a href="Gio hang - Ban chinh.dc.html" aria-label="Giỏ hàng, 4 sản phẩm" style="position:relative;width:40px;height:40px;flex-shrink:0;border-radius:var(--radius-full);background:rgba(255,255,255,0.12);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg><span style="position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;padding:0 4px;box-sizing:border-box;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-text-heading);font:var(--type-label-sm);font-size:11px;display:flex;align-items:center;justify-content:center">4</span></a>
         <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" hint-size="88px,40px">Tư vấn</x-import>
         <sc-if value="{{ guest }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="m" onClick="{{ goLogin }}" hint-size="104px,40px">Đăng nhập</x-import></sc-if>
-        <sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:var(--space-2);color:var(--color-text-inverse);font:var(--type-label-md)"><span style="width:36px;height:36px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">HL</span>Hoàng Lan</span></sc-if>
+        <sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:var(--space-2);color:var(--color-text-inverse);font:var(--type-label-md)"><span style="width:36px;height:36px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">{{ userInitials }}</span>{{ userName }}</span></sc-if>
       </div>
     </div>
   </header>
@@ -167,17 +167,19 @@
       </div>
 
       <sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}">
-        <div aria-busy="true" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--space-5)">
-          <sc-for list="{{ skeletons }}" as="sk" hint-placeholder-count="6">
+        <div aria-busy="true" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-4)">
+          <sc-for list="{{ skeletons }}" as="sk" hint-placeholder-count="16">
             <div style="overflow:hidden;border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);animation:lv-pulse 1.4s ease-in-out infinite">
               <div style="aspect-ratio:393/208;background:var(--color-bg-muted)"></div>
-              <div style="display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4) var(--space-5) var(--space-5)">
-                <div style="height:16px;width:90%;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></div>
-                <div style="height:16px;width:60%;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></div>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3)"><div style="height:32px;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></div><div style="height:32px;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></div></div>
-                <div style="height:14px;width:70%;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></div>
-                <div style="height:84px;border-radius:var(--radius-md);background:var(--color-bg-muted)"></div>
+              <div style="display:flex;flex-direction:column;gap:10px;padding:var(--space-3) 14px">
+                <div style="height:14px;width:92%;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></div>
+                <div style="height:14px;width:58%;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></div>
+                <div style="height:12px;width:100%;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></div>
+                <div style="height:12px;width:100%;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></div>
+                <div style="height:12px;width:70%;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></div>
+                <div style="height:80px;border-radius:var(--radius-md);background:var(--color-bg-muted)"></div>
               </div>
+              <div style="height:40px;border-top:1px solid var(--color-border-default)"></div>
             </div>
           </sc-for>
         </div>
@@ -202,9 +204,9 @@
       </sc-if>
 
       <sc-if value="{{ showGrid }}" hint-placeholder-val="{{ true }}">
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--space-5)">
-          <sc-for list="{{ rows }}" as="row" hint-placeholder-count="6">
-            <dc-import name="Product Card" index="{{ $index }}" item="{{ row.item }}" cstate="{{ row.cstate }}" variant="{{ variant }}" layout="grid" mobile="{{ isMobile }}" on-reveal="{{ reveal }}" on-copy="{{ copied }}" hint-size="100%,560px"></dc-import>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-4);align-items:stretch">
+          <sc-for list="{{ rows }}" as="row" hint-placeholder-count="16">
+            <dc-import name="Product Card" index="{{ $index }}" item="{{ row.item }}" cstate="{{ row.cstate }}" variant="{{ variant }}" layout="grid" compact="{{ true }}" mobile="{{ isMobile }}" on-reveal="{{ reveal }}" on-copy="{{ copied }}" style="height:100%" hint-size="100%,460px"></dc-import>
           </sc-for>
         </div>
       </sc-if>
@@ -348,25 +350,31 @@
 </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;device&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A&quot;,&quot;B&quot;],&quot;default&quot;:&quot;A&quot;,&quot;tsType&quot;:&quot;'A'|'B'&quot;},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;pageState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;data&quot;,&quot;loading&quot;,&quot;empty&quot;,&quot;error&quot;],&quot;default&quot;:&quot;data&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;revealError&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;initView&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initSheet&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;},&quot;initLogin&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initRevealed&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initErrors&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initToast&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;},&quot;initScroll&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;},&quot;initCats&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;device&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A&quot;,&quot;B&quot;],&quot;default&quot;:&quot;A&quot;,&quot;tsType&quot;:&quot;'A'|'B'&quot;},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;pageState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;data&quot;,&quot;loading&quot;,&quot;empty&quot;,&quot;error&quot;],&quot;default&quot;:&quot;data&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;revealError&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;initView&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initSheet&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;},&quot;initLogin&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initRevealed&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initErrors&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initToast&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;},&quot;initScroll&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;},&quot;initCats&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initLimit&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initOwn&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;me&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initPage&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;},&quot;initCount&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;}}">
 class Component extends DCLogic {
-  static STATES = [{"k":"mac-dinh","l":"Mặc định","p":{}},{"k":"da-dang-nhap","l":"Đã đăng nhập","p":{"loggedIn":true}},{"k":"popup-dang-nhap","l":"Popup đăng nhập","p":{"initLogin":"p1"}},{"k":"da-hien-so","l":"Đã hiện số","p":{"loggedIn":true,"initRevealed":"p1,p2,p3"}},{"k":"loi-hien-so","l":"Lỗi hiện số","p":{"loggedIn":true,"initErrors":"p1"}},{"k":"da-sao-chep","l":"Đã sao chép số","p":{"loggedIn":true,"initRevealed":"p1","initToast":true}},{"k":"dang-loc","l":"Đang lọc danh mục","p":{"initCats":"Nhựa,Kim loại"}},{"k":"dang-danh-sach","l":"Dạng danh sách","p":{"initView":"list"}},{"k":"dang-tai","l":"Đang tải","p":{"pageState":"loading"}},{"k":"khong-co-ket-qua","l":"Không có kết quả","p":{"pageState":"empty"}},{"k":"loi-tai","l":"Lỗi tải trang","p":{"pageState":"error"}}];
+  static STATES = [{"k":"dang-danh-sach","l":"Đang có danh sách","p":{}},{"k":"trang-2","l":"Trang 2","p":{"initPage":2}},{"k":"mot-trang","l":"Chỉ 1 trang","p":{"initCount":10}},{"k":"che-do-danh-sach","l":"Chế độ Danh sách","p":{"initView":"list"}},{"k":"da-dang-nhap","l":"Đã đăng nhập","p":{"loggedIn":true}},{"k":"popup-dang-nhap","l":"Popup đăng nhập","p":{"initLogin":"p1"}},{"k":"da-hien-so","l":"Đã hiện số","p":{"loggedIn":true,"initRevealed":"p1,p2,p3"}},{"k":"loi-hien-so","l":"Lỗi hiện số","p":{"loggedIn":true,"initErrors":"p1"}},{"k":"da-sao-chep","l":"Đã sao chép số","p":{"loggedIn":true,"initRevealed":"p1","initToast":true}},{"k":"dang-loc","l":"Đang lọc danh mục","p":{"initCats":"Nhựa,Kim loại"}},{"k":"vuot-gioi-han","l":"Vượt giới hạn hiện số","p":{"loggedIn":true,"initRevealed":"p1","initLimit":"p2"}},{"k":"tin-cua-minh","l":"Tin của mình","p":{"loggedIn":true,"me":"minh","initOwn":"p1,p12"}},{"k":"dang-tai","l":"Đang tải","p":{"pageState":"loading"}},{"k":"khong-co-ket-qua","l":"Không có kết quả","p":{"pageState":"empty"}},{"k":"loi-tai","l":"Lỗi tải trang","p":{"pageState":"error"}}];
   static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
   get __P() { return this.__ov(this.props); }
   __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
   __boot = (() => { const s = Component.__st(); window.LV_STATES = { cur: s ? s.k : Component.STATES[0].k, list: Component.STATES }; try { window.dispatchEvent(new Event('lv-states')); } catch (e) {} if (s && s.s) setTimeout(() => this.setState(s.s), 0); return 1; })();
   static ITEMS = [
-    { id: 'p1', title: 'Vỏ chai PET đã ép kiện', cat: 'Nhựa', catKey: 'plastic', qty: 30000, unit: 'kg', price: 12000, company: 'Giải Pháp Xanh', region: 'Tỉnh Cà Mau', contact: 'Nguyễn Văn Minh', phone: '0909123456', img: (window.__lvImg ? window.__lvImg('assets/plastic.webp') : 'assets/plastic.webp') },
-    { id: 'p2', title: 'Phế liệu nhôm lon đã ép khối, sạch nhãn, không lẫn tạp chất, giao theo lô tại kho Bình Chánh', cat: 'Kim loại', catKey: 'metal', qty: 12, unit: 'tấn', price: 28500000, company: 'Kim Loại Phương Nam', region: 'TP. Hồ Chí Minh', contact: 'Trần Thị Hạnh', phone: '0912345678', img: (window.__lvImg ? window.__lvImg('assets/metal.webp') : 'assets/metal.webp') },
-    { id: 'p3', title: 'Giấy carton vụn OCC loại 1', cat: 'Giấy carton', catKey: 'paper', qty: 50, unit: 'tấn', price: 4200000, company: 'Bao Bì Tân Phú', region: 'Tỉnh Bình Dương', contact: 'Lê Quốc Bảo', phone: '0938456120', img: (window.__lvImg ? window.__lvImg('assets/paper.webp') : 'assets/paper.webp') },
-    { id: 'p10', title: 'Trấu ép kiện', cat: 'Phụ phẩm nông nghiệp', catKey: 'agri', qty: 40, unit: 'tấn', price: 1800000, company: 'Nông Sản Hậu Giang', region: 'TP. Cần Thơ', contact: 'Lý Văn Phước', phone: '0939284716', img: (window.__lvImg ? window.__lvImg('assets/agri.webp') : 'assets/agri.webp') },
-    { id: 'p4', title: 'Nhựa HDPE phế liệu từ can, thùng công nghiệp, đã băm mảnh và phân loại theo màu', cat: 'Nhựa', catKey: 'plastic', qty: 8000, unit: 'kg', price: 9500, company: 'Tái Chế Miền Tây', region: 'TP. Cần Thơ', contact: 'Phạm Thu Trang', phone: '0976234517', img: (window.__lvImg ? window.__lvImg('assets/plastic.webp') : 'assets/plastic.webp') },
-    { id: 'p11', title: 'Vải vụn cotton phân màu', cat: 'Vải dệt may', catKey: 'textile', qty: 5000, unit: 'kg', price: 4500, company: 'May Mặc Thành Công', region: 'Tỉnh Đồng Nai', contact: 'Châu Thị Mỹ', phone: '0965172384', img: (window.__lvImg ? window.__lvImg('assets/textile.webp') : 'assets/textile.webp') },
-    { id: 'p5', title: 'Kính vụn trắng từ dây chuyền sản xuất kính nổi', cat: 'Thuỷ tinh', catKey: null, catColor: '#1d6f86', qty: 20, unit: 'tấn', price: 1100000, company: 'Kính Đông Á', region: 'Tỉnh Bắc Ninh', contact: 'Đỗ Mạnh Hùng', phone: '0983112470', img: null },
-    { id: 'p6', title: 'Sắt thép phế liệu từ công trình phá dỡ', cat: 'Kim loại', catKey: 'metal', qty: 35, unit: 'tấn', price: 7800000, company: 'Hoà Bình Phát', region: 'TP. Hà Nội', contact: 'Vũ Thị Lan', phone: '0904887231', img: (window.__lvImg ? window.__lvImg('assets/metal.webp') : 'assets/metal.webp') },
-    { id: 'p7', title: 'Bê tông, gạch vỡ đã sàng lọc dùng làm vật liệu san lấp', cat: 'Vật liệu xây dựng', catKey: null, catColor: '#99573a', qty: 120, unit: 'tấn', price: 150000, company: 'Xây Dựng Sông Hàn', region: 'TP. Đà Nẵng', contact: 'Ngô Thanh Tùng', phone: '0935667812', img: null },
-    { id: 'p8', title: 'Màng nhựa LDPE đã qua sử dụng, ép kiện', cat: 'Nhựa', catKey: 'plastic', qty: 15000, unit: 'kg', price: 6000, company: 'Giải Pháp Xanh', region: 'Tỉnh Long An', contact: 'Nguyễn Văn Minh', phone: '0909123456', img: (window.__lvImg ? window.__lvImg('assets/plastic.webp') : 'assets/plastic.webp') },
-    { id: 'p9', title: 'Pallet gỗ cũ đã qua sử dụng', cat: 'Vật liệu khác', catKey: null, qty: 2400, unit: 'kg', price: 3500, company: 'Kho Vận Hoàng Lan', region: 'Tỉnh Đồng Nai', contact: 'Hoàng Thị Lan', phone: '0971556203', img: null, own: true },
+    { id: 'p1', title: 'Hạt nhựa PP tái sinh màu đen', cat: 'Nhựa', catKey: 'plastic', qty: 30000, unit: 'kg', price: 12000, company: 'Công ty TNHH Nhựa Xanh', region: 'Bình Dương', contact: 'Nguyễn Văn Minh', phone: '0909123456', img: (window.__lvImg ? window.__lvImg('assets/plastic.webp') : 'assets/plastic.webp') },
+    { id: 'p2', title: 'Nhôm phế liệu dạng lon ép kiện', cat: 'Kim loại', catKey: 'metal', qty: 5, unit: 'tấn', price: 28000000, company: 'Công ty CP Kim Loại Phương Nam', region: 'Đồng Nai', contact: 'Trần Thị Hạnh', phone: '0912345678', img: (window.__lvImg ? window.__lvImg('assets/metal.webp') : 'assets/metal.webp') },
+    { id: 'p3', title: 'Giấy carton vụn OCC loại 1', cat: 'Giấy carton', catKey: 'paper', qty: 50, unit: 'tấn', price: 4200000, company: 'Công ty TNHH Bao Bì Tân Phú', region: 'TP. Hồ Chí Minh', contact: 'Lê Quốc Bảo', phone: '0938456120', img: (window.__lvImg ? window.__lvImg('assets/paper.webp') : 'assets/paper.webp') },
+    { id: 'p4', title: 'Bo mạch điện tử thải từ dây chuyền lắp ráp', cat: 'Rác điện tử', catKey: 'e-waste', qty: 1200, unit: 'kg', price: 85000, company: 'Công ty TNHH Điện Tử Bắc Hà', region: 'Bắc Ninh', contact: 'Đỗ Mạnh Hùng', phone: '0983112470', img: (window.__lvImg ? window.__lvImg('assets/electronic.webp') : 'assets/electronic.webp') },
+    { id: 'p5', title: 'Vải vụn cotton phân màu', cat: 'Vải dệt may', catKey: 'textile', qty: 5000, unit: 'kg', price: 4500, company: 'Công ty May Mặc Thành Công', region: 'Tây Ninh', contact: 'Châu Thị Mỹ', phone: '0965172384', img: (window.__lvImg ? window.__lvImg('assets/textile.webp') : 'assets/textile.webp') },
+    { id: 'p6', title: 'Trấu ép kiện', cat: 'Phụ phẩm nông nghiệp', catKey: 'agri', qty: 40, unit: 'tấn', price: 1800000, company: 'HTX Nông Sản Hậu Giang', region: 'TP. Cần Thơ', contact: 'Lý Văn Phước', phone: '0939284716', img: (window.__lvImg ? window.__lvImg('assets/agri.webp') : 'assets/agri.webp') },
+    { id: 'p7', title: 'Kính vụn trắng từ dây chuyền sản xuất kính nổi', cat: 'Thuỷ tinh', catKey: null, catColor: '#1d6f86', qty: 20, unit: 'tấn', price: 1100000, company: 'Công ty CP Kính Đông Á', region: 'TP. Hải Phòng', contact: 'Phạm Đức Long', phone: '0904556218', img: (window.__lvImg ? window.__lvImg('assets/plastic.webp') : 'assets/plastic.webp') },
+    { id: 'p8', title: 'Nhựa HDPE phế liệu từ can, thùng công nghiệp, đã băm mảnh, rửa sạch, phân loại theo màu và đóng bao jumbo 1 tấn sẵn sàng giao tại kho', cat: 'Nhựa', catKey: 'plastic', qty: 8000, unit: 'kg', price: 9500, company: 'Công ty TNHH Tái Chế Miền Tây', region: 'Vĩnh Long', contact: 'Phạm Thu Trang', phone: '0976234517', img: (window.__lvImg ? window.__lvImg('assets/plastic.webp') : 'assets/plastic.webp') },
+    { id: 'p9', title: 'Sắt thép phế liệu từ công trình phá dỡ', cat: 'Kim loại', catKey: 'metal', qty: 35, unit: 'tấn', price: 7800000, company: 'Công ty TNHH Hoà Bình Phát', region: 'TP. Hà Nội', contact: 'Vũ Thị Lan', phone: '0904887231', img: (window.__lvImg ? window.__lvImg('assets/metal.webp') : 'assets/metal.webp') },
+    { id: 'p10', title: 'Bê tông, gạch vỡ đã sàng lọc dùng làm vật liệu san lấp', cat: 'Vật liệu xây dựng', catKey: null, catColor: '#99573a', qty: 120, unit: 'tấn', price: 150000, company: 'Công ty CP Xây Dựng Sông Hàn', region: 'TP. Đà Nẵng', contact: 'Ngô Thanh Tùng', phone: '0935667812', img: (window.__lvImg ? window.__lvImg('assets/metal.webp') : 'assets/metal.webp') },
+    { id: 'p11', title: 'Pallet gỗ cũ đã qua sử dụng', cat: 'Vật liệu khác', catKey: null, qty: 2400, unit: 'kg', price: 3500, company: 'Cá nhân', region: 'Khánh Hoà', contact: 'Lê Thị Thu', phone: '0971556203', img: null, personal: true },
+    { id: 'p12', title: 'Phế liệu nhựa HDPE dạng can', cat: 'Nhựa', catKey: 'plastic', qty: 15000, unit: 'kg', price: 6000, company: 'Công ty TNHH Nhựa Xanh', region: 'Thanh Hoá', contact: 'Nguyễn Văn Minh', phone: '0909123456', img: (window.__lvImg ? window.__lvImg('assets/plastic.webp') : 'assets/plastic.webp') },
+    { id: 'p13', title: 'Dây điện đồng phế liệu đã tuốt vỏ', cat: 'Kim loại', catKey: 'metal', qty: 800, unit: 'kg', price: 165000, company: 'Công ty TNHH Cơ Điện Phố Hiến', region: 'Hưng Yên', contact: 'Bùi Minh Khoa', phone: '0987321654', img: (window.__lvImg ? window.__lvImg('assets/metal.webp') : 'assets/metal.webp') },
+    { id: 'p14', title: 'Bã mía khô sau ép', cat: 'Phụ phẩm nông nghiệp', catKey: 'agri', qty: 60, unit: 'tấn', price: 900000, company: 'Công ty CP Mía Đường Tây Nguyên', region: 'Gia Lai', contact: 'Đinh Thị Hoa', phone: '0962418375', img: (window.__lvImg ? window.__lvImg('assets/agri.webp') : 'assets/agri.webp') },
+    { id: 'p15', title: 'Giấy văn phòng vụn đã huỷ tài liệu', cat: 'Giấy carton', catKey: 'paper', qty: 3000, unit: 'kg', price: 5500, company: 'Công ty TNHH Lưu Trữ Cố Đô', region: 'TP. Huế', contact: 'Trương Gia Huy', phone: '0918650273', img: (window.__lvImg ? window.__lvImg('assets/paper.webp') : 'assets/paper.webp') },
+    { id: 'p16', title: 'Pin lithium thải từ thiết bị cầm tay', cat: 'Rác điện tử', catKey: 'e-waste', qty: 500, unit: 'kg', price: 42000, company: 'Công ty TNHH Linh Kiện Sông Công', region: 'Thái Nguyên', contact: 'Mai Xuân Đạt', phone: '0977480916', img: (window.__lvImg ? window.__lvImg('assets/electronic.webp') : 'assets/electronic.webp') },
+    { id: 'p17', title: 'Vải denim tồn kho cắt dở', cat: 'Vải dệt may', catKey: 'textile', qty: 2, unit: 'tấn', price: 18000000, company: 'Công ty TNHH Dệt May Sa Đéc', region: 'Đồng Tháp', contact: 'Võ Ngọc Hân', phone: '0945261837', img: (window.__lvImg ? window.__lvImg('assets/textile.webp') : 'assets/textile.webp') },
   ];
   static CATS = ['Nhựa', 'Kim loại', 'Giấy carton', 'Thuỷ tinh', 'Vật liệu xây dựng', 'Phụ phẩm nông nghiệp', 'Rác điện tử', 'Vải dệt may', 'Vật liệu khác'];
   static CAT_COLOR = { 'Nhựa': 'var(--color-material-plastic)', 'Kim loại': 'var(--color-material-metal)', 'Giấy carton': 'var(--color-material-paper)', 'Thuỷ tinh': '#1d6f86', 'Vật liệu xây dựng': '#99573a', 'Phụ phẩm nông nghiệp': 'var(--color-material-agri)', 'Rác điện tử': 'var(--color-material-e-waste)', 'Vải dệt may': 'var(--color-material-textile)', 'Vật liệu khác': 'var(--color-text-body)' };
@@ -375,12 +383,13 @@ class Component extends DCLogic {
     const p = this.__P, b = (v) => v === true || v === 'true';
     const contact = {};
     String(p.initRevealed || '').split(',').filter(Boolean).forEach((id) => { contact[id.trim()] = 'revealed'; });
+    String(p.initLimit || '').split(',').filter(Boolean).forEach((id) => { contact[id.trim()] = 'limit'; });
     String(p.initErrors || '').split(',').filter(Boolean).forEach((id) => { contact[id.trim()] = 'error'; });
     const cats = String(p.initCats || '').split(',').filter(Boolean);
     const R = p.initRegion ? (Component.ITEMS.map((i) => i.region).find((r) => r.includes(p.initRegion.replace(/^TP\. /, ''))) || '') : '';
     return {
       cats, qDraft: p.initQ || '', q: p.initQ || '', unitD: '', fromD: '', toD: '', regionD: R,
-      applied: { unit: '', from: '', to: '', region: R }, sort: 'new', view: p.initView || 'grid', page: 1,
+      applied: { unit: '', from: '', to: '', region: R }, sort: 'new', view: p.initView || 'grid', page: Number(p.initPage) || 1,
       contact, loggedIn: b(p.loggedIn), loginFor: p.initLogin || null, toast: b(p.initToast), sheet: b(p.initSheet), ps: p.pageState || 'data',
     };
   })();
@@ -410,7 +419,8 @@ class Component extends DCLogic {
     const toKg = (q, u) => (u === 'tấn' ? q * 1000 : q);
     const perKg = (it) => (it.unit === 'tấn' ? it.price / 1000 : it.price);
     const a = s.applied, u = a.unit || 'kg';
-    let list = C.ITEMS.map((it, i) => ({ ...it, order: i })).filter((it) =>
+    const src = p.initCount ? C.ITEMS.slice(0, Number(p.initCount)) : C.ITEMS;
+    let list = src.map((it, i) => ({ ...it, order: i })).filter((it) =>
       (!s.cats.length || s.cats.includes(it.cat)) &&
       (!s.q || (it.title + ' ' + it.cat).toLowerCase().includes(s.q.toLowerCase())) &&
       (!a.unit || it.unit === a.unit) &&
@@ -419,8 +429,9 @@ class Component extends DCLogic {
       (!a.region || it.region === a.region));
     const sorters = { new: (x, y) => x.order - y.order, priceAsc: (x, y) => perKg(x) - perKg(y), priceDesc: (x, y) => perKg(y) - perKg(x), qtyDesc: (x, y) => toKg(y.qty, y.unit) - toKg(x.qty, x.unit) };
     list.sort(sorters[s.sort] || sorters.new);
-    const size = 6, totalPages = Math.max(1, Math.ceil(list.length / size)), page = Math.min(s.page, totalPages);
-    const rows = list.slice((page - 1) * size, page * size).map((it) => ({ item: it, cstate: it.own && s.loggedIn ? 'own' : (s.contact[it.id] || 'masked') }));
+    const ownIds = String(p.initOwn || '').split(',').map((x) => x.trim()).filter(Boolean);
+    const size = 16, totalPages = Math.max(1, Math.ceil(list.length / size)), page = Math.min(s.page, totalPages);
+    const rows = list.slice((page - 1) * size, page * size).map((it) => ({ item: it, cstate: (it.own || ownIds.includes(it.id)) && s.loggedIn ? 'own' : (s.contact[it.id] || 'masked') }));
     const fc = (s.cats.length ? 1 : 0) + (a.unit ? 1 : 0) + (a.from !== '' || a.to !== '' ? 1 : 0) + (a.region ? 1 : 0);
     const toggleCat = (c) => this.setState((st) => ({ page: 1, cats: st.cats.includes(c) ? st.cats.filter((x) => x !== c) : [...st.cats, c] }));
     const ps = s.ps, data = ps === 'data';
@@ -428,7 +439,7 @@ class Component extends DCLogic {
     const regions = [...new Set(C.ITEMS.map((i) => i.region))];
     const loginItem = C.ITEMS.find((i) => i.id === s.loginFor);
     return {
-      isDesktop: !mobile, isMobile: mobile, guest: !s.loggedIn, loggedIn: s.loggedIn, variant: p.variant || 'A',
+      isDesktop: !mobile, isMobile: mobile, userName: p.me === 'minh' ? 'Nguyễn Văn Minh' : 'Hoàng Lan', userInitials: p.me === 'minh' ? 'VM' : 'HL', guest: !s.loggedIn, loggedIn: s.loggedIn, variant: p.variant || 'A',
       scrollRef: this.scrollRef, qDraft: s.qDraft,
       onQ: (e) => this.setState({ qDraft: e.target.value }), submitQ: () => this.setState((st) => ({ q: st.qDraft, page: 1 })),
       chips: [{ label: 'Tất cả', active: !s.cats.length, onClick: () => this.setState({ cats: [], page: 1 }) }, ...C.CATS.filter((c, i) => i < 6 || s.cats.includes(c)).map((c) => ({ label: c, active: s.cats.includes(c), onClick: () => toggleCat(c) }))],
@@ -460,8 +471,8 @@ class Component extends DCLogic {
       setGrid: () => this.setState({ view: 'grid' }), setList: () => this.setState({ view: 'list' }),
       isLoading: ps === 'loading', isError: ps === 'error', isEmpty: empty,
       showGrid: data && !empty && s.view === 'grid', showList: data && !empty && s.view === 'list', showPager: data && !empty && totalPages > 1,
-      listLayout: mobile ? 'mlist' : 'list', skeletons: [1, 2, 3, 4, 5, 6], rows, page, totalPages,
-      onPage: (n) => { this.setState({ page: n }); },
+      listLayout: mobile ? 'mlist' : 'list', skeletons: Array.from({ length: 16 }, (_, i) => i + 1), rows, page, totalPages,
+      onPage: (n) => { this.setState({ page: n }); if (this.scrollRef.current) this.scrollRef.current.scrollTop = 0; },
       retryList: () => { this.setState({ ps: 'loading' }); setTimeout(() => this.setState({ ps: 'data' }), 900); },
       reveal: this.reveal, copied: this.copied,
       sheetOpen: s.sheet, openSheet: () => this.setState({ sheet: true }), closeSheet: () => this.setState({ sheet: false }),

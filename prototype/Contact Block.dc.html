@@ -36,6 +36,9 @@
         <sc-if value="{{ notLoading }}" hint-placeholder-val="{{ true }}">
           <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="{{ btnSize }}" onClick="{{ reveal }}" hint-size="auto,32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>Hiện số</x-import>
         </sc-if>
+        <sc-if value="{{ isLimit }}" hint-placeholder-val="{{ false }}">
+          <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="{{ btnSize }}" disabled="{{ true }}" hint-size="auto,32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>Hiện số</x-import>
+        </sc-if>
       </div>
     </sc-if>
     <sc-if value="{{ showFull }}" hint-placeholder-val="{{ false }}">
@@ -62,6 +65,61 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
         <span>Không tải được số, <button type="button" onClick="{{ retry }}" style="border:none;background:none;padding:0;cursor:pointer;font:var(--type-label-sm);color:var(--color-danger);text-decoration:underline">thử lại</button></span>
       </div>
+    </sc-if>
+    <sc-if value="{{ isLimit }}" hint-placeholder-val="{{ false }}">
+      <div role="status" style="display:flex;align-items:flex-start;gap:6px;padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);background:var(--color-warning-soft);border:1px solid color-mix(in oklch, var(--color-warning) 30%, white);color:color-mix(in oklch, var(--color-warning) 62%, black);font:var(--type-caption);text-wrap:pretty"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg><span>Bạn đã xem tối đa 30 số điện thoại hôm nay. Vui lòng thử lại vào ngày mai.</span></div>
+    </sc-if>
+  </div>
+</sc-if>
+<sc-if value="{{ isAC }}" hint-placeholder-val="{{ false }}">
+  <div style="display:flex;flex-direction:column;gap:var(--space-2);padding:8px;border-radius:var(--radius-md);background:var(--color-bg-subtle);border:1px solid var(--color-border-default)">
+    <div style="display:flex;align-items:center;gap:var(--space-2);min-width:0">
+      <span style="width:28px;height:28px;flex-shrink:0;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm);font-size:11px">{{ initials }}</span>
+      <div style="display:flex;flex-direction:column;min-width:0">
+        <span style="font:var(--type-caption);color:var(--color-text-muted)">Người liên hệ</span>
+        <span style="font:var(--type-label-md);color:var(--color-text-heading);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ name }}</span>
+      </div>
+    </div>
+    <sc-if value="{{ showMasked }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-1)">
+        <span style="display:flex;align-items:center;gap:6px;min-width:0;font:var(--type-label-md);letter-spacing:0;color:var(--color-text-body);white-space:nowrap">
+          {{ masked }}
+        </span>
+        <sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}">
+          <span style="pointer-events:none;display:flex;flex-shrink:0;white-space:nowrap"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" hint-size="auto,32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;animation:lv-spin 0.8s linear infinite"><path d="M21 12a9 9 0 1 1-6.219-8.56"></path></svg>Đang tải</x-import></span>
+        </sc-if>
+        <sc-if value="{{ notLoading }}" hint-placeholder-val="{{ true }}">
+          <span style="display:flex;flex-shrink:0;white-space:nowrap"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" onClick="{{ reveal }}" hint-size="auto,32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>Hiện số</x-import></span>
+        </sc-if>
+        <sc-if value="{{ isLimit }}" hint-placeholder-val="{{ false }}">
+          <span style="display:flex;flex-shrink:0;white-space:nowrap"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" disabled="{{ true }}" hint-size="auto,32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path><circle cx="12" cy="12" r="3"></circle></svg>Hiện số</x-import></span>
+        </sc-if>
+      </div>
+    </sc-if>
+    <sc-if value="{{ showFull }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-1);animation:lv-pop 300ms ease-out both">
+        <a href="{{ tel }}" style="display:flex;align-items:center;gap:6px;min-width:0;font:var(--type-label-md);letter-spacing:0;color:var(--color-text-heading);text-decoration:none;white-space:nowrap">
+          {{ full }}
+        </a>
+        <div style="display:flex;align-items:center;gap:2px;flex-shrink:0">
+          <span title="Sao chép số" style="display:flex"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="ghost" size="s" onClick="{{ copy }}" aria-label="Sao chép số" hint-size="32px,32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><rect width="14" height="14" x="8" y="8" rx="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg></x-import></span>
+          <sc-if value="{{ showZalo }}" hint-placeholder-val="{{ true }}">
+            <span title="Nhắn Zalo" style="display:flex"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" onClick="{{ zalo }}" aria-label="Nhắn Zalo" hint-size="32px,32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg></x-import></span>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isOwn }}" hint-placeholder-val="{{ false }}">
+      <span style="font:var(--type-caption);color:var(--color-text-muted)">Tin của bạn — số luôn hiển thị</span>
+    </sc-if>
+    <sc-if value="{{ isError }}" hint-placeholder-val="{{ false }}">
+      <div role="alert" style="display:flex;align-items:center;gap:6px;padding:6px var(--space-2);border-radius:var(--radius-sm);background:var(--color-danger-soft);color:var(--color-danger);font:var(--type-caption)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>
+        <span>Không tải được số, <button type="button" onClick="{{ retry }}" style="border:none;background:none;padding:0;cursor:pointer;font:var(--type-label-sm);color:var(--color-danger);text-decoration:underline">thử lại</button></span>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isLimit }}" hint-placeholder-val="{{ false }}">
+      <div role="status" style="display:flex;align-items:flex-start;gap:6px;padding:6px var(--space-2);border-radius:var(--radius-sm);background:var(--color-warning-soft);border:1px solid color-mix(in oklch, var(--color-warning) 30%, white);color:color-mix(in oklch, var(--color-warning) 62%, black);font:var(--type-caption);text-wrap:pretty"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg><span>Đã đạt giới hạn 30 số hôm nay. Thử lại vào ngày mai.</span></div>
     </sc-if>
   </div>
 </sc-if>
@@ -111,21 +169,22 @@
 </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:340,&quot;height&quot;:160},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A&quot;,&quot;B&quot;],&quot;default&quot;:&quot;A&quot;,&quot;tsType&quot;:&quot;'A'|'B'&quot;},&quot;cstate&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;masked&quot;,&quot;loading&quot;,&quot;revealed&quot;,&quot;error&quot;,&quot;own&quot;],&quot;default&quot;:&quot;masked&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;mobile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;contactName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Nguyễn Văn Minh&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;phone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;0909123456&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;onReveal&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;onCopy&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;onRetry&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:340,&quot;height&quot;:160},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A&quot;,&quot;B&quot;],&quot;default&quot;:&quot;A&quot;,&quot;tsType&quot;:&quot;'A'|'B'&quot;},&quot;cstate&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;masked&quot;,&quot;loading&quot;,&quot;revealed&quot;,&quot;error&quot;,&quot;own&quot;,&quot;limit&quot;],&quot;default&quot;:&quot;masked&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;mobile&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;contactName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Nguyễn Văn Minh&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;phone&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;0909123456&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;onReveal&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;onCopy&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;},&quot;onRetry&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;}}">
 class Component extends DCLogic {
   renderVals() {
     const p = this.props;
     const ph = String(p.phone || '0909123456').replace(/\D/g, '');
     const st = p.cstate || 'masked';
     const mobile = p.mobile === true || p.mobile === 'true';
+    const compact = p.compact === true || p.compact === 'true';
     const name = p.contactName || 'Nguyễn Văn Minh';
     const parts = name.trim().split(/\s+/);
     const initials = ((parts[parts.length - 2] || '')[0] || '') + (parts[parts.length - 1][0] || '');
     return {
-      isA: p.variant !== 'B', isB: p.variant === 'B', name, initials: initials.toUpperCase(),
+      isA: p.variant !== 'B' && !compact, isAC: p.variant !== 'B' && compact, isB: p.variant === 'B', name, initials: initials.toUpperCase(),
       masked: ph.slice(0, 4) + ' ••• •••', full: ph.slice(0, 4) + ' ' + ph.slice(4, 7) + ' ' + ph.slice(7), tel: 'tel:' + ph,
-      showMasked: st === 'masked' || st === 'loading' || st === 'error',
-      isLoading: st === 'loading', notLoading: st !== 'loading', isError: st === 'error',
+      showMasked: st === 'masked' || st === 'loading' || st === 'error' || st === 'limit', isLimit: st === 'limit',
+      isLoading: st === 'loading', notLoading: st !== 'loading' && st !== 'limit', isError: st === 'error',
       showFull: st === 'revealed' || st === 'own', showZalo: st === 'revealed', isOwn: st === 'own',
       btnSize: mobile ? 'l' : 's', barSize: mobile ? 'l' : 'm',
       reveal: () => p.onReveal && p.onReveal(),

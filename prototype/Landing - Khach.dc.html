@@ -77,6 +77,7 @@
         </sc-for>
       </div>
 
+      <sc-if value="{{ statsFull }}" hint-placeholder-val="{{ true }}">
       <dl style="margin:var(--space-4) 0 0;display:flex;gap:var(--space-10);animation:lv-rise 700ms ease-out 360ms both">
         <div style="display:flex;flex-direction:column-reverse;gap:2px"><dt style="font:var(--type-body-sm);color:rgba(255,255,255,0.74)">tin đang bán</dt><dd style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-inverse)">1.326</dd></div>
         <div style="width:1px;background:rgba(255,255,255,0.18)"></div>
@@ -84,6 +85,14 @@
         <div style="width:1px;background:rgba(255,255,255,0.18)"></div>
         <div style="display:flex;flex-direction:column-reverse;gap:2px"><dt style="font:var(--type-body-sm);color:rgba(255,255,255,0.74)">tấn đã giao dịch</dt><dd style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-inverse)">3.480</dd></div>
       </dl>
+      </sc-if>
+      <sc-if value="{{ statsFew }}" hint-placeholder-val="{{ false }}">
+        <dl style="margin:var(--space-4) 0 0;max-width:640px;display:flex;justify-content:center;animation:lv-rise 700ms ease-out 360ms both">
+          <sc-for list="{{ heroStats }}" as="st" hint-placeholder-count="2">
+            <div style="flex:1 1 0;display:flex;flex-direction:column-reverse;align-items:center;gap:2px;text-align:center;border-left:{{ st.divider }}"><dt style="font:var(--type-body-sm);color:rgba(255,255,255,0.74)">{{ st.label }}</dt><dd style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-inverse)">{{ st.value }}</dd></div>
+          </sc-for>
+        </dl>
+      </sc-if>
     </div>
 
     <div aria-hidden="true" style="position:relative;width:480px;height:480px;animation:lv-rise 900ms ease-out 200ms both">
@@ -176,14 +185,15 @@
   </div>
 </section>
 
+<sc-if value="{{ hasPinned }}" hint-placeholder-val="{{ true }}">
 <section aria-labelledby="h-org" style="padding:var(--space-14) 40px var(--space-16);background:var(--color-bg-subtle)">
   <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-8)">
     <h2 id="h-org" style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">Doanh nghiệp đã xác minh</h2>
     <a href="#" style="display:flex;align-items:center;gap:var(--space-1);font:var(--type-label-md);text-decoration:none" style-hover="text-decoration:underline">Khám phá đơn vị<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
   </div>
-  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-5)">
+  <div style="display:flex;justify-content:center;gap:var(--space-5)">
     <sc-for list="{{ sellers }}" as="s" hint-placeholder-count="4">
-      <a href="Thong tin nguoi ban - Ban chinh.dc.html" style="display:flex;flex-direction:column;gap:var(--space-4);padding:var(--space-5);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);text-decoration:none;transition:transform 200ms ease-out,box-shadow 200ms ease-out" style-hover="transform:translateY(-2px);box-shadow:var(--shadow-raised)">
+      <a href="Thong tin nguoi ban - Ban chinh.dc.html" style="flex:0 0 calc((100% - 3 * var(--space-5)) / 4);box-sizing:border-box;min-width:0;display:flex;flex-direction:column;gap:var(--space-4);padding:var(--space-5);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);text-decoration:none;transition:transform 200ms ease-out,box-shadow 200ms ease-out" style-hover="transform:translateY(-2px);box-shadow:var(--shadow-raised)">
         <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-3)">
           <span style="width:56px;height:56px;flex-shrink:0;border-radius:var(--radius-md);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-h4)">{{ s.initials }}</span>
           <span style="display:inline-flex;align-items:center;height:26px;padding:0 10px;border-radius:var(--radius-full);border:1px solid var(--color-border-strong);color:var(--color-text-body);font:var(--type-label-sm)">{{ s.type }}</span>
@@ -200,8 +210,9 @@
     </sc-for>
   </div>
 </section>
+</sc-if>
 
-<section aria-labelledby="h-why" style="padding:var(--space-16) 40px var(--space-16);background:var(--color-bg-page)">
+<section aria-labelledby="h-why" style="padding:var(--space-16) 40px var(--space-16);background:var(--color-bg-page);border-top:{{ whyBorder }}">
   <h2 id="h-why" style="margin:0 0 var(--space-10);font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">Vì sao chọn Lavatu</h2>
   <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-10)">
     <div style="display:flex;flex-direction:column;gap:var(--space-3)">
@@ -330,9 +341,9 @@
 </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;stats&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;3&quot;,&quot;2&quot;,&quot;1&quot;,&quot;0&quot;],&quot;default&quot;:&quot;3&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Số liệu hero hiển thị&quot;},&quot;pinned&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;4&quot;,&quot;3&quot;,&quot;2&quot;,&quot;1&quot;,&quot;0&quot;],&quot;default&quot;:&quot;4&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Doanh nghiệp ghim&quot;}}">
 class Component extends DCLogic {
-  static STATES = [{"k":"mac-dinh","l":"Mặc định","p":{}},{"k":"popup-dang-nhap","l":"Popup hiện số","s":{"loginFor":"h3"}}];
+  static STATES = [{"k":"mac-dinh","l":"Đầy đủ","p":{}},{"k":"popup-dang-nhap","l":"Popup hiện số","s":{"loginFor":"h3"}},{"k":"hero-2-so","l":"Hero 2 số","g":"Sàn mới chạy","p":{"stats":"2"}},{"k":"hero-1-so","l":"Hero 1 số","g":"Sàn mới chạy","p":{"stats":"1"}},{"k":"hero-khong-so","l":"Hero không số","g":"Sàn mới chạy","p":{"stats":"0"}},{"k":"noi-bat-2","l":"Nổi bật 2 DN","g":"Sàn mới chạy","p":{"pinned":"2"}},{"k":"noi-bat-trong","l":"Nổi bật trống","g":"Sàn mới chạy","p":{"pinned":"0"}},{"k":"san-moi","l":"Sàn mới (cả trang)","g":"Sàn mới chạy","p":{"stats":"0","pinned":"0"}}];
   static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
   get __P() { return this.__ov(this.props); }
   __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
@@ -363,6 +374,10 @@ class Component extends DCLogic {
     { name: 'Cty TNHH Giấy Đông Á', initials: 'ĐA', type: 'Thu gom', place: 'Đồng Nai', listings: 14, rating: '4,5' },
     { name: 'HTX Nông sản Mekong', initials: 'NM', type: 'Thu gom', place: 'Cần Thơ', listings: 7, rating: '4,6' },
   ];
+  static PINNED_FEW = [
+    { name: 'Công ty TNHH Nhựa Xanh', initials: 'NX', type: 'Tái chế', place: 'Bình Dương', listings: 2, rating: '4,6' },
+    { name: 'Công ty CP Tái chế Kim loại Phương Nam', initials: 'PN', type: 'Tái chế', place: 'Đồng Nai', listings: 5, rating: '4,8' },
+  ];
   static PROVS = ['Hà Nội', 'Huế', 'Hải Phòng', 'Đà Nẵng', 'TP. Hồ Chí Minh', 'Cần Thơ', 'An Giang', 'Bắc Ninh', 'Cà Mau', 'Cao Bằng', 'Đắk Lắk', 'Điện Biên', 'Đồng Nai', 'Đồng Tháp', 'Gia Lai', 'Hà Tĩnh', 'Hưng Yên', 'Khánh Hoà', 'Lai Châu', 'Lâm Đồng', 'Lạng Sơn', 'Lào Cai', 'Nghệ An', 'Ninh Bình', 'Phú Thọ', 'Quảng Ngãi', 'Quảng Ninh', 'Quảng Trị', 'Sơn La', 'Tây Ninh', 'Thái Nguyên', 'Thanh Hoá', 'Tuyên Quang', 'Vĩnh Long'];
   static ORBIT = [['Nhựa', 'plastic', 188, 18], ['Kim loại', 'metal', 350, 136], ['Giấy', 'paper', 288, 326], ['Vải', 'textile', 88, 326], ['Nông nghiệp', 'agri', 26, 136]];
   scrollRef = React.createRef();
@@ -385,6 +400,8 @@ class Component extends DCLogic {
     const toList = (params) => { const u = new URLSearchParams(); Object.entries(params).forEach(([k, v]) => v && u.set(k, v)); const qs = u.toString(); return 'Nguon vat lieu - Ban chinh.dc.html' + (qs ? '?' + qs : ''); };
     const loggedIn = this.isIn();
     const mix = (c, p) => 'color-mix(in oklch, ' + c + ' ' + p + '%, white)';
+    const P = this.__P, nStats = P.stats == null ? 3 : Number(P.stats);
+    const pinned = P.pinned == null ? C.SELLERS : P.pinned === '2' ? C.PINNED_FEW : P.pinned === '0' ? [] : C.SELLERS.slice(0, Number(P.pinned));
     return {
       scrollRef: this.scrollRef, loggedIn, guest: !loggedIn,
       goPost: () => { window.location.href = 'Dang tin ban - Ban chinh.dc.html'; },
@@ -408,7 +425,10 @@ class Component extends DCLogic {
         iGlass: icon === 'glass', iBrick: icon === 'brick', iChip: icon === 'chip', iBox: icon === 'box' })),
       rows: C.ITEMS.map((it) => ({ item: { ...it, img: it.img ? C.IMG(it.img) : null }, cstate: s.contact[it.id] || 'masked' })),
       reveal: this.reveal, copied: this.copied,
-      sellers: C.SELLERS,
+      sellers: pinned,
+      hasPinned: pinned.length > 0, whyBorder: pinned.length ? 'none' : '1px solid var(--color-border-default)',
+      statsFull: nStats === 3, statsFew: nStats === 1 || nStats === 2,
+      heroStats: [['126', 'tin đang bán'], ['18', 'doanh nghiệp đã xác minh']].slice(0, nStats < 3 ? nStats : 0).map(([value, label], n) => ({ value, label, divider: n ? '1px solid rgba(255,255,255,0.18)' : 'none' })),
       benefits: [
         { border: '1px solid rgba(255,255,255,0.12)', text: 'Tiếp cận nhiều đối tác hơn', d1: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75', d2: 'M9 3a4 4 0 1 0 0 8a4 4 0 1 0 0-8' },
         { border: '1px solid rgba(255,255,255,0.12)', text: 'Đăng tin nhanh, quản lý dễ dàng', d1: 'M12 6v6l4 2', d2: 'M12 2a10 10 0 1 0 0 20a10 10 0 1 0 0-20' },
