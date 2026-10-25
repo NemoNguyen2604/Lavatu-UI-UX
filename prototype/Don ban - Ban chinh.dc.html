@@ -107,9 +107,10 @@
             <span>Nhận {{ o.sent }}</span>
             <span style="color:var(--color-text-subtle)">·</span>
             <span style="display:flex;align-items:center;gap:var(--space-2);color:var(--color-text-body)">{{ o.buyer }}<x-import component-from-global-scope="LavatuDesignSystem_2cb126.Tag" hint-size="auto,22px">{{ o.acct }}</x-import></span>
-            <span style="margin-left:auto">
+            <span style="margin-left:auto;display:flex;align-items:center;gap:var(--space-2)">
               <sc-if value="{{ o.dsBadge }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="{{ o.tone }}" hint-size="auto,24px">{{ o.status }}</x-import></sc-if>
               <sc-if value="{{ o.blueBadge }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-full);font:var(--type-label-sm);white-space:nowrap;background:color-mix(in oklch, var(--color-material-plastic) 10%, white);color:var(--color-material-plastic)"><span style="width:6px;height:6px;border-radius:50%;background:var(--color-material-plastic)"></span>{{ o.status }}</span></sc-if>
+              <sc-if value="{{ o.complaint }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:var(--radius-full);background:var(--color-warning-soft);color:color-mix(in oklch, var(--color-warning) 62%, black);font:var(--type-label-sm);white-space:nowrap">Đang khiếu nại</span></sc-if>
             </span>
           </div>
           <div style="display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:var(--space-6);align-items:center;padding:var(--space-4) var(--space-5)">
@@ -135,7 +136,7 @@
             </div>
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right">
               <span style="font:var(--type-caption);color:var(--color-text-muted)">{{ o.amountLabel }}</span>
-              <span style="font:var(--type-h4);color:var(--color-text-heading);white-space:nowrap">{{ o.amount }}</span>
+              <span style="display:flex;flex-wrap:wrap;justify-content:flex-end;align-items:center;gap:var(--space-1) var(--space-2)"><sc-if value="{{ o.dev }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:var(--radius-full);background:var(--color-warning-soft);color:color-mix(in oklch, var(--color-warning) 62%, black);font:var(--type-label-sm);white-space:nowrap">{{ o.dev }}</span></sc-if><span style="font:var(--type-h4);color:var(--color-text-heading);white-space:nowrap">{{ o.amount }}</span></span>
               <sc-if value="{{ o.amountNote }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-caption);color:var(--color-text-muted)">{{ o.amountNote }}</span></sc-if>
             </div>
           </div>
@@ -243,8 +244,9 @@ class Component extends DCLogic {
     { code: 'DH-261013-0004', sent: '13/10/2026', ts: 20261013.2, buyer: 'Hoàng Lan', acct: 'Doanh nghiệp', product: 'Nhựa PP tái sinh dạng hạt', more: 0, img: 'assets/plastic.webp', mat: 'plastic', qty: '2.000 kg', del: 'seller', place: 'Bình Dương', want: '18/10', pay: 'Chuyển khoản', st: 'pending', amountLabel: 'Tạm tính', amount: '50.000.000 VNĐ', deadline: 'Bạn cần phản hồi trước 21:30 15/10', dlTs: 202610152130, dlKind: 'warn' },
     { code: 'DH-261013-0006', sent: '13/10/2026', ts: 20261013.1, buyer: 'Lê Quốc Bảo', acct: 'Cá nhân', product: 'Màng nhựa LDPE ép kiện', more: 0, img: 'assets/plastic.webp', mat: 'plastic', qty: '16.000 kg', over: '15.000 kg', del: 'self', want: '16/10', st: 'pending', amountLabel: 'Tạm tính', amount: '96.000.000 VNĐ', deadline: 'Bạn cần phản hồi trước 09:00 14/10', dlTs: 202610140900, dlKind: 'urgent' },
     { code: 'DH-261011-0009', sent: '11/10/2026', ts: 20261011, buyer: 'Tái Chế Miền Tây', acct: 'Doanh nghiệp', product: 'Nhựa PP tái sinh dạng hạt', more: 0, img: 'assets/plastic.webp', mat: 'plastic', qty: '5.000 kg', del: 'carrier', hirer: 'người mua thuê', place: 'Cần Thơ', want: '20/10', pay: 'Chuyển khoản', st: 'confirmed', amountLabel: 'Tổng đã chốt', amount: '122.500.000 VNĐ' },
-    { code: 'DH-261010-0002', sent: '10/10/2026', ts: 20261010, buyer: 'Bao Bì Tân Phú', acct: 'Doanh nghiệp', product: 'Nhựa PP tái sinh dạng hạt', more: 1, img: 'assets/plastic.webp', mat: 'plastic', qty: '5.000 kg', del: 'seller', place: 'TP. Hồ Chí Minh', want: '22/10', pay: 'Công nợ', st: 'await_adjust', amountLabel: 'Tạm tính theo đề xuất', amount: '83.600.000 VNĐ', deadline: 'Chờ người mua phản hồi đến 21:30 15/10', dlTs: 202610152130, dlKind: 'muted' },
-    { code: 'DH-261008-0007', sent: '08/10/2026', ts: 20261008, buyer: 'Hoàng Lan', acct: 'Doanh nghiệp', product: 'Nhựa PP tái sinh dạng hạt', more: 1, img: 'assets/plastic.webp', mat: 'plastic', qty: '4.850 kg', del: 'carrier', hirer: 'người mua thuê', place: 'Bình Dương', want: '12/10', st: 'await_receive', amountLabel: 'Thực tế', amount: '98.400.000 VNĐ', deadline: 'Tự hoàn tất vào 15/10 nếu người mua không phản hồi', dlTs: 202610150000, dlKind: 'muted' },
+    { code: 'DH-261024-0007', sent: '24/10/2026', ts: 20261024.2, buyer: 'Bao Bì Minh Phát', acct: 'Doanh nghiệp', product: 'Hạt nhựa PP tái sinh màu đen', more: 0, img: 'assets/plastic.webp', mat: 'plastic', qty: '4.400 kg', del: 'seller', place: 'Bình Dương', want: '28/10', pay: 'Chuyển khoản', st: 'await_receive', amountLabel: 'Thực tế', amount: '112.000.000 VNĐ', dev: 'Lệch −12% · Người mua phải xác nhận' },
+    { code: 'DH-261024-0009', sent: '24/10/2026', ts: 20261024.1, buyer: 'Hoàng Lan', acct: 'Doanh nghiệp', product: 'Hạt nhựa PP tái sinh màu đen', more: 0, img: 'assets/plastic.webp', mat: 'plastic', qty: '4.700 kg', del: 'seller', place: 'Bình Dương', want: '28/10', pay: 'Chuyển khoản', st: 'await_receive', amountLabel: 'Thực tế', amount: '119.500.000 VNĐ', deadline: 'Tự hoàn tất vào 04/11 nếu người mua không phản hồi', dlTs: 202611040000, dlKind: 'muted' },
+    { code: 'DH-261023-0003', sent: '23/10/2026', ts: 20261023, buyer: 'Tái Chế Miền Tây', acct: 'Doanh nghiệp', product: 'Phế liệu nhựa HDPE ép kiện', more: 0, img: 'assets/plastic.webp', mat: 'plastic', qty: '2.000 kg', del: 'carrier', hirer: 'người mua thuê', place: 'Cần Thơ', want: '26/10', pay: 'Chuyển khoản', st: 'await_receive', amountLabel: 'Thực tế', amount: '15.000.000 VNĐ', complaint: true },
     { code: 'DH-261002-0001', sent: '02/10/2026', ts: 20261002, buyer: 'Kim Loại Phương Nam', acct: 'Doanh nghiệp', product: 'Màng nhựa LDPE ép kiện', more: 0, img: 'assets/plastic.webp', mat: 'plastic', qty: '3.000 kg', del: 'self', want: '05/10', pay: 'Tiền mặt', st: 'done', amountLabel: 'Thực tế', amount: '18.000.000 VNĐ', stars: 5 },
   ];
   static ST = {
@@ -285,11 +287,11 @@ class Component extends DCLogic {
       sortOpts: [{ value: 'newest', label: 'Mới nhất' }, { value: 'oldest', label: 'Cũ nhất' }, { value: 'deadline', label: 'Sắp hết hạn phản hồi' }],
       stop: (e) => e.stopPropagation(), tipOff: () => {}, toast: '',
       open: (e) => { if (e && e.preventDefault) e.preventDefault(); },
-      rows: list.map((o) => { const st = C.ST[o.st]; const go = (e) => { if (e && e.preventDefault) e.preventDefault(); const M = { pending:'pending', await_adjust:'await_adjust', confirmed:'confirmed', shipping:'shipping', await_receive:'await_receive', done:'done', rejected:'rejected', expired:'expired', cancelled:'cancelled' }; window.location.href = 'Chi tiet don - Ban chinh.dc.html?role=seller&stage=' + (M[o.st] || 'pending'); }; const mv = C.MAT[o.mat]; return { ...o,
+      rows: list.map((o) => { const st = C.ST[o.st]; const go = (e) => { if (e && e.preventDefault) e.preventDefault(); if (o.complaint) { window.location.href = 'Chi tiet don - Ban chinh.dc.html?state=ban-dang-khieu-nai'; return; } const M = { pending:'pending', await_adjust:'await_adjust', confirmed:'confirmed', shipping:'shipping', await_receive:'await_receive', done:'done', rejected:'rejected', expired:'expired', cancelled:'cancelled' }; window.location.href = 'Chi tiet don - Ban chinh.dc.html?role=seller&stage=' + (M[o.st] || 'pending'); }; const mv = C.MAT[o.mat]; return { ...o,
         go, status: st.label, tone: st.tone || 'neutral', dsBadge: !st.blue, blueBadge: !!st.blue,
         noImg: !o.img, imgBg: o.img ? 'url("' + o.img + '")' : 'none', thumbBg: mv ? 'color-mix(in oklch, var(' + mv + ') 12%, white)' : 'var(--color-bg-muted)',
         dSelf: o.del === 'self', dSeller: o.del === 'seller', dCarrier: o.del === 'carrier', delivery: delTxt(o),
-        over: o.over || '', pay: o.pay || '', amountNote: '', deadline: o.deadline || '', reason: o.reason || '',
+        over: o.over || '', pay: o.pay || '', dev: o.dev || '', complaint: !!o.complaint, amountNote: '', deadline: o.deadline || '', reason: o.reason || '',
         dlColor: dlColor[o.dlKind] || dlColor.muted, dlFont: o.dlKind === 'muted' || !o.dlKind ? 'var(--type-body-sm)' : 'var(--type-label-md)',
         stars: o.stars || 0, starList: Array.from({ length: o.stars || 0 }, (_, i) => i), starsLabel: (o.stars || 0) + ' trên 5 sao',
         cta: st.cta || '', ctaPrimary: st.kind === 'primary', ctaSecondary: false, ctaLink: !st.kind,

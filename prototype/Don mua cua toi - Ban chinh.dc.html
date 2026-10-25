@@ -136,9 +136,10 @@
             <span>Gửi {{ o.sent }}</span>
             <span style="color:var(--color-text-subtle)">·</span>
             <span style="display:flex;align-items:center;gap:4px;color:var(--color-text-body)">{{ o.seller }}<sc-if value="{{ o.verified }}" hint-placeholder-val="{{ true }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-label="Đã xác minh" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-brand)"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></sc-if><sc-if value="{{ o.personal }}" hint-placeholder-val="{{ false }}"><span style="height:20px;padding:0 8px;border-radius:var(--radius-full);background:var(--color-bg-muted);color:var(--color-text-body);font:var(--type-label-sm);display:inline-flex;align-items:center">Cá nhân</span></sc-if></span>
-            <span style="margin-left:auto">
+            <span style="margin-left:auto;display:flex;align-items:center;gap:var(--space-2)">
               <sc-if value="{{ o.dsBadge }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="{{ o.tone }}" hint-size="auto,24px">{{ o.status }}</x-import></sc-if>
               <sc-if value="{{ o.blueBadge }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-full);font:var(--type-label-sm);white-space:nowrap;background:color-mix(in oklch, var(--color-material-plastic) 10%, white);color:var(--color-material-plastic)"><span style="width:6px;height:6px;border-radius:50%;background:var(--color-material-plastic)"></span>{{ o.status }}</span></sc-if>
+              <sc-if value="{{ o.complaint }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:var(--radius-full);background:var(--color-warning-soft);color:color-mix(in oklch, var(--color-warning) 62%, black);font:var(--type-label-sm);white-space:nowrap">Đang khiếu nại</span></sc-if>
             </span>
           </div>
           <div style="display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:var(--space-6);align-items:center;padding:var(--space-4) var(--space-5)">
@@ -249,6 +250,7 @@ class Component extends DCLogic {
     { code: 'DH-261025-0012', sent: '25/10/2026', ts: 20261025, seller: NX, product: 'Phế liệu nhựa HDPE dạng can', img: 'assets/plastic.webp', mat: 'plastic', qty: '2.000 kg', del: 'self', st: 'pending_seller', amount: '18.000.000 VNĐ' },
     { code: 'DH-261024-0009', sent: '24/10/2026', ts: 20261024.5, seller: TL, personal: true, product: 'Vải cotton vụn phân loại theo màu', img: 'assets/textile.webp', mat: 'textile', qty: '800 kg', del: 'seller', st: 'pending_seller', amount: '6.400.000 VNĐ' },
     { code: 'DH-261024-0007', sent: '24/10/2026', ts: 20261024, seller: NX, product: 'Hạt nhựa PP tái sinh màu đen', img: 'assets/plastic.webp', mat: 'plastic', qty: '4.400 kg', del: 'seller', st: 'await_receive', amount: '112.000.000 VNĐ', dev: 'Lệch −12%', note: 'Đơn chỉ hoàn tất khi bạn xác nhận.' },
+    { code: 'DH-261023-0003', sent: '23/10/2026', ts: 20261023.5, seller: NX, product: 'Phế liệu nhựa HDPE ép kiện', img: 'assets/plastic.webp', mat: 'plastic', qty: '2.000 kg', del: 'carrier', st: 'await_receive', amount: '15.000.000 VNĐ', complaint: true },
     { code: 'DH-261023-0004', sent: '23/10/2026', ts: 20261023, seller: PN, product: 'Nhôm phế liệu dạng lon ép kiện', img: 'assets/metal.webp', mat: 'metal', qty: '5 tấn', del: 'seller', st: 'await_adjust', amount: '140.000.000 VNĐ', amountNote: 'Theo đề xuất mới của người bán', dl: [2026, 10, 25, 18, 0] },
     { code: 'DH-261022-0010', sent: '22/10/2026', ts: 20261022, seller: PN, product: 'Đồng cáp phế liệu đã bóc vỏ', more: 2, img: 'assets/metal.webp', mat: 'metal', qty: '1,2 tấn', del: 'carrier', st: 'shipping', amount: '218.500.000 VNĐ', amountNote: 'Gồm phí giao 2.500.000 VNĐ' },
     { code: 'DH-261020-0006', sent: '20/10/2026', ts: 20261020, seller: NX, product: 'Nhựa PET vụn đã rửa', img: 'assets/plastic.webp', mat: 'plastic', qty: '3.000 kg', del: 'seller', st: 'confirmed', amount: '39.500.000 VNĐ', amountNote: 'Gồm phí giao 1.500.000 VNĐ' },
@@ -309,12 +311,12 @@ class Component extends DCLogic {
       sortOpts: [{ value: 'newest', label: 'Mới nhất' }, { value: 'oldest', label: 'Cũ nhất' }, { value: 'deadline', label: 'Hạn phản hồi gần nhất' }],
       page, pages, showPager: pages > 1, onPage: (p) => { this.setState({ page: p }); if (this.scrollRef.current) this.scrollRef.current.scrollTop = 0; },
       rows: pageList.map((o) => { const st = C.ST[o.st], mv = C.MAT[o.mat];
-        const go = (e) => { if (e && e.preventDefault) e.preventDefault(); window.location.href = 'Chi tiet don - Ban chinh.dc.html?role=buyer&stage=' + st.stage; };
-        const cta = o.st === 'done' && !o.rated ? 'Đánh giá' : st.cta || '';
+        const go = (e) => { if (e && e.preventDefault) e.preventDefault(); window.location.href = o.complaint ? 'Chi tiet don - Ban chinh.dc.html?state=mua-dang-khieu-nai' : 'Chi tiet don - Ban chinh.dc.html?role=buyer&stage=' + st.stage; };
+        const cta = o.complaint ? 'Xem chi tiết' : o.st === 'done' && !o.rated ? 'Đánh giá' : st.cta || '';
         const kind = o.st === 'done' && !o.rated ? 'secondary' : st.kind;
         const line = o.deadline || o.note || '';
         return { ...o, go, status: st.label, tone: st.tone || 'neutral', dsBadge: !st.blue, blueBadge: !!st.blue,
-          verified: !o.personal, personal: !!o.personal, more: o.more || 0, dev: o.dev || '',
+          verified: !o.personal, personal: !!o.personal, more: o.more || 0, dev: o.dev || '', complaint: !!o.complaint,
           noImg: !o.img, img: o.img || '', imgBg: o.img ? 'url("' + o.img + '")' : 'none', thumbBg: mv ? 'color-mix(in oklch, var(' + mv + ') 12%, white)' : 'var(--color-bg-muted)',
           dSelf: o.del === 'self', dSeller: o.del === 'seller', dCarrier: o.del === 'carrier', delivery: C.DEL[o.del],
           amountLabel: C.AMT[o.st], amountNote: o.amountNote || '', deadline: line, reason: o.reason || '',

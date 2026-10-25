@@ -127,9 +127,9 @@
         </div>
       </div>
       <sc-if value="{{ hasResults }}" hint-placeholder-val="{{ true }}">
-        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-5)">
-          <sc-for list="{{ rows }}" as="row" hint-placeholder-count="6">
-            <dc-import name="Product Card" index="{{ $index }}" item="{{ row.item }}" cstate="{{ row.cstate }}" variant="A" layout="grid" on-reveal="{{ revealItem }}" on-copy="{{ copied }}" hint-size="100%,520px"></dc-import>
+        <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-4);align-items:stretch">
+          <sc-for list="{{ rows }}" as="row" hint-placeholder-count="16">
+            <dc-import name="Product Card" index="{{ $index }}" item="{{ row.item }}" cstate="{{ row.cstate }}" variant="A" layout="grid" compact="{{ true }}" on-reveal="{{ revealItem }}" on-copy="{{ copied }}" style="height:100%" hint-size="100%,460px"></dc-import>
           </sc-for>
         </div>
       </sc-if>
@@ -293,7 +293,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;loai&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Doanh nghiệp&quot;,&quot;Cá nhân&quot;],&quot;default&quot;:&quot;Doanh nghiệp&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
 class Component extends DCLogic {
-  static STATES = [{"k":"doanh-nghiep","l":"Doanh nghiệp","g":"Doanh nghiệp","p":{"loai":"Doanh nghiệp"}},{"k":"dn-da-dang-nhap","l":"Đã đăng nhập","g":"Doanh nghiệp","p":{"loai":"Doanh nghiệp","loggedIn":true}},{"k":"dn-popup-dang-nhap","l":"Popup đăng nhập","g":"Doanh nghiệp","p":{"loai":"Doanh nghiệp"},"s":{"login":{"kind":"head","key":"head"}}},{"k":"dn-danh-gia","l":"Tab đánh giá","g":"Doanh nghiệp","p":{"loai":"Doanh nghiệp"},"s":{"tab":"reviews"}},{"k":"ca-nhan","l":"Cá nhân","g":"Cá nhân","p":{"loai":"Cá nhân"}},{"k":"cn-da-dang-nhap","l":"Đã đăng nhập","g":"Cá nhân","p":{"loai":"Cá nhân","loggedIn":true}},{"k":"cn-danh-gia","l":"Tab đánh giá","g":"Cá nhân","p":{"loai":"Cá nhân"},"s":{"tab":"reviews"}}];
+  static STATES = [{"k":"doanh-nghiep","l":"Doanh nghiệp","g":"Doanh nghiệp","p":{"loai":"Doanh nghiệp"}},{"k":"dn-da-dang-nhap","l":"Đã đăng nhập","g":"Doanh nghiệp","p":{"loai":"Doanh nghiệp","loggedIn":true}},{"k":"dn-popup-dang-nhap","l":"Popup đăng nhập","g":"Doanh nghiệp","p":{"loai":"Doanh nghiệp"},"s":{"login":{"kind":"head","key":"head"}}},{"k":"dn-trang-2","l":"Trang 2","g":"Doanh nghiệp","p":{"loai":"Doanh nghiệp"},"s":{"page":2}},{"k":"dn-danh-gia","l":"Tab đánh giá","g":"Doanh nghiệp","p":{"loai":"Doanh nghiệp"},"s":{"tab":"reviews"}},{"k":"ca-nhan","l":"Cá nhân","g":"Cá nhân","p":{"loai":"Cá nhân"}},{"k":"cn-da-dang-nhap","l":"Đã đăng nhập","g":"Cá nhân","p":{"loai":"Cá nhân","loggedIn":true}},{"k":"cn-danh-gia","l":"Tab đánh giá","g":"Cá nhân","p":{"loai":"Cá nhân"},"s":{"tab":"reviews"}}];
   static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
   get __P() { return this.__ov(this.props); }
   __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
@@ -397,7 +397,7 @@ class Component extends DCLogic {
     let list = items.map((it, i) => ({ ...it, order: i })).filter((it) => (!s.cat || it.cat === s.cat) && (!s.q.trim() || it.title.toLowerCase().includes(s.q.trim().toLowerCase())));
     const sorters = { new: (a, b) => a.order - b.order, priceAsc: (a, b) => perKg(a) - perKg(b), priceDesc: (a, b) => perKg(b) - perKg(a), qtyDesc: (a, b) => toKg(b) - toKg(a) };
     list.sort(sorters[s.sort]);
-    const size = 6, totalPages = Math.max(1, Math.ceil(list.length / size)), page = Math.min(s.page, totalPages);
+    const size = 16, totalPages = Math.max(1, Math.ceil(list.length / size)), page = Math.min(s.page, totalPages);
     const revList = s.star ? allRev.filter((r) => r.star === s.star) : allRev;
     const rSize = 10, revPages = Math.max(1, Math.ceil(revList.length / rSize)), revPage = Math.min(s.revPage, revPages);
     const maxD = Math.max(...Object.values(seller.dist), 1);
