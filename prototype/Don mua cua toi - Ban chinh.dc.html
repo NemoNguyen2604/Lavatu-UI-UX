@@ -13,6 +13,7 @@
   <script src="state-bar.js"></script>
   <style>
     @keyframes lv-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    @keyframes lv-pulse{0%,100%{opacity:1}50%{opacity:.55}}
     @keyframes lv-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
     @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
     html,body{margin:0;height:100%}
@@ -21,7 +22,7 @@
   </style>
 </helmet>
 <div data-screen-label="SCR-005 Đơn mua của tôi" style="position:relative;height:100vh;overflow:hidden;background:var(--color-bg-page);font-family:var(--font-sans);min-width:1440px">
-<div style="height:100%;overflow:auto">
+<div ref="{{ scrollRef }}" style="height:100%;overflow:auto">
 
 <header style="position:sticky;top:0;z-index:20;background:var(--color-bg-brand)">
   <div style="height:72px;padding:0 40px;display:flex;align-items:center;justify-content:space-between;gap:var(--space-6)">
@@ -57,7 +58,7 @@
   <aside aria-label="Tài khoản" style="position:sticky;top:96px;display:flex;flex-direction:column;gap:var(--space-1);padding:var(--space-3);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);animation:lv-rise 600ms ease-out both">
     <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-3) var(--space-4);margin-bottom:var(--space-2);border-bottom:1px solid var(--color-border-default)">
       <span style="width:44px;height:44px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-md)">HL</span>
-      <span style="display:flex;flex-direction:column;gap:2px"><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Hoàng Lan</span><span style="font:var(--type-caption);color:var(--color-text-muted)">Tài khoản cá nhân</span></span>
+      <span style="display:flex;flex-direction:column;gap:2px"><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Hoàng Lan</span><span style="font:var(--type-caption);color:var(--color-text-muted)">Bao bì Minh Phát · Doanh nghiệp</span></span>
     </div>
     <a href="#" style="display:flex;align-items:center;gap:var(--space-3);min-height:44px;padding:0 var(--space-4);border-radius:var(--radius-md);font:var(--type-label-md);color:var(--color-text-body);text-decoration:none" style-hover="background:var(--color-bg-subtle)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>Hồ sơ</a>
     <a href="#" aria-current="page" style="display:flex;align-items:center;gap:var(--space-3);min-height:44px;padding:0 var(--space-4);border-radius:var(--radius-md);font:var(--type-label-md);color:var(--color-text-inverse);background:var(--color-action-primary);text-decoration:none"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M16 10a4 4 0 0 1-8 0"></path><path d="M3.103 6.034h17.794"></path><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"></path></svg><span style="flex:1">Đơn mua</span><span style="min-width:22px;height:22px;padding:0 6px;box-sizing:border-box;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-text-heading);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">{{ needCount }}</span></a>
@@ -80,6 +81,7 @@
       </div>
     </sc-if>
 
+    <sc-if value="{{ showTools }}" hint-placeholder-val="{{ true }}">
     <div style="display:flex;flex-direction:column;border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);animation:lv-rise 600ms ease-out 180ms both">
       <div role="tablist" aria-label="Trạng thái đơn" style="display:flex;gap:var(--space-1);padding:0 var(--space-4);border-bottom:1px solid var(--color-border-default);overflow-x:auto">
         <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="6">
@@ -88,15 +90,43 @@
       </div>
       <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4)">
         <div style="flex:1;min-width:0;max-width:520px">
-          <x-import component-from-global-scope="LavatuDesignSystem_2cb126.SearchInput" placeholder="Tìm theo mã đơn, tên sản phẩm, tên người bán" value="{{ q }}" onChange="{{ onQ }}" hint-size="100%,44px"></x-import>
+          <x-import component-from-global-scope="LavatuDesignSystem_2cb126.SearchInput" placeholder="Tìm theo mã đơn, tên sản phẩm, người bán" value="{{ q }}" onChange="{{ onQ }}" hint-size="100%,44px"></x-import>
         </div>
         <div style="margin-left:auto;display:flex;align-items:center;gap:var(--space-2)">
           <span style="font:var(--type-body-sm);color:var(--color-text-muted);white-space:nowrap">Sắp xếp</span>
-          <div style="width:220px"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Select" options="{{ sortOpts }}" value="{{ sort }}" onChange="{{ onSort }}" hint-size="220px,44px"></x-import></div>
+          <div style="width:240px"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Select" options="{{ sortOpts }}" value="{{ sort }}" onChange="{{ onSort }}" hint-size="240px,44px"></x-import></div>
         </div>
       </div>
     </div>
+    </sc-if>
 
+    <sc-if value="{{ isLoading }}" hint-placeholder-val="{{ false }}">
+      <div aria-busy="true" style="display:flex;flex-direction:column;gap:var(--space-4)">
+        <sc-for list="{{ skeletons }}" as="sk" hint-placeholder-count="5">
+          <div style="display:flex;flex-direction:column;border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);animation:lv-pulse 1.4s ease-in-out infinite">
+            <div style="display:flex;align-items:center;gap:var(--space-3);height:46px;padding:0 var(--space-5);border-bottom:1px solid var(--color-border-default)"><span style="width:130px;height:14px;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></span><span style="width:200px;height:12px;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></span><span style="margin-left:auto;width:140px;height:24px;border-radius:var(--radius-full);background:var(--color-bg-muted)"></span></div>
+            <div style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-4) var(--space-5)"><span style="width:72px;height:72px;border-radius:var(--radius-md);background:var(--color-bg-muted)"></span><span style="flex:1;display:flex;flex-direction:column;gap:10px"><span style="width:45%;height:16px;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></span><span style="width:30%;height:12px;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></span></span><span style="width:160px;height:28px;border-radius:var(--radius-sm);background:var(--color-bg-muted)"></span></div>
+            <div style="height:56px;border-top:1px solid var(--color-border-default);background:var(--color-bg-subtle);border-radius:0 0 var(--radius-lg) var(--radius-lg)"></div>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isError }}" hint-placeholder-val="{{ false }}">
+      <div role="alert" style="display:flex;flex-direction:column;align-items:center;gap:var(--space-3);padding:var(--space-14) var(--space-6);text-align:center;border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card)">
+        <span style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--color-danger-soft);color:var(--color-danger);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg></span>
+        <span style="font:var(--type-body-md);color:var(--color-text-heading);max-width:420px;text-wrap:pretty">Không tải được danh sách đơn. Kiểm tra kết nối mạng rồi thử lại.</span>
+        <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="m" onClick="{{ retry }}" hint-size="100px,40px">Thử lại</x-import>
+      </div>
+    </sc-if>
+    <sc-if value="{{ noOrders }}" hint-placeholder-val="{{ false }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-3);padding:var(--space-16) var(--space-6);text-align:center;border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card)">
+        <span style="width:56px;height:56px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M16 10a4 4 0 0 1-8 0"></path><path d="M3.103 6.034h17.794"></path><path d="M3.4 5.467a2 2 0 0 0-.4 1.2V20a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6.667a2 2 0 0 0-.4-1.2l-2-2.667A2 2 0 0 0 17 2H7a2 2 0 0 0-1.6.8z"></path></svg></span>
+        <span style="font:var(--type-h4);color:var(--color-text-heading)">Bạn chưa gửi yêu cầu mua nào</span>
+        <span style="font:var(--type-body-sm);color:var(--color-text-muted)">Tìm vật liệu phù hợp rồi gửi yêu cầu mua cho người bán.</span>
+        <a href="Nguon vat lieu - Ban chinh.dc.html" style="text-decoration:none"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="m" hint-size="200px,40px">Khám phá nguồn vật liệu</x-import></a>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isList }}" hint-placeholder-val="{{ true }}">
     <div style="display:flex;flex-direction:column;gap:var(--space-4)">
       <sc-for list="{{ rows }}" as="o" hint-placeholder-count="6">
         <article onClick="{{ o.go }}" style="cursor:pointer;display:flex;flex-direction:column;border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);transition:transform 200ms ease-out, box-shadow 200ms ease-out;animation:lv-in 400ms ease-out both" style-hover="transform:translateY(-2px);box-shadow:var(--shadow-raised)">
@@ -105,7 +135,7 @@
             <span style="color:var(--color-text-subtle)">·</span>
             <span>Gửi {{ o.sent }}</span>
             <span style="color:var(--color-text-subtle)">·</span>
-            <span style="display:flex;align-items:center;gap:4px;color:var(--color-text-body)">{{ o.seller }}<sc-if value="{{ o.verified }}" hint-placeholder-val="{{ true }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-label="Đã xác minh" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-brand)"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></sc-if></span>
+            <span style="display:flex;align-items:center;gap:4px;color:var(--color-text-body)">{{ o.seller }}<sc-if value="{{ o.verified }}" hint-placeholder-val="{{ true }}"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-label="Đã xác minh" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-brand)"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></sc-if><sc-if value="{{ o.personal }}" hint-placeholder-val="{{ false }}"><span style="height:20px;padding:0 8px;border-radius:var(--radius-full);background:var(--color-bg-muted);color:var(--color-text-body);font:var(--type-label-sm);display:inline-flex;align-items:center">Cá nhân</span></sc-if></span>
             <span style="margin-left:auto">
               <sc-if value="{{ o.dsBadge }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="{{ o.tone }}" hint-size="auto,24px">{{ o.status }}</x-import></sc-if>
               <sc-if value="{{ o.blueBadge }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-full);font:var(--type-label-sm);white-space:nowrap;background:color-mix(in oklch, var(--color-material-plastic) 10%, white);color:var(--color-material-plastic)"><span style="width:6px;height:6px;border-radius:50%;background:var(--color-material-plastic)"></span>{{ o.status }}</span></sc-if>
@@ -132,57 +162,35 @@
             </div>
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;text-align:right">
               <span style="font:var(--type-caption);color:var(--color-text-muted)">{{ o.amountLabel }}</span>
-              <span style="font:var(--type-h4);color:var(--color-text-heading);white-space:nowrap">{{ o.amount }}</span>
+              <span style="display:flex;align-items:center;gap:var(--space-2)"><sc-if value="{{ o.dev }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:var(--radius-full);background:var(--color-warning-soft);color:color-mix(in oklch, var(--color-warning) 62%, black);font:var(--type-label-sm);white-space:nowrap">{{ o.dev }}</span></sc-if><span style="font:var(--type-h4);color:var(--color-text-heading);white-space:nowrap">{{ o.amount }}</span></span>
               <sc-if value="{{ o.amountNote }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-caption);color:var(--color-text-muted)">{{ o.amountNote }}</span></sc-if>
             </div>
           </div>
-          <sc-if value="{{ o.confirming }}" hint-placeholder-val="{{ false }}">
-            <div onClick="{{ stop }}" role="alertdialog" aria-label="{{ o.cfTitle }}" style="cursor:default;display:flex;align-items:center;gap:var(--space-4);min-height:56px;padding:var(--space-3) var(--space-5);border-top:1px solid color-mix(in oklch, var(--color-warning) 30%, white);background:var(--color-warning-soft);border-radius:0 0 var(--radius-lg) var(--radius-lg);animation:lv-in 200ms ease-out">
-              <span style="width:32px;height:32px;flex-shrink:0;border-radius:var(--radius-full);background:var(--color-bg-page);color:var(--color-warning);display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg></span>
-              <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
-                <span style="font:var(--type-label-lg);color:var(--color-text-heading)">{{ o.cfTitle }}</span>
-                <sc-if value="{{ o.cfBody }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-body-sm);color:var(--color-text-body)">{{ o.cfBody }}</span></sc-if>
-              </div>
-              <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="ghost" size="m" onClick="{{ o.cfNo }}" hint-size="90px,40px">{{ o.cfNoLabel }}</x-import>
-              <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="m" onClick="{{ o.cfYes }}" hint-size="130px,40px">{{ o.cfYesLabel }}</x-import>
-            </div>
-          </sc-if>
-          <sc-if value="{{ o.notConfirming }}" hint-placeholder-val="{{ true }}">
           <div style="display:flex;align-items:center;gap:var(--space-4);min-height:56px;padding:var(--space-2) var(--space-5);border-top:1px solid var(--color-border-default);background:var(--color-bg-subtle);border-radius:0 0 var(--radius-lg) var(--radius-lg)">
             <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
               <sc-if value="{{ o.deadline }}" hint-placeholder-val="{{ true }}"><span style="display:flex;align-items:center;gap:6px;font:{{ o.dlFont }};color:{{ o.dlColor }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg>{{ o.deadline }}</span></sc-if>
-              <sc-if value="{{ o.reason }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:6px;font:var(--type-body-sm);color:var(--color-text-body)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;color:var(--color-text-muted)"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>Lý do: {{ o.reason }}</span></sc-if>
-            </div>
-            <div onClick="{{ stop }}" style="display:flex;align-items:center;gap:var(--space-2);cursor:default">
-            <sc-if value="{{ o.canCancel }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" onClick="{{ o.askCancel }}" hint-size="130px,40px">Huỷ yêu cầu</x-import></sc-if>
-            <sc-if value="{{ o.canReceive }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="ghost" size="m" onClick="{{ o.complain }}" hint-size="100px,40px">Khiếu nại</x-import></sc-if>
-            <sc-if value="{{ o.canReceive }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="m" onClick="{{ o.askReceive }}" hint-size="140px,40px">Đã nhận hàng</x-import></sc-if>
-            <sc-if value="{{ o.canRebuy }}" hint-placeholder-val="{{ false }}">
-              <span onMouseEnter="{{ o.tipOn }}" onMouseLeave="{{ tipOff }}" style="position:relative;display:flex">
-                <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" disabled="{{ o.rebuyOff }}" onClick="{{ o.rebuy }}" hint-size="110px,40px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg>Mua lại</x-import>
-                <sc-if value="{{ o.showTip }}" hint-placeholder-val="{{ false }}"><span role="tooltip" style="position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);padding:6px 10px;border-radius:var(--radius-sm);background:var(--color-bg-brand);color:var(--color-text-inverse);font:var(--type-caption);white-space:nowrap;box-shadow:var(--shadow-raised);pointer-events:none;animation:lv-in 150ms ease-out">Sản phẩm không còn bán</span></sc-if>
-              </span>
-            </sc-if>
+              <sc-if value="{{ o.reason }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:6px;font:var(--type-body-sm);color:var(--color-text-body)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;color:var(--color-text-muted)"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>{{ o.reason }}</span></sc-if>
             </div>
             <sc-if value="{{ o.ctaPrimary }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="m" onClick="{{ o.go }}" hint-size="170px,40px">{{ o.cta }}</x-import></sc-if>
             <sc-if value="{{ o.ctaSecondary }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" onClick="{{ o.go }}" hint-size="110px,40px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"></path></svg>{{ o.cta }}</x-import></sc-if>
             <sc-if value="{{ o.ctaLink }}" hint-placeholder-val="{{ true }}"><a href="#" onClick="{{ o.go }}" style="display:flex;align-items:center;gap:var(--space-1);min-height:40px;font:var(--type-label-md);text-decoration:none;white-space:nowrap">Xem chi tiết<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></sc-if>
           </div>
-          </sc-if>
         </article>
       </sc-for>
       <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
-        <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-2);padding:var(--space-12) var(--space-6);text-align:center;border-radius:var(--radius-lg);border:1px dashed var(--color-border-strong);background:var(--color-bg-page)">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-3);padding:var(--space-12) var(--space-6);text-align:center;border-radius:var(--radius-lg);border:1px dashed var(--color-border-strong);background:var(--color-bg-page)">
+          <span style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--color-bg-muted);color:var(--color-text-muted);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg></span>
           <span style="font:var(--type-label-lg);color:var(--color-text-heading)">{{ emptyText }}</span>
-          <sc-if value="{{ hasQ }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ clearQ }}" style="min-height:40px;border:none;background:none;cursor:pointer;font:var(--type-label-md);color:var(--color-link)">Xoá từ khoá</button></sc-if>
+          <sc-if value="{{ hasQ }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" onClick="{{ clearQ }}" hint-size="130px,40px">Xoá tìm kiếm</x-import></sc-if>
         </div>
       </sc-if>
     </div>
 
     <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding-top:var(--space-2)">
       <span style="display:flex;align-items:center;gap:var(--space-2);font:var(--type-body-sm);color:var(--color-text-muted)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-brand)"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>Lavatu không thu tiền hộ. Hai bên thanh toán trực tiếp.</span>
-      <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Pagination" page="{{ 1 }}" total-pages="{{ 1 }}" hint-size="160px,40px"></x-import>
+      <sc-if value="{{ showPager }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Pagination" page="{{ page }}" total-pages="{{ pages }}" on-change="{{ onPage }}" hint-size="160px,40px"></x-import></sc-if>
     </div>
+    </sc-if>
   </div>
 </main>
 <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
@@ -230,83 +238,89 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
 class Component extends DCLogic {
-  static STATES = [{"k":"mac-dinh","l":"Mặc định","p":{}}];
+  static STATES = [{"k":"tat-ca","l":"Tất cả","g":"Tab","p":{}},{"k":"can-phan-hoi","l":"Cần bạn phản hồi","g":"Tab","s":{"tab":"need"}},{"k":"cho-nguoi-ban","l":"Chờ người bán","g":"Tab","s":{"tab":"seller"}},{"k":"dang-xu-ly","l":"Đang xử lý","g":"Tab","s":{"tab":"processing"}},{"k":"hoan-tat","l":"Hoàn tất","g":"Tab","s":{"tab":"done"}},{"k":"da-dong","l":"Đã đóng","g":"Tab","s":{"tab":"closed"}},{"k":"khong-ket-qua","l":"Không có kết quả","g":"Rỗng & lỗi","s":{"q":"abc"}},{"k":"chua-co-don","l":"Chưa có đơn","g":"Rỗng & lỗi","p":{"data":"none"}},{"k":"dang-tai","l":"Đang tải","g":"Rỗng & lỗi","p":{"ps":"loading"}},{"k":"loi-tai","l":"Lỗi tải","g":"Rỗng & lỗi","p":{"ps":"error"}}];
   static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
   get __P() { return this.__ov(this.props); }
   __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
   __boot = (() => { const s = Component.__st(); window.LV_STATES = { cur: s ? s.k : Component.STATES[0].k, list: Component.STATES }; try { window.dispatchEvent(new Event('lv-states')); } catch (e) {} if (s && s.s) setTimeout(() => this.setState(s.s), 0); return 1; })();
-  static ORDERS = [
-    { code: 'DH-261013-0004', sent: '13/10/2026', ts: 20261013, seller: 'GRAC', verified: true, product: 'Nhựa PP tái sinh dạng hạt', more: 0, img: 'assets/plastic.webp', mat: 'plastic', qty: '2.000 kg', del: 'self', qtyKg: 2000, st: 'pending_seller', amountLabel: 'Tạm tính', amount: '50.000.000 VNĐ', deadline: 'Người bán phản hồi trước 21:30 15/10', dlTs: 202610152130, dlKind: 'muted' },
-    { code: 'DH-261012-0011', sent: '12/10/2026', ts: 20261012, seller: 'Kim Loại Phương Nam', verified: true, product: 'Phế liệu nhôm lon ép khối', more: 0, img: 'assets/metal.webp', mat: 'metal', qty: '2 tấn', del: 'seller', st: 'await_adjust', amountLabel: 'Tạm tính theo đề xuất mới', amount: '56.000.000 VNĐ', amountNote: '28.000.000 VNĐ/tấn', deadline: 'Bạn cần phản hồi trước 09:00 14/10', dlTs: 202610140900, dlKind: 'warn' },
-    { code: 'DH-261010-0003', sent: '10/10/2026', ts: 20261010, seller: 'Bao Bì Tân Phú', verified: true, product: 'Giấy carton vụn OCC loại 1', more: 0, img: 'assets/paper.webp', mat: 'paper', qty: '10 tấn', del: 'seller', st: 'shipping', amountLabel: 'Tổng đã chốt', amount: '43.500.000 VNĐ', amountNote: 'Gồm phí giao 1.500.000 VNĐ' },
-    { code: 'DH-261008-0007', sent: '08/10/2026', ts: 20261008, seller: 'GRAC', verified: true, product: 'Nhựa PP tái sinh dạng hạt', more: 1, img: 'assets/plastic.webp', mat: 'plastic', qty: '4.850 kg', del: 'carrier', st: 'await_receive', amountLabel: 'Thực tế', amount: '98.400.000 VNĐ', deadline: 'Tự hoàn tất vào 15/10 nếu bạn không phản hồi', dlTs: 202610150000, dlKind: 'warn' },
-    { code: 'DH-261001-0002', sent: '01/10/2026', ts: 20261001, seller: 'Tái Chế Miền Tây', verified: false, product: 'Nhựa HDPE băm mảnh', more: 0, img: 'assets/plastic.webp', mat: 'plastic', qty: '3.000 kg', del: 'self', st: 'done', amountLabel: 'Thực tế', amount: '28.500.000 VNĐ' },
-    { code: 'DH-260928-0005', sent: '28/09/2026', ts: 20260928, seller: 'Kính Đông Á', verified: false, product: 'Kính vụn trắng', more: 0, img: null, mat: null, qty: '5 tấn', del: 'seller', st: 'rejected', amountLabel: 'Tạm tính', amount: '7.500.000 VNĐ', reason: 'Hàng đã bán cho khách khác', listingGone: true, qtyKg: 5000 },
-  ];
+  static NOW = Date.UTC(2026, 9, 25, 9, 0) / 6e4;
+  static NX = 'Công ty TNHH Nhựa Xanh'; static PN = 'Công ty CP Tái chế Kim loại Phương Nam'; static TL = 'Trần Thị Lan';
+  static ORDERS = (() => { const NX = Component.NX, PN = Component.PN, TL = Component.TL; return [
+    { code: 'DH-261025-0012', sent: '25/10/2026', ts: 20261025, seller: NX, product: 'Phế liệu nhựa HDPE dạng can', img: 'assets/plastic.webp', mat: 'plastic', qty: '2.000 kg', del: 'self', st: 'pending_seller', amount: '18.000.000 VNĐ' },
+    { code: 'DH-261024-0009', sent: '24/10/2026', ts: 20261024.5, seller: TL, personal: true, product: 'Vải cotton vụn phân loại theo màu', img: 'assets/textile.webp', mat: 'textile', qty: '800 kg', del: 'seller', st: 'pending_seller', amount: '6.400.000 VNĐ' },
+    { code: 'DH-261024-0007', sent: '24/10/2026', ts: 20261024, seller: NX, product: 'Hạt nhựa PP tái sinh màu đen', img: 'assets/plastic.webp', mat: 'plastic', qty: '4.400 kg', del: 'seller', st: 'await_receive', amount: '112.000.000 VNĐ', dev: 'Lệch −12%', note: 'Đơn chỉ hoàn tất khi bạn xác nhận.' },
+    { code: 'DH-261023-0004', sent: '23/10/2026', ts: 20261023, seller: PN, product: 'Nhôm phế liệu dạng lon ép kiện', img: 'assets/metal.webp', mat: 'metal', qty: '5 tấn', del: 'seller', st: 'await_adjust', amount: '140.000.000 VNĐ', amountNote: 'Theo đề xuất mới của người bán', dl: [2026, 10, 25, 18, 0] },
+    { code: 'DH-261022-0010', sent: '22/10/2026', ts: 20261022, seller: PN, product: 'Đồng cáp phế liệu đã bóc vỏ', more: 2, img: 'assets/metal.webp', mat: 'metal', qty: '1,2 tấn', del: 'carrier', st: 'shipping', amount: '218.500.000 VNĐ', amountNote: 'Gồm phí giao 2.500.000 VNĐ' },
+    { code: 'DH-261020-0006', sent: '20/10/2026', ts: 20261020, seller: NX, product: 'Nhựa PET vụn đã rửa', img: 'assets/plastic.webp', mat: 'plastic', qty: '3.000 kg', del: 'seller', st: 'confirmed', amount: '39.500.000 VNĐ', amountNote: 'Gồm phí giao 1.500.000 VNĐ' },
+    { code: 'DH-261018-0003', sent: '18/10/2026', ts: 20261018, seller: TL, personal: true, product: 'Vỏ trấu ép viên', img: 'assets/agri.webp', mat: 'agri', qty: '2 tấn', del: 'seller', st: 'shipping', amount: '7.800.000 VNĐ', amountNote: 'Gồm phí giao 600.000 VNĐ' },
+    { code: 'DH-261015-0008', sent: '15/10/2026', ts: 20261015, seller: NX, product: 'Hạt nhựa PP tái sinh màu đen', more: 2, img: 'assets/plastic.webp', mat: 'plastic', qty: '5.000 kg', del: 'self', st: 'done', rated: false, amount: '125.000.000 VNĐ' },
+    { code: 'DH-261012-0002', sent: '12/10/2026', ts: 20261012, seller: PN, product: 'Sắt thép phế liệu loại 1', img: 'assets/metal.webp', mat: 'metal', qty: '10 tấn', del: 'seller', st: 'done', rated: true, amount: '92.000.000 VNĐ', amountNote: 'Đã đánh giá' },
+    { code: 'DH-261010-0005', sent: '10/10/2026', ts: 20261010, seller: PN, product: 'Phế liệu inox 304', img: null, mat: 'metal', qty: '800 kg', del: 'seller', st: 'rejected', amount: '28.800.000 VNĐ', reason: 'Người bán từ chối: Không giao được đến khu vực này' },
+    { code: 'DH-261006-0011', sent: '06/10/2026', ts: 20261006, seller: TL, personal: true, product: 'Giấy carton vụn OCC', img: 'assets/paper.webp', mat: 'paper', qty: '1,5 tấn', del: 'self', st: 'expired', amount: '4.500.000 VNĐ', reason: 'Hết hạn: Người bán không phản hồi trong 48 giờ' },
+    { code: 'DH-261002-0001', sent: '02/10/2026', ts: 20261002, seller: NX, product: 'Nhựa ABS vụn từ vỏ thiết bị điện tử', img: 'assets/electronic.webp', mat: 'ewaste', qty: '1.000 kg', del: 'self', st: 'cancelled', amount: '9.000.000 VNĐ', reason: 'Bạn đã huỷ: Đổi kế hoạch sản xuất' },
+  ]; })();
   static ST = {
-    pending_seller: { label: 'Chờ người bán xác nhận', tone: 'neutral', group: 'seller' },
-    await_adjust: { label: 'Chờ bạn đồng ý điều chỉnh', tone: 'warning', group: 'need', cta: 'Xem đề xuất', kind: 'primary' },
-    confirmed: { label: 'Đã xác nhận', blue: true, group: 'processing' },
-    shipping: { label: 'Đang giao', blue: true, group: 'processing' },
-    await_receive: { label: 'Chờ bạn xác nhận nhận hàng', tone: 'warning', group: 'need' },
-    done: { label: 'Hoàn tất', tone: 'success', group: 'done', cta: 'Đánh giá', kind: 'secondary' },
-    rejected: { label: 'Bị từ chối', tone: 'danger', group: 'closed' },
-    expired: { label: 'Hết hạn', tone: 'neutral', group: 'closed' },
-    cancelled: { label: 'Đã huỷ', tone: 'neutral', group: 'closed' },
+    pending_seller: { label: 'Chờ người bán xác nhận', tone: 'neutral', group: 'seller', stage: 'pending' },
+    await_adjust: { label: 'Chờ bạn đồng ý điều chỉnh', tone: 'warning', group: 'need', cta: 'Xem đề xuất', kind: 'primary', stage: 'await_adjust' },
+    confirmed: { label: 'Đã xác nhận', blue: true, group: 'processing', stage: 'confirmed' },
+    shipping: { label: 'Đang giao', blue: true, group: 'processing', stage: 'shipping' },
+    await_receive: { label: 'Chờ bạn xác nhận nhận hàng', tone: 'warning', group: 'need', cta: 'Xác nhận nhận hàng', kind: 'primary', stage: 'await_receive' },
+    done: { label: 'Hoàn tất', tone: 'success', group: 'done', stage: 'done' },
+    rejected: { label: 'Bị từ chối', tone: 'danger', group: 'closed', stage: 'rejected' },
+    expired: { label: 'Hết hạn', tone: 'neutral', group: 'closed', stage: 'expired' },
+    cancelled: { label: 'Đã huỷ', tone: 'neutral', group: 'closed', stage: 'cancelled' },
   };
   static TABS = [['all', 'Tất cả'], ['need', 'Cần bạn phản hồi'], ['seller', 'Chờ người bán'], ['processing', 'Đang xử lý'], ['done', 'Hoàn tất'], ['closed', 'Đã đóng']];
-  static EMPTY = { all: 'Bạn chưa gửi yêu cầu mua nào', need: 'Không có đơn cần bạn phản hồi', seller: 'Không có đơn chờ người bán', processing: 'Không có đơn đang xử lý', done: 'Chưa có đơn hoàn tất', closed: 'Không có đơn đã đóng' };
+  static EMPTY = { all: 'Không có đơn', need: 'Không có đơn cần bạn phản hồi', seller: 'Không có đơn chờ người bán', processing: 'Không có đơn đang xử lý', done: 'Chưa có đơn hoàn tất', closed: 'Không có đơn đã đóng' };
   static DEL = { self: 'Tự đến lấy', seller: 'Người bán giao', carrier: 'Thuê vận chuyển' };
-  static MAT = { plastic: '--color-material-plastic', metal: '--color-material-metal', paper: '--color-material-paper' };
-  state = { tab: 'all', q: '', sort: 'newest', over: {}, cf: {}, toast: '', tip: null };
-  componentWillUnmount() { clearTimeout(this.tt); }
-  flash = (msg) => { clearTimeout(this.tt); this.setState({ toast: msg }); this.tt = setTimeout(() => this.setState({ toast: '' }), 2600); };
-  setSt = (code, st, msg) => this.setState((s) => ({ over: { ...s.over, [code]: st }, cf: { ...s.cf, [code]: null } }), () => this.flash(msg));
-  setCf = (code, v) => this.setState((s) => ({ cf: { ...s.cf, [code]: v } }));
+  static MAT = { plastic: '--color-material-plastic', metal: '--color-material-metal', paper: '--color-material-paper', textile: '--color-material-textile', agri: '--color-material-agri', ewaste: '--color-material-e-waste' };
+  static AMT = { pending_seller: 'Tạm tính', await_adjust: 'Tạm tính', confirmed: 'Tổng đã chốt', shipping: 'Tổng đã chốt', await_receive: 'Thực tế', done: 'Thực tế', rejected: 'Tạm tính', expired: 'Tạm tính', cancelled: 'Tạm tính' };
+  scrollRef = React.createRef();
+  state = { tab: 'all', q: '', sort: 'newest', page: 1, ps: this.__P.ps || 'data' };
+  componentWillUnmount() { clearTimeout(this.rt); }
   renderVals() {
-    const s = this.state, C = Component;
-    const all = C.ORDERS.map((o) => {
-      const ov = s.over[o.code]; if (!ov) return o;
-      return { ...o, st: ov, deadline: '', dlTs: null, reason: '' };
+    const s = this.state, C = Component, P = this.__P, none = P.data === 'none', loading = s.ps === 'loading';
+    const pad = (n) => String(n).padStart(2, '0');
+    const all = none ? [] : C.ORDERS.map((o) => {
+      if (!o.dl) return o;
+      const [y, mo, d, hh, mm] = o.dl, mins = Date.UTC(y, mo - 1, d, hh, mm) / 6e4 - C.NOW;
+      return { ...o, dlTs: mins, deadline: 'Phản hồi trước ' + pad(hh) + ':' + pad(mm) + ' ' + pad(d) + '/' + pad(mo) + '/' + y, urgent: mins < 720 };
     });
     const cnt = (g) => g === 'all' ? all.length : all.filter((o) => C.ST[o.st].group === g).length;
     const norm = (t) => String(t).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/đ/g, 'd');
     const qn = norm(s.q.trim());
-    let list = all.filter((o) => s.tab === 'all' || C.ST[o.st].group === s.tab)
-      .filter((o) => !qn || norm(o.code + ' ' + o.product + ' ' + o.seller).includes(qn));
-    list = [...list].sort((a, b) => s.sort === 'oldest' ? a.ts - b.ts : s.sort === 'deadline' ? (a.dlTs || 9e15) - (b.dlTs || 9e15) || b.ts - a.ts : b.ts - a.ts);
+    let list = all.filter((o) => s.tab === 'all' || C.ST[o.st].group === s.tab).filter((o) => !qn || norm(o.code + ' ' + o.product + ' ' + o.seller).includes(qn));
+    list = [...list].sort((a, b) => s.sort === 'oldest' ? a.ts - b.ts : s.sort === 'deadline' ? (a.dlTs ?? 9e15) - (b.dlTs ?? 9e15) || b.ts - a.ts : b.ts - a.ts);
+    const pages = Math.max(1, Math.ceil(list.length / 10)), page = Math.min(s.page, pages);
+    const pageList = list.slice((page - 1) * 10, page * 10);
     const needCount = cnt('need');
+    const reset = { page: 1 };
     return {
-      needCount, showBanner: needCount > 0,
-      goNeed: () => this.setState({ tab: 'need', q: '' }),
-      tabs: C.TABS.map(([k, label]) => { const on = s.tab === k; return { label, on, count: cnt(k), pick: () => this.setState({ tab: k }),
+      scrollRef: this.scrollRef, needCount: loading ? '—' : needCount, showBanner: s.ps === 'data' && needCount > 0,
+      goNeed: () => this.setState({ tab: 'need', q: '', ...reset }),
+      showTools: !none, isLoading: loading, isError: s.ps === 'error', noOrders: s.ps === 'data' && none, isList: s.ps === 'data' && !none,
+      skeletons: [1, 2, 3, 4, 5], retry: () => { this.setState({ ps: 'loading' }); this.rt = setTimeout(() => this.setState({ ps: 'data' }), 900); },
+      tabs: C.TABS.map(([k, label]) => { const on = s.tab === k, warn = k === 'need' && needCount && !loading; return { label, on, count: loading ? '—' : cnt(k), pick: () => this.setState({ tab: k, ...reset }),
         color: on ? 'var(--color-text-brand)' : 'var(--color-text-muted)', line: on ? 'inset 0 -2px 0 var(--color-action-primary)' : 'none',
-        pillBg: on ? 'var(--color-action-primary)' : (k === 'need' && needCount ? 'var(--color-warning-soft)' : 'var(--color-bg-muted)'),
-        pillColor: on ? 'var(--color-text-inverse)' : (k === 'need' && needCount ? 'var(--color-warning)' : 'var(--color-text-muted)') }; }),
-      q: s.q, onQ: (e) => this.setState({ q: e.target.value }), hasQ: !!s.q.trim(), clearQ: () => this.setState({ q: '' }),
-      sort: s.sort, onSort: (e) => this.setState({ sort: e.target.value }),
-      sortOpts: [{ value: 'newest', label: 'Mới nhất' }, { value: 'oldest', label: 'Cũ nhất' }, { value: 'deadline', label: 'Sắp hết hạn phản hồi' }],
-      stop: (e) => e.stopPropagation(), tipOff: () => this.setState({ tip: null }), toast: s.toast,
-      open: (e) => { if (e && e.preventDefault) e.preventDefault(); },
-      rows: list.map((o) => { const st = C.ST[o.st]; const go = (e) => { if (e && e.preventDefault) e.preventDefault(); const M = { pending_seller:'pending', await_adjust:'await_adjust', confirmed:'confirmed', shipping:'shipping', await_receive:'await_receive', done:'done', rejected:'rejected', expired:'expired', cancelled:'cancelled' }; window.location.href = 'Chi tiet don - Ban chinh.dc.html?role=buyer&stage=' + (M[o.st] || 'pending'); }; const mv = C.MAT[o.mat]; return { ...o,
-        go, status: st.label, tone: st.tone || 'neutral', dsBadge: !st.blue, blueBadge: !!st.blue,
-        noImg: !o.img, imgBg: o.img ? 'url("' + o.img + '")' : 'none', thumbBg: mv ? 'color-mix(in oklch, var(' + mv + ') 12%, white)' : 'var(--color-bg-muted)',
-        dSelf: o.del === 'self', dSeller: o.del === 'seller', dCarrier: o.del === 'carrier', delivery: C.DEL[o.del],
-        amountNote: o.amountNote || '', deadline: o.deadline || '', reason: o.reason || '',
-        dlColor: o.dlKind === 'warn' ? 'var(--color-warning)' : 'var(--color-text-muted)', dlFont: o.dlKind === 'warn' ? 'var(--type-label-md)' : 'var(--type-body-sm)',
-        cta: st.cta || '', ctaPrimary: st.kind === 'primary', ctaSecondary: st.kind === 'secondary', ctaLink: !st.kind,
-        canCancel: o.st === 'pending_seller', canReceive: o.st === 'await_receive', canRebuy: st.group === 'closed',
-        rebuyOff: !!o.listingGone, showTip: !!o.listingGone && s.tip === o.code, tipOn: () => this.setState({ tip: o.code }),
-        rebuy: () => { if (!o.listingGone) window.location.href = 'Gui yeu cau mua - Ban chinh.dc.html?qty=' + (o.qtyKg || ''); },
-        complain: () => {},
-        askCancel: () => this.setCf(o.code, 'cancel'), askReceive: () => this.setCf(o.code, 'receive'),
-        confirming: !!s.cf[o.code], notConfirming: !s.cf[o.code],
-        cfTitle: s.cf[o.code] === 'cancel' ? 'Huỷ yêu cầu này?' : 'Xác nhận đã nhận đủ hàng?',
-        cfBody: s.cf[o.code] === 'receive' ? 'Khối lượng thực tế ' + o.qty + ', số tiền ' + o.amount : '',
-        cfYesLabel: s.cf[o.code] === 'cancel' ? 'Huỷ yêu cầu' : 'Xác nhận', cfNoLabel: s.cf[o.code] === 'cancel' ? 'Giữ lại' : 'Để sau',
-        cfNo: () => this.setCf(o.code, null),
-        cfYes: () => s.cf[o.code] === 'cancel' ? this.setSt(o.code, 'cancelled', 'Đã huỷ yêu cầu') : this.setSt(o.code, 'done', 'Đơn đã hoàn tất') }; }),
-      isEmpty: list.length === 0, emptyText: s.q.trim() ? 'Không tìm thấy đơn phù hợp với "' + s.q.trim() + '"' : C.EMPTY[s.tab],
+        pillBg: on ? 'var(--color-action-primary)' : (warn ? 'var(--color-warning-soft)' : 'var(--color-bg-muted)'),
+        pillColor: on ? 'var(--color-text-inverse)' : (warn ? 'var(--color-warning)' : 'var(--color-text-muted)') }; }),
+      q: s.q, onQ: (e) => this.setState({ q: e.target.value, ...reset }), hasQ: !!s.q.trim(), clearQ: () => this.setState({ q: '', ...reset }),
+      sort: s.sort, onSort: (e) => this.setState({ sort: e.target.value, ...reset }),
+      sortOpts: [{ value: 'newest', label: 'Mới nhất' }, { value: 'oldest', label: 'Cũ nhất' }, { value: 'deadline', label: 'Hạn phản hồi gần nhất' }],
+      page, pages, showPager: pages > 1, onPage: (p) => { this.setState({ page: p }); if (this.scrollRef.current) this.scrollRef.current.scrollTop = 0; },
+      rows: pageList.map((o) => { const st = C.ST[o.st], mv = C.MAT[o.mat];
+        const go = (e) => { if (e && e.preventDefault) e.preventDefault(); window.location.href = 'Chi tiet don - Ban chinh.dc.html?role=buyer&stage=' + st.stage; };
+        const cta = o.st === 'done' && !o.rated ? 'Đánh giá' : st.cta || '';
+        const kind = o.st === 'done' && !o.rated ? 'secondary' : st.kind;
+        const line = o.deadline || o.note || '';
+        return { ...o, go, status: st.label, tone: st.tone || 'neutral', dsBadge: !st.blue, blueBadge: !!st.blue,
+          verified: !o.personal, personal: !!o.personal, more: o.more || 0, dev: o.dev || '',
+          noImg: !o.img, img: o.img || '', imgBg: o.img ? 'url("' + o.img + '")' : 'none', thumbBg: mv ? 'color-mix(in oklch, var(' + mv + ') 12%, white)' : 'var(--color-bg-muted)',
+          dSelf: o.del === 'self', dSeller: o.del === 'seller', dCarrier: o.del === 'carrier', delivery: C.DEL[o.del],
+          amountLabel: C.AMT[o.st], amountNote: o.amountNote || '', deadline: line, reason: o.reason || '',
+          dlColor: o.urgent ? 'var(--color-danger)' : o.deadline ? 'var(--color-text-heading)' : 'var(--color-text-muted)', dlFont: o.deadline ? 'var(--type-label-md)' : 'var(--type-body-sm)',
+          cta, ctaPrimary: kind === 'primary', ctaSecondary: kind === 'secondary', ctaLink: !kind }; }),
+      isEmpty: pageList.length === 0, emptyText: s.q.trim() ? 'Không tìm thấy đơn phù hợp' : C.EMPTY[s.tab],
     };
   }
 }

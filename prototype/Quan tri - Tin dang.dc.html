@@ -238,8 +238,8 @@
                   <span style="font:var(--type-caption);color:{{ r.acctColor }}">{{ r.acctLabel }}</span>
                 </div>
                 <span style="font:var(--type-body-sm);color:var(--color-text-heading);text-wrap:pretty">{{ r.hideReason }}</span>
-                <span style="display:flex;flex-direction:column;gap:2px"><span style="font:var(--type-body-sm);color:var(--color-text-body)">{{ r.resubDate }}</span><span style="font:var(--type-caption);color:var(--color-text-muted)">{{ r.resubTime }}</span></span>
-                <span style="font:var(--type-label-md);color:var(--color-text-heading)">{{ r.changedTxt }}</span>
+                <span style="display:flex;flex-direction:column;gap:2px"><span style="font:var(--type-body-sm);color:var(--color-text-body)">{{ r.resubDate }}</span><span style="font:var(--type-caption);color:var(--color-text-muted)">{{ r.resubTime }}</span><sc-if value="{{ r.resubMulti }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-caption);color:var(--color-text-brand)">{{ r.resubTimesTxt }}</span></sc-if></span>
+                <span style="font:var(--type-label-md);color:{{ r.changedColor }}">{{ r.changedTxt }}</span>
                 <div style="display:flex;justify-content:flex-end"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="s" onClick="{{ r.review }}" hint-size="90px,32px">Duyệt lại</x-import></div>
             </div>
           </sc-for>
@@ -382,10 +382,15 @@
               <div style="display:flex;flex-direction:column;gap:4px;min-width:0">
                 <span style="font:var(--type-label-lg);color:var(--color-text-heading);text-wrap:pretty">{{ d.name }}</span>
                 <span style="font:var(--type-caption);color:var(--color-text-muted)">{{ d.cat }} · {{ d.code }} · {{ d.seller.name }}</span>
+                <sc-if value="{{ d.resubMulti }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-caption);color:var(--color-text-body)">{{ d.latestTxt }}</span></sc-if>
               </div>
             </div>
+            <sc-if value="{{ d.noChange }}" hint-placeholder-val="{{ false }}">
+              <div role="status" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);border:1px solid color-mix(in oklch, var(--color-warning) 40%, white);background:var(--color-warning-soft);color:var(--color-text-heading);font:var(--type-label-md)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;color:var(--color-warning);flex-shrink:0"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>Người đăng gửi lại nhưng không thay đổi thông tin nào.</div>
+            </sc-if>
+            <sc-if value="{{ d.hasChanges }}" hint-placeholder-val="{{ true }}">
             <div style="display:flex;flex-direction:column;gap:var(--space-2)">
-              <h3 style="margin:0;font:var(--type-label-lg);color:var(--color-text-heading)">Các trường đã sửa ({{ d.changedCount }})</h3>
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--space-3)"><h3 style="margin:0;font:var(--type-label-lg);color:var(--color-text-heading)">Các trường đã sửa ({{ d.changedCount }})</h3><span style="font:var(--type-caption);color:var(--color-text-muted)">So với bản trước khi bị ẩn</span></div>
               <div style="display:flex;flex-direction:column;border-radius:var(--radius-md);border:1px solid var(--color-border-default);overflow:hidden">
                 <div style="display:grid;grid-template-columns:130px minmax(0,1fr) minmax(0,1fr);background:var(--color-bg-subtle);font:var(--type-label-sm);color:var(--color-text-muted)"><span style="padding:8px 12px">Trường</span><span style="padding:8px 12px">Trước</span><span style="padding:8px 12px">Sau</span></div>
                 <sc-for list="{{ d.changes }}" as="c" hint-placeholder-count="2">
@@ -397,6 +402,7 @@
                 </sc-for>
               </div>
             </div>
+            </sc-if>
             <div style="display:flex;flex-direction:column;gap:var(--space-3)">
               <h3 style="margin:0;font:var(--type-label-lg);color:var(--color-text-heading)">Nhật ký</h3>
               <ol style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column">
@@ -451,9 +457,9 @@
   </sc-if>
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;frame&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Danh sách&quot;,&quot;Chọn nhiều&quot;,&quot;Xem nhanh&quot;,&quot;Xoá tin (lỗi)&quot;,&quot;Đã xoá · nhật ký&quot;,&quot;Khôi phục&quot;,&quot;Tab Cần cập nhật&quot;,&quot;Tab Chờ duyệt lại&quot;,&quot;Form Ẩn&quot;,&quot;Form Ẩn · Khác&quot;,&quot;Form Xoá&quot;,&quot;Drawer duyệt lại&quot;,&quot;Form Không duyệt&quot;],&quot;default&quot;:&quot;Danh sách&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Khung trạng thái&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;frame&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Danh sách&quot;,&quot;Chọn nhiều&quot;,&quot;Xem nhanh&quot;,&quot;Xoá tin (lỗi)&quot;,&quot;Đã xoá · nhật ký&quot;,&quot;Khôi phục&quot;,&quot;Tab Cần cập nhật&quot;,&quot;Tab Chờ duyệt lại&quot;,&quot;Form Ẩn&quot;,&quot;Form Ẩn · Khác&quot;,&quot;Form Xoá&quot;,&quot;Drawer duyệt lại&quot;,&quot;Form Không duyệt&quot;,&quot;Duyệt lại · không sửa&quot;,&quot;Duyệt lại · gửi nhiều lần&quot;],&quot;default&quot;:&quot;Danh sách&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Khung trạng thái&quot;}}">
 class Component extends DCLogic {
-  static STATES = [{"k":"danh-sach","l":"Danh sách","p":{"frame":"Danh sách"}},{"k":"chon-nhieu","l":"Chọn nhiều","p":{"frame":"Chọn nhiều"}},{"k":"xem-nhanh","l":"Xem nhanh","p":{"frame":"Xem nhanh"}},{"k":"xoa-tin-loi","l":"Xoá tin (lỗi)","p":{"frame":"Xoá tin (lỗi)"}},{"k":"da-xoa-nhat-ky","l":"Đã xoá · nhật ký","p":{"frame":"Đã xoá · nhật ký"}},{"k":"khoi-phuc","l":"Khôi phục","p":{"frame":"Khôi phục"}},{"k":"tab-can-cap-nhat","l":"Tab Cần cập nhật","g":"Ẩn & duyệt lại","p":{"frame":"Tab Cần cập nhật"}},{"k":"tab-cho-duyet-lai","l":"Tab Chờ duyệt lại","g":"Ẩn & duyệt lại","p":{"frame":"Tab Chờ duyệt lại"}},{"k":"form-an","l":"Form Ẩn","g":"Ẩn & duyệt lại","p":{"frame":"Form Ẩn"}},{"k":"form-an-khac","l":"Form Ẩn · Khác (lỗi)","g":"Ẩn & duyệt lại","p":{"frame":"Form Ẩn · Khác"}},{"k":"form-xoa","l":"Form Xoá","g":"Ẩn & duyệt lại","p":{"frame":"Form Xoá"}},{"k":"drawer-duyet-lai","l":"Drawer duyệt lại","g":"Ẩn & duyệt lại","p":{"frame":"Drawer duyệt lại"}},{"k":"form-khong-duyet","l":"Form Không duyệt","g":"Ẩn & duyệt lại","p":{"frame":"Form Không duyệt"}}];
+  static STATES = [{"k":"danh-sach","l":"Danh sách","p":{"frame":"Danh sách"}},{"k":"chon-nhieu","l":"Chọn nhiều","p":{"frame":"Chọn nhiều"}},{"k":"xem-nhanh","l":"Xem nhanh","p":{"frame":"Xem nhanh"}},{"k":"xoa-tin-loi","l":"Xoá tin (lỗi)","p":{"frame":"Xoá tin (lỗi)"}},{"k":"da-xoa-nhat-ky","l":"Đã xoá · nhật ký","p":{"frame":"Đã xoá · nhật ký"}},{"k":"khoi-phuc","l":"Khôi phục","p":{"frame":"Khôi phục"}},{"k":"tab-can-cap-nhat","l":"Tab Cần cập nhật","g":"Ẩn & duyệt lại","p":{"frame":"Tab Cần cập nhật"}},{"k":"tab-cho-duyet-lai","l":"Tab Chờ duyệt lại","g":"Ẩn & duyệt lại","p":{"frame":"Tab Chờ duyệt lại"}},{"k":"form-an","l":"Form Ẩn","g":"Ẩn & duyệt lại","p":{"frame":"Form Ẩn"}},{"k":"form-an-khac","l":"Form Ẩn · Khác (lỗi)","g":"Ẩn & duyệt lại","p":{"frame":"Form Ẩn · Khác"}},{"k":"form-xoa","l":"Form Xoá","g":"Ẩn & duyệt lại","p":{"frame":"Form Xoá"}},{"k":"drawer-duyet-lai","l":"Drawer duyệt lại","g":"Ẩn & duyệt lại","p":{"frame":"Drawer duyệt lại"}},{"k":"form-khong-duyet","l":"Form Không duyệt","g":"Ẩn & duyệt lại","p":{"frame":"Form Không duyệt"}},{"k":"duyet-lai-khong-sua","l":"Duyệt lại · không sửa","g":"Ẩn & duyệt lại","p":{"frame":"Duyệt lại · không sửa"}},{"k":"duyet-lai-gui-nhieu-lan","l":"Duyệt lại · gửi nhiều lần","g":"Ẩn & duyệt lại","p":{"frame":"Duyệt lại · gửi nhiều lần"}}];
   static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
   get __P() { return this.__ov(this.props); }
   __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
@@ -464,16 +470,17 @@ class Component extends DCLogic {
       specs: [['Loại nhựa', 'PP nguyên sinh'], ['Dạng', 'Hạt'], ['Màu sắc', 'Trắng trong'], ['Chỉ số chảy (MFI)', '12 g/10 phút'], ['Đóng gói', 'Bao 25 kg']],
       desc: 'Hạt nhựa PP nguyên sinh giá sốc, số lượng lớn, giao ngay trong ngày. Liên hệ trực tiếp để có giá tốt nhất, không qua trung gian.',
       warehouse: 'Lô 12, KCN Nhơn Trạch 3, Xã Nhơn Trạch, Đồng Nai', contact: { name: 'Lâm Văn Phúc', phone: '0977 888 123' }, pending: 1 },
-    { id: 2, code: 'TD-260902-0087', name: 'Hạt nhựa PP tái sinh màu đen', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 25000, qty: 15000, min: 1000,
-      seller: { name: 'Cty TNHH Nhựa Tái Sinh Minh Phát', type: 'biz', verified: true }, province: 'TP. Hồ Chí Minh', flags: [], status: 'resubmit', posted: '02/09/2026', pts: 20260902, postedAt: '02/09/2026 09:30', updated: '23/10/2026 14:10',
+    { id: 2, code: 'TD-260902-0087', name: 'Hạt nhựa PP tái sinh màu đen', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 25000, qty: 28000, min: 1000,
+      seller: { name: 'Cty TNHH Nhựa Tái Sinh Minh Phát', type: 'biz', verified: true }, province: 'TP. Hồ Chí Minh', flags: [], status: 'resubmit', posted: '02/09/2026', pts: 20260902, postedAt: '02/09/2026 09:30', updated: '25/10/2026 09:15',
       specs: [['Loại nhựa', 'PP tái sinh'], ['Dạng', 'Hạt'], ['Màu sắc', 'Đen'], ['Chỉ số chảy (MFI)', '8–10 g/10 phút'], ['Đóng gói', 'Bao 25 kg']],
       desc: 'Hạt PP tái sinh từ nguồn nhựa công nghiệp đã rửa, nghiền, tạo hạt. Phù hợp ép phun sản phẩm gia dụng, pallet, thùng chứa.',
       warehouse: 'Lô B5, KCN Sóng Thần, Phường Dĩ An, TP. Hồ Chí Minh', contact: { name: 'Trần Thị Ngọc Lan', phone: '0909 123 456' }, pending: 2,
-      hide: { reason: 'Sai đơn vị hoặc giá', at: '20/10/2026' }, resub: { at: '23/10/2026 14:10', changes: [['Đơn giá', '25.000 VNĐ/tấn', '25.000 VNĐ/kg'], ['Mua tối thiểu', '1 tấn', '1.000 kg']] },
+      hide: { reason: 'Sai đơn vị hoặc giá', at: '20/10/2026' }, resub: { at: '25/10/2026 09:15', times: 2, changes: [['Đơn giá', '25.000 VNĐ/tấn', '25.000 VNĐ/kg'], ['Khối lượng sẵn có', '30.000', '28.000 kg']] },
       log: [
         { kind: 'post', title: 'Đăng tin', by: 'Cty TNHH Nhựa Tái Sinh Minh Phát', time: '02/09/2026 09:30' },
         { kind: 'hide', title: 'Ẩn chờ cập nhật', by: 'Admin', time: '20/10/2026 09:12', note: 'Lý do: Sai đơn vị hoặc giá' },
-        { kind: 'resubmit', title: 'Người đăng gửi lại', by: 'Cty TNHH Nhựa Tái Sinh Minh Phát', time: '23/10/2026 14:10', note: 'Sửa 2 trường: Đơn giá, Mua tối thiểu' },
+        { kind: 'resubmit', title: 'Người đăng gửi lại', by: 'Cty TNHH Nhựa Tái Sinh Minh Phát', time: '23/10/2026 14:10', note: 'Sửa 1 trường: Đơn giá' },
+        { kind: 'resubmit', title: 'Người đăng gửi bản mới', by: 'Cty TNHH Nhựa Tái Sinh Minh Phát', time: '25/10/2026 09:15', note: 'Sửa 2 trường: Đơn giá, Khối lượng sẵn có' },
       ] },
     { id: 3, code: 'TD-261024-0398', name: 'Nhôm lon phế liệu đã ép', mat: 'metal', cat: 'Kim loại', img: 'assets/metal.webp', price: 35000, qty: 150, min: 50,
       seller: { name: 'Nguyễn Văn Hùng', type: 'personal' }, province: 'TP. Hồ Chí Minh', flags: ['new'], status: 'active', posted: '24/10/2026', pts: 20261024, postedAt: '24/10/2026 06:40', updated: '24/10/2026 06:40',
@@ -518,6 +525,13 @@ class Component extends DCLogic {
       warehouse: 'Khóm 5, Phường Tân Thành, Cà Mau', contact: { name: 'Nguyễn Văn Minh', phone: '0909 123 456' }, pending: 0,
       hide: { reason: 'Ảnh không đúng hàng', at: '15/10/2026' }, resub: { at: '22/10/2026 17:45', changes: [['Ảnh sản phẩm', '2 ảnh minh hoạ', '4 ảnh chụp tại kho'], ['Khối lượng sẵn có', '30.000 kg', '12.000 kg'], ['Mô tả', 'Vỏ chai PET số lượng lớn.', 'Vỏ chai PET sau tiêu dùng, đã tách nắp và nhãn, ép kiện.']] },
       log: [{ kind: 'post', title: 'Đăng tin', by: 'Cty TNHH Giải Pháp Xanh', time: '09/10/2026 13:00' }, { kind: 'hide', title: 'Ẩn chờ cập nhật', by: 'Admin', time: '15/10/2026 10:30', note: 'Lý do: Ảnh không đúng hàng' }, { kind: 'resubmit', title: 'Người đăng gửi lại', by: 'Cty TNHH Giải Pháp Xanh', time: '22/10/2026 17:45', note: 'Sửa 3 trường' }] },
+    { id: 12, code: 'TD-261005-0177', name: 'Phế liệu nhựa HDPE dạng can', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 7000, qty: 8000, min: 500,
+      seller: { name: 'Cơ sở Thu gom Phúc Thịnh', type: 'biz', verified: true }, province: 'Đồng Nai', flags: [], status: 'resubmit', posted: '05/10/2026', pts: 20261005, postedAt: '05/10/2026 10:20', updated: '24/10/2026 08:40',
+      specs: [['Loại nhựa', 'HDPE'], ['Dạng', 'Can đã qua sử dụng'], ['Tình trạng', 'Đã súc rửa']],
+      desc: 'Can nhựa HDPE 20–30 lít đã qua sử dụng, đã súc rửa sơ bộ, chưa nghiền.',
+      warehouse: 'Ấp 3, Xã Long Thành, Đồng Nai', contact: { name: 'Đỗ Văn Thịnh', phone: '0918 456 302' }, pending: 0,
+      hide: { reason: 'Ảnh không đúng hàng', at: '18/10/2026' }, resub: { at: '24/10/2026 08:40', changes: [] },
+      log: [{ kind: 'post', title: 'Đăng tin', by: 'Cơ sở Thu gom Phúc Thịnh', time: '05/10/2026 10:20' }, { kind: 'hide', title: 'Ẩn chờ cập nhật', by: 'Admin', time: '18/10/2026 14:05', note: 'Lý do: Ảnh không đúng hàng' }, { kind: 'resubmit', title: 'Người đăng gửi lại', by: 'Cơ sở Thu gom Phúc Thịnh', time: '24/10/2026 08:40', note: 'Không sửa trường nào' }] },
     { id: 6, code: 'TD-261012-0152', name: 'Phế liệu sắt giá rẻ liên hệ ngay', mat: 'metal', cat: 'Kim loại', img: 'assets/metal.webp', price: 3000, qty: 100000, min: 10000,
       seller: { name: 'Cơ sở Thu mua Tâm Phát', type: 'biz', verified: false }, province: 'Hải Phòng', flags: ['price'], status: 'deleted', posted: '12/10/2026', pts: 20261012, postedAt: '12/10/2026 08:15', updated: '16/10/2026 14:20',
       specs: [['Loại', 'Sắt vụn hỗn hợp'], ['Dạng', 'Rời']],
@@ -547,13 +561,13 @@ class Component extends DCLogic {
         { kind: 'auto', title: 'Tự xoá do quá hạn cập nhật', by: 'Hệ thống', time: '19/10/2026 00:00', note: 'Quá 14 ngày người đăng chưa sửa tin.' },
       ] },
   ];
-  static BASE = { all: 1389, flag: 53, hidden: 3, resubmit: 2, active: 1324, out: 41, removed_self: 17, deleted: 7 };
+  static BASE = { all: 1390, flag: 53, hidden: 3, resubmit: 3, active: 1324, out: 41, removed_self: 17, deleted: 7 };
   static TABS = [['all', 'Tất cả'], ['flag', 'Cần xem'], ['hidden', 'Cần cập nhật'], ['resubmit', 'Chờ duyệt lại'], ['active', 'Đang hiển thị'], ['out', 'Hết hàng'], ['removed_self', 'Người bán đã gỡ'], ['deleted', 'Đã xoá']];
   static ST = { active: ['success', 'Đang hiển thị'], out: ['neutral', 'Hết hàng'], removed_self: ['neutral', 'Người bán đã gỡ'], deleted: ['danger', 'Đã xoá'], hidden: ['warning', 'Cần cập nhật'], resubmit: ['accent', 'Chờ duyệt lại'] };
   static R_HIDE = ['Sai danh mục', 'Sai đơn vị hoặc giá', 'Sai tên / khối lượng / thông số', 'Ảnh không đúng hàng', 'Khác'];
   static R_DEL = ['Hàng cấm hoặc không được phép mua bán', 'Thông tin lừa đảo', 'Không đúng mục tiêu sàn', 'Tin trùng lặp', 'Khác'];
   static PROVS = ['Hà Nội', 'Huế', 'Hải Phòng', 'Đà Nẵng', 'TP. Hồ Chí Minh', 'Cần Thơ', 'Lai Châu', 'Điện Biên', 'Sơn La', 'Lạng Sơn', 'Quảng Ninh', 'Thanh Hoá', 'Nghệ An', 'Hà Tĩnh', 'Cao Bằng', 'Tuyên Quang', 'Lào Cai', 'Thái Nguyên', 'Phú Thọ', 'Bắc Ninh', 'Hưng Yên', 'Ninh Bình', 'Quảng Trị', 'Quảng Ngãi', 'Gia Lai', 'Khánh Hoà', 'Lâm Đồng', 'Đắk Lắk', 'Đồng Nai', 'Tây Ninh', 'Vĩnh Long', 'Đồng Tháp', 'Cà Mau', 'An Giang'];
-  static NOW = '24/10/2026 10:24';
+  static NOW = '25/10/2026 10:24';
   static TODAY = '24/10/2026';
   static fresh() { return Component.ITEMS.map((i) => ({ ...i, log: i.log ? [...i.log] : [{ kind: 'post', title: 'Đăng tin', by: i.seller.name, time: i.postedAt }] })); }
   static toD(s) { const [d, m, y] = s.split(' ')[0].split('/').map(Number); return new Date(y, m - 1, d); }
@@ -576,6 +590,8 @@ class Component extends DCLogic {
     if (f === 'Form Ẩn · Khác') { b.drawer = { ids: [1], mode: 'hide', from: 'view' }; b.reason = 'Khác'; b.submitted = true; }
     if (f === 'Form Xoá') { b.drawer = { ids: [1], mode: 'delete', from: 'view' }; b.reason = 'Hàng cấm hoặc không được phép mua bán'; }
     if (f === 'Drawer duyệt lại') { b.tab = 'resubmit'; b.drawer = { ids: [2], mode: 'review', from: 'table' }; }
+    if (f === 'Duyệt lại · không sửa') { b.tab = 'resubmit'; b.drawer = { ids: [12], mode: 'review', from: 'table' }; }
+    if (f === 'Duyệt lại · gửi nhiều lần') { b.tab = 'resubmit'; b.drawer = { ids: [2], mode: 'review', from: 'table' }; }
     if (f === 'Form Không duyệt') { b.tab = 'resubmit'; b.drawer = { ids: [2], mode: 'reject', from: 'review' }; }
     this.setState(b);
   }
@@ -606,7 +622,11 @@ class Component extends DCLogic {
       fPrice: i.flags.includes('price'), fNew: i.flags.includes('new'), noFlag: !i.flags.length, tone: C.ST[i.status][0], statusLabel: C.ST[i.status][1],
       tipText: 'Đơn giá thấp hơn 20% hoặc cao hơn 5 lần giá phổ biến của danh mục ' + i.cat + '. Cờ chỉ để lưu ý, không chặn tin.',
       resubDate: i.resub ? i.resub.at.split(' ')[0] : '', resubTime: i.resub ? i.resub.at.split(' ')[1] : '', resubAt: i.resub ? i.resub.at : '',
-      changedCount: i.resub ? i.resub.changes.length : 0, changedTxt: i.resub ? i.resub.changes.length + ' trường' : '',
+      changedCount: i.resub ? i.resub.changes.length : 0, changedTxt: i.resub ? (i.resub.changes.length ? i.resub.changes.length + ' trường' : '0') : '',
+      changedColor: i.resub && !i.resub.changes.length ? 'color-mix(in oklch, var(--color-warning) 62%, black)' : 'var(--color-text-heading)',
+      noChange: !!i.resub && !i.resub.changes.length, hasChanges: !!i.resub && i.resub.changes.length > 0,
+      resubMulti: !!i.resub && (i.resub.times || 1) > 1, resubTimesTxt: i.resub ? 'Đã gửi ' + (i.resub.times || 1) + ' lần' : '',
+      latestTxt: i.resub ? 'Bản mới nhất gửi lúc ' + i.resub.at.split(' ')[1] + ' ' + i.resub.at.split(' ')[0] : '',
       changes: i.resub ? i.resub.changes.map(([field, before, after]) => ({ field, before, after })) : [] });
     const special = s.tab === 'deleted' || s.tab === 'hidden' || s.tab === 'resubmit';
     const normalTab = !special;

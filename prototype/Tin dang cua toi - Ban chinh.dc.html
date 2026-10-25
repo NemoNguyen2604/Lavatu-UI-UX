@@ -203,6 +203,10 @@
               </sc-if>
               <sc-if value="{{ r.isResub }}" hint-placeholder-val="{{ false }}">
                 <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" onClick="{{ r.viewItem }}" hint-size="80px,32px">Xem tin</x-import>
+                <span onMouseEnter="{{ r.tipOn }}" onMouseLeave="{{ tipOff }}" onFocus="{{ r.tipOn }}" onBlur="{{ tipOff }}" style="position:relative;display:flex">
+                  <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" onClick="{{ r.edit }}" hint-size="80px,32px">Sửa tin</x-import>
+                  <sc-if value="{{ r.tip }}" hint-placeholder-val="{{ false }}"><span role="tooltip" style="position:absolute;bottom:calc(100% + 8px);right:0;z-index:30;padding:6px 10px;border-radius:var(--radius-sm);background:var(--color-bg-brand);color:var(--color-text-inverse);font:var(--type-caption);white-space:nowrap;box-shadow:var(--shadow-raised);pointer-events:none;animation:lv-in 150ms ease-out">Gửi bản mới sẽ thay bản đang chờ duyệt.</span></sc-if>
+                </span>
               </sc-if>
               <sc-if value="{{ r.canRepost }}" hint-placeholder-val="{{ false }}">
                 <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" onClick="{{ r.repost }}" hint-size="90px,32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>Đăng lại</x-import>
@@ -345,7 +349,7 @@ class Component extends DCLogic {
   static TODAY = '24/10/2026';
   static toD(s) { const [d, m, y] = s.split('/').map(Number); return new Date(y, m - 1, d); }
   static TABS = [['active', 'Đang hiển thị'], ['hidden', 'Cần cập nhật'], ['out', 'Hết hàng'], ['removed', 'Đã gỡ']];
-  state = { items: Component.ITEMS.map((i) => ({ ...i })), tab: 'active', q: '', cat: 'all', sort: 'updated', menuId: null, confirmId: null, restockId: null, restockVal: '', toast: '', page: 1 };
+  state = { items: Component.ITEMS.map((i) => ({ ...i })), tab: 'active', q: '', cat: 'all', sort: 'updated', menuId: null, confirmId: null, restockId: null, restockVal: '', toast: '', page: 1, tipId: null };
   componentDidMount() { if (this.__P.showStates ?? true) this.setState({ confirmId: 7, restockId: 4 }); }
   componentWillUnmount() { clearTimeout(this._t); }
   flash(msg) { clearTimeout(this._t); this.setState({ toast: msg }); this._t = setTimeout(() => this.setState({ toast: '' }), 2800); }
@@ -390,6 +394,7 @@ class Component extends DCLogic {
       page: s.page, totalPages: Math.max(1, Math.ceil(cnt(s.tab) / 10)), onPage: (p) => this.setState({ page: typeof p === 'number' ? p : s.page }),
       noRows: list.length === 0, noRowsText: hasFilter ? 'Không tìm thấy tin phù hợp' : EMPTY[s.tab], hasFilter, clearFilter: () => this.setState({ q: '', cat: 'all' }),
       toast: s.toast,
+      tipOff: () => this.setState({ tipId: null }),
       rows: list.map((i) => {
         const on = i.status === 'active', removed = i.status === 'removed', isHidden = i.status === 'hidden', isResub = i.status === 'resubmit';
         const left = isHidden ? leftOf(i) : 0;
@@ -405,6 +410,7 @@ class Component extends DCLogic {
           menuOpen: s.menuId === i.id, menuBtnBg: s.menuId === i.id ? 'var(--color-bg-muted)' : 'var(--color-bg-page)',
           confirming: s.confirmId === i.id, restocking: s.restockId === i.id, inputId: 'restock-' + i.id,
           edit: () => { window.location.href = 'Sua tin - Ban chinh.dc.html'; },
+          tip: isResub && s.tipId === i.id, tipOn: () => this.setState({ tipId: i.id }),
           toggleMenu: (e) => { stop(e); this.setState({ menuId: s.menuId === i.id ? null : i.id }); },
           clone: (e) => { stop(e); window.location.href = 'Dang tin ban - Ban chinh.dc.html?clone=' + i.id; },
           askRemove: (e) => { stop(e); this.setState({ menuId: null, confirmId: i.id, restockId: null }); },
