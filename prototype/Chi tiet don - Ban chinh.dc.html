@@ -50,7 +50,7 @@
   <nav aria-label="Breadcrumb" style="display:flex;align-items:center;gap:var(--space-2);font:var(--type-body-sm)">
     <a href="#" style="color:var(--color-text-muted);text-decoration:none">Tài khoản</a><span style="color:var(--color-text-subtle)">/</span>
     <a href="{{ listHref }}" style="color:var(--color-text-muted);text-decoration:none">{{ listLabel }}</a><span style="color:var(--color-text-subtle)">/</span>
-    <span style="color:var(--color-text-heading);font-weight:600">DH-261024-0007</span>
+    <span style="color:var(--color-text-heading);font-weight:600">{{ orderId }}</span>
   </nav>
 </div>
 
@@ -73,15 +73,15 @@
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4)">
         <div style="display:flex;flex-direction:column;gap:var(--space-2)">
           <div style="display:flex;align-items:center;gap:var(--space-3)">
-            <h1 style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">DH-261024-0007</h1>
+            <h1 style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">{{ orderId }}</h1>
             <sc-if value="{{ badge.ds }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="{{ badge.tone }}" hint-size="auto,24px">{{ badge.label }}</x-import></sc-if>
             <sc-if value="{{ badge.blue }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-full);font:var(--type-label-sm);white-space:nowrap;background:color-mix(in oklch, var(--color-material-plastic) 10%, white);color:var(--color-material-plastic)"><span style="width:6px;height:6px;border-radius:50%;background:var(--color-material-plastic)"></span>{{ badge.label }}</span></sc-if>
             <sc-if value="{{ complaint }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:var(--radius-full);background:var(--color-warning-soft);color:color-mix(in oklch, var(--color-warning) 62%, black);font:var(--type-label-sm);white-space:nowrap">Đang khiếu nại</span></sc-if>
             <sc-if value="{{ devTag }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:var(--radius-full);background:var(--color-warning-soft);color:color-mix(in oklch, var(--color-warning) 62%, black);font:var(--type-label-sm);white-space:nowrap">{{ devTag }}</span></sc-if>
           </div>
-          <span style="font:var(--type-body-sm);color:var(--color-text-muted)">Gửi yêu cầu lúc 09:10 24/10/2026</span>
+          <span style="font:var(--type-body-sm);color:var(--color-text-muted)">Gửi yêu cầu lúc {{ sentAt }}</span>
         </div>
-        <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" hint-size="190px,40px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>{{ chatLabel }}</x-import>
+        <sc-if value="{{ showChat }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" hint-size="190px,40px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>{{ chatLabel }}</x-import></sc-if>
       </div>
       <ol aria-label="Tiến trình đơn" style="margin:0;padding:0;list-style:none;display:flex;align-items:flex-start">
         <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
@@ -105,6 +105,13 @@
       </div>
     </sc-if>
 
+    <sc-for list="{{ banners }}" as="bn" hint-placeholder-count="0">
+      <div role="{{ bn.role }}" style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4) var(--space-5);border-radius:var(--radius-lg);border:{{ bn.bd }};background:{{ bn.bg }};animation:lv-in 300ms ease-out">
+        <span style="display:flex;flex-shrink:0;color:{{ bn.ic }}"><sc-if value="{{ bn.warn }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg></sc-if><sc-if value="{{ bn.info }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg></sc-if></span>
+        <span style="flex:1;min-width:0;font:{{ bn.font }};color:{{ bn.tc }};text-wrap:pretty">{{ bn.text }}</span>
+      </div>
+    </sc-for>
+
     <div style="display:grid;grid-template-columns:minmax(0,62fr) minmax(0,38fr);gap:var(--space-5);align-items:start">
       <div style="display:flex;flex-direction:column;gap:var(--space-5);min-width:0">
 
@@ -118,7 +125,7 @@
             <div style="display:grid;grid-template-columns:{{ cols }};gap:var(--space-3);align-items:center;padding:var(--space-4);border-top:1px solid var(--color-border-default)">
               <span style="display:flex;align-items:center;gap:var(--space-3);min-width:0">
                 <span style="width:56px;height:56px;flex-shrink:0;border-radius:var(--radius-sm);background:color-mix(in oklch, var(--color-material-plastic) 12%, white);display:flex"><img src="assets/plastic.webp" alt="" style="width:100%;height:100%;object-fit:contain;padding:4px;box-sizing:border-box"></span>
-                <span style="display:flex;flex-direction:column;gap:4px;min-width:0"><a href="Chi tiet san pham - Ban chinh.dc.html" style="font:var(--type-label-md);text-decoration:none;text-wrap:pretty">Hạt nhựa PP tái sinh màu đen</a><span style="display:flex"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.CategoryBadge" material="plastic" hint-size="auto,22px">Nhựa</x-import></span></span>
+                <span style="display:flex;flex-direction:column;gap:4px;min-width:0"><sc-if value="{{ productLink }}" hint-placeholder-val="{{ true }}"><a href="Chi tiet san pham - Ban chinh.dc.html" style="font:var(--type-label-md);text-decoration:none;text-wrap:pretty">Hạt nhựa PP tái sinh màu đen</a></sc-if><sc-if value="{{ productPlain }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-label-md);color:var(--color-text-heading);text-wrap:pretty">Hạt nhựa PP tái sinh màu đen</span></sc-if><span style="display:flex"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.CategoryBadge" material="plastic" hint-size="auto,22px">Nhựa</x-import></span></span>
               </span>
               <span style="display:flex;flex-direction:column;align-items:flex-end;gap:2px;font:var(--type-label-md);color:var(--color-text-heading);white-space:nowrap">
                 <sc-if value="{{ priceOld }}" hint-placeholder-val="{{ false }}"><s style="font:var(--type-caption);color:var(--color-text-subtle)">{{ priceOld }}</s></sc-if>
@@ -142,7 +149,7 @@
           <dl style="margin:0;display:grid;grid-template-columns:200px minmax(0,1fr);border-radius:var(--radius-md);border:1px solid var(--color-border-default);overflow:hidden">
             <sc-for list="{{ ship }}" as="r" hint-placeholder-count="6">
               <dt style="padding:var(--space-3) var(--space-4);background:var(--color-bg-subtle);font:var(--type-body-sm);color:var(--color-text-muted);border-top:{{ r.bt }}">{{ r.k }}</dt>
-              <dd style="margin:0;padding:var(--space-3) var(--space-4);font:var(--type-label-md);color:var(--color-text-heading);border-top:{{ r.bt }};text-wrap:pretty">{{ r.v }}<sc-if value="{{ r.sub }}" hint-placeholder-val="{{ false }}"><span style="display:block;font:var(--type-body-sm);color:var(--color-text-muted)">{{ r.sub }}</span></sc-if></dd>
+              <dd style="margin:0;padding:var(--space-3) var(--space-4);font:var(--type-label-md);color:{{ r.color }};border-top:{{ r.bt }};text-wrap:pretty"><span style="display:inline-flex;align-items:center;gap:var(--space-2);flex-wrap:wrap">{{ r.v }}<sc-if value="{{ r.tag }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:var(--radius-full);background:{{ r.tagBg }};color:{{ r.color }};font:var(--type-label-sm);white-space:nowrap">{{ r.tag }}</span></sc-if></span><sc-if value="{{ r.sub }}" hint-placeholder-val="{{ false }}"><span style="display:block;font:var(--type-body-sm);color:var(--color-text-muted)">{{ r.sub }}</span></sc-if></dd>
             </sc-for>
           </dl>
         </section>
@@ -168,6 +175,9 @@
 
       <aside style="position:sticky;top:96px;display:flex;flex-direction:column;gap:var(--space-4);min-width:0;animation:lv-rise 600ms ease-out 100ms both">
         <section aria-label="Hành động" style="padding:var(--space-5);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-4)">
+          <sc-if value="{{ actErr }}" hint-placeholder-val="{{ false }}">
+            <div role="alert" style="display:flex;gap:var(--space-2);padding:var(--space-3);border-radius:var(--radius-md);border:1px solid color-mix(in oklch, var(--color-danger) 35%, white);background:var(--color-danger-soft);animation:lv-in 250ms ease-out"><span style="display:flex;color:var(--color-danger)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"></circle><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg></span><span style="display:flex;flex-direction:column;gap:2px"><span style="font:var(--type-label-md);color:var(--color-danger)">Sản phẩm không còn đủ hàng</span><span style="font:var(--type-body-sm);color:var(--color-text-heading);text-wrap:pretty">Người bán chỉ còn 2.000 kg. Đơn đã chuyển lại cho người bán xác nhận.</span></span></div>
+          </sc-if>
           <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-2)">
             <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-muted)">{{ actTitle }}</span>
             <sc-if value="{{ roundTag }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="accent" dot="{{ false }}" hint-size="auto,24px">{{ roundTag }}</x-import></sc-if>
@@ -234,6 +244,7 @@
               <sc-if value="{{ btn.received }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" onClick="{{ act.received }}" hint-size="100%,48px">Đã nhận hàng</x-import></sc-if>
               <sc-if value="{{ btn.complain }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" onClick="{{ act.noop }}" hint-size="100%,48px">{{ complainLabel }}</x-import></sc-if>
               <sc-if value="{{ btn.danger }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ act.openDanger }}" style="min-height:44px;border:none;border-radius:var(--radius-md);background:transparent;cursor:pointer;font:var(--type-label-md);color:var(--color-danger)" style-hover="background:var(--color-danger-soft)">{{ btn.danger }}</button></sc-if>
+              <sc-if value="{{ btn.dangerOutline }}" hint-placeholder-val="{{ false }}"><button type="button" onClick="{{ act.openLateCancel }}" style="min-height:48px;border:1px solid var(--color-danger);border-radius:var(--radius-md);background:var(--color-bg-page);cursor:pointer;font:var(--type-label-md);color:var(--color-danger)" style-hover="background:var(--color-danger-soft)">Huỷ đơn</button></sc-if>
               <sc-if value="{{ subNote }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-caption);color:var(--color-text-muted);text-align:center;text-wrap:pretty">{{ subNote }}</span></sc-if>
             </div>
           </sc-if>
@@ -328,6 +339,17 @@
             </div>
           </sc-if>
 
+          <sc-if value="{{ pane.lateCancel }}" hint-placeholder-val="{{ false }}">
+            <div role="alertdialog" aria-label="Xác nhận huỷ đơn" style="display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);border:1px solid color-mix(in oklch, var(--color-danger) 35%, white);background:var(--color-danger-soft);animation:lv-in 200ms ease-out">
+              <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Huỷ đơn {{ orderId }}?</span>
+              <span style="font:var(--type-body-sm);color:var(--color-text-body);text-wrap:pretty">Khối lượng đã giữ sẽ được trả lại cho người bán.</span>
+              <div style="display:grid;grid-template-columns:1fr 2fr;gap:var(--space-2)">
+                <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="ghost" size="m" onClick="{{ act.closePane }}" hint-size="100%,40px">Quay lại</x-import>
+                <button type="button" onClick="{{ act.lateCancel }}" style="height:40px;border:none;border-radius:var(--radius-md);cursor:pointer;font:var(--type-label-md);background:var(--color-danger);color:var(--color-text-inverse)">Xác nhận huỷ</button>
+              </div>
+            </div>
+          </sc-if>
+
           <sc-if value="{{ rate.form }}" hint-placeholder-val="{{ false }}">
             <div style="display:flex;flex-direction:column;gap:var(--space-3)">
               <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Đánh giá người bán</span>
@@ -346,6 +368,7 @@
               <sc-if value="{{ rate.shownText }}" hint-placeholder-val="{{ false }}"><p style="margin:0;font:var(--type-body-sm);color:var(--color-text-body);text-wrap:pretty">“{{ rate.shownText }}”</p></sc-if>
             </div>
           </sc-if>
+          <sc-if value="{{ doneComplain }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" onClick="{{ act.noop }}" hint-size="100%,48px">Khiếu nại</x-import></sc-if>
         </section>
 
         <section aria-label="Bên kia giao dịch" style="padding:var(--space-5);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-4)">
@@ -365,7 +388,7 @@
           <sc-if value="{{ cSellerHidden }}" hint-placeholder-val="{{ true }}">
             <span style="display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3);border-radius:var(--radius-md);background:var(--color-bg-subtle);font:var(--type-body-sm);color:var(--color-text-muted)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>Số điện thoại hiện khi bạn xác nhận đơn</span>
           </sc-if>
-          <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" onClick="{{ act.noop }}" hint-size="100%,40px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>Chat</x-import>
+          <sc-if value="{{ showChat }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" onClick="{{ act.noop }}" hint-size="100%,40px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>Chat</x-import></sc-if>
         </section>
 
         <div style="display:flex;gap:var(--space-2);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-brand-soft);font:var(--type-body-sm);color:var(--color-text-heading)">
@@ -401,13 +424,27 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;role&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;seller&quot;,&quot;buyer&quot;],&quot;default&quot;:&quot;seller&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype&quot;},&quot;stage&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;pending&quot;,&quot;await_adjust&quot;,&quot;confirmed&quot;,&quot;shipping&quot;,&quot;await_receive&quot;,&quot;done&quot;,&quot;rejected&quot;,&quot;expired&quot;,&quot;cancelled&quot;],&quot;default&quot;:&quot;pending&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototype&quot;}}">
 class Component extends DCLogic {
-  static STATES = [{"k":"mua-cho-xac-nhan","l":"Chờ xác nhận","g":"Người mua","p":{"role":"buyer","stage":"pending"}},{"k":"mua-cho-dong-y-dieu-chinh","l":"Chờ đồng ý điều chỉnh","g":"Người mua","p":{"role":"buyer","stage":"await_adjust"}},{"k":"mua-da-xac-nhan","l":"Đã xác nhận","g":"Người mua","p":{"role":"buyer","stage":"confirmed"}},{"k":"mua-dang-giao","l":"Đang giao","g":"Người mua","p":{"role":"buyer","stage":"shipping"}},{"k":"mua-cho-xac-nhan-nhan-hang","l":"Chờ xác nhận nhận hàng","g":"Người mua","p":{"role":"buyer","stage":"await_receive"}},{"k":"mua-hoan-tat","l":"Hoàn tất","g":"Người mua","p":{"role":"buyer","stage":"done"}},{"k":"mua-bi-tu-choi","l":"Bị từ chối","g":"Người mua","p":{"role":"buyer","stage":"rejected"}},{"k":"mua-het-han","l":"Hết hạn","g":"Người mua","p":{"role":"buyer","stage":"expired"}},{"k":"mua-da-huy","l":"Đã huỷ","g":"Người mua","p":{"role":"buyer","stage":"cancelled"}},{"k":"ban-cho-xac-nhan","l":"Chờ xác nhận","g":"Người bán","p":{"role":"seller","stage":"pending"}},{"k":"ban-cho-dong-y-dieu-chinh","l":"Chờ đồng ý điều chỉnh","g":"Người bán","p":{"role":"seller","stage":"await_adjust"}},{"k":"ban-da-xac-nhan","l":"Đã xác nhận","g":"Người bán","p":{"role":"seller","stage":"confirmed"}},{"k":"ban-dang-giao","l":"Đang giao","g":"Người bán","p":{"role":"seller","stage":"shipping"}},{"k":"ban-cho-xac-nhan-nhan-hang","l":"Chờ xác nhận nhận hàng","g":"Người bán","p":{"role":"seller","stage":"await_receive"}},{"k":"ban-hoan-tat","l":"Hoàn tất","g":"Người bán","p":{"role":"seller","stage":"done"}},{"k":"ban-bi-tu-choi","l":"Bị từ chối","g":"Người bán","p":{"role":"seller","stage":"rejected"}},{"k":"ban-het-han","l":"Hết hạn","g":"Người bán","p":{"role":"seller","stage":"expired"}},{"k":"ban-da-huy","l":"Đã huỷ","g":"Người bán","p":{"role":"seller","stage":"cancelled"}},{"k":"ban-nhap-lech","l":"Nhập giao lệch −12%","g":"Lệch & từ chối","p":{"role":"seller","stage":"shipping"},"s":{"pane":"deliver","df":{"qty":"4400","amount":"","touched":false,"photos":[{"name":"phieu-can-1.jpg"}]}}},{"k":"ban-nhap-vuot-ton","l":"Nhập vượt tồn","g":"Lệch & từ chối","p":{"role":"seller","stage":"shipping"},"s":{"pane":"deliver","tried":true,"df":{"qty":"6500","amount":"","touched":false,"photos":[{"name":"phieu-can-1.jpg"}]}}},{"k":"mua-xac-nhan-lech","l":"Mua · lệch −12%","g":"Lệch & từ chối","p":{"role":"buyer","stage":"await_receive"}},{"k":"mua-xac-nhan-binh-thuong","l":"Mua · lệch −6%","g":"Lệch & từ chối","p":{"role":"buyer","stage":"await_receive","actual":"nho"}},{"k":"mua-dang-khieu-nai","l":"Mua · đang khiếu nại","g":"Lệch & từ chối","p":{"role":"buyer","stage":"await_receive","complaint":true}},{"k":"ban-dang-khieu-nai","l":"Bán · đang khiếu nại","g":"Lệch & từ chối","p":{"role":"seller","stage":"await_receive","complaint":true}},{"k":"ban-tu-choi","l":"Từ chối · Hết hàng","g":"Lệch & từ chối","p":{"role":"seller","stage":"pending"},"s":{"pane":"reject","rf":{"reason":"Hết hàng","text":"","stockOut":false}}},{"k":"ban-tu-choi-khac","l":"Từ chối · Khác (lỗi)","g":"Lệch & từ chối","p":{"role":"seller","stage":"pending"},"s":{"pane":"reject","tried":true,"rf":{"reason":"Khác","text":"","stockOut":false}}},{"k":"ban-xem-nguoi-mua-chua-xac-nhan","l":"Bán · người mua chưa xác nhận","g":"Liên hệ","p":{"role":"seller","stage":"pending"}},{"k":"ban-xem-nguoi-mua-da-xac-nhan","l":"Bán · người mua đã xác nhận","g":"Liên hệ","p":{"role":"seller","stage":"confirmed"}}];
+  static STATES = [{"k":"mua-cho-xac-nhan","l":"Chờ xác nhận","g":"Người mua","p":{"role":"buyer","stage":"pending"}},{"k":"mua-cho-dong-y-dieu-chinh","l":"Chờ đồng ý điều chỉnh","g":"Người mua","p":{"role":"buyer","stage":"await_adjust"}},{"k":"mua-da-xac-nhan","l":"Đã xác nhận","g":"Người mua","p":{"role":"buyer","stage":"confirmed"}},{"k":"mua-dang-giao","l":"Đang giao","g":"Người mua","p":{"role":"buyer","stage":"shipping"}},{"k":"mua-cho-xac-nhan-nhan-hang","l":"Chờ xác nhận nhận hàng","g":"Người mua","p":{"role":"buyer","stage":"await_receive"}},{"k":"mua-hoan-tat","l":"Hoàn tất","g":"Người mua","p":{"role":"buyer","stage":"done"}},{"k":"mua-bi-tu-choi","l":"Bị từ chối","g":"Người mua","p":{"role":"buyer","stage":"rejected"}},{"k":"mua-het-han","l":"Hết hạn","g":"Người mua","p":{"role":"buyer","stage":"expired"}},{"k":"mua-da-huy","l":"Đã huỷ","g":"Người mua","p":{"role":"buyer","stage":"cancelled"}},{"k":"ban-cho-xac-nhan","l":"Chờ xác nhận","g":"Người bán","p":{"role":"seller","stage":"pending"}},{"k":"ban-cho-dong-y-dieu-chinh","l":"Chờ đồng ý điều chỉnh","g":"Người bán","p":{"role":"seller","stage":"await_adjust"}},{"k":"ban-da-xac-nhan","l":"Đã xác nhận","g":"Người bán","p":{"role":"seller","stage":"confirmed"}},{"k":"ban-dang-giao","l":"Đang giao","g":"Người bán","p":{"role":"seller","stage":"shipping"}},{"k":"ban-cho-xac-nhan-nhan-hang","l":"Chờ xác nhận nhận hàng","g":"Người bán","p":{"role":"seller","stage":"await_receive"}},{"k":"ban-hoan-tat","l":"Hoàn tất","g":"Người bán","p":{"role":"seller","stage":"done"}},{"k":"ban-bi-tu-choi","l":"Bị từ chối","g":"Người bán","p":{"role":"seller","stage":"rejected"}},{"k":"ban-het-han","l":"Hết hạn","g":"Người bán","p":{"role":"seller","stage":"expired"}},{"k":"ban-da-huy","l":"Đã huỷ","g":"Người bán","p":{"role":"seller","stage":"cancelled"}},{"k":"ban-nhap-lech","l":"Nhập giao lệch −12%","g":"Lệch & từ chối","p":{"role":"seller","stage":"shipping"},"s":{"pane":"deliver","df":{"qty":"4400","amount":"","touched":false,"photos":[{"name":"phieu-can-1.jpg"}]}}},{"k":"ban-nhap-vuot-ton","l":"Nhập vượt tồn","g":"Lệch & từ chối","p":{"role":"seller","stage":"shipping"},"s":{"pane":"deliver","tried":true,"df":{"qty":"6500","amount":"","touched":false,"photos":[{"name":"phieu-can-1.jpg"}]}}},{"k":"mua-xac-nhan-lech","l":"Mua · lệch −12%","g":"Lệch & từ chối","p":{"role":"buyer","stage":"await_receive","dlv":"25"}},{"k":"mua-xac-nhan-binh-thuong","l":"Mua · lệch −6%","g":"Lệch & từ chối","p":{"role":"buyer","stage":"await_receive","actual":"nho"}},{"k":"mua-dang-khieu-nai","l":"Mua · đang khiếu nại","g":"Lệch & từ chối","p":{"role":"buyer","stage":"await_receive","complaint":true}},{"k":"ban-dang-khieu-nai","l":"Bán · đang khiếu nại","g":"Lệch & từ chối","p":{"role":"seller","stage":"await_receive","complaint":true}},{"k":"ban-tu-choi","l":"Từ chối · Hết hàng","g":"Lệch & từ chối","p":{"role":"seller","stage":"pending"},"s":{"pane":"reject","rf":{"reason":"Hết hàng","text":"","stockOut":false}}},{"k":"ban-tu-choi-khac","l":"Từ chối · Khác (lỗi)","g":"Lệch & từ chối","p":{"role":"seller","stage":"pending"},"s":{"pane":"reject","tried":true,"rf":{"reason":"Khác","text":"","stockOut":false}}},{"k":"ban-xem-nguoi-mua-chua-xac-nhan","l":"Bán · người mua chưa xác nhận","g":"Liên hệ","p":{"role":"seller","stage":"pending"}},{"k":"ban-xem-nguoi-mua-da-xac-nhan","l":"Bán · người mua đã xác nhận","g":"Liên hệ","p":{"role":"seller","stage":"confirmed"}},{"k":"qua-ngay-giao-ban","l":"Bán · quá ngày giao 5 ngày","g":"Trễ giao & huỷ","p":{"role":"seller","stage":"confirmed","scn":"late5"}},{"k":"qua-ngay-giao-mua","l":"Mua · quá ngày giao 5 ngày","g":"Trễ giao & huỷ","p":{"role":"buyer","stage":"confirmed","scn":"late5"}},{"k":"mua-tre-7-ngay","l":"Mua · trễ 10 ngày","g":"Trễ giao & huỷ","p":{"role":"buyer","stage":"confirmed","scn":"late10"}},{"k":"mua-tre-7-ngay-xac-nhan","l":"Mua · trễ 10 ngày · xác nhận huỷ","g":"Trễ giao & huỷ","p":{"role":"buyer","stage":"confirmed","scn":"late10"},"s":{"pane":"lateCancel"}},{"k":"huy-giao-tre-mua","l":"Mua · huỷ do giao trễ","g":"Trễ giao & huỷ","p":{"role":"buyer","stage":"cancelled","scn":"lateCancelled"}},{"k":"huy-giao-tre-ban","l":"Bán · huỷ do giao trễ","g":"Trễ giao & huỷ","p":{"role":"seller","stage":"cancelled","scn":"lateCancelled"}},{"k":"mua-khong-du-hang","l":"Mua · đồng ý nhưng không đủ hàng","g":"Trễ giao & huỷ","p":{"role":"buyer","stage":"pending","scn":"nostock"}},{"k":"huy-vi-pham-mua","l":"Mua · huỷ do tin vi phạm","g":"Trễ giao & huỷ","p":{"role":"buyer","stage":"cancelled","scn":"violation"}},{"k":"huy-vi-pham-ban","l":"Bán · huỷ do tin vi phạm","g":"Trễ giao & huỷ","p":{"role":"seller","stage":"cancelled","scn":"violation"}},{"k":"hoan-tat-qua-7-ngay","l":"Hoàn tất quá 7 ngày","g":"Người mua","p":{"role":"buyer","stage":"done","old":true}}];
   static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
   get __P() { return this.__ov(this.props); }
   __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
   __boot = (() => { const s = Component.__st(); window.LV_STATES = { cur: s ? s.k : Component.STATES[0].k, list: Component.STATES }; try { window.dispatchEvent(new Event('lv-states')); } catch (e) {} if (s && s.s) setTimeout(() => this.setState(s.s), 0); return 1; })();
   static REQ = { price: 25000, qty: 5000 };
   static STOCK = 6000;
+  get REQ() { return this._scn ? { price: 18000, qty: 5000 } : Component['REQ']; }
+  seedScn(scn) {
+    const SE = 'Nhựa Xanh · Nguyễn Văn Minh', B = 'Hoàng Lan';
+    const date = scn === 'late5' ? '2026-10-20' : scn === 'late10' || scn === 'lateCancelled' ? '2026-10-15' : '2026-10-28';
+    const A = { price: 18000, qty: 5000, fee: 0, date, msg: '' };
+    const sent = { t: '09:10 08/10/2026', who: B, side: 'b', text: 'Gửi yêu cầu mua: 5.000 kg × 18.000 VNĐ/kg, người bán giao tận nơi.' };
+    const acc = { t: '14:00 08/10/2026', who: SE, side: 's', text: 'Người bán chấp nhận yêu cầu. Đơn đã xác nhận, ngày giao đã chốt ' + this.dmy(date) + '/2026, tổng đã chốt 90.000.000 VNĐ.' };
+    const base = { scn, round: 1, proposal: null, agreed: A, actual: null, photos: [], rating: null, end: null, events: [sent, acc], pane: null };
+    if (scn === 'late5' || scn === 'late10') return { ...base, stage: 'confirmed' };
+    if (scn === 'lateCancelled') return { ...base, stage: 'cancelled', end: { by: B, at: '25/10/2026', reason: 'Người bán giao trễ', atStep: 1 }, events: [...base.events, { t: '25/10/2026', who: B, side: 'b', text: 'Người mua huỷ đơn · Người bán giao trễ' }] };
+    if (scn === 'violation') return { ...base, stage: 'cancelled', end: { by: 'Hệ thống', at: '25/10/2026', reason: 'Tin bị gỡ do vi phạm', atStep: 1 }, events: [...base.events, { t: '25/10/2026', who: 'Hệ thống', side: 'x', text: 'Hệ thống huỷ đơn · Tin bị gỡ do vi phạm' }] };
+    const Pn = { price: 18000, qty: 5000, fee: 1500000, date: '2026-10-28', msg: '' };
+    return { ...base, stage: 'pending', agreed: null, proposal: Pn, events: [{ ...sent, t: '09:10 24/10/2026' }, this.propEv(Pn, 1), { t: '25/10/2026', who: B, side: 'b', text: 'Người mua đồng ý · Không đủ hàng, chuyển lại người bán' }] };
+  }
   static PROP = { price: 25000, qty: 5000, fee: 2000000, date: '2026-10-28', msg: 'Giao được thứ 3, xe 8 tấn' };
   static ACT = { qty: 4400, amount: 112000000 };
   static ACT2 = { qty: 4700, amount: 119500000 };
@@ -424,15 +461,16 @@ class Component extends DCLogic {
   dmy = (iso) => iso ? iso.split('-').slice(1).reverse().join('/') : '';
   propEv(p, round) {
     const parts = [];
-    if (p.price !== Component.REQ.price) parts.push('đơn giá ' + this.f(Component.REQ.price) + ' → ' + this.f(p.price) + ' VNĐ/kg');
-    if (p.qty !== Component.REQ.qty) parts.push('khối lượng ' + this.f(Component.REQ.qty) + ' → ' + this.f(p.qty) + ' kg');
+    if (p.price !== this.REQ.price) parts.push('đơn giá ' + this.f(this.REQ.price) + ' → ' + this.f(p.price) + ' VNĐ/kg');
+    if (p.qty !== this.REQ.qty) parts.push('khối lượng ' + this.f(this.REQ.qty) + ' → ' + this.f(p.qty) + ' kg');
     parts.push('phí giao ' + this.vnd(p.fee), 'ngày giao ' + this.dmy(p.date));
     return { t: round === 2 ? '09:20 25/10/2026' : '14:00 24/10/2026', who: 'Nhựa Xanh · Nguyễn Văn Minh', side: 's', text: 'Người bán đề xuất điều chỉnh (vòng ' + round + '/2): ' + parts.join(', ') + (p.msg ? ', lời nhắn: “' + p.msg + '”.' : '.') };
   }
-  delEv(a, n) { return { t: '15:40 28/10/2026', who: 'Nhựa Xanh · Nguyễn Văn Minh', side: 's', text: 'Người bán báo đã giao: thực tế ' + this.f(a.qty) + ' kg, ' + this.vnd(a.amount) + (n ? ', ' + n + ' ảnh phiếu cân.' : '.') }; }
+  delEv(a, n) { return { t: this.__P.dlv ? '15:40 25/10/2026' : '15:40 28/10/2026', who: 'Nhựa Xanh · Nguyễn Văn Minh', side: 's', text: 'Người bán báo đã giao: thực tế ' + this.f(a.qty) + ' kg, ' + this.vnd(a.amount) + (n ? ', ' + n + ' ảnh phiếu cân.' : '.') }; }
   seed(stage) {
+    if (this._scn) return this.seedScn(this._scn);
     const C = Component, E = C.EV, P = { ...C.PROP };
-    const base = { stage, round: 1, proposal: null, agreed: null, actual: null, photos: [], rating: null, end: null, events: [E.sent], pane: null };
+    const base = { scn: null, stage, round: 1, proposal: null, agreed: null, actual: null, photos: [], rating: null, end: null, events: [E.sent], pane: null };
     const ord = ['pending', 'await_adjust', 'confirmed', 'shipping', 'await_receive', 'done'];
     const i = ord.indexOf(stage);
     if (i >= 1) { base.proposal = P; base.events.push(this.propEv(P, 1)); }
@@ -449,20 +487,21 @@ class Component extends DCLogic {
     let role = this.__P.role || 'seller', stage = this.__P.stage || 'pending';
     try { const u = new URLSearchParams(window.location.search); if (u.get('role')) role = u.get('role'); if (u.get('stage')) stage = u.get('stage'); } catch (e) {}
     if (!Component.STAGES.includes(stage)) stage = 'pending';
+    this._scn = this.__P.scn || null;
     return { role, ...this.seed(stage), pf: this.pfInit(), rf: { reason: null, text: '', stockOut: false }, df: { qty: '5000', amount: '', touched: false, photos: [{ name: 'phieu-can-1.jpg' }] }, rate: { stars: 0, text: '' }, tried: false, toast: '', lb: null };
   }
   pfInit() { const P = Component.PROP; return { price: String(P.price), qty: String(P.qty), fee: String(P.fee), date: P.date, msg: P.msg }; }
   state = this.initial();
   componentDidUpdate(__raw) { const prev = this.__ov(__raw);
     if (prev.role !== this.__P.role && this.__P.role) this.setState({ role: this.__P.role, pane: null });
-    if (prev.stage !== this.__P.stage && this.__P.stage) this.setState({ ...this.seed(this.__P.stage), tried: false });
+    if ((prev.stage !== this.__P.stage && this.__P.stage) || prev.scn !== this.__P.scn) { this._scn = this.__P.scn || null; this.setState({ ...this.seed(this.__P.stage), tried: false }); }
   }
   componentWillUnmount() { clearTimeout(this.tt); clearTimeout(this.rt); }
   flash = (m) => { clearTimeout(this.tt); this.setState({ toast: m }); this.tt = setTimeout(() => this.setState({ toast: '' }), 2600); };
   go = (patch, ev, msg) => { this.setState((s) => ({ ...patch, events: ev ? [...s.events, ...[].concat(ev)] : s.events, pane: null, tried: false })); if (msg) this.flash(msg); };
   totals() {
     const s = this.state, C = Component, a = s.agreed;
-    return { reqTotal: C.REQ.price * C.REQ.qty, agreedTotal: a ? a.price * a.qty + a.fee : 0 };
+    return { reqTotal: this.REQ.price * this.REQ.qty, agreedTotal: a ? a.price * a.qty + a.fee : 0 };
   }
   renderVals() {
     const s = this.state, C = Component, f = this.f, vnd = this.vnd;
@@ -492,25 +531,26 @@ class Component extends DCLogic {
         tag: isStop ? B[0] : '', tagTone: st === 'rejected' ? 'danger' : 'neutral' };
     });
     // product table
-    const heads = ['Yêu cầu'], vals = [{ v: f(C.REQ.qty) + ' kg', color: confirmedPlus ? 'var(--color-text-muted)' : 'var(--color-text-heading)' }];
+    const heads = ['Yêu cầu'], vals = [{ v: f(this.REQ.qty) + ' kg', color: confirmedPlus ? 'var(--color-text-muted)' : 'var(--color-text-heading)' }];
     if (confirmedPlus && A) { heads.push('Đã chốt'); vals.push({ v: f(A.qty) + ' kg', color: X ? 'var(--color-text-muted)' : 'var(--color-text-heading)' }); }
     if (X) { heads.push('Thực tế'); const dv = A ? Math.round((X.qty - A.qty) / A.qty * 1000) / 10 : 0; vals.push({ v: f(X.qty) + ' kg', color: 'var(--color-text-heading)', tag: Math.abs(dv) > 10 ? 'Lệch ' + (dv < 0 ? '−' : '+') + String(Math.abs(dv)).replace('.', ',') + '%' : '' }); }
     vals.forEach((v) => { if (v.tag == null) v.tag = ''; });
     const cols = 'minmax(0,1fr) 110px' + ' 96px'.repeat(heads.length);
-    const adj = A && A.price !== C.REQ.price;
+    const adj = A && A.price !== this.REQ.price;
     const money = [{ k: 'Tạm tính', v: vnd(reqTotal) }];
     if (confirmedPlus && A) { money.push({ k: 'Phí giao', v: A.fee ? vnd(A.fee) : 'Không có' }, { k: 'Tổng đã chốt', v: vnd(agreedTotal), strong: !X }); }
     else if (!ended) money.push({ k: 'Phí giao', v: 'Người bán báo khi xác nhận', soft: true });
     if (X) money.push({ k: 'Thực tế', v: vnd(X.amount), strong: true });
     const moneyRows = money.map((m, i) => ({ ...m, pt: m.strong ? 'var(--space-2)' : '0', bt: m.strong ? '1px solid var(--color-border-default)' : 'none', font: m.strong ? 'var(--type-h4)' : m.soft ? 'var(--type-body-sm)' : 'var(--type-label-md)', color: m.strong ? 'var(--color-text-brand)' : 'var(--color-text-heading)' }));
+    const scn = s.scn, lateN = st === 'confirmed' ? (scn === 'late5' ? 5 : scn === 'late10' ? 10 : 0) : 0;
     const shipRows = [
       { k: 'Cách giao nhận', v: 'Người bán giao tận nơi' },
       { k: 'Ngày mong muốn', v: '28/10/2026' },
-      ...(A ? [{ k: 'Ngày giao đã chốt', v: this.dmy(A.date) + '/2026' }] : []),
+      ...(A ? [{ k: 'Ngày giao đã chốt', v: this.dmy(A.date) + '/2026', ...(lateN ? { tag: 'Trễ ' + lateN + ' ngày', color: lateN >= 7 ? 'var(--color-danger)' : 'color-mix(in oklch, var(--color-warning) 62%, black)', tagBg: lateN >= 7 ? 'var(--color-danger-soft)' : 'var(--color-warning-soft)' } : {}) }] : []),
       { k: 'Địa chỉ nhận', v: 'Kho Tân Uyên, Bình Dương', sub: 'Lô B2, KCN Nam Tân Uyên, TP. Tân Uyên, Bình Dương' },
       { k: 'Thanh toán dự kiến', v: 'Chuyển khoản' },
       { k: 'Ghi chú của người mua', v: '“Giao giờ hành chính”' },
-    ].map((r, i) => ({ ...r, sub: r.sub || '', bt: i ? '1px solid var(--color-border-default)' : 'none' }));
+    ].map((r, i) => ({ ...r, sub: r.sub || '', tag: r.tag || '', color: r.color || 'var(--color-text-heading)', tagBg: r.tagBg || 'transparent', bt: i ? '1px solid var(--color-border-default)' : 'none' }));
     const cpl = st === 'await_receive' && (this.__P.complaint === true || this.__P.complaint === 'true');
     const evs = [...s.events, ...(cpl ? [{ t: '10:20 25/10/2026', who: 'Hoàng Lan', side: 'b', text: 'Người mua gửi khiếu nại.' }] : [])].reverse();
     const history = evs.map((e, i) => ({ ...e, line: i < evs.length - 1, dot: i === 0 ? 'var(--color-action-primary)' : 'var(--color-border-strong)', dotRing: i === 0 ? 'var(--color-action-primary)' : 'var(--color-border-strong)' }));
@@ -530,7 +570,7 @@ class Component extends DCLogic {
       deadline = s.round === 2 ? 'Người bán phản hồi trước 09:20 27/10' : 'Người bán phản hồi trước 09:10 26/10'; btn.danger = 'Huỷ yêu cầu';
     } else if (st === 'await_adjust') {
       roundTag = 'Vòng ' + s.round + '/2';
-      const rows = [['Đơn giá', f(C.REQ.price) + ' VNĐ/kg', f(P.price) + ' VNĐ/kg'], ['Khối lượng', f(C.REQ.qty) + ' kg', f(P.qty) + ' kg'], ['Phí giao', 'Chưa báo', vnd(P.fee)], ['Ngày giao', '28/10', this.dmy(P.date)], ['Tổng', vnd(reqTotal), vnd(P.price * P.qty + P.fee)]];
+      const rows = [['Đơn giá', f(this.REQ.price) + ' VNĐ/kg', f(P.price) + ' VNĐ/kg'], ['Khối lượng', f(this.REQ.qty) + ' kg', f(P.qty) + ' kg'], ['Phí giao', 'Chưa báo', vnd(P.fee)], ['Ngày giao', '28/10', this.dmy(P.date)], ['Tổng', vnd(reqTotal), vnd(P.price * P.qty + P.fee)]];
       cmpHeads = seller ? ['Người mua yêu cầu', 'Bạn đề xuất'] : ['Yêu cầu của bạn', 'Đề xuất của người bán'];
       cmpRows = rows.map(([k, a, b]) => ({ k, a, b, hl: a !== b ? 'var(--color-bg-accent-soft)' : 'transparent', hasD: false, d: '' }));
       sellerMsg = P.msg || '';
@@ -538,8 +578,10 @@ class Component extends DCLogic {
       else { actTitle = 'ĐỀ XUẤT ĐIỀU CHỈNH'; deadline = 'Phản hồi trước ' + (s.round === 2 ? '09:20 27/10' : '14:00 26/10'); dlColor = 'var(--color-warning)'; btn.agree = true; btn.declineAdj = true;
         subNote = s.round === 1 ? 'Nếu từ chối, người bán có thể đề xuất lại một lần.' : 'Nếu từ chối, đơn sẽ bị huỷ.'; }
     } else if ((st === 'confirmed' || st === 'shipping') && seller) {
-      actTitle = 'GIAO HÀNG'; info = 'Ngày giao đã chốt ' + this.dmy(A.date) + '. Sau khi giao, nhập khối lượng và số tiền thực tế để người mua xác nhận.';
+      actTitle = 'GIAO HÀNG'; info = lateN ? 'Ngày giao đã chốt ' + this.dmy(A.date) + '. Sau khi giao, nhập khối lượng và số tiền thực tế để người mua xác nhận.' : 'Ngày giao đã chốt ' + this.dmy(A.date) + '. Sau khi giao, nhập khối lượng và số tiền thực tế để người mua xác nhận.';
       btn.startShip = st === 'confirmed'; btn.delivered = true; btn.danger = 'Huỷ đơn';
+    } else if (st === 'confirmed' && lateN >= 7) {
+      actTitle = 'ĐÃ XÁC NHẬN'; info = 'Người bán đã trễ hẹn ' + lateN + ' ngày, bạn có thể huỷ đơn không cần lý do.'; btn.dangerOutline = true;
     } else if (st === 'confirmed' || st === 'shipping') {
       actTitle = st === 'shipping' ? 'ĐANG GIAO' : 'ĐÃ XÁC NHẬN'; info = (st === 'shipping' ? 'Người bán đang giao hàng' : 'Chờ người bán giao hàng') + ', ngày giao đã chốt ' + this.dmy(A.date) + '.'; btn.danger = 'Huỷ đơn';
     } else if (st === 'await_receive') {
@@ -549,7 +591,7 @@ class Component extends DCLogic {
         .map(([k, a, b, d], ri) => ({ k, a, b, d: ri === 0 && bigDev ? 'Lệch ' + d : d, hasD: true, hl: a !== b ? 'var(--color-bg-accent-soft)' : 'transparent', dColor: bigDev ? 'color-mix(in oklch, var(--color-warning) 62%, black)' : 'var(--color-text-muted)', dBg: bigDev && ri === 0 ? 'var(--color-warning-soft)' : 'transparent' }));
       photos = s.photos.map((p, i) => ({ ...p, ph: !p.url, bg: p.url ? 'url("' + p.url + '")' : 'none', open: () => this.setState({ lb: i }) }));
       if (seller) { actTitle = 'CHỜ NGƯỜI MUA'; deadline = bigDev ? 'Khối lượng lệch ' + devTxt + ': đơn chỉ hoàn tất khi người mua xác nhận.' : 'Tự hoàn tất ngày 04/11/2026 nếu người mua không phản hồi'; }
-      else { actTitle = 'XÁC NHẬN NHẬN HÀNG'; if (bigDev) { devWarn = 'Khối lượng thực tế lệch ' + devTxt + '. Kiểm tra phiếu cân trước khi xác nhận.'; deadline = 'Đơn chỉ hoàn tất khi bạn xác nhận.'; } else { deadline = 'Tự hoàn tất ngày 04/11/2026 nếu bạn không phản hồi'; dlColor = 'var(--color-warning)'; } btn.received = true; btn.complain = true; }
+      else { actTitle = 'XÁC NHẬN NHẬN HÀNG'; if (bigDev) { devWarn = 'Khối lượng thực tế lệch ' + devTxt + '. Kiểm tra phiếu cân trước khi xác nhận.'; deadline = 'Tự hoàn tất ngày 08/11/2026 nếu bạn không phản hồi'; dlColor = 'var(--color-warning)'; } else { deadline = 'Tự hoàn tất ngày 04/11/2026 nếu bạn không phản hồi'; dlColor = 'var(--color-warning)'; } btn.received = true; btn.complain = true; }
     } else if (st === 'done') {
       actTitle = 'ĐƠN HOÀN TẤT';
       if (s.rating) { rate.shown = true; } else if (!seller) { rate.form = true; } else { info = 'Người mua chưa đánh giá đơn này.'; }
@@ -558,6 +600,14 @@ class Component extends DCLogic {
       endInfo = st === 'rejected' ? [{ k: 'Trạng thái', v: seller ? 'Bạn đã từ chối' : 'Người bán từ chối' }, { k: 'Lý do', v: s.end.reason }, { k: 'Thời điểm', v: s.end.at }] : [{ k: 'Trạng thái', v: B[0] }, { k: 'Lý do', v: s.end.reason }, { k: 'Người thực hiện', v: s.end.by }, { k: 'Thời điểm', v: s.end.at }];
     }
     if (cpl) { deadline = ''; if (seller) info = ''; }
+    if (scn === 'nostock' && st === 'pending' && !seller) { roundTag = 'Vòng 1/2'; info = ''; }
+    const W = { bg: 'var(--color-warning-soft)', bd: '1px solid color-mix(in oklch, var(--color-warning) 40%, white)', ic: 'var(--color-warning)', tc: 'var(--color-text-heading)', warn: true, info: false, font: 'var(--type-label-lg)', role: 'status' };
+    const D = { ...W, bg: 'var(--color-danger-soft)', bd: '1px solid color-mix(in oklch, var(--color-danger) 40%, white)', ic: 'var(--color-danger)', role: 'alert' };
+    const G = { ...W, bg: 'var(--color-bg-muted)', bd: '1px solid var(--color-border-default)', ic: 'var(--color-text-muted)', warn: false, info: true };
+    const banners = [];
+    if (lateN) banners.push({ ...(lateN >= 7 ? D : W), text: 'Đơn đã quá ngày giao ' + lateN + ' ngày.' + (seller ? ' Cập nhật trạng thái giao hàng hoặc liên hệ người mua.' : '') });
+    if (st === 'cancelled' && (scn === 'lateCancelled' || scn === 'violation')) banners.push({ ...G, text: 'Đơn đã huỷ · Lý do: ' + s.end.reason });
+    if (st === 'cancelled' && scn === 'violation' && !seller) banners.push({ ...D, bd: '2px solid var(--color-danger)', tc: 'var(--color-danger)', text: 'Không chuyển tiền cho đơn này. Nếu đã chuyển, hãy liên hệ Lavatu để được hỗ trợ.' });
     const showActions = !paneName;
     // forms
     const pf = s.pf, num = (v) => Number(String(v).trim());
@@ -566,9 +616,9 @@ class Component extends DCLogic {
     const reasonPane = paneName === 'reject' || paneName === 'cancelOrder';
     const chips = ['Hết hàng', 'Không đáp ứng được ngày giao', 'Không giao được đến khu vực này', 'Giá không còn phù hợp', 'Khác'];
     const rfErr = s.tried && reasonPane ? (paneName === 'reject' ? (!s.rf.reason ? 'Vui lòng chọn lý do từ chối' : s.rf.reason === 'Khác' && !s.rf.text.trim() ? 'Vui lòng nhập ghi chú khi chọn Khác' : '') : (!s.rf.text.trim() ? 'Nhập lý do huỷ đơn.' : '')) : '';
-    const agreedBase = A ? A.price : C.REQ.price, fee = A ? A.fee : 0;
+    const agreedBase = A ? A.price : this.REQ.price, fee = A ? A.fee : 0;
     const dq = num(s.df.qty), hintAmt = dq > 0 ? agreedBase * dq + fee : 0;
-    const aq = A ? A.qty : C.REQ.qty, ddv = dq > 0 ? Math.round((dq - aq) / aq * 1000) / 10 : 0;
+    const aq = A ? A.qty : this.REQ.qty, ddv = dq > 0 ? Math.round((dq - aq) / aq * 1000) / 10 : 0;
     const dfStock = paneName === 'deliver' && dq > C.STOCK ? 'Chỉ còn ' + f(C.STOCK) + ' kg trong kho' : '';
     const dfWarn = paneName === 'deliver' && !dfStock && dq > 0 && Math.abs(ddv) > 10 ? 'Khối lượng thực tế lệch ' + (ddv < 0 ? '−' : '+') + String(Math.abs(ddv)).replace('.', ',') + '% so với khối lượng đã chốt. Người mua sẽ phải xác nhận.' : '';
     const dfErr = s.tried && paneName === 'deliver' && (!(dq > 0) || !((s.df.touched ? num(s.df.amount) : hintAmt) > 0)) ? 'Khối lượng và số tiền thực tế phải lớn hơn 0.' : '';
@@ -580,15 +630,17 @@ class Component extends DCLogic {
     const lbP = s.lb != null ? s.photos[s.lb] : null;
     const SE = 'Nhựa Xanh · Nguyễn Văn Minh';
     return {
-      scrollRef: this.scrollRef, me, other, chatLabel: seller ? 'Chat với người mua' : 'Chat với người bán',
+      scrollRef: this.scrollRef, me, other, banners, orderId: scn ? 'DH-251015-0007' : 'DH-261024-0007', sentAt: scn === 'nostock' || !scn ? '09:10 24/10/2026' : '09:10 08/10/2026',
+      showChat: !(scn === 'violation' && seller), productLink: scn !== 'violation', productPlain: scn === 'violation', actErr: scn === 'nostock' && st === 'pending' && !seller,
+      doneComplain: st === 'done' && !seller && !(this.__P.old === true || this.__P.old === 'true'), chatLabel: seller ? 'Chat với người mua' : 'Chat với người bán',
       listHref: seller ? 'Don ban - Ban chinh.dc.html' : 'Don mua cua toi - Ban chinh.dc.html', listLabel: seller ? 'Đơn bán' : 'Đơn mua',
       nav: navItems.map(([label, href]) => { const on = label === activeNav; return { label, href, cur: on ? 'page' : 'false', color: on ? 'var(--color-text-inverse)' : 'var(--color-text-body)', bg: on ? 'var(--color-action-primary)' : 'transparent', dot: on ? 'var(--color-accent)' : 'var(--color-border-strong)' }; }),
       complaint: cpl, sellerComplaint: cpl && seller, complainLabel: cpl ? 'Xem khiếu nại' : 'Khiếu nại',
       badge: { label: B[0], tone: B[1] === 'blue' ? 'neutral' : B[1], ds: B[1] !== 'blue', blue: B[1] === 'blue' },
-      steps, cols, qtyHeads: heads, qtyVals: vals, priceOld: adj ? f(C.REQ.price) + ' VNĐ/kg' : '', priceNow: f(A ? A.price : C.REQ.price) + ' VNĐ/kg',
+      steps, cols, qtyHeads: heads, qtyVals: vals, priceOld: adj ? f(this.REQ.price) + ' VNĐ/kg' : '', priceNow: f(A ? A.price : this.REQ.price) + ' VNĐ/kg',
       money: moneyRows, ship: shipRows, history,
       hasCmp: cmpRows.length > 0, hasPhotos: photos.length > 0, actTitle, info, deadline, dlColor, subNote, roundTag, roundLabel: 'Vòng ' + s.round + '/2', btn: { ...btn }, cmpHeads, cmpRows, cmpCols, sellerMsg, photos, endInfo,
-      pane: { none: showActions, propose: paneName === 'propose', reason: reasonPane, deliver: paneName === 'deliver', confirmCancel: paneName === 'confirmCancel' },
+      pane: { none: showActions, propose: paneName === 'propose', reason: reasonPane, deliver: paneName === 'deliver', confirmCancel: paneName === 'confirmCancel', lateCancel: paneName === 'lateCancel' },
       devTag: st === 'await_receive' && bigDev ? 'Lệch ' + devTxt : '', devWarn,
       cBuyerView: !seller, cSellerFull: seller && (confirmedPlus || (st === 'cancelled' && !!A)), cSellerHidden: seller && !(confirmedPlus || (st === 'cancelled' && !!A)),
       sellerC: s.sellerC || 'masked', revealSeller: () => { this.setState({ sellerC: 'loading' }); clearTimeout(this.rt); this.rt = setTimeout(() => this.setState({ sellerC: 'revealed' }), 800); },
@@ -602,7 +654,7 @@ class Component extends DCLogic {
         yesLabel: paneName === 'reject' ? 'Gửi từ chối' : 'Xác nhận huỷ đơn', noLabel: paneName === 'reject' ? 'Huỷ' : 'Giữ đơn',
         onText: (e) => this.setState({ rf: { ...s.rf, text: e.target.value.slice(0, 500) } }),
         chips: chips.map((label) => { const on = s.rf.reason === label; return { label, on, pick: () => this.setState({ rf: { ...s.rf, reason: label } }), border: on ? 'var(--color-action-primary)' : (rfErr && !s.rf.reason ? 'var(--color-danger)' : 'var(--color-border-default)'), ring: on ? '5px solid var(--color-action-primary)' : '1.5px solid var(--color-border-strong)' }; }) },
-      df: { agreedTxt: f(A ? A.qty : C.REQ.qty) + ' kg', warn: dfWarn, stockErr: dfStock, ring: dfStock ? '0 0 0 2px var(--color-danger)' : 'none', qty: s.df.qty, amount: s.df.touched ? s.df.amount : (hintAmt ? String(hintAmt) : ''), hint: f(agreedBase) + ' × ' + (dq > 0 ? f(dq) : '…') + ' kg + phí giao ' + f(fee) + ' = ' + (hintAmt ? vnd(hintAmt) : '—'), err: dfErr,
+      df: { agreedTxt: f(A ? A.qty : this.REQ.qty) + ' kg', warn: dfWarn, stockErr: dfStock, ring: dfStock ? '0 0 0 2px var(--color-danger)' : 'none', qty: s.df.qty, amount: s.df.touched ? s.df.amount : (hintAmt ? String(hintAmt) : ''), hint: f(agreedBase) + ' × ' + (dq > 0 ? f(dq) : '…') + ' kg + phí giao ' + f(fee) + ' = ' + (hintAmt ? vnd(hintAmt) : '—'), err: dfErr,
         onQty: (e) => this.setState({ df: { ...s.df, qty: e.target.value } }), onAmount: (e) => this.setState({ df: { ...s.df, amount: e.target.value, touched: true } }),
         canAdd: s.df.photos.length < 3,
         photos: s.df.photos.map((p, i) => ({ ph: !p.url, bg: p.url ? 'url("' + p.url + '")' : 'none', remove: () => this.setState({ df: { ...s.df, photos: s.df.photos.filter((_, j) => j !== i) } }) })),
@@ -613,10 +665,12 @@ class Component extends DCLogic {
         shownStars: s.rating ? Array.from({ length: s.rating.stars }, (_, i) => i) : [], shownLabel: s.rating ? 'Người mua đánh giá ' + s.rating.stars + '/5' : '', shownText: s.rating ? s.rating.text : '' },
       act: {
         noop: () => {}, closePane: () => this.setState({ pane: null, tried: false }),
+        openLateCancel: () => this.setState({ pane: 'lateCancel', tried: false }),
+        lateCancel: () => { this.setState({ ...this.seedScn('lateCancelled'), tried: false }); this.flash('Đã huỷ đơn'); },
         openPropose: () => this.setState({ pane: 'propose', pf: this.pfInit(), tried: false }),
         openDeliver: () => this.setState({ pane: 'deliver', tried: false }),
         openDanger: () => this.setState({ pane: st === 'pending' ? (seller ? 'reject' : 'confirmCancel') : 'cancelOrder', rf: { reason: null, text: '', stockOut: false }, tried: false }),
-        accept: () => this.go({ stage: 'confirmed', agreed: { price: C.REQ.price, qty: C.REQ.qty, fee: 0, date: '2026-10-28', msg: '' } }, { t: '10:30 24/10/2026', who: SE, side: 's', text: 'Người bán chấp nhận yêu cầu. Đơn đã xác nhận, tổng đã chốt ' + vnd(reqTotal) + '.' }, 'Đã xác nhận đơn'),
+        accept: () => this.go({ stage: 'confirmed', agreed: { price: this.REQ.price, qty: this.REQ.qty, fee: 0, date: '2026-10-28', msg: '' } }, { t: '10:30 24/10/2026', who: SE, side: 's', text: 'Người bán chấp nhận yêu cầu. Đơn đã xác nhận, tổng đã chốt ' + vnd(reqTotal) + '.' }, 'Đã xác nhận đơn'),
         sendPropose: () => { if (!(num(pf.price) > 0) || !(num(pf.qty) > 0) || !pf.date) { this.setState({ tried: true }); return; }
           const p = { price: num(pf.price), qty: num(pf.qty), fee: num(pf.fee || 0), date: pf.date, msg: pf.msg.trim() }; this.go({ stage: 'await_adjust', proposal: p }, this.propEv(p, s.round), 'Đã gửi đề xuất'); },
         agree: () => this.go({ stage: 'confirmed', agreed: P }, { ...C.EV.agree, text: 'Người mua đồng ý đề xuất vòng ' + s.round + '. Đơn đã xác nhận, tổng đã chốt ' + vnd(P.price * P.qty + P.fee) + '.' }, 'Đã đồng ý điều chỉnh'),
