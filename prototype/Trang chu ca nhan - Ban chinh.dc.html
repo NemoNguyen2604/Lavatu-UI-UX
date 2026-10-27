@@ -77,6 +77,7 @@
                 <sc-if value="{{ t.iNew }}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M22 12h-6l-2 3h-4l-2-3H2"></path><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg></sc-if>
                 <sc-if value="{{ t.iAdjust }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M8 3 4 7l4 4"></path><path d="M4 7h16"></path><path d="m16 21 4-4-4-4"></path><path d="M20 17H4"></path></svg></sc-if>
                 <sc-if value="{{ t.iReceive }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M16 16h6"></path><path d="M19 13v6"></path><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"></path><path d="m7.5 4.27 9 5.15"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><line x1="12" x2="12" y1="22" y2="12"></line></svg></sc-if>
+                <sc-if value="{{ t.iListing }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M12 20h9"></path><path d="M16.38 3.62a1 1 0 0 1 3 3L7.37 18.64a2 2 0 0 1-.86.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.86z"></path></svg></sc-if>
               </span>
               <span style="min-width:0;display:flex;flex-direction:column;gap:2px">
                 <span style="font:var(--type-label-md);color:var(--color-text-heading)">{{ t.title }}</span>
@@ -275,6 +276,7 @@ class Component extends DCLogic {
         { k: 'new', title: 'Yêu cầu mua mới', code: 'DH-261017-0012', detail: 'Phế liệu nhựa HDPE ép kiện, 3.000 kg', deadline: 'Còn 31 giờ', hours: 31, href: '?role=seller&stage=pending' },
         { k: 'adjust', title: 'Người bán đề xuất điều chỉnh giá', code: 'DH-261016-0004', detail: 'Giấy carton ép kiện', deadline: 'Còn 40 giờ', hours: 40, href: '?role=buyer&stage=await_adjust' },
         { k: 'receive', title: 'Xác nhận đã nhận hàng', code: 'DH-261012-0021', detail: 'Nhôm lon phế liệu đã ép', deadline: 'Tự hoàn tất sau 5 ngày', hours: 120, href: '?role=buyer&stage=await_receive' },
+        { k: 'listing', title: 'Tin cần cập nhật', code: 'Nhựa PET vụn trong', detail: 'Quản trị viên tạm ẩn, cần sửa thông tin', deadline: 'Còn 2 ngày để sửa', hours: 48, page: 'Tin dang cua toi - Ban chinh.dc.html?state=tab-can-cap-nhat' },
       ],
       buy: [2, 11], sellS: [18, 1248, 3],
       orders: [
@@ -334,7 +336,7 @@ class Component extends DCLogic {
     const key = String(this.__P.frame ?? 'A').charAt(0);
     const f = C.F[key] || C.F.A;
     const toList = (q) => 'Nguon vat lieu - Ban chinh.dc.html' + (q ? '?q=' + encodeURIComponent(q) : '');
-    const iconTone = { new: ['var(--color-warning-soft)', 'var(--color-warning)'], adjust: ['color-mix(in oklch, var(--color-material-plastic) 10%, white)', 'var(--color-material-plastic)'], receive: ['var(--color-success-soft)', 'var(--color-success)'] };
+    const iconTone = { listing: ['var(--color-warning-soft)', 'var(--color-warning)'], new: ['var(--color-warning-soft)', 'var(--color-warning)'], adjust: ['color-mix(in oklch, var(--color-material-plastic) 10%, white)', 'var(--color-material-plastic)'], receive: ['var(--color-success-soft)', 'var(--color-success)'] };
     const stat = (value, label, href, warn) => ({ value: fmt(value), label, href, color: warn && value > 0 ? 'var(--color-warning)' : 'var(--color-text-heading)' });
     const tone = (st) => st === 'done' ? 'success' : 'warning';
     const list = f.latest ? C.LATEST : C.SUG;
@@ -348,10 +350,10 @@ class Component extends DCLogic {
       goSearch: () => { window.location.href = toList(''); },
       openLavie: () => this.flash('Lavie sẽ mở trong khung trò chuyện'),
       hasTodo: f.todos.length > 0, noTodo: f.todos.length === 0, todoCount: String(f.todos.length),
-      todos: f.todos.map((t, n) => { const urgent = t.hours < 12; const [bg, c] = iconTone[t.k]; return { ...t, bt: n ? '1px solid var(--color-border-default)' : 'none',
-        iNew: t.k === 'new', iAdjust: t.k === 'adjust', iReceive: t.k === 'receive', iconBg: bg, iconColor: c,
+      todos: f.todos.map((t, n) => { const urgent = t.k === 'listing' ? t.hours <= 72 : t.hours < 12; const [bg, c] = iconTone[t.k]; return { ...t, bt: n ? '1px solid var(--color-border-default)' : 'none',
+        iNew: t.k === 'new', iAdjust: t.k === 'adjust', iReceive: t.k === 'receive', iListing: t.k === 'listing', iconBg: bg, iconColor: c,
         dlColor: urgent ? 'var(--color-danger)' : 'var(--color-text-muted)', dlFont: urgent ? 'var(--type-label-md)' : 'var(--type-body-sm)', btn: urgent ? 'primary' : 'secondary',
-        go: () => { window.location.href = 'Chi tiet don - Ban chinh.dc.html' + t.href; } }; }),
+        go: () => { window.location.href = t.page || ('Chi tiet don - Ban chinh.dc.html' + t.href); } }; }),
       statCols: f.sell ? 'minmax(0,2fr) minmax(0,3fr)' : 'minmax(0,2fr) minmax(0,3fr)',
       buyStats: [stat(f.buy[0], 'đơn đang xử lý', 'Don mua cua toi - Ban chinh.dc.html'), stat(f.buy[1], 'đơn hoàn tất', 'Don mua cua toi - Ban chinh.dc.html')],
       showSell: f.sell, showSellPromo: !f.sell,

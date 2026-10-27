@@ -97,23 +97,24 @@
                   <div style="display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:0">
                     <div style="display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-2)">
                       <x-import component-from-global-scope="LavatuDesignSystem_2cb126.CategoryBadge" material="{{ it.material }}" hint-size="auto,24px">{{ it.cat }}</x-import>
-                      <sc-if value="{{ it.unavailable }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="danger" hint-size="auto,22px">{{ it.statusLabel }}</x-import></sc-if>
+                      <sc-if value="{{ it.unavailable }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="{{ it.badgeTone }}" hint-size="auto,22px">{{ it.statusLabel }}</x-import></sc-if>
                     </div>
                     <a href="Chi tiet san pham - Ban chinh.dc.html" style="font:var(--type-label-lg);color:var(--color-text-heading);text-decoration:none;text-wrap:pretty" style-hover="color:var(--color-text-brand);text-decoration:underline">{{ it.name }}</a>
+                    <sc-if value="{{ it.isHidden }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-body-sm);color:var(--color-text-muted)">Người bán đang cập nhật tin này</span></sc-if>
                   </div>
                   <div style="display:flex;flex-direction:column;gap:2px;padding-top:2px">
                     <span style="font:var(--type-label-md);color:var(--color-text-heading)">{{ it.priceLabel }}</span>
                     <sc-if value="{{ it.priceChanged }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-caption);color:var(--color-text-subtle);text-decoration:line-through">{{ it.oldPriceLabel }}</span></sc-if>
                   </div>
                   <div style="display:flex;flex-direction:column;gap:6px">
-                    <sc-if value="{{ it.available }}" hint-placeholder-val="{{ true }}">
-                    <div style="display:grid;grid-template-columns:36px minmax(0,1fr) 36px;gap:6px;pointer-events:{{ it.pointer }}">
-                      <button type="button" aria-label="Giảm" disabled="{{ it.unavailable }}" onClick="{{ it.dec }}" style="height:40px;border-radius:var(--radius-md);border:1px solid var(--color-border-strong);background:var(--color-bg-page);color:var(--color-text-heading);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0" style-hover="background:var(--color-bg-brand-soft)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round"><path d="M5 12h14"></path></svg></button>
+                    <sc-if value="{{ it.showStepper }}" hint-placeholder-val="{{ true }}">
+                    <div style="display:grid;grid-template-columns:36px minmax(0,1fr) 36px;gap:6px;pointer-events:{{ it.pointer }};opacity:{{ it.stepOpacity }}">
+                      <button type="button" aria-label="Giảm" disabled="{{ it.locked }}" onClick="{{ it.dec }}" style="height:40px;border-radius:var(--radius-md);border:1px solid var(--color-border-strong);background:var(--color-bg-page);color:var(--color-text-heading);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0" style-hover="background:var(--color-bg-brand-soft)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round"><path d="M5 12h14"></path></svg></button>
                       <div style="position:relative">
-                        <input type="number" aria-label="Khối lượng" disabled="{{ it.unavailable }}" value="{{ it.qty }}" onChange="{{ it.onQty }}" style="width:100%;height:40px;box-sizing:border-box;border-radius:var(--radius-md);border:{{ it.qtyBorder }};background:{{ it.qtyBg }};padding:0 34px 0 10px;font:var(--type-label-md);font-family:inherit;color:var(--color-text-heading);outline:none;text-align:right">
+                        <input type="number" aria-label="Khối lượng" disabled="{{ it.locked }}" value="{{ it.qty }}" onChange="{{ it.onQty }}" style="width:100%;height:40px;box-sizing:border-box;border-radius:var(--radius-md);border:{{ it.qtyBorder }};background:{{ it.qtyBg }};padding:0 34px 0 10px;font:var(--type-label-md);font-family:inherit;color:var(--color-text-heading);outline:none;text-align:right">
                         <span style="position:absolute;right:10px;top:11px;font:var(--type-body-sm);color:var(--color-text-muted);pointer-events:none">{{ it.unit }}</span>
                       </div>
-                      <button type="button" aria-label="Tăng" disabled="{{ it.unavailable }}" onClick="{{ it.inc }}" style="height:40px;border-radius:var(--radius-md);border:1px solid var(--color-border-strong);background:var(--color-bg-page);color:var(--color-text-heading);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0" style-hover="background:var(--color-bg-brand-soft)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button>
+                      <button type="button" aria-label="Tăng" disabled="{{ it.locked }}" onClick="{{ it.inc }}" style="height:40px;border-radius:var(--radius-md);border:1px solid var(--color-border-strong);background:var(--color-bg-page);color:var(--color-text-heading);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0" style-hover="background:var(--color-bg-brand-soft)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button>
                     </div>
                     </sc-if>
                     <sc-if value="{{ it.hasErr }}" hint-placeholder-val="{{ false }}">
@@ -258,7 +259,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;trangThai&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Có sản phẩm&quot;,&quot;Giỏ hàng trống&quot;],&quot;default&quot;:&quot;Có sản phẩm&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
-  static STATES = [{"k":"co-san-pham","l":"Có sản phẩm","p":{"trangThai":"Có sản phẩm"}},{"k":"gio-trong","l":"Giỏ hàng trống","p":{"trangThai":"Giỏ hàng trống"}},{"k":"canh-bao-gia","l":"Cảnh báo đổi giá","g":"Dòng & nhóm","p":{}},{"k":"dong-het-hang-da-go","l":"Hết hàng / Tin đã gỡ","g":"Dòng & nhóm","p":{}},{"k":"nhom-khong-gui-duoc","l":"Nhóm không gửi được","g":"Dòng & nhóm","s":{"removed":{"b1":true}}},{"k":"loi-khoi-luong","l":"Lỗi khối lượng","g":"Dòng & nhóm","p":{}},{"k":"loi-cong-don","l":"Lỗi cộng dồn","g":"Dòng & nhóm","s":{"toast":{"t":"Chỉ còn 300 kg, không cộng thêm được","k":"err"}}},{"k":"gui-xong-nhom","l":"Gửi xong nhóm A","g":"Dòng & nhóm","s":{"sent":{"g1":true},"toast":{"t":"Đã gửi yêu cầu cho Công ty TNHH Nhựa Xanh","k":"ok","link":true}}},{"k":"dang-tai","l":"Đang tải","g":"Tải trang","p":{"ps":"loading"}},{"k":"loi-tai","l":"Lỗi tải","g":"Tải trang","p":{"ps":"error"}}];
+  static STATES = [{"k":"co-san-pham","l":"Có sản phẩm","p":{"trangThai":"Có sản phẩm"}},{"k":"gio-trong","l":"Giỏ hàng trống","p":{"trangThai":"Giỏ hàng trống"}},{"k":"canh-bao-gia","l":"Cảnh báo đổi giá","g":"Dòng & nhóm","p":{}},{"k":"dong-het-hang-da-go","l":"Hết hàng / Tin đã gỡ","g":"Dòng & nhóm","p":{}},{"k":"dong-tin-tam-an","l":"Tin tạm ẩn","g":"Dòng & nhóm","p":{"mau":"tam-an"}},{"k":"nhom-khong-gui-duoc","l":"Nhóm không gửi được","g":"Dòng & nhóm","s":{"removed":{"b1":true}}},{"k":"loi-khoi-luong","l":"Lỗi khối lượng","g":"Dòng & nhóm","p":{}},{"k":"loi-cong-don","l":"Lỗi cộng dồn","g":"Dòng & nhóm","s":{"toast":{"t":"Chỉ còn 300 kg, không cộng thêm được","k":"err"}}},{"k":"gui-xong-nhom","l":"Gửi xong nhóm A","g":"Dòng & nhóm","s":{"sent":{"g1":true},"toast":{"t":"Đã gửi yêu cầu cho Công ty TNHH Nhựa Xanh","k":"ok","link":true}}},{"k":"dang-tai","l":"Đang tải","g":"Tải trang","p":{"ps":"loading"}},{"k":"loi-tai","l":"Lỗi tải","g":"Tải trang","p":{"ps":"error"}}];
   static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
   get __P() { return this.__ov(this.props); }
   __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
@@ -276,9 +277,17 @@ class Component extends DCLogic {
       { id: 'c1', name: 'Giấy carton ép kiện', cat: 'Giấy carton', material: 'paper', img: 'assets/paper.webp', price: 3500, unit: 'kg', qty: 150, min: 100, avail: 2000, step: 50, status: 'ok' },
     ] },
   ];
+  static GROUPS_TAM_AN = [
+    { id: 'h1', name: 'Công ty TNHH Nhựa Xanh', initials: 'NX', verified: true, region: 'Bình Dương', items: [
+      { id: 'h1a', name: 'Hạt nhựa PP tái sinh màu đen', cat: 'Nhựa', material: 'plastic', img: 'assets/plastic.webp', price: 24000, unit: 'kg', qty: 800, min: 500, avail: 30000, step: 100, status: 'ok' },
+      { id: 'h1b', name: 'Nhựa PET vụn trong', cat: 'Nhựa', material: 'plastic', img: 'assets/plastic.webp', price: 15000, unit: 'kg', qty: 600, min: 200, avail: 5000, step: 100, status: 'hidden' },
+      { id: 'h1c', name: 'Phế liệu nhựa HDPE dạng can', cat: 'Nhựa', material: 'plastic', img: 'assets/plastic.webp', price: 9000, unit: 'kg', qty: 1000, min: 500, avail: 8000, step: 100, status: 'removed' },
+    ] },
+  ];
+  get __G() { return this.__P.mau === 'tam-an' ? Component.GROUPS_TAM_AN : Component.GROUPS; }
   state = (() => {
     const qty = {};
-    Component.GROUPS.forEach((g) => g.items.forEach((it) => { qty[it.id] = String(it.qty); }));
+    Component.GROUPS.concat(Component.GROUPS_TAM_AN).forEach((g) => g.items.forEach((it) => { qty[it.id] = String(it.qty); }));
     return { qty, removed: {}, sent: {}, confirm: null, toast: null, ps: this.__P.ps || 'data' };
   })();
   componentWillUnmount() { clearTimeout(this.tt); clearTimeout(this.rt); }
@@ -295,7 +304,7 @@ class Component extends DCLogic {
     const forceEmpty = (this.__P.trangThai ?? 'Có sản phẩm') === 'Giỏ hàng trống';
     const setQ = (id, v) => this.setState((st) => ({ qty: { ...st.qty, [id]: String(Math.round(v)) } }));
     let okCount = 0, total = 0;
-    const groups = forceEmpty || s.ps !== 'data' ? [] : Component.GROUPS.map((g) => {
+    const groups = forceEmpty || s.ps !== 'data' ? [] : this.__G.map((g) => {
       if (s.sent[g.id]) return null;
       const items = g.items.filter((it) => !s.removed[it.id]);
       if (!items.length) return null;
@@ -308,13 +317,15 @@ class Component extends DCLogic {
         if (!unavailable) { okCount++; if (e) errs++; else { valid++; sub += q * it.price; } }
         const base = isFinite(q) && q > 0 ? q : it.min;
         return {
-          ...it, unavailable, available: !unavailable, statusLabel: it.status === 'removed' ? 'Tin đã gỡ' : 'Hết hàng',
+          ...it, unavailable, available: !unavailable, statusLabel: it.status === 'hidden' ? 'Tin tạm ẩn' : it.status === 'removed' ? 'Tin đã gỡ' : 'Hết hàng',
+          isHidden: it.status === 'hidden', badgeTone: it.status === 'hidden' ? 'warning' : 'danger',
+          locked: unavailable, showStepper: !unavailable || it.status === 'hidden', stepOpacity: it.status === 'hidden' ? 0.6 : 1,
           divider: idx ? '1px solid var(--color-border-default)' : 'none',
-          opacity: unavailable ? 0.45 : 1, pointer: unavailable ? 'none' : 'auto',
+          opacity: unavailable && it.status !== 'hidden' ? 0.45 : 1, pointer: unavailable ? 'none' : 'auto',
           priceLabel: f(it.price) + ' VNĐ/' + it.unit,
           priceChanged: !!it.oldPrice && !unavailable, oldPriceLabel: it.oldPrice ? f(it.oldPrice) + ' VNĐ/' + it.unit : '',
           priceChangeText: it.oldPrice ? f(it.oldPrice) + ' → ' + f(it.price) + ' VNĐ/' + it.unit : '',
-          qty: unavailable ? '' : s.qty[it.id],
+          qty: unavailable && it.status !== 'hidden' ? '' : s.qty[it.id],
           onQty: (ev) => { const v = ev.target.value; this.setState((st) => ({ qty: { ...st.qty, [it.id]: v } })); },
           dec: () => setQ(it.id, Math.min(it.avail, Math.max(it.min, base - it.step))),
           inc: () => setQ(it.id, Math.max(it.min, Math.min(it.avail, base + it.step))),

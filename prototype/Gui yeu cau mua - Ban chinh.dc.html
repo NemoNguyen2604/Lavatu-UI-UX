@@ -50,7 +50,7 @@
   <nav aria-label="Breadcrumb" style="display:flex;align-items:center;gap:var(--space-2);font:var(--type-body-sm);min-width:0">
     <a href="#" style="color:var(--color-text-muted);text-decoration:none;white-space:nowrap">Trang chủ</a><span style="color:var(--color-text-subtle)">/</span>
     <a href="Nguon vat lieu - Ban chinh.dc.html" style="color:var(--color-text-muted);text-decoration:none;white-space:nowrap">Sản phẩm</a><span style="color:var(--color-text-subtle)">/</span>
-    <a href="Chi tiet san pham - Ban chinh.dc.html" style="color:var(--color-text-muted);text-decoration:none;white-space:nowrap">Nhựa PP tái sinh dạng hạt, màu tự nhiên</a><span style="color:var(--color-text-subtle)">/</span>
+    <sc-if value="{{ isSingle }}" hint-placeholder-val="{{ true }}"><a href="Chi tiet san pham - Ban chinh.dc.html" style="color:var(--color-text-muted);text-decoration:none;white-space:nowrap">Nhựa PP tái sinh dạng hạt, màu tự nhiên</a><span style="color:var(--color-text-subtle)">/</span></sc-if><sc-if value="{{ isMulti }}" hint-placeholder-val="{{ false }}"><a href="Gio hang - Ban chinh.dc.html" style="color:var(--color-text-muted);text-decoration:none;white-space:nowrap">Giỏ hàng</a><span style="color:var(--color-text-subtle)">/</span></sc-if>
     <span style="color:var(--color-text-heading);font-weight:600;white-space:nowrap">Gửi yêu cầu mua</span>
   </nav>
 </div>
@@ -67,7 +67,32 @@
     <form onSubmit="{{ submit }}" style="display:flex;flex-direction:column;gap:var(--space-5);min-width:0;opacity:{{ formOpacity }};pointer-events:{{ formPointer }};transition:opacity 200ms">
 
       <section ref="{{ qtyRef }}" style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-4);animation:lv-rise 600ms ease-out 60ms both">
-        <div style="display:flex;align-items:center;gap:var(--space-3)"><span style="width:28px;height:28px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">1</span><h2 style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Khối lượng</h2></div>
+        <div style="display:flex;align-items:center;gap:var(--space-3)"><span style="width:28px;height:28px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">1</span><h2 style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Khối lượng</h2><sc-if value="{{ isMulti }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-body-sm);color:var(--color-text-muted)">· {{ sellerName }}</span></sc-if></div>
+        <sc-if value="{{ isMulti }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;border-radius:var(--radius-md);border:1px solid var(--color-border-default);overflow:hidden">
+            <div style="display:grid;grid-template-columns:56px minmax(0,1fr) 216px 140px;gap:var(--space-4);padding:var(--space-2) var(--space-4);background:var(--color-bg-subtle);font:var(--type-caption);color:var(--color-text-muted)"><span></span><span>Sản phẩm</span><span>Khối lượng</span><span style="text-align:right">Tạm tính</span></div>
+            <sc-for list="{{ mItems }}" as="m" hint-placeholder-count="2">
+              <div style="display:grid;grid-template-columns:56px minmax(0,1fr) 216px 140px;gap:var(--space-4);align-items:start;padding:var(--space-4);border-top:1px solid var(--color-border-default)">
+                <span style="width:56px;height:56px;border-radius:var(--radius-md);overflow:hidden;background:var(--color-bg-subtle);display:block"><img src="assets/plastic.webp" alt="" style="width:100%;height:100%;object-fit:contain;padding:6px;box-sizing:border-box"></span>
+                <span style="display:flex;flex-direction:column;gap:4px;min-width:0">
+                  <a href="Chi tiet san pham - Ban chinh.dc.html" style="font:var(--type-label-lg);color:var(--color-text-heading);text-decoration:none;text-wrap:pretty" style-hover="color:var(--color-text-brand);text-decoration:underline">{{ m.name }}</a>
+                  <span style="font:var(--type-body-sm);color:var(--color-text-body)">{{ m.priceLabel }}</span>
+                </span>
+                <span style="display:flex;flex-direction:column;gap:6px">
+                  <span style="display:grid;grid-template-columns:36px minmax(0,1fr) 36px;gap:6px">
+                    <button type="button" aria-label="Giảm" onClick="{{ m.dec }}" style="height:40px;border-radius:var(--radius-md);border:1px solid var(--color-border-strong);background:var(--color-bg-page);color:var(--color-text-heading);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0" style-hover="background:var(--color-bg-brand-soft)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round"><path d="M5 12h14"></path></svg></button>
+                    <span style="position:relative"><input type="number" aria-label="Khối lượng" value="{{ m.qty }}" onChange="{{ m.onQty }}" style="width:100%;height:40px;box-sizing:border-box;border-radius:var(--radius-md);border:{{ m.border }};background:var(--color-bg-page);padding:0 30px 0 8px;font:var(--type-label-md);font-family:inherit;color:var(--color-text-heading);outline:none;text-align:right"><span style="position:absolute;right:8px;top:11px;font:var(--type-body-sm);color:var(--color-text-muted);pointer-events:none">kg</span></span>
+                    <button type="button" aria-label="Tăng" onClick="{{ m.inc }}" style="height:40px;border-radius:var(--radius-md);border:1px solid var(--color-border-strong);background:var(--color-bg-page);color:var(--color-text-heading);cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0" style-hover="background:var(--color-bg-brand-soft)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button>
+                  </span>
+                  <sc-if value="{{ m.hasErr }}" hint-placeholder-val="{{ false }}"><span role="alert" style="display:flex;align-items:center;gap:4px;font:var(--type-caption);color:var(--color-danger)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;flex-shrink:0"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg>{{ m.err }}</span></sc-if>
+                  <span style="font:var(--type-caption);color:var(--color-text-muted)">{{ m.hint }}</span>
+                </span>
+                <span style="text-align:right;font:var(--type-label-lg);color:var(--color-text-heading);padding-top:10px">{{ m.line }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+        <sc-if value="{{ isSingle }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;flex-direction:column;gap:var(--space-2);max-width:360px">
           <label for="qty" style="font:var(--type-label-md);color:var(--color-text-heading)">Khối lượng muốn mua</label>
           <div style="display:grid;grid-template-columns:44px minmax(0,1fr) 44px;gap:var(--space-2)">
@@ -83,6 +108,7 @@
           </sc-if>
           <span style="font:var(--type-caption);color:var(--color-text-muted)">Mua tối thiểu 1.000 kg · Sẵn có 20.000 kg</span>
         </div>
+        </sc-if>
       </section>
 
       <section ref="{{ delRef }}" style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-4);animation:lv-rise 600ms ease-out 120ms both">
@@ -179,6 +205,22 @@
     <aside style="position:sticky;top:96px;display:flex;flex-direction:column;gap:var(--space-4);min-width:0;animation:lv-rise 600ms ease-out 120ms both">
       <section aria-label="Tóm tắt yêu cầu" style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-5)">
         <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-muted)">TÓM TẮT YÊU CẦU</span>
+        <sc-if value="{{ isMulti }}" hint-placeholder-val="{{ false }}">
+          <span style="display:flex;align-items:center;gap:6px;font:var(--type-label-lg);color:var(--color-text-heading)">{{ sellerName }}<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" aria-label="Đã xác minh" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-brand);flex-shrink:0"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></span>
+          <dl style="margin:0;display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-subtle)">
+            <sc-for list="{{ mItems }}" as="m" hint-placeholder-count="2">
+              <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:var(--space-4)"><dt style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font:var(--type-label-md);color:var(--color-text-heading);text-wrap:pretty">{{ m.name }}</span><span style="font:var(--type-caption);color:var(--color-text-muted)">{{ m.qtyLabel }} × {{ m.priceLabel }}</span></dt><dd style="margin:0;font:var(--type-label-md);color:var(--color-text-heading);white-space:nowrap">{{ m.line }}</dd></div>
+            </sc-for>
+            <sc-if value="{{ showFee }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;justify-content:space-between;gap:var(--space-4);padding-top:var(--space-3);border-top:1px solid var(--color-border-default)"><dt style="font:var(--type-body-sm);color:var(--color-text-muted)">Phí giao</dt><dd style="margin:0;font:var(--type-body-sm);color:var(--color-text-body);text-align:right">Người bán báo khi xác nhận</dd></div>
+            </sc-if>
+          </dl>
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-4)">
+            <span style="display:flex;flex-direction:column;gap:2px"><span style="font:var(--type-body-md);color:var(--color-text-body)">Tổng tạm tính</span><span style="font:var(--type-caption);color:var(--color-text-muted)">Chưa gồm phí giao</span></span>
+            <span style="font:var(--type-h3);letter-spacing:var(--tracking-heading);color:var(--color-text-brand)">{{ mTotal }}</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ isSingle }}" hint-placeholder-val="{{ true }}">
         <div style="display:flex;gap:var(--space-4)">
           <span style="width:88px;height:88px;flex-shrink:0;border-radius:var(--radius-md);overflow:hidden;background:radial-gradient(120% 90% at 50% 100%, color-mix(in oklch, var(--color-material-plastic) 22%, white) 0%, var(--color-bg-subtle) 100%)"><img src="assets/plastic.webp" alt="" style="width:100%;height:100%;object-fit:contain;padding:8px;box-sizing:border-box"></span>
           <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:6px">
@@ -201,17 +243,50 @@
           <span style="font:var(--type-body-md);color:var(--color-text-body)">Tạm tính</span>
           <span style="font:var(--type-h3);letter-spacing:var(--tracking-heading);color:var(--color-text-brand)">{{ subtotal }}</span>
         </div>
+        </sc-if>
         <div style="display:flex;gap:var(--space-2);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-brand-soft);font:var(--type-body-sm);color:var(--color-text-heading)">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-brand);flex-shrink:0;margin-top:2px"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
           Lavatu không thu tiền hộ. Hai bên thanh toán trực tiếp.
         </div>
         <div style="display:flex;flex-direction:column;align-items:stretch;gap:var(--space-3)">
+          <sc-if value="{{ isMulti }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:flex-start;gap:6px;font:var(--type-caption);color:var(--color-text-muted);text-wrap:pretty"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:1px"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>Mỗi sản phẩm sẽ thành 1 yêu cầu riêng. Người bán phản hồi từng yêu cầu.</span></sc-if>
           <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" disabled="{{ sending }}" onClick="{{ submit }}" hint-size="100%,48px">{{ submitLabel }}</x-import>
-          <a href="Chi tiet san pham - Ban chinh.dc.html" style="align-self:center;display:flex;align-items:center;gap:var(--space-1);min-height:40px;font:var(--type-label-md);text-decoration:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>Quay lại sản phẩm</a>
+          <a href="{{ backHref }}" style="align-self:center;display:flex;align-items:center;gap:var(--space-1);min-height:40px;font:var(--type-label-md);text-decoration:none"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>{{ backLabel }}</a>
         </div>
         <dc-import name="Contact Block" variant="A" cstate="{{ cState }}" contact-name="Nguyễn Văn Minh" phone="0909123456" on-reveal="{{ reveal }}" on-copy="{{ copied }}" on-retry="{{ reveal }}" hint-size="100%,96px"></dc-import>
       </section>
     </aside>
+  </div>
+</sc-if>
+
+<sc-if value="{{ isDoneMulti }}" hint-placeholder-val="{{ false }}">
+  <div style="max-width:800px;margin:var(--space-6) auto 0;display:flex;flex-direction:column;align-items:center;gap:var(--space-5);padding:var(--space-12) var(--space-10);text-align:center;border-radius:var(--radius-xl);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);animation:lv-rise 600ms ease-out both">
+    <span style="width:64px;height:64px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 8px color-mix(in oklch, var(--color-accent) 18%, transparent)"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M20 6 9 17l-5-5"></path></svg></span>
+    <div style="display:flex;flex-direction:column;gap:var(--space-2);align-items:center">
+      <h1 style="margin:0;font:var(--type-h1);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">{{ doneTitle }}</h1>
+      <span style="font:var(--type-body-md);color:var(--color-text-body)">Gửi đến {{ sellerName }}. Bạn sẽ nhận thông báo qua email và trong ứng dụng.</span>
+    </div>
+    <ul style="margin:0;padding:0;list-style:none;width:100%;display:flex;flex-direction:column;border-radius:var(--radius-md);border:1px solid var(--color-border-default);overflow:hidden;text-align:left">
+      <sc-for list="{{ sentRows }}" as="r" hint-placeholder-count="2">
+        <li style="display:grid;grid-template-columns:150px minmax(0,1fr) auto;gap:var(--space-4);align-items:center;padding:var(--space-4);border-top:{{ r.bt }}">
+          <strong style="font:var(--type-label-md);letter-spacing:0.02em;color:var(--color-text-heading)">{{ r.code }}</strong>
+          <span style="display:flex;flex-direction:column;gap:2px;min-width:0"><span style="font:var(--type-label-md);color:var(--color-text-heading)">{{ r.name }} · {{ r.qtyLabel }}</span><span style="font:var(--type-body-sm);color:var(--color-text-muted)">Người bán phản hồi trước 20:15, 29/10/2026</span></span>
+          <a href="Chi tiet don - Ban chinh.dc.html?state=mua-cho-xac-nhan" style="display:inline-flex;align-items:center;gap:4px;min-height:32px;font:var(--type-label-md);text-decoration:none;white-space:nowrap" style-hover="text-decoration:underline">Xem đơn<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="m9 18 6-6-6-6"></path></svg></a>
+        </li>
+      </sc-for>
+    </ul>
+    <sc-if value="{{ partial }}" hint-placeholder-val="{{ false }}">
+      <div role="alert" style="width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:var(--space-3);padding:var(--space-4) var(--space-5);border-radius:var(--radius-md);background:var(--color-warning-soft);border:1px solid color-mix(in oklch, var(--color-warning) 30%, white);text-align:left">
+        <span style="display:flex;align-items:center;gap:var(--space-2);font:var(--type-label-lg);color:var(--color-text-heading)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;color:var(--color-warning);flex-shrink:0"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"></path><path d="M12 9v4"></path><path d="M12 17h.01"></path></svg>1 sản phẩm chưa gửi được</span>
+        <span style="font:var(--type-body-sm);color:var(--color-text-heading)"><strong style="font-weight:600">Phế liệu nhựa HDPE ép kiện</strong> · Tin tạm ẩn — người bán đang cập nhật tin này</span>
+        <span style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-4)"><span style="font:var(--type-body-sm);color:var(--color-text-body)">Sản phẩm này vẫn ở trong giỏ hàng.</span><a href="Gio hang - Ban chinh.dc.html" style="display:inline-flex;align-items:center;gap:4px;min-height:32px;font:var(--type-label-md);text-decoration:none;white-space:nowrap" style-hover="text-decoration:underline">Về giỏ hàng<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="m9 18 6-6-6-6"></path></svg></a></span>
+      </div>
+    </sc-if>
+    <div style="display:flex;gap:var(--space-2);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-brand-soft);font:var(--type-body-sm);color:var(--color-text-heading)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px;color:var(--color-text-brand)"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>Lavatu không thu tiền hộ. Hai bên thanh toán trực tiếp.</div>
+    <div style="display:flex;gap:var(--space-3)">
+      <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" onClick="{{ goOrders }}" hint-size="200px,48px">Xem đơn mua của tôi</x-import>
+      <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" onClick="{{ goProducts }}" hint-size="210px,48px">Tiếp tục xem sản phẩm</x-import>
+    </div>
   </div>
 </sc-if>
 
@@ -284,7 +359,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
 class Component extends DCLogic {
-  static STATES = [{"k":"mac-dinh","l":"Mặc định","p":{}},{"k":"co-loi","l":"Có lỗi","s":{"tried":true}},{"k":"da-hien-so","l":"Đã hiện số","s":{"cState":"revealed"}},{"k":"dang-gui","l":"Đang gửi","s":{"phase":"sending"}},{"k":"thanh-cong","l":"Gửi thành công","s":{"phase":"done"}}];
+  static STATES = [{"k":"mac-dinh","l":"Mặc định","p":{}},{"k":"co-loi","l":"Có lỗi","s":{"tried":true}},{"k":"da-hien-so","l":"Đã hiện số","s":{"cState":"revealed"}},{"k":"dang-gui","l":"Đang gửi","s":{"phase":"sending"}},{"k":"thanh-cong","l":"Gửi thành công","s":{"phase":"done"}},{"k":"tu-gio-nhieu-san-pham","l":"Từ giỏ · nhiều sản phẩm","g":"Từ giỏ hàng","p":{"cart":true}},{"k":"tu-gio-thanh-cong","l":"Từ giỏ · gửi thành công","g":"Từ giỏ hàng","p":{"cart":true},"s":{"phase":"done"}},{"k":"tu-gio-thanh-cong-mot-phan","l":"Từ giỏ · gửi thành công một phần","g":"Từ giỏ hàng","p":{"cart":true,"partial":true},"s":{"phase":"done"}}];
   static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
   get __P() { return this.__ov(this.props); }
   __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
@@ -299,11 +374,19 @@ class Component extends DCLogic {
     { id: 'a1', name: 'Kho Tân Uyên, Bình Dương', line: 'Lô B2, KCN Nam Tân Uyên, TP. Tân Uyên, Bình Dương', recv: 'Hoàng Lan · 0938 456 789', isDefault: true },
   ];
   static PAY = ['Chuyển khoản', 'Tiền mặt', 'Công nợ'];
+  static SELLER = 'Công ty TNHH Nhựa Tái Sinh Minh Phát';
+  static CART = [
+    { id: 'm1', code: 'DH-261027-0014', name: 'Hạt nhựa PP tái sinh màu đen', img: 'assets/plastic.webp', price: 25000, qty: 2000, min: 500, avail: 15000, step: 100, warehouse: true },
+    { id: 'm2', code: 'DH-261027-0015', name: 'Phế liệu nhựa HDPE ép kiện', img: 'assets/plastic.webp', price: 7500, qty: 3000, min: 1000, avail: 12000, step: 100, warehouse: true },
+  ];
+  multi() { return this.__P.cart === true || this.__P.cart === 'true'; }
+  mErr(it) { const raw = String(this.state.mq[it.id]).trim(), q = Number(raw); if (!raw || !isFinite(q) || q < it.min) return 'Mua tối thiểu ' + this.f(it.min) + ' kg'; if (q > it.avail) return 'Chỉ còn ' + this.f(it.avail) + ' kg'; if (!Number.isInteger(q)) return 'Khối lượng theo kg phải là số nguyên'; return null; }
   scrollRef = React.createRef(); qtyRef = React.createRef(); delRef = React.createRef(); addrRef = React.createRef(); dateRef = React.createRef();
   state = (() => {
     let q = String(Component.MIN);
     try { const u = new URLSearchParams(window.location.search).get('qty'); if (u && Number(u) > 0) q = u; } catch (e) {}
-    return { qty: q, del: null, hirer: 'buyer', addr: 'a1', date: '', pay: null, note: '', tried: false, phase: 'form', cState: 'masked', toast: false };
+    const mq = {}; Component.CART.forEach((it) => { mq[it.id] = String(it.qty); });
+    return { mq, qty: q, del: null, hirer: 'buyer', addr: 'a1', date: '', pay: null, note: '', tried: false, phase: 'form', cState: 'masked', toast: false };
   })();
   componentWillUnmount() { clearTimeout(this.tt); clearTimeout(this.st); }
   f = (n) => Number(n).toLocaleString('vi-VN');
@@ -311,7 +394,8 @@ class Component extends DCLogic {
   errors() {
     const s = this.state, C = Component, q = Number(String(s.qty).trim());
     const e = {};
-    if (!String(s.qty).trim() || !isFinite(q) || q <= 0 || q < C.MIN) e.qty = 'Mua tối thiểu ' + this.f(C.MIN) + ' kg';
+    if (this.multi()) { if (C.CART.some((it) => this.mErr(it))) e.qty = true; }
+    else if (!String(s.qty).trim() || !isFinite(q) || q <= 0 || q < C.MIN) e.qty = 'Mua tối thiểu ' + this.f(C.MIN) + ' kg';
     else if (q > C.AVAIL) e.qty = 'Chỉ còn ' + this.f(C.AVAIL) + ' kg';
     if (!s.del) e.del = true;
     if (s.del !== 'self' && !s.addr) e.addr = true;
@@ -349,17 +433,28 @@ class Component extends DCLogic {
     const delObj = C.DEL.find((d) => d.key === s.del);
     const fmtDate = (iso) => iso ? iso.split('-').reverse().join('/') : '';
     const addr = C.ADDRS.find((a) => a.id === s.addr);
-    const qtyOk = !e.qty;
+    const qtyOk = !e.qty, multi = this.multi(), allWh = C.CART.every((it) => it.warehouse);
+    let mSum = 0;
+    const mItems = C.CART.map((it) => { const er = this.mErr(it), mqv = Number(s.mq[it.id]), b = isFinite(mqv) && mqv > 0 ? mqv : it.min; const setM = (v) => this.setState((st) => ({ mq: { ...st.mq, [it.id]: String(Math.round(v)) } })); if (!er) mSum += mqv * it.price;
+      return { ...it, qty: s.mq[it.id], priceLabel: f(it.price) + ' VNĐ/kg', qtyLabel: er ? '—' : f(mqv) + ' kg', line: er ? '—' : f(mqv * it.price) + ' VNĐ', hasErr: !!er, err: er || '', border: er ? '1.5px solid var(--color-danger)' : '1px solid var(--color-border-strong)',
+        hint: 'Tối thiểu ' + f(it.min) + ' kg · Sẵn có ' + f(it.avail) + ' kg', onQty: (ev) => { const v = ev.target.value; this.setState((st) => ({ mq: { ...st.mq, [it.id]: v } })); },
+        dec: () => setM(Math.min(it.avail, Math.max(it.min, b - it.step))), inc: () => setM(Math.max(it.min, Math.min(it.avail, b + it.step))) }; });
+    const partial = this.__P.partial === true || this.__P.partial === 'true';
+    const sent = partial ? mItems.slice(0, 1) : mItems;
     return {
+      isMulti: multi, isSingle: !multi, sellerName: C.SELLER, mItems, mTotal: C.CART.some((it) => this.mErr(it)) ? '—' : f(mSum) + ' VNĐ',
+      backHref: multi ? 'Gio hang - Ban chinh.dc.html' : 'Chi tiet san pham - Ban chinh.dc.html', backLabel: multi ? 'Quay lại giỏ hàng' : 'Quay lại sản phẩm',
+      isDoneMulti: s.phase === 'done' && multi, partial, doneTitle: partial ? 'Đã gửi 1/' + C.CART.length + ' yêu cầu mua' : 'Đã gửi ' + C.CART.length + ' yêu cầu mua',
+      sentRows: sent.map((it, i) => ({ code: it.code, name: it.name, qtyLabel: it.qtyLabel, bt: i ? '1px solid var(--color-border-default)' : 'none' })),
       scrollRef: this.scrollRef, qtyRef: this.qtyRef, delRef: this.delRef, addrRef: this.addrRef, dateRef: this.dateRef,
-      isForm: s.phase !== 'done', isDone: s.phase === 'done', sending: s.phase === 'sending',
+      isForm: s.phase !== 'done', isDone: s.phase === 'done' && !multi, sending: s.phase === 'sending',
       formOpacity: s.phase === 'sending' ? 0.55 : 1, formPointer: s.phase === 'sending' ? 'none' : 'auto',
-      submitLabel: s.phase === 'sending' ? 'Đang gửi…' : 'Gửi yêu cầu', submit: this.submit, noop: (ev) => ev.preventDefault(),
+      submitLabel: s.phase === 'sending' ? 'Đang gửi…' : multi ? 'Gửi ' + C.CART.length + ' yêu cầu mua' : 'Gửi yêu cầu', submit: this.submit, noop: (ev) => ev.preventDefault(),
       qty: s.qty, onQty: (ev) => this.setState({ qty: ev.target.value }),
       dec: () => setQ(Math.min(C.AVAIL, Math.max(C.MIN, base - C.STEP))), inc: () => setQ(Math.max(C.MIN, Math.min(C.AVAIL, base + C.STEP))),
       qtyErr: !!e.qty && (show || String(s.qty) !== String(C.MIN)), qtyErrText: e.qty || '',
       qtyRing: e.qty && (show || String(s.qty) !== String(C.MIN)) ? '0 0 0 2px var(--color-danger)' : 'none',
-      delOpts: C.DEL.map((d) => { const on = s.del === d.key; const st = sel(on); return { ...d, on, ...st, border: delErrShown ? '1px solid var(--color-danger)' : st.border, iconBg: on ? 'var(--color-bg-page)' : 'var(--color-bg-brand-soft)', isSelf: d.key === 'self', isSeller: d.key === 'seller', isCarrier: d.key === 'carrier', pick: () => this.setState({ del: d.key }) }; }),
+      delOpts: C.DEL.filter((d) => !(multi && d.key === 'self' && !allWh)).map((d) => { const on = s.del === d.key; const st = sel(on); return { ...d, on, ...st, border: delErrShown ? '1px solid var(--color-danger)' : st.border, iconBg: on ? 'var(--color-bg-page)' : 'var(--color-bg-brand-soft)', isSelf: d.key === 'self', isSeller: d.key === 'seller', isCarrier: d.key === 'carrier', pick: () => this.setState({ del: d.key }) }; }),
       delErr: delErrShown, isSelf: s.del === 'self', isCarrier: s.del === 'carrier',
       hirerOpts: [['buyer', 'Tôi thuê'], ['seller', 'Người bán thuê']].map(([k, label]) => ({ label, on: s.hirer === k, ...chip(s.hirer === k), pick: () => this.setState({ hirer: k }) })),
       showAddr: s.del !== 'self',

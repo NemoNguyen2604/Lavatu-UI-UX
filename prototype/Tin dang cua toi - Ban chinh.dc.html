@@ -99,7 +99,7 @@
       </div>
       <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-5) var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card)">
         <div style="display:flex;flex-direction:column;gap:var(--space-2)">
-          <span style="font:var(--type-label-md);color:var(--color-text-muted)">Lượt hiện số</span>
+          <span style="font:var(--type-label-md);color:var(--color-text-muted)">Số người xem số (30 ngày)</span>
           <span style="font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">1.248</span>
           <span style="font:var(--type-caption);color:var(--color-text-muted)">30 ngày qua</span>
         </div>
@@ -146,12 +146,14 @@
                 <span style="display:flex;flex-wrap:wrap;align-items:center;gap:6px">
                   <x-import component-from-global-scope="LavatuDesignSystem_2cb126.CategoryBadge" material="{{ r.mat }}" hint-size="56px,28px">{{ r.cat }}</x-import>
                   <sc-if value="{{ r.isOut }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="neutral" hint-size="80px,24px">Hết hàng</x-import></sc-if>
-                  <sc-if value="{{ r.bySelf }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="neutral" hint-size="88px,24px">Bạn đã gỡ</x-import></sc-if>
+                  <sc-if value="{{ r.bySelfPlain }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="neutral" hint-size="88px,24px">Bạn đã gỡ</x-import></sc-if>
+                  <sc-if value="{{ r.bySelfHidden }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="neutral" hint-size="220px,24px">Bạn đã gỡ khi tin đang tạm ẩn</x-import></sc-if>
                   <sc-if value="{{ r.byAdmin }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="danger" hint-size="150px,24px">Bị quản trị viên xoá</x-import></sc-if>
                   <sc-if value="{{ r.bySystem }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="danger" hint-size="140px,24px">Hệ thống tự xoá</x-import></sc-if>
                   <sc-if value="{{ r.isHidden }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="warning" hint-size="110px,24px">Cần cập nhật</x-import></sc-if>
                   <sc-if value="{{ r.isResub }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-full);background:color-mix(in oklch, var(--color-material-plastic) 10%, white);color:var(--color-material-plastic);font:var(--type-label-sm);white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:var(--color-material-plastic)"></span>Chờ duyệt lại</span></sc-if>
                 </span>
+                <sc-if value="{{ r.allHeld }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-caption);color:var(--color-text-muted)">Toàn bộ đang giữ cho đơn đã xác nhận</span></sc-if>
                 <sc-if value="{{ r.isHidden }}" hint-placeholder-val="{{ false }}">
                   <span style="display:flex;flex-direction:column;gap:2px;font:var(--type-body-sm)">
                     <span style="color:var(--color-text-heading)">Lý do: {{ r.hideReason }}</span>
@@ -160,6 +162,7 @@
                   </span>
                 </sc-if>
                 <sc-if value="{{ r.isResub }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-body-sm);color:var(--color-text-body)">Đã gửi duyệt lại {{ r.resubAt }}</span></sc-if>
+                <sc-if value="{{ r.hideWas }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-body-sm);color:var(--color-text-heading)">Lý do ẩn: {{ r.hideWas }}</span></sc-if>
                 <sc-if value="{{ r.delReason }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-body-sm);color:var(--color-text-heading)">Lý do: {{ r.delReason }}</span></sc-if>
               </div>
             </div>
@@ -172,7 +175,7 @@
               <sc-if value="{{ r.held }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-caption);color:var(--color-text-muted)">Đang giữ cho đơn: {{ r.heldTxt }} kg</span></sc-if>
             </div>
             <div style="display:flex;align-items:center;gap:var(--space-3);font:var(--type-label-sm);color:var(--color-text-body);opacity:{{ r.dim }}">
-              <span title="Lượt hiện số" aria-label="{{ r.calls }} lượt hiện số" style="display:flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-muted)"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>{{ r.calls }}</span>
+              <span title="Số người xem số" aria-label="{{ r.calls }} người xem số" style="display:flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-muted)"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>{{ r.calls }}</span>
               <span title="Yêu cầu mua đang chờ" aria-label="{{ r.pending }} yêu cầu đang chờ" style="display:flex;align-items:center;gap:4px;color:{{ r.pendColor }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="M12 11h4"></path><path d="M12 16h4"></path></svg>{{ r.pending }}</span>
               <span title="Đơn hoàn tất" aria-label="{{ r.done }} đơn hoàn tất" style="display:flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-muted)"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>{{ r.done }}</span>
             </div>
@@ -183,7 +186,7 @@
             <div style="display:flex;align-items:center;justify-content:flex-end;gap:var(--space-2)">
               <sc-if value="{{ r.live }}" hint-placeholder-val="{{ true }}">
                 <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" onClick="{{ r.edit }}" hint-size="52px,32px">Sửa</x-import>
-                <button type="button" role="switch" aria-checked="{{ r.on }}" aria-label="Còn hàng" onClick="{{ r.toggle }}" style="display:flex;align-items:center;gap:6px;width:92px;min-height:32px;padding:0;border:none;background:none;cursor:pointer">
+                <button type="button" role="switch" aria-checked="{{ r.on }}" aria-label="Còn hàng" disabled="{{ r.allHeld }}" title="{{ r.swTitle }}" onClick="{{ r.toggle }}" style="display:flex;align-items:center;gap:6px;width:92px;min-height:32px;padding:0;border:none;background:none;cursor:{{ r.swCursor }};opacity:{{ r.swOpacity }}">
                   <span style="position:relative;width:36px;height:20px;flex-shrink:0;border-radius:var(--radius-full);background:{{ r.swBg }};transition:background 150ms"><span style="position:absolute;top:2px;left:{{ r.knob }};width:16px;height:16px;border-radius:50%;background:var(--color-bg-page);box-shadow:0 1px 2px rgba(0,0,0,0.2);transition:left 150ms ease-out"></span></span>
                   <span style="font:var(--type-label-sm);color:{{ r.swColor }};white-space:nowrap">{{ r.swLabel }}</span>
                 </button>
@@ -191,7 +194,7 @@
                   <button type="button" aria-label="Thao tác khác" aria-expanded="{{ r.menuOpen }}" onClick="{{ r.toggleMenu }}" style="width:32px;height:32px;border-radius:var(--radius-sm);border:1px solid var(--color-border-default);background:{{ r.menuBtnBg }};color:var(--color-text-body);cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:var(--color-bg-subtle)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg></button>
                   <sc-if value="{{ r.menuOpen }}" hint-placeholder-val="{{ false }}">
                     <div role="menu" onClick="{{ stop }}" style="position:absolute;top:calc(100% + 6px);right:0;z-index:30;width:248px;padding:var(--space-1);border-radius:var(--radius-md);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-raised);display:flex;flex-direction:column;animation:lv-in 150ms ease-out">
-                      <button type="button" role="menuitem" onClick="{{ r.clone }}" style="display:flex;align-items:flex-start;gap:var(--space-3);padding:10px var(--space-3);border:none;border-radius:var(--radius-sm);background:none;cursor:pointer;text-align:left;color:var(--color-text-body)" style-hover="background:var(--color-bg-subtle)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg><span style="display:flex;flex-direction:column;gap:2px"><span style="font:var(--type-label-md);color:var(--color-text-heading)">Nhân bản tin</span><span style="font:var(--type-caption);color:var(--color-text-muted)">Mở form Đăng tin, điền sẵn dữ liệu của tin này</span></span></button>
+                      <sc-if value="{{ r.canClone }}" hint-placeholder-val="{{ true }}"><button type="button" role="menuitem" onClick="{{ r.clone }}" style="display:flex;align-items:flex-start;gap:var(--space-3);padding:10px var(--space-3);border:none;border-radius:var(--radius-sm);background:none;cursor:pointer;text-align:left;color:var(--color-text-body)" style-hover="background:var(--color-bg-subtle)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;margin-top:2px"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg><span style="display:flex;flex-direction:column;gap:2px"><span style="font:var(--type-label-md);color:var(--color-text-heading)">Nhân bản tin</span><span style="font:var(--type-caption);color:var(--color-text-muted)">Mở form Đăng tin, điền sẵn dữ liệu của tin này</span></span></button></sc-if>
                       <button type="button" role="menuitem" onClick="{{ r.askRemove }}" style="display:flex;align-items:center;gap:var(--space-3);padding:10px var(--space-3);border:none;border-radius:var(--radius-sm);background:none;cursor:pointer;text-align:left;font:var(--type-label-md);color:var(--color-danger)" style-hover="background:var(--color-danger-soft)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M3 6h18"></path><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"></path><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2"></path></svg>Gỡ tin</button>
                     </div>
                   </sc-if>
@@ -211,7 +214,8 @@
               <sc-if value="{{ r.canRepost }}" hint-placeholder-val="{{ false }}">
                 <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" onClick="{{ r.repost }}" hint-size="90px,32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path><path d="M3 3v5h5"></path></svg>Đăng lại</x-import>
               </sc-if>
-              <sc-if value="{{ r.removed }}" hint-placeholder-val="{{ false }}">
+              <sc-if value="{{ r.noClone }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-caption);color:var(--color-text-muted);white-space:nowrap">Tin vi phạm không thể nhân bản.</span></sc-if>
+              <sc-if value="{{ r.removedClone }}" hint-placeholder-val="{{ false }}">
                 <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="ghost" size="s" onClick="{{ r.clone }}" hint-size="104px,32px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path></svg>Nhân bản tin</x-import>
               </sc-if>
             </div>
@@ -255,7 +259,7 @@
 
       <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-3) var(--space-5)">
         <span style="display:flex;align-items:center;gap:var(--space-4);font:var(--type-caption);color:var(--color-text-muted)">
-          <span style="display:flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>Lượt hiện số</span>
+          <span style="display:flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>Số người xem số</span>
           <span style="display:flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><path d="M12 11h4"></path><path d="M12 16h4"></path></svg>Yêu cầu đang chờ</span>
           <span style="display:flex;align-items:center;gap:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>Đơn hoàn tất</span>
         </span>
@@ -340,7 +344,9 @@ class Component extends DCLogic {
     { id: 7, name: 'Nhựa PP tái sinh dạng hạt, màu tự nhiên', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 25000, qty: 20000, held: 5000, calls: 112, pending: 2, done: 11, posted: '28/08/2026', pts: 20260828, updated: '20/10/2026', uts: 20261020, status: 'active' },
     { id: 8, name: 'Phế liệu nhựa HDPE ép kiện', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 7500, qty: 12000, held: 0, calls: 38, pending: 1, done: 4, posted: '15/09/2026', pts: 20260915, updated: '16/10/2026', uts: 20261016, status: 'active' },
     { id: 4, name: 'Nhôm định hình phế liệu 6063', mat: 'metal', cat: 'Kim loại', img: 'assets/metal.webp', price: 42000, qty: 0, held: 0, calls: 57, pending: 0, done: 6, posted: '15/08/2026', pts: 20260815, updated: '05/10/2026', uts: 20261005, status: 'out' },
+    { id: 11, name: 'Hạt nhựa HDPE tái sinh màu xanh', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 21000, qty: 0, held: 5000, calls: 64, pending: 0, done: 3, posted: '18/09/2026', pts: 20260918, updated: '24/10/2026', uts: 20261024, status: 'out' },
     { id: 5, name: 'Màng nhựa LDPE cuộn', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 9000, qty: 4000, held: 0, calls: 18, pending: 0, done: 3, posted: '01/08/2026', pts: 20260801, updated: '01/10/2026', uts: 20261001, status: 'removed', by: 'self', removedAt: '01/10/2026' },
+    { id: 10, name: 'Giấy carton ép kiện', mat: 'paper', cat: 'Giấy', img: 'assets/paper.webp', price: 3500, qty: 10000, held: 0, calls: 9, pending: 0, done: 1, posted: '05/09/2026', pts: 20260905, updated: '12/10/2026', uts: 20261012, status: 'removed', by: 'self', wasHidden: true, hideWas: 'Sai đơn vị hoặc giá', removedAt: '12/10/2026' },
     { id: 6, name: 'Pin cũ các loại', mat: 'e-waste', cat: 'Rác điện tử', img: 'assets/electronic.webp', price: 15000, qty: 2000, held: 0, calls: 3, pending: 0, done: 0, posted: '25/09/2026', pts: 20260925, updated: '28/09/2026', uts: 20260928, status: 'removed', by: 'admin', reason: 'Hàng cấm hoặc không được phép mua bán', removedAt: '28/09/2026' },
     { id: 9, name: 'Nhựa PVC ống vụn', mat: 'plastic', cat: 'Nhựa', img: 'assets/plastic.webp', price: 8000, qty: 6000, held: 0, calls: 12, pending: 0, done: 0, posted: '10/09/2026', pts: 20260910, updated: '19/10/2026', uts: 20261019, status: 'removed', by: 'system', reason: 'Quá hạn cập nhật', removedAt: '19/10/2026' },
   ];
@@ -388,7 +394,7 @@ class Component extends DCLogic {
       cat: s.cat, onCat: (e) => this.setState({ cat: e.target.value }),
       catOpts: [{ value: 'all', label: 'Tất cả danh mục' }, ...['Điện tử', 'Dệt may', 'Nông nghiệp', 'Kim loại', 'Nhựa', 'Giấy'].map((c) => ({ value: c, label: c }))],
       sort: s.sort, onSort: (e) => this.setState({ sort: e.target.value }),
-      sortOpts: [{ value: 'updated', label: 'Mới cập nhật' }, { value: 'posted', label: 'Mới đăng' }, { value: 'calls', label: 'Nhiều lượt hiện số nhất' }, { value: 'price', label: 'Giá cao đến thấp' }],
+      sortOpts: [{ value: 'updated', label: 'Mới cập nhật' }, { value: 'posted', label: 'Mới đăng' }, { value: 'calls', label: 'Nhiều người xem số nhất' }, { value: 'price', label: 'Giá cao đến thấp' }],
       closeMenu: () => { if (s.menuId != null) this.setState({ menuId: null }); }, stop,
       restockVal: s.restockVal, onRestockVal: (e) => { const d = e.target.value.replace(/\D/g, ''); this.setState({ restockVal: d ? fmt(d) : '' }); }, restockOff: !(restockN > 0),
       page: s.page, totalPages: Math.max(1, Math.ceil(cnt(s.tab) / 10)), onPage: (p) => this.setState({ page: typeof p === 'number' ? p : s.page }),
@@ -399,11 +405,11 @@ class Component extends DCLogic {
         const on = i.status === 'active', removed = i.status === 'removed', isHidden = i.status === 'hidden', isResub = i.status === 'resubmit';
         const left = isHidden ? leftOf(i) : 0;
         const mv = '--color-material-' + i.mat;
-        return { ...i, on, removed, live: on || i.status === 'out', isHidden, isResub, isOut: i.status === 'out', bySelf: removed && i.by === 'self', byAdmin: removed && i.by === 'admin', bySystem: removed && i.by === 'system', delReason: removed && i.reason ? i.reason : '',
+        return { ...i, on, removed, live: on || i.status === 'out', isHidden, isResub, isOut: i.status === 'out', bySelf: removed && i.by === 'self', bySelfPlain: removed && i.by === 'self' && !i.wasHidden, bySelfHidden: removed && i.by === 'self' && !!i.wasHidden, hideWas: removed && i.wasHidden ? i.hideWas : '', byAdmin: removed && i.by === 'admin', bySystem: removed && i.by === 'system', delReason: removed && i.reason ? i.reason : '', noClone: removed && i.by === 'admin' && ['Hàng cấm hoặc không được phép mua bán', 'Thông tin lừa đảo'].includes(i.reason), canClone: !(removed && i.by === 'admin' && ['Hàng cấm hoặc không được phép mua bán', 'Thông tin lừa đảo'].includes(i.reason)), removedClone: removed && !(i.by === 'admin' && ['Hàng cấm hoặc không được phép mua bán', 'Thông tin lừa đảo'].includes(i.reason)),
           hideReason: isHidden ? i.hide.reason : '', hideNote: isHidden && i.hide.note ? i.hide.note : '', leftTxt: 'Còn ' + left + ' ngày để sửa', leftColor: left <= 3 ? 'var(--color-danger)' : 'color-mix(in oklch, var(--color-warning) 62%, black)', resubAt: i.resubAt || '',
-          viewItem: () => { window.location.href = 'Chi tiet san pham - Ban chinh.dc.html'; }, canRepost: removed && i.by === 'self',
+          viewItem: () => { window.location.href = 'Chi tiet san pham - Ban chinh.dc.html'; }, canRepost: removed && i.by === 'self' && !i.wasHidden,
           dim: removed ? 0.6 : 1, thumbBg: 'color-mix(in oklch, var(' + mv + ') 12%, white)', imgBg: 'url("' + i.img + '")',
-          priceTxt: fmt(i.price), qtyTxt: fmt(i.qty), qtyColor: i.qty === 0 ? 'var(--color-danger)' : 'var(--color-text-body)', held: i.held > 0 && !removed, heldTxt: fmt(i.held),
+          priceTxt: fmt(i.price), qtyTxt: fmt(i.qty), qtyColor: i.qty === 0 ? 'var(--color-danger)' : 'var(--color-text-body)', held: i.held > 0 && !removed, heldTxt: fmt(i.held), allHeld: i.status === 'out' && i.qty === 0 && i.held > 0, swCursor: i.status === 'out' && i.qty === 0 && i.held > 0 ? 'not-allowed' : 'pointer', swOpacity: i.status === 'out' && i.qty === 0 && i.held > 0 ? 0.5 : 1, swTitle: i.status === 'out' && i.qty === 0 && i.held > 0 ? 'Toàn bộ khối lượng đang giữ cho đơn đã xác nhận' : '',
           calls: fmt(i.calls), pendColor: i.pending > 0 ? 'var(--color-warning)' : 'var(--color-text-body)',
           date1: removed ? (i.by === 'self' ? 'Gỡ ngày ' : 'Xoá ngày ') + i.removedAt : isHidden ? 'Ẩn ngày ' + i.hide.at : isResub ? 'Gửi lại ' + i.resubAt : 'Đăng ' + i.posted, date2: removed || isHidden || isResub ? 'Đăng ' + i.posted : 'Cập nhật ' + i.updated,
           swBg: on ? 'var(--color-action-primary)' : 'var(--color-border-strong)', knob: on ? '18px' : '2px', swLabel: on ? 'Còn hàng' : 'Hết hàng', swColor: on ? 'var(--color-text-brand)' : 'var(--color-text-muted)',
@@ -419,6 +425,7 @@ class Component extends DCLogic {
           repost: () => this.patch(i.id, { status: 'active', by: null, ...today }, 'Đã đăng lại tin'),
           toggle: () => {
             if (on) return this.patch(i.id, { status: 'out', ...today }, 'Đã chuyển sang Hết hàng');
+            if (i.qty === 0 && i.held > 0) return;
             if (i.qty === 0) return this.setState({ restockId: i.id, confirmId: null, restockVal: '' });
             this.patch(i.id, { status: 'active', ...today }, 'Đã chuyển sang Còn hàng');
           },
