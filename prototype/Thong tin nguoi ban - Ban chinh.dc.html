@@ -8,6 +8,7 @@
 <body>
 <x-dc>
 <helmet>
+  <title>Thông tin đơn vị</title>
   <link rel="stylesheet" href="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/styles.css">
   <script src="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/_ds_bundle.js"></script>
   <script src="state-bar.js"></script>
@@ -55,7 +56,7 @@
 
 <main style="background:var(--color-bg-subtle);padding:var(--space-8) 40px var(--space-16);min-height:640px;display:flex;flex-direction:column;gap:var(--space-6)">
 
-  <section aria-label="Hồ sơ người bán" style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:var(--space-10);padding:var(--space-8);border-radius:var(--radius-xl);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);animation:lv-rise 600ms ease-out both">
+  <section aria-label="Hồ sơ đơn vị" style="display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:var(--space-10);padding:var(--space-8);border-radius:var(--radius-xl);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);animation:lv-rise 600ms ease-out both">
     <div style="display:flex;gap:var(--space-6);min-width:0">
       <span style="width:96px;height:96px;flex-shrink:0;border-radius:{{ avatarRadius }};background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-h2);letter-spacing:var(--tracking-heading)">{{ seller.initials }}</span>
       <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--space-3)">
@@ -314,13 +315,13 @@ class Component extends DCLogic {
     const tabs = [['listings', 'Tin đang bán', items.length], ...(buyItems.length ? [['buy', 'Cần mua', buyItems.length]] : []), ...(per ? [] : [['about', 'Giới thiệu', null]])];
     const login = s.login;
     const loginItem = login && login.kind === 'item' ? [...items, ...buyItems].find((i) => i.id === login.key) : null;
-    const chatLabel = per ? 'Chat với người bán' : 'Chat với doanh nghiệp';
-    const who = per ? 'người bán' : 'doanh nghiệp';
+    const chatLabel = per ? 'Chat với đơn vị' : 'Chat với doanh nghiệp';
+    const who = per ? 'đơn vị' : 'doanh nghiệp';
     const loginTitle = !login ? '' : login.kind === 'chat' ? 'Đăng nhập để chat' : login.kind === 'save' ? 'Đăng nhập để lưu tin' : 'Đăng nhập để xem số điện thoại';
     const loginBody = !login ? '' : login.kind === 'chat' ? 'Chat với ' + who + ' chỉ dùng được khi đã đăng nhập. Đăng nhập xong sẽ quay lại trang này.' : login.kind === 'save' ? 'Tin đã lưu được giữ trong tài khoản để xem lại sau. Đăng nhập xong sẽ quay lại trang này và tin được lưu.' : 'Số của người liên hệ ' + (loginItem ? loginItem.contact : seller.contact) + ' chỉ hiển thị với tài khoản đã đăng nhập. Đăng nhập xong sẽ quay lại trang này và số tự hiện.';
     const doSave = (id) => { const on = !this.state.saved[id]; this.setState((st) => ({ saved: { ...st.saved, [id]: on } })); this.flash(on ? 'Đã lưu tin' : 'Đã bỏ lưu tin'); };
     return {
-      screenLabel: per ? 'Thông tin người bán – Cá nhân' : 'Thông tin người bán – Doanh nghiệp',
+      screenLabel: per ? 'Thông tin đơn vị – Cá nhân' : 'Thông tin đơn vị – Doanh nghiệp',
       scrollRef: this.scrollRef, tabsRef: this.tabsRef,
       guest: !s.loggedIn, loggedIn: s.loggedIn, goLogin: () => this.setState({ loggedIn: true }),
       seller: { ...seller, listingCount: items.length }, isBiz: !per, isPersonal: per,
@@ -333,7 +334,7 @@ class Component extends DCLogic {
       tabs: tabs.map(([k, label, count]) => ({ label, count, hasCount: count !== null, on: tab === k, border: tab === k ? '3px solid var(--color-accent)' : '3px solid transparent', color: tab === k ? 'var(--color-text-heading)' : 'var(--color-text-muted)', pick: () => this.goTab(k) })),
       tabListings: tab === 'listings' || isBuy, tabAbout: tab === 'about', gridLabel: isBuy ? 'Cần mua' : 'Tin đang bán',
       catChips: [{ label: 'Tất cả', active: !s.cat, pick: () => this.setState({ cat: '', page: 1 }) }, ...cats.map((c) => ({ label: c, active: s.cat === c, pick: () => this.setState({ cat: c, page: 1 }) }))],
-      searchPlaceholder: isBuy ? 'Tìm trong tin cần mua' : per ? 'Tìm trong tin của người bán' : 'Tìm trong tin của doanh nghiệp',
+      searchPlaceholder: isBuy ? 'Tìm trong tin cần mua' : per ? 'Tìm trong tin của đơn vị' : 'Tìm trong tin của doanh nghiệp',
       q: s.q, onQ: (e) => this.setState({ q: e.target.value, page: 1 }), noop: () => {},
       resultCount: String(list.length),
       sortOptions: [{ value: 'new', label: 'Mới nhất' }, { value: 'priceAsc', label: 'Giá thấp đến cao' }, { value: 'priceDesc', label: 'Giá cao đến thấp' }, { value: 'qtyDesc', label: 'Khối lượng lớn nhất' }],
