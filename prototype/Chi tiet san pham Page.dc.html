@@ -161,25 +161,6 @@
         </sc-if>
       </div>
 
-      <div style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-3);animation:lv-rise 600ms ease-out 80ms both">
-        <div style="display:flex;align-items:center;gap:var(--space-2)"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.CategoryBadge" material="{{ p.catKey }}" hint-size="auto,28px">{{ p.cat }}</x-import>
-          <sc-if value="{{ visHidden }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="warning" hint-size="auto,24px">Tạm ẩn</x-import></sc-if>
-          <sc-if value="{{ visResub }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-full);background:color-mix(in oklch, var(--color-material-plastic) 9%, white);color:var(--color-material-plastic);font:var(--type-label-sm)"><span style="width:6px;height:6px;border-radius:50%;background:var(--color-material-plastic)"></span>Chờ duyệt lại</span></sc-if>
-          <sc-if value="{{ visRemoved }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="neutral" hint-size="auto,24px">Đã gỡ</x-import></sc-if>
-        </div>
-        <h1 style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading);text-wrap:pretty">{{ p.title }}</h1>
-        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2) var(--space-5);font:var(--type-body-sm);color:var(--color-text-body)">
-          <sc-if value="{{ inStock }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="success" dot="{{ true }}" hint-size="auto,24px">Còn hàng</x-import></sc-if>
-          <sc-if value="{{ outStock }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="danger" dot="{{ true }}" hint-size="auto,24px">Hết hàng</x-import></sc-if>
-          <sc-if value="{{ p.verified }}" hint-placeholder-val="{{ true }}"><span style="display:flex;align-items:center;gap:6px;font:var(--type-label-sm);color:var(--color-text-brand)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>Doanh nghiệp đã xác minh</span></sc-if>
-          <span style="display:flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-muted)"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>{{ p.region }}</span>
-          <span style="display:flex;align-items:center;gap:6px;color:var(--color-text-muted)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg>Cập nhật {{ p.updated }}</span>
-          <sc-if value="{{ notOwner }}" hint-placeholder-val="{{ true }}">
-            <span style="margin-left:auto;display:flex"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" onClick="{{ toggleSave }}" aria-pressed="{{ saved }}" hint-size="96px,32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ heartFill }}" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:{{ heartColor }}"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>{{ saveLabel }}</x-import></span>
-          </sc-if>
-        </div>
-      </div>
-
       <section style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-4);animation:lv-rise 600ms ease-out 160ms both">
         <h2 style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Thông số vật liệu</h2>
         <dl style="margin:0;display:flex;flex-direction:column;border-radius:var(--radius-md);border:1px solid var(--color-border-default);overflow:hidden">
@@ -204,6 +185,24 @@
     </div>
 
     <aside style="position:sticky;top:96px;display:flex;flex-direction:column;gap:var(--space-4);min-width:0;animation:lv-rise 600ms ease-out 120ms both">
+      <div style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-3);animation:lv-rise 600ms ease-out 80ms both">
+        <div style="display:flex;align-items:center;gap:var(--space-2)"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.CategoryBadge" material="{{ p.catKey }}" hint-size="auto,28px">{{ p.cat }}</x-import>
+          <sc-if value="{{ visHidden }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="warning" hint-size="auto,24px">Tạm ẩn</x-import></sc-if>
+          <sc-if value="{{ visResub }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-full);background:color-mix(in oklch, var(--color-material-plastic) 9%, white);color:var(--color-material-plastic);font:var(--type-label-sm)"><span style="width:6px;height:6px;border-radius:50%;background:var(--color-material-plastic)"></span>Chờ duyệt lại</span></sc-if>
+          <sc-if value="{{ visRemoved }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="neutral" hint-size="auto,24px">Đã gỡ</x-import></sc-if>
+          <sc-if value="{{ notOwner }}" hint-placeholder-val="{{ true }}">
+            <span style="margin-left:auto;display:flex"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" onClick="{{ toggleSave }}" aria-pressed="{{ saved }}" hint-size="96px,32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{ heartFill }}" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:{{ heartColor }}"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>{{ saveLabel }}</x-import></span>
+          </sc-if>
+        </div>
+        <h1 style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading);text-wrap:pretty">{{ p.title }}</h1>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2) var(--space-5);font:var(--type-body-sm);color:var(--color-text-body)">
+          <sc-if value="{{ inStock }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="success" dot="{{ true }}" hint-size="auto,24px">Còn hàng</x-import></sc-if>
+          <sc-if value="{{ outStock }}" hint-placeholder-val="{{ false }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="danger" dot="{{ true }}" hint-size="auto,24px">Hết hàng</x-import></sc-if>
+          <sc-if value="{{ p.verified }}" hint-placeholder-val="{{ true }}"><span style="display:flex;align-items:center;gap:6px;font:var(--type-label-sm);color:var(--color-text-brand)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>Doanh nghiệp đã xác minh</span></sc-if>
+          <span style="display:flex;align-items:center;gap:6px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-muted)"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>{{ p.region }}</span>
+          <span style="display:flex;align-items:center;gap:6px;color:var(--color-text-muted)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M12 6v6l4 2"></path><circle cx="12" cy="12" r="10"></circle></svg>Cập nhật {{ p.updated }}</span>
+        </div>
+      </div>
       <section aria-label="Thông tin lô hàng" style="padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);display:flex;flex-direction:column;gap:var(--space-5)">
         <div style="display:flex;flex-direction:column;gap:var(--space-1)">
           <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-muted)">THÔNG TIN LÔ HÀNG</span>
@@ -230,7 +229,7 @@
           <span style="display:flex;align-items:center;justify-content:center;gap:6px;font:var(--type-label-sm);color:var(--color-text-muted)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg>Sản phẩm tạm hết hàng</span>
         </sc-if>
         <sc-if value="{{ notOwner }}" hint-placeholder-val="{{ true }}">
-          <span style="display:flex;align-items:center;gap:6px;margin-bottom:calc(var(--space-2) * -1);font:var(--type-body-sm);color:var(--color-text-muted)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>Liên hệ người bán để mua hàng</span>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);margin-bottom:calc(var(--space-2) * -1)"><span style="display:flex;align-items:center;gap:6px;font:var(--type-body-sm);color:var(--color-text-muted)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path></svg>Liên hệ người bán để mua hàng</span><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="s" onClick="{{ chat }}" hint-size="96px,32px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path></svg>Nhắn tin</x-import></div>
         </sc-if>
         <dc-import name="Contact Block" variant="A" cstate="{{ mainC }}" contact-name="{{ p.contact }}" phone="{{ p.phone }}" on-reveal="{{ revealMain }}" on-copy="{{ copied }}" on-retry="{{ revealMain }}" hint-size="100%,140px"></dc-import>
       </section>
@@ -491,6 +490,7 @@ class Component extends DCLogic {
       goEditHidden: () => { window.location.href = 'Dang tin ban - Ban chinh.dc.html?state=sua-tin-bi-an'; }, goEditResub: () => { window.location.href = 'Dang tin ban - Ban chinh.dc.html?state=sua-tin-cho-duyet'; },
       isOwner: owner, notOwner: !owner, outNotOwner: out && !owner, isEnded: ended, showDetail: !ended, goList: () => { window.location.href = 'Nguon vat lieu - Ban chinh.dc.html'; },
       saved: s.saved, saveLabel: s.saved ? 'Đã lưu' : 'Lưu tin', heartFill: s.saved ? 'currentColor' : 'none', heartColor: s.saved ? 'var(--color-danger)' : 'currentColor',
+      chat: () => { if (this.needLogin('chat')) return; this.showToast('Đã mở cuộc trò chuyện'); },
       toggleSave: () => { if (this.needLogin('save')) return; this.setState((st) => ({ saved: !st.saved })); },
       canReport: !owner && !s.reported, reportedLink: !owner && s.reported,
       openReport: () => { if (this.needLogin('report')) return; this.setState({ rp: { reason: '', note: '', tried: false } }); },
@@ -528,10 +528,10 @@ class Component extends DCLogic {
       related: C.RELATED.map((it) => ({ item: it, cstate: s.contact[it.id] || 'masked' })),
       reveal: this.reveal, copied: this.copied,
       loginOpen: !!s.loginFor,
-      loginTitle: s.loginFor === 'save' ? 'Đăng nhập để lưu tin' : s.loginFor === 'report' ? 'Đăng nhập để báo cáo tin' : 'Đăng nhập để xem số điện thoại',
-      loginBody: s.loginFor === 'save' ? 'Tin đã lưu được giữ trong tài khoản của bạn. Đăng nhập xong tin sẽ tự được lưu.' : s.loginFor === 'report' ? 'Báo cáo chỉ gửi được từ tài khoản đã đăng nhập. Đăng nhập xong sẽ mở lại form báo cáo.' : 'Số của người liên hệ ' + (loginItem ? loginItem.contact : '') + ' chỉ hiển thị với tài khoản đã đăng nhập. Đăng nhập xong sẽ quay lại trang này và số tự hiện.',
+      loginTitle: s.loginFor === 'chat' ? 'Đăng nhập để nhắn tin' : s.loginFor === 'save' ? 'Đăng nhập để lưu tin' : s.loginFor === 'report' ? 'Đăng nhập để báo cáo tin' : 'Đăng nhập để xem số điện thoại',
+      loginBody: s.loginFor === 'chat' ? 'Nhắn tin với người bán chỉ dùng được khi đã đăng nhập. Đăng nhập xong sẽ quay lại trang này.' : s.loginFor === 'save' ? 'Tin đã lưu được giữ trong tài khoản của bạn. Đăng nhập xong tin sẽ tự được lưu.' : s.loginFor === 'report' ? 'Báo cáo chỉ gửi được từ tài khoản đã đăng nhập. Đăng nhập xong sẽ mở lại form báo cáo.' : 'Số của người liên hệ ' + (loginItem ? loginItem.contact : '') + ' chỉ hiển thị với tài khoản đã đăng nhập. Đăng nhập xong sẽ quay lại trang này và số tự hiện.',
       closeLogin: () => this.setState({ loginFor: null }),
-      doLogin: () => { const id = this.state.loginFor; this.setState({ loggedIn: true, loginFor: null }, () => { if (id === 'save') this.setState({ saved: true }); else if (id === 'report') this.setState({ rp: { reason: '', note: '', tried: false } }); else if (id) this.reveal(id); }); },
+      doLogin: () => { const id = this.state.loginFor; this.setState({ loggedIn: true, loginFor: null }, () => { if (id === 'chat') this.showToast('Đã mở cuộc trò chuyện'); else if (id === 'save') this.setState({ saved: true }); else if (id === 'report') this.setState({ rp: { reason: '', note: '', tried: false } }); else if (id) this.reveal(id); }); },
       toast: !!s.toast,
     };
   }
