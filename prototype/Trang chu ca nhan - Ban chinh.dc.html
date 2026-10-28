@@ -38,8 +38,16 @@
     </div>
     <div style="display:flex;align-items:center;gap:var(--space-3)">
       <button type="button" aria-label="Thông báo, có thông báo mới" style="position:relative;width:40px;height:40px;flex-shrink:0;border:none;border-radius:var(--radius-full);background:rgba(255,255,255,0.12);color:var(--color-text-inverse);cursor:pointer;display:flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M10.268 21a2 2 0 0 0 3.464 0"></path><path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"></path></svg><span style="position:absolute;top:8px;right:9px;width:9px;height:9px;border-radius:50%;background:var(--color-danger);box-shadow:0 0 0 2px var(--color-bg-brand)"></span></button>
-      <a href="Gio hang - Ban chinh.dc.html" aria-label="Giỏ hàng, 2 sản phẩm" style="position:relative;width:40px;height:40px;flex-shrink:0;border-radius:var(--radius-full);background:rgba(255,255,255,0.12);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg><sc-if value="{{ cartCount }}" hint-placeholder-val="{{ true }}"><span style="position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;padding:0 4px;box-sizing:border-box;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-text-heading);font:var(--type-label-sm);font-size:11px;display:flex;align-items:center;justify-content:center">{{ cartCount }}</span></sc-if></a>
-      <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" onClick="{{ goPost }}" hint-size="190px,40px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Đăng nguồn vật liệu</x-import>
+      <span style="position:relative;display:flex">
+        <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" onClick="{{ togglePost }}" aria-haspopup="menu" aria-expanded="{{ postOpen }}" hint-size="210px,40px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Đăng nguồn vật liệu<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round;stroke-linejoin:round;margin-left:2px"><path d="m6 9 6 6 6-6"></path></svg></x-import>
+        <sc-if value="{{ postOpen }}" hint-placeholder-val="{{ false }}">
+          <div aria-hidden="true" onClick="{{ closePost }}" style="position:fixed;inset:0;z-index:39"></div>
+          <div role="menu" aria-label="Đăng tin" style="position:absolute;top:calc(100% + 8px);right:0;z-index:40;width:220px;padding:var(--space-1);border-radius:var(--radius-md);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-raised);display:flex;flex-direction:column;animation:lv-in 150ms ease-out">
+            <a role="menuitem" href="Dang tin ban - Ban chinh.dc.html" style="display:flex;align-items:center;min-height:40px;padding:0 var(--space-3);border-radius:var(--radius-sm);font:var(--type-body-sm);color:var(--color-text-heading);text-decoration:none" style-hover="background:var(--color-bg-subtle)">Đăng tin bán</a>
+            <a role="menuitem" href="Dang nhu cau mua - Ban chinh.dc.html" style="display:flex;align-items:center;min-height:40px;padding:0 var(--space-3);border-radius:var(--radius-sm);font:var(--type-body-sm);color:var(--color-text-heading);text-decoration:none" style-hover="background:var(--color-bg-subtle)">Đăng nhu cầu mua</a>
+          </div>
+        </sc-if>
+      </span>
       <span onClick="{{ stop }}" style="position:relative;display:flex">
         <button type="button" aria-haspopup="menu" aria-expanded="{{ menuOpen }}" onClick="{{ toggleMenu }}" style="display:flex;align-items:center;gap:var(--space-2);height:44px;padding:0 8px 0 4px;border:none;border-radius:var(--radius-full);background:transparent;color:var(--color-text-inverse);cursor:pointer;font:var(--type-label-md)" style-hover="background:rgba(255,255,255,0.1)">
           <span style="width:36px;height:36px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">{{ u.initials }}</span>{{ u.short }}
@@ -48,9 +56,9 @@
         <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
           <div role="menu" style="position:absolute;top:calc(100% + 8px);right:0;z-index:40;width:232px;padding:var(--space-1);border-radius:var(--radius-md);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-raised);display:flex;flex-direction:column;animation:lv-in 150ms ease-out">
             <div style="padding:var(--space-3);border-bottom:1px solid var(--color-border-default);margin-bottom:var(--space-1);display:flex;flex-direction:column;gap:2px"><span style="font:var(--type-label-md);color:var(--color-text-heading)">{{ u.full }}</span><span style="font:var(--type-caption);color:var(--color-text-muted)">{{ u.acct }}</span></div>
-            <a role="menuitem" href="Don mua cua toi - Ban chinh.dc.html" style="display:flex;align-items:center;min-height:40px;padding:0 var(--space-3);border-radius:var(--radius-sm);font:var(--type-body-sm);color:var(--color-text-heading);text-decoration:none" style-hover="background:var(--color-bg-subtle)">Đơn mua</a>
-            <a role="menuitem" href="Don ban - Ban chinh.dc.html" style="display:flex;align-items:center;min-height:40px;padding:0 var(--space-3);border-radius:var(--radius-sm);font:var(--type-body-sm);color:var(--color-text-heading);text-decoration:none" style-hover="background:var(--color-bg-subtle)">Đơn bán</a>
             <a role="menuitem" href="Tin dang cua toi - Ban chinh.dc.html" style="display:flex;align-items:center;min-height:40px;padding:0 var(--space-3);border-radius:var(--radius-sm);font:var(--type-body-sm);color:var(--color-text-heading);text-decoration:none" style-hover="background:var(--color-bg-subtle)">Tin đăng của tôi</a>
+            <a role="menuitem" href="Tin da luu - Ban chinh.dc.html" style="display:flex;align-items:center;min-height:40px;padding:0 var(--space-3);border-radius:var(--radius-sm);font:var(--type-body-sm);color:var(--color-text-heading);text-decoration:none;gap:var(--space-2)" style-hover="background:var(--color-bg-subtle)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-muted)"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>Tin đã lưu</a>
+            <a role="menuitem" href="Dang nhu cau mua - Ban chinh.dc.html" style="display:flex;align-items:center;min-height:40px;padding:0 var(--space-3);border-radius:var(--radius-sm);font:var(--type-body-sm);color:var(--color-text-heading);text-decoration:none;gap:var(--space-2)" style-hover="background:var(--color-bg-subtle)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round;color:var(--color-text-muted)"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Đăng nhu cầu mua</a>
             <a role="menuitem" href="#" style="display:flex;align-items:center;min-height:40px;padding:0 var(--space-3);border-radius:var(--radius-sm);font:var(--type-body-sm);color:var(--color-text-heading);text-decoration:none" style-hover="background:var(--color-bg-subtle)">Hồ sơ người bán</a>
             <a role="menuitem" href="Landing - Khach.dc.html" style="display:flex;align-items:center;min-height:40px;padding:0 var(--space-3);margin-top:var(--space-1);border-top:1px solid var(--color-border-default);border-radius:0 0 var(--radius-sm) var(--radius-sm);font:var(--type-body-sm);color:var(--color-danger);text-decoration:none" style-hover="background:var(--color-danger-soft)">Đăng xuất</a>
           </div>
@@ -74,17 +82,16 @@
           <sc-for list="{{ todos }}" as="t" hint-placeholder-count="4">
             <li style="display:grid;grid-template-columns:40px minmax(0,1fr) auto auto;gap:var(--space-4);align-items:center;padding:var(--space-3) var(--space-4);border-top:{{ t.bt }}">
               <span style="width:40px;height:40px;border-radius:var(--radius-full);background:{{ t.iconBg }};color:{{ t.iconColor }};display:flex;align-items:center;justify-content:center">
-                <sc-if value="{{ t.iNew }}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M22 12h-6l-2 3h-4l-2-3H2"></path><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"></path></svg></sc-if>
-                <sc-if value="{{ t.iAdjust }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M8 3 4 7l4 4"></path><path d="M4 7h16"></path><path d="m16 21 4-4-4-4"></path><path d="M20 17H4"></path></svg></sc-if>
-                <sc-if value="{{ t.iReceive }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M16 16h6"></path><path d="M19 13v6"></path><path d="M21 10V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l2-1.14"></path><path d="m7.5 4.27 9 5.15"></path><polyline points="3.29 7 12 12 20.71 7"></polyline><line x1="12" x2="12" y1="22" y2="12"></line></svg></sc-if>
-                <sc-if value="{{ t.iListing }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M12 20h9"></path><path d="M16.38 3.62a1 1 0 0 1 3 3L7.37 18.64a2 2 0 0 1-.86.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.86z"></path></svg></sc-if>
+                <sc-if value="{{ t.iListing }}" hint-placeholder-val="{{ true }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M12 20h9"></path><path d="M16.38 3.62a1 1 0 0 1 3 3L7.37 18.64a2 2 0 0 1-.86.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.86z"></path></svg></sc-if>
+                <sc-if value="{{ t.iExpire }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg></sc-if>
+                <sc-if value="{{ t.iBuy }}" hint-placeholder-val="{{ false }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M8 2v4"></path><path d="M16 2v4"></path><path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"></path><path d="M3 10h18"></path><path d="M16 19h6"></path><path d="M19 16v6"></path></svg></sc-if>
               </span>
               <span style="min-width:0;display:flex;flex-direction:column;gap:2px">
-                <span style="font:var(--type-label-md);color:var(--color-text-heading)">{{ t.title }}</span>
-                <span style="font:var(--type-body-sm);color:var(--color-text-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis"><span style="font-weight:600;letter-spacing:0.02em">{{ t.code }}</span> · {{ t.detail }}</span>
+                <span style="font:var(--type-body-sm);color:var(--color-text-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis"><span style="font:var(--type-label-md);color:var(--color-text-heading)">{{ t.title }}</span> · {{ t.name }}</span>
+                <sc-if value="{{ t.hasReason }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-body-sm);color:var(--color-text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Lý do ẩn: {{ t.reason }}</span></sc-if>
               </span>
               <span style="display:flex;align-items:center;gap:6px;font:{{ t.dlFont }};color:{{ t.dlColor }};white-space:nowrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>{{ t.deadline }}</span>
-              <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="{{ t.btn }}" size="s" onClick="{{ t.go }}" hint-size="64px,32px">Xử lý</x-import>
+              <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="{{ t.btn }}" size="s" onClick="{{ t.go }}" hint-size="84px,32px">{{ t.action }}</x-import>
             </li>
           </sc-for>
         </ul>
@@ -104,19 +111,31 @@
       </a>
       <a href="Dang tin ban - Ban chinh.dc.html" style="display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-4);padding:var(--space-4);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);text-decoration:none;transition:transform 200ms ease-out,box-shadow 200ms ease-out" style-hover="transform:translateY(-2px);box-shadow:var(--shadow-raised)">
         <span style="width:44px;height:44px;border-radius:var(--radius-md);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></span>
-        <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Đăng tin</span>
+        <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Đăng tin bán</span>
       </a>
-      <a href="Gio hang - Ban chinh.dc.html" style="display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-4);padding:var(--space-4);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);text-decoration:none;transition:transform 200ms ease-out,box-shadow 200ms ease-out" style-hover="transform:translateY(-2px);box-shadow:var(--shadow-raised)">
+      <a href="Dang nhu cau mua - Ban chinh.dc.html" style="display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-4);padding:var(--space-4);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);text-decoration:none;transition:transform 200ms ease-out,box-shadow 200ms ease-out" style-hover="transform:translateY(-2px);box-shadow:var(--shadow-raised)">
         <span style="width:44px;height:44px;border-radius:var(--radius-md);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg></span>
-        <span style="font:var(--type-label-lg);color:var(--color-text-heading)">{{ cartLabel }}</span>
+        <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Đăng nhu cầu mua</span>
       </a>
-      <button type="button" onClick="{{ openLavie }}" style="display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:var(--space-4);padding:var(--space-4);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);cursor:pointer;text-align:left;transition:transform 200ms ease-out,box-shadow 200ms ease-out" style-hover="transform:translateY(-2px);box-shadow:var(--shadow-raised)">
+      <a href="Tin da luu - Ban chinh.dc.html" style="display:flex;flex-direction:column;justify-content:space-between;gap:var(--space-4);padding:var(--space-4);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);text-decoration:none;transition:transform 200ms ease-out,box-shadow 200ms ease-out" style-hover="transform:translateY(-2px);box-shadow:var(--shadow-raised)">
+        <span style="width:44px;height:44px;border-radius:var(--radius-md);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg></span>
+        <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Tin đã lưu</span>
+      </a>
+      <button type="button" onClick="{{ openLavie }}" style="grid-column:1 / -1;display:flex;flex-direction:row;align-items:center;justify-content:flex-start;gap:var(--space-4);padding:var(--space-4);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);cursor:pointer;text-align:left;transition:transform 200ms ease-out,box-shadow 200ms ease-out" style-hover="transform:translateY(-2px);box-shadow:var(--shadow-raised)">
         <span style="width:44px;height:44px;border-radius:var(--radius-md);background:var(--color-bg-brand);color:var(--color-accent);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="M12 8V4H8"></path><rect width="16" height="12" x="4" y="8" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg></span>
         <span style="font:var(--type-label-lg);color:var(--color-text-heading)">Hỏi Lavie</span>
       </button>
     </section>
   </div>
 
+  <sc-if value="{{ statsErr }}" hint-placeholder-val="{{ false }}">
+    <section aria-label="Số liệu nhanh" role="alert" style="display:flex;align-items:center;gap:var(--space-4);padding:var(--space-5) var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);animation:lv-rise 600ms ease-out 120ms both">
+      <span style="width:44px;height:44px;flex-shrink:0;border-radius:var(--radius-full);background:var(--color-danger-soft);color:var(--color-danger);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"></circle><line x1="12" x2="12" y1="8" y2="12"></line><line x1="12" x2="12.01" y1="16" y2="16"></line></svg></span>
+      <span style="flex:1;display:flex;flex-direction:column;gap:2px"><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Không thể tải số liệu.</span><span style="font:var(--type-body-sm);color:var(--color-text-body)">Các khối khác vẫn dùng được bình thường.</span></span>
+      <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" onClick="{{ retryStats }}" disabled="{{ retrying }}" hint-size="96px,40px">{{ retryLabel }}</x-import>
+    </section>
+  </sc-if>
+  <sc-if value="{{ statsOk }}" hint-placeholder-val="{{ true }}">
   <div style="display:grid;grid-template-columns:{{ statCols }};gap:var(--space-6);animation:lv-rise 600ms ease-out 120ms both">
     <section aria-labelledby="h-buy" style="display:flex;flex-direction:column;gap:var(--space-3)">
       <h2 id="h-buy" style="margin:0;font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-muted)">MUA HÀNG</h2>
@@ -153,51 +172,41 @@
       </section>
     </sc-if>
   </div>
-
-  <sc-if value="{{ hasOrders }}" hint-placeholder-val="{{ true }}">
-    <section aria-labelledby="h-orders" style="display:flex;flex-direction:column;border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);animation:lv-rise 600ms ease-out 180ms both">
-      <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);padding:var(--space-4) var(--space-5);border-bottom:1px solid var(--color-border-default)">
-        <h2 id="h-orders" style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Đơn gần đây</h2>
-        <span style="display:flex;align-items:center;gap:var(--space-3);font:var(--type-label-md)">
-          <span style="font:var(--type-body-sm);color:var(--color-text-muted)">Xem tất cả</span>
-          <a href="Don mua cua toi - Ban chinh.dc.html" style="text-decoration:none" style-hover="text-decoration:underline">Đơn mua</a>
-          <sc-if value="{{ showSell }}" hint-placeholder-val="{{ true }}"><span style="color:var(--color-text-subtle)">·</span><a href="Don ban - Ban chinh.dc.html" style="text-decoration:none" style-hover="text-decoration:underline">Đơn bán</a></sc-if>
-        </span>
-      </div>
-      <div role="row" style="display:grid;grid-template-columns:150px 72px minmax(0,1fr) 230px 200px 210px 100px;gap:var(--space-4);align-items:center;padding:var(--space-2) var(--space-5);background:var(--color-bg-subtle);border-bottom:1px solid var(--color-border-default);font:var(--type-label-sm);color:var(--color-text-muted)">
-        <span>Mã đơn</span><span>Vai trò</span><span>Sản phẩm</span><span>Bên kia</span><span>Số tiền</span><span>Trạng thái</span><span>Cập nhật</span>
-      </div>
-      <sc-for list="{{ orders }}" as="o" hint-placeholder-count="5">
-        <a href="{{ o.href }}" role="row" style="display:grid;grid-template-columns:150px 72px minmax(0,1fr) 230px 200px 210px 100px;gap:var(--space-4);align-items:center;padding:var(--space-3) var(--space-5);border-bottom:{{ o.bb }};text-decoration:none;color:inherit" style-hover="background:var(--color-bg-subtle)">
-          <span style="font:var(--type-label-md);color:var(--color-text-heading);letter-spacing:0.02em">{{ o.code }}</span>
-          <span style="display:flex"><span style="display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:var(--radius-full);font:var(--type-label-sm);background:{{ o.roleBg }};color:{{ o.roleColor }}">{{ o.role }}</span></span>
-          <span style="font:var(--type-body-sm);color:var(--color-text-heading);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ o.product }}</span>
-          <span style="font:var(--type-body-sm);color:var(--color-text-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ o.party }}</span>
-          <span style="display:flex;flex-direction:column;gap:1px"><span style="font:var(--type-caption);color:var(--color-text-muted)">{{ o.amountLabel }}</span><span style="font:var(--type-label-md);color:var(--color-text-heading);white-space:nowrap">{{ o.amount }}</span></span>
-          <span style="display:flex">
-            <sc-if value="{{ o.ds }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Badge" tone="{{ o.tone }}" hint-size="160px,24px">{{ o.status }}</x-import></sc-if>
-            <sc-if value="{{ o.blue }}" hint-placeholder-val="{{ false }}"><span style="display:inline-flex;align-items:center;gap:6px;height:24px;padding:0 10px;border-radius:var(--radius-full);font:var(--type-label-sm);white-space:nowrap;background:color-mix(in oklch, var(--color-material-plastic) 10%, white);color:var(--color-material-plastic)"><span style="width:6px;height:6px;border-radius:50%;background:var(--color-material-plastic)"></span>{{ o.status }}</span></sc-if>
-          </span>
-          <span style="font:var(--type-body-sm);color:var(--color-text-muted)">{{ o.updated }}</span>
-        </a>
-      </sc-for>
-    </section>
   </sc-if>
 
-  <sc-if value="{{ noOrders }}" hint-placeholder-val="{{ false }}">
+<sc-if value="{{ showGuide }}" hint-placeholder-val="{{ false }}">
     <section aria-labelledby="h-guide" style="display:flex;flex-direction:column;gap:var(--space-5);padding:var(--space-6);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card);animation:lv-rise 600ms ease-out 180ms both">
       <div style="display:flex;flex-direction:column;gap:var(--space-1)">
-        <h2 id="h-guide" style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Bắt đầu mua trên Lavatu</h2>
-        <p style="margin:0;font:var(--type-body-sm);color:var(--color-text-body)">Đơn đầu tiên của bạn sẽ hiện ở đây.</p>
+        <h2 id="h-guide" style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Bắt đầu trên Lavatu</h2>
+        <p style="margin:0;font:var(--type-body-sm);color:var(--color-text-body)">Chọn việc bạn muốn làm trước.</p>
       </div>
       <ol style="margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-4)">
-        <li style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-subtle)"><span style="width:36px;height:36px;flex-shrink:0;border-radius:50%;background:var(--color-bg-brand);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center;font:var(--type-label-md)">1</span><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Tìm nguồn vật liệu</span></li>
-        <li style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-subtle)"><span style="width:36px;height:36px;flex-shrink:0;border-radius:50%;background:var(--color-bg-brand);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center;font:var(--type-label-md)">2</span><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Gửi yêu cầu mua</span></li>
-        <li style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-subtle)"><span style="width:36px;height:36px;flex-shrink:0;border-radius:50%;background:var(--color-accent);color:var(--color-text-heading);display:flex;align-items:center;justify-content:center;font:var(--type-label-md)">3</span><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Theo dõi đơn tại đây</span></li>
+        <li style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-subtle)"><span style="width:36px;height:36px;flex-shrink:0;border-radius:50%;background:var(--color-bg-brand);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center;font:var(--type-label-md)">1</span><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Tìm vật liệu</span></li>
+        <li style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-subtle)"><span style="width:36px;height:36px;flex-shrink:0;border-radius:50%;background:var(--color-bg-brand);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center;font:var(--type-label-md)">2</span><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Đăng tin bán</span></li>
+        <li style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-subtle)"><span style="width:36px;height:36px;flex-shrink:0;border-radius:50%;background:var(--color-accent);color:var(--color-text-heading);display:flex;align-items:center;justify-content:center;font:var(--type-label-md)">3</span><span style="font:var(--type-label-lg);color:var(--color-text-heading)">Đăng nhu cầu mua</span></li>
       </ol>
       <div style="display:flex"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="m" onClick="{{ goSearch }}" hint-size="170px,40px">Tìm nguồn vật liệu</x-import></div>
     </section>
   </sc-if>
+
+  <sc-if value="{{ hasFeat }}" hint-placeholder-val="{{ true }}">
+    <section aria-labelledby="h-feat" style="display:flex;flex-direction:column;gap:var(--space-5);animation:lv-rise 600ms ease-out 180ms both">
+      <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-4)">
+        <div style="display:flex;flex-direction:column;gap:var(--space-1)">
+          <h2 id="h-feat" style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">Tin nổi bật</h2>
+          <p style="margin:0;font:var(--type-body-sm);color:var(--color-text-body)">Tin được Lavatu đề cử trên sàn</p>
+        </div>
+        <a href="Nguon vat lieu - Ban chinh.dc.html" style="display:flex;align-items:center;gap:var(--space-1);font:var(--type-label-md);text-decoration:none" style-hover="text-decoration:underline">Xem thêm<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-4);align-items:stretch">
+        <sc-for list="{{ feat }}" as="row" hint-placeholder-count="4">
+          <dc-import name="Product Card" index="{{ $index }}" item="{{ row.item }}" cstate="{{ row.cstate }}" saved="{{ row.saved }}" on-save="{{ toggleSave }}" variant="A" layout="grid" compact="{{ true }}" on-reveal="{{ reveal }}" on-copy="{{ copied }}" style="height:100%" hint-size="100%,460px"></dc-import>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+
 
   <section aria-labelledby="h-sug" style="display:flex;flex-direction:column;gap:var(--space-5);padding-top:var(--space-4)">
     <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-4)">
@@ -209,7 +218,7 @@
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-5)">
       <sc-for list="{{ sug }}" as="row" hint-placeholder-count="6">
-        <dc-import name="Product Card" index="{{ $index }}" item="{{ row.item }}" cstate="{{ row.cstate }}" variant="A" layout="grid" mobile="{{ false }}" on-reveal="{{ reveal }}" on-copy="{{ copied }}" hint-size="100%,560px"></dc-import>
+        <dc-import name="Product Card" index="{{ $index }}" item="{{ row.item }}" cstate="{{ row.cstate }}" saved="{{ row.saved }}" on-save="{{ toggleSave }}" variant="A" layout="grid" mobile="{{ false }}" on-reveal="{{ reveal }}" on-copy="{{ copied }}" hint-size="100%,560px"></dc-import>
       </sc-for>
     </div>
   </section>
@@ -260,7 +269,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;frame&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A · Doanh nghiệp mua và bán&quot;,&quot;B · Cá nhân chỉ mua&quot;,&quot;C · Tài khoản mới&quot;],&quot;default&quot;:&quot;A · Doanh nghiệp mua và bán&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;label&quot;:&quot;Khung&quot;}}">
 class Component extends DCLogic {
-  static STATES = [{"k":"doanh-nghiep","l":"Doanh nghiệp mua và bán","p":{"frame":"A · Doanh nghiệp mua và bán"}},{"k":"ca-nhan","l":"Cá nhân chỉ mua","p":{"frame":"B · Cá nhân chỉ mua"}},{"k":"tai-khoan-moi","l":"Tài khoản mới","p":{"frame":"C · Tài khoản mới"}}];
+  static STATES = [{"k":"doanh-nghiep","l":"Doanh nghiệp mua và bán","p":{"frame":"A · Doanh nghiệp mua và bán"}},{"k":"ca-nhan","l":"Cá nhân chỉ mua","p":{"frame":"B · Cá nhân chỉ mua"}},{"k":"tai-khoan-moi","l":"Tài khoản mới","p":{"frame":"C · Tài khoản mới"}},{"k":"het-viec","l":"Hết việc cần làm","p":{"frame":"A · Doanh nghiệp mua và bán","hetViec":true}},{"k":"khong-noi-bat","l":"Không có tin nổi bật","p":{"frame":"A · Doanh nghiệp mua và bán","noiBat":false}},{"k":"loi-khoi","l":"Khối Số liệu lỗi","p":{"frame":"A · Doanh nghiệp mua và bán","loiSoLieu":true}}];
   static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
   get __P() { return this.__ov(this.props); }
   __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
@@ -270,43 +279,29 @@ class Component extends DCLogic {
   static F = {
     A: {
       u: { first: 'Ngọc Lan', short: 'Ngọc Lan', initials: 'NL', full: 'Trần Thị Ngọc Lan', acct: 'Nhựa Tái Sinh Minh Phát · Doanh nghiệp', sub: 'Công ty TNHH Nhựa Tái Sinh Minh Phát' },
-      cart: 2, sell: true,
+      sell: true,
       todos: [
-        { k: 'new', title: 'Yêu cầu mua mới', code: 'DH-261018-0007', detail: 'Hạt nhựa PP tái sinh màu đen, 2.000 kg', deadline: 'Còn 9 giờ để phản hồi', hours: 9, href: '?role=seller&stage=pending' },
-        { k: 'new', title: 'Yêu cầu mua mới', code: 'DH-261017-0012', detail: 'Phế liệu nhựa HDPE ép kiện, 3.000 kg', deadline: 'Còn 31 giờ', hours: 31, href: '?role=seller&stage=pending' },
-        { k: 'adjust', title: 'Người bán đề xuất điều chỉnh giá', code: 'DH-261016-0004', detail: 'Giấy carton ép kiện', deadline: 'Còn 40 giờ', hours: 40, href: '?role=buyer&stage=await_adjust' },
-        { k: 'receive', title: 'Xác nhận đã nhận hàng', code: 'DH-261012-0021', detail: 'Nhôm lon phế liệu đã ép', deadline: 'Tự hoàn tất sau 5 ngày', hours: 120, href: '?role=buyer&stage=await_receive' },
-        { k: 'listing', title: 'Tin cần cập nhật', code: 'Nhựa PET vụn trong', detail: 'Quản trị viên tạm ẩn, cần sửa thông tin', deadline: 'Còn 2 ngày để sửa', hours: 48, page: 'Tin dang cua toi - Ban chinh.dc.html?state=tab-can-cap-nhat' },
+        { k: 'update', name: 'Nhựa PET vụn trong', reason: 'Sai đơn vị hoặc giá', hours: 48, page: 'Sua tin - Ban chinh.dc.html' },
+        { k: 'expire', name: 'Hạt nhựa PP tái sinh màu đen', hours: 8 },
+        { k: 'buy', name: 'Chai PET phế liệu chưa ép kiện', hours: 72 },
+        { k: 'expire', name: 'Màng nhựa LDPE ép kiện', hours: 120 },
       ],
-      buy: [2, 11], sellS: [18, 1248, 3],
-      orders: [
-        ['DH-261018-0007', 'sell', 'Hạt nhựa PP tái sinh màu đen', 'Cty CP Bao Bì Phương Nam', 'Tạm tính', 50000000, 'Chờ người bán xác nhận', '18/10/2026', 'pending'],
-        ['DH-261016-0004', 'buy', 'Giấy carton ép kiện', 'Cty TNHH Giấy Đông Á', 'Tạm tính', 64000000, 'Chờ người mua đồng ý', '17/10/2026', 'await_adjust'],
-        ['DH-261015-0009', 'sell', 'Phế liệu nhựa HDPE ép kiện', 'Lê Thị Thu', 'Tổng đã chốt', 7650000, 'Đang giao', '16/10/2026', 'shipping'],
-        ['DH-261012-0021', 'buy', 'Nhôm lon phế liệu đã ép', 'Nguyễn Văn Hùng', 'Thực tế', 5180000, 'Chờ người mua xác nhận', '15/10/2026', 'await_receive'],
-        ['DH-261008-0003', 'sell', 'Hạt nhựa PP tái sinh màu đen', 'Nguyễn Hoàng Phúc', 'Thực tế', 24250000, 'Hoàn tất', '12/10/2026', 'done'],
-      ],
-      sugSub: 'Dựa trên các danh mục bạn từng mua: Giấy carton, Kim loại', latest: false,
+      buy: [3, 11], sellS: [18, 342, 58],
+      sugSub: 'Dựa trên các danh mục bạn quan tâm: Giấy carton, Kim loại', latest: false,
     },
     B: {
       u: { first: 'Hùng', short: 'Hùng', initials: 'NH', full: 'Nguyễn Văn Hùng', acct: 'Tài khoản cá nhân', sub: 'Tài khoản cá nhân' },
-      cart: 1, sell: false,
+      sell: false,
       todos: [
-        { k: 'adjust', title: 'Người bán đề xuất điều chỉnh khối lượng', code: 'DH-261017-0015', detail: 'Giấy carton ép kiện', deadline: 'Còn 20 giờ', hours: 20, href: '?role=buyer&stage=await_adjust' },
-        { k: 'receive', title: 'Xác nhận đã nhận hàng', code: 'DH-261013-0008', detail: 'Đồng vụn loại 1', deadline: 'Tự hoàn tất sau 3 ngày', hours: 72, href: '?role=buyer&stage=await_receive' },
+        { k: 'buy', name: 'Lon nhôm phế liệu', hours: 30 },
+        { k: 'buy', name: 'Dây đồng phế liệu đã tuốt vỏ', hours: 96 },
       ],
       buy: [2, 4],
-      orders: [
-        ['DH-261017-0015', 'buy', 'Giấy carton ép kiện', 'Cty TNHH Giấy Đông Á', 'Tạm tính', 640000, 'Chờ người mua đồng ý', '17/10/2026', 'await_adjust'],
-        ['DH-261013-0008', 'buy', 'Đồng vụn loại 1', 'Cty TNHH Kim loại Bắc Hà', 'Thực tế', 16500000, 'Chờ người mua xác nhận', '16/10/2026', 'await_receive'],
-        ['DH-261005-0011', 'buy', 'Nhựa PET vụn đã rửa', 'Cty TNHH Nhựa Tái Sinh Minh Phát', 'Thực tế', 2800000, 'Hoàn tất', '08/10/2026', 'done'],
-        ['DH-260921-0006', 'buy', 'Bìa carton màu', 'Bao Bì Tây Ninh', 'Thực tế', 420000, 'Hoàn tất', '24/09/2026', 'done'],
-      ],
-      sugSub: 'Dựa trên các danh mục bạn từng mua: Giấy carton, Kim loại', latest: false,
+      sugSub: 'Dựa trên các danh mục bạn quan tâm: Giấy carton, Kim loại', latest: false,
     },
     C: {
       u: { first: 'Quốc Bảo', short: 'Quốc Bảo', initials: 'QB', full: 'Phạm Quốc Bảo', acct: 'Tái Chế Bảo An · Doanh nghiệp', sub: 'Công ty TNHH Tái Chế Bảo An' },
-      cart: 0, sell: true, todos: [], buy: [0, 0], sellS: [0, 0, 0], orders: [],
+      sell: true, todos: [], buy: [0, 0], sellS: [0, 0, 0], guide: true,
       sugSub: 'Nguồn vật liệu mới nhất', latest: true,
     },
   };
@@ -326,7 +321,16 @@ class Component extends DCLogic {
     { id: 'n5', title: 'Giấy carton ép kiện', cat: 'Giấy carton', catKey: 'paper', qty: 20000, unit: 'kg', price: 3200, company: 'Giấy Đông Á', region: 'Tỉnh Đồng Nai', contact: 'Lê Quốc Bảo', phone: '0938456120', img: 'assets/paper.webp' },
     { id: 'n6', title: 'Bo mạch điện thoại cũ', cat: 'Rác điện tử', catKey: 'e-waste', qty: 500, unit: 'kg', price: 180000, company: 'Tái chế Điện tử Xanh', region: 'TP. Hà Nội', contact: 'Đỗ Quang Huy', phone: '0903222111', img: null },
   ];
-  state = { hq: '', menuOpen: false, contact: {}, toast: '' };
+  static FEAT = [
+    { id: 'f1', featured: true, title: 'Vỏ chai PET đã ép kiện', cat: 'Nhựa', catKey: 'plastic', qty: 30, unit: 'tấn', price: 11500000, company: 'Giải Pháp Xanh', region: 'Tỉnh Cà Mau', contact: 'Nguyễn Văn Minh', phone: '0909123456', img: 'assets/plastic.webp' },
+    { id: 'f2', featured: true, title: 'Đồng phế liệu từ cáp điện', cat: 'Kim loại', catKey: 'metal', qty: 1200, unit: 'kg', price: 168000, company: 'Kim loại Bắc Hà', region: 'TP. Hà Nội', contact: 'Đặng Văn Long', phone: '0904556677', img: 'assets/metal.webp' },
+    { id: 'f3', featured: true, title: 'Giấy carton OCC ép kiện', cat: 'Giấy carton', catKey: 'paper', qty: 40000, unit: 'kg', price: 3400, company: 'Giấy Đông Á', region: 'Tỉnh Đồng Nai', contact: 'Lê Quốc Bảo', phone: '0938456120', img: 'assets/paper.webp' },
+    { id: 'f4', featured: true, title: 'Vải vụn denim phân màu', cat: 'Vải dệt may', catKey: 'textile', qty: 6000, unit: 'kg', price: 5500, company: 'May Mặc Thành Công', region: 'TP. Hồ Chí Minh', contact: 'Châu Thị Mỹ', phone: '0965172384', img: 'assets/textile.webp' },
+  ];
+  state = { postOpen: false, hq: '', menuOpen: false, contact: {}, toast: '', saved: {}, done: {}, statsErr: null, retrying: false };
+  b(v) { return v === true || v === 'true'; }
+  toggleSave = (id) => { const on = !this.state.saved[id]; this.setState((s) => ({ saved: { ...s.saved, [id]: on } })); this.flash(on ? 'Đã lưu tin' : 'Đã bỏ lưu tin'); };
+  retryStats = () => { this.setState({ retrying: true }); setTimeout(() => this.setState({ retrying: false, statsErr: false }), 900); };
   componentWillUnmount() { clearTimeout(this.tt); }
   flash(m) { clearTimeout(this.tt); this.setState({ toast: m }); this.tt = setTimeout(() => this.setState({ toast: '' }), 2400); }
   reveal = (id) => { this.setState((s) => ({ contact: { ...s.contact, [id]: 'loading' } })); setTimeout(() => this.setState((s) => ({ contact: { ...s.contact, [id]: 'revealed' } })), 900); };
@@ -336,39 +340,37 @@ class Component extends DCLogic {
     const key = String(this.__P.frame ?? 'A').charAt(0);
     const f = C.F[key] || C.F.A;
     const toList = (q) => 'Nguon vat lieu - Ban chinh.dc.html' + (q ? '?q=' + encodeURIComponent(q) : '');
-    const iconTone = { listing: ['var(--color-warning-soft)', 'var(--color-warning)'], new: ['var(--color-warning-soft)', 'var(--color-warning)'], adjust: ['color-mix(in oklch, var(--color-material-plastic) 10%, white)', 'var(--color-material-plastic)'], receive: ['var(--color-success-soft)', 'var(--color-success)'] };
-    const stat = (value, label, href, warn) => ({ value: fmt(value), label, href, color: warn && value > 0 ? 'var(--color-warning)' : 'var(--color-text-heading)' });
-    const tone = (st) => st === 'done' ? 'success' : 'warning';
+    const iconTone = { update: ['var(--color-warning-soft)', 'var(--color-warning)'], expire: ['var(--color-bg-brand-soft)', 'var(--color-text-brand)'], buy: ['color-mix(in oklch, var(--color-material-plastic) 10%, white)', 'var(--color-material-plastic)'] };
+    const kind = { update: ['Tin cần cập nhật', 'Sửa tin', ''], expire: ['Tin sắp hết hạn', 'Làm mới', 'Đã làm mới tin'], buy: ['Nhu cầu mua sắp hết hạn', 'Gia hạn', 'Đã gia hạn nhu cầu mua'] };
+    const stat = (value, label, href) => ({ value: fmt(value), label, href, color: 'var(--color-text-heading)' });
     const list = f.latest ? C.LATEST : C.SUG;
+    const todosAll = this.b(this.__P.hetViec) ? [] : f.todos.map((t, i) => ({ ...t, id: key + i })).filter((t) => !s.done[t.id]).sort((a, b) => a.hours - b.hours);
+    const statsErr = s.statsErr === null ? this.b(this.__P.loiSoLieu) : s.statsErr;
+    const showFeat = this.__P.noiBat === undefined ? true : this.b(this.__P.noiBat);
+    const card = (it) => ({ item: { ...it, img: C.IMG(it.img) }, cstate: s.contact[it.id] || 'masked', saved: !!s.saved[it.id] });
     return {
       u: { ...f.u, sub: f.u.sub + ' · ' + C.DATE },
-      cartCount: f.cart ? String(f.cart) : '', cartLabel: f.cart ? 'Giỏ hàng (' + f.cart + ')' : 'Giỏ hàng',
       hq: s.hq, onHq: (e) => this.setState({ hq: e.target.value }), onHqSubmit: (v) => { window.location.href = toList(String(v || '').trim()); },
       menuOpen: s.menuOpen, toggleMenu: () => this.setState({ menuOpen: !s.menuOpen }), closeMenu: () => { if (s.menuOpen) this.setState({ menuOpen: false }); },
       stop: (e) => e.stopPropagation(),
       goPost: () => { window.location.href = 'Dang tin ban - Ban chinh.dc.html'; },
+      postOpen: s.postOpen, togglePost: () => this.setState({ postOpen: !s.postOpen }), closePost: () => this.setState({ postOpen: false }),
       goSearch: () => { window.location.href = toList(''); },
       openLavie: () => this.flash('Lavie sẽ mở trong khung trò chuyện'),
-      hasTodo: f.todos.length > 0, noTodo: f.todos.length === 0, todoCount: String(f.todos.length),
-      todos: f.todos.map((t, n) => { const urgent = t.k === 'listing' ? t.hours <= 72 : t.hours < 12; const [bg, c] = iconTone[t.k]; return { ...t, bt: n ? '1px solid var(--color-border-default)' : 'none',
-        iNew: t.k === 'new', iAdjust: t.k === 'adjust', iReceive: t.k === 'receive', iListing: t.k === 'listing', iconBg: bg, iconColor: c,
-        dlColor: urgent ? 'var(--color-danger)' : 'var(--color-text-muted)', dlFont: urgent ? 'var(--type-label-md)' : 'var(--type-body-sm)', btn: urgent ? 'primary' : 'secondary',
-        go: () => { window.location.href = t.page || ('Chi tiet don - Ban chinh.dc.html' + t.href); } }; }),
+      hasTodo: todosAll.length > 0, noTodo: todosAll.length === 0, todoCount: String(todosAll.length),
+      todos: todosAll.map((t, n) => { const urgent = t.hours < 12; const [bg, c] = iconTone[t.k]; const [title, action, msg] = kind[t.k]; return { ...t, title, action, bt: n ? '1px solid var(--color-border-default)' : 'none',
+        hasReason: !!t.reason, iListing: t.k === 'update', iExpire: t.k === 'expire', iBuy: t.k === 'buy', iconBg: bg, iconColor: c,
+        deadline: t.hours < 24 ? 'Còn ' + t.hours + ' giờ' : 'Còn ' + Math.floor(t.hours / 24) + ' ngày',
+        dlColor: urgent ? 'var(--color-danger)' : 'var(--color-text-muted)', dlFont: urgent ? 'var(--type-label-md)' : 'var(--type-body-sm)', btn: urgent || t.k === 'update' ? 'primary' : 'secondary',
+        go: () => { if (t.page) { window.location.href = t.page; return; } this.setState((st) => ({ done: { ...st.done, [t.id]: true } })); this.flash(msg); } }; }),
+      statsErr, statsOk: !statsErr, retryStats: this.retryStats, retrying: s.retrying, retryLabel: s.retrying ? 'Đang tải…' : 'Thử lại',
       statCols: f.sell ? 'minmax(0,2fr) minmax(0,3fr)' : 'minmax(0,2fr) minmax(0,3fr)',
-      buyStats: [stat(f.buy[0], 'đơn đang xử lý', 'Don mua cua toi - Ban chinh.dc.html'), stat(f.buy[1], 'đơn hoàn tất', 'Don mua cua toi - Ban chinh.dc.html')],
+      buyStats: [stat(f.buy[0], 'Nhu cầu mua đang mở', 'Tin dang cua toi - Ban chinh.dc.html?state=loc-tin-mua'), stat(f.buy[1], 'Tin đã lưu', 'Tin da luu - Ban chinh.dc.html')],
       showSell: f.sell, showSellPromo: !f.sell,
-      sellStats: f.sell ? [stat(f.sellS[0], 'tin đang hiển thị', 'Tin dang cua toi - Ban chinh.dc.html'), stat(f.sellS[1], 'lượt hiện số / 30 ngày', 'Tin dang cua toi - Ban chinh.dc.html'), stat(f.sellS[2], 'yêu cầu đang chờ', 'Don ban - Ban chinh.dc.html', true)] : [],
-      hasOrders: f.orders.length > 0, noOrders: f.orders.length === 0,
-      orders: f.orders.map(([code, role, product, party, amountLabel, amount, status, updated, stage], n) => ({
-        code, product, party, amountLabel, amount: fmt(amount) + ' VNĐ', status, updated,
-        role: role === 'buy' ? 'Mua' : 'Bán',
-        roleBg: role === 'buy' ? 'color-mix(in oklch, var(--color-material-plastic) 10%, white)' : 'var(--color-success-soft)',
-        roleColor: role === 'buy' ? 'var(--color-material-plastic)' : 'var(--color-success)',
-        ds: stage !== 'shipping', blue: stage === 'shipping', tone: tone(stage),
-        bb: n === f.orders.length - 1 ? 'none' : '1px solid var(--color-border-default)',
-        href: 'Chi tiet don - Ban chinh.dc.html?role=' + (role === 'buy' ? 'buyer' : 'seller') + '&stage=' + stage })),
+      sellStats: f.sell ? [stat(f.sellS[0], 'Tin đang hiển thị', 'Tin dang cua toi - Ban chinh.dc.html'), stat(f.sellS[1], 'Số người xem số (30 ngày)', 'Tin dang cua toi - Ban chinh.dc.html'), stat(f.sellS[2], 'Tin đã bán', 'Tin dang cua toi - Ban chinh.dc.html')] : [],
+      showGuide: !!f.guide, hasFeat: showFeat && C.FEAT.length > 0, feat: C.FEAT.slice(0, 4).map(card), toggleSave: this.toggleSave,
       sugSub: f.sugSub, sugHref: 'Nguon vat lieu - Ban chinh.dc.html',
-      sug: list.map((it) => ({ item: { ...it, img: C.IMG(it.img) }, cstate: s.contact[it.id] || 'masked' })),
+      sug: list.map(card),
       reveal: this.reveal, copied: this.copied, toast: s.toast,
     };
   }

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <title>Lavatu – Sàn mua bán phế liệu &amp; vật liệu tái chế B2B</title>
+  <meta name="description" content="Mua bán phế liệu nhựa, kim loại, giấy carton, điện tử, vải vụn. Kết nối doanh nghiệp với đơn vị thu gom và tái chế, có kiểm định chất lượng và hỗ trợ vận chuyển.">
+  <link rel="stylesheet" href="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/styles.css">
+  <script src="_ds/lavatu-design-system-2cb1269d-d854-4a49-9886-8bde12fa8360/_ds_bundle.js"></script>
+  <script src="state-bar.js"></script>
+  <style>
+    @keyframes lv-rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+    @media (prefers-reduced-motion: reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+    html,body{margin:0;height:100%}
+    a{color:#0f6554}
+    a:hover{color:#074638}
+  </style>
+</helmet>
+<div data-screen-label="Trang chủ công khai – SEO" style="position:relative;height:100vh;overflow:hidden;background:var(--color-bg-page);font-family:var(--font-sans);min-width:1440px">
+<div style="height:100%;overflow:auto">
+
+<header style="position:sticky;top:0;z-index:50;background:#003716;box-shadow:0 1px 0 rgba(255,255,255,0.1)">
+  <div style="height:64px;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:var(--space-6)">
+    <div style="display:flex;align-items:center;gap:var(--space-10)">
+      <a href="#" aria-label="Lavatu – Trang chủ" style="display:flex"><img src="assets/logo.png" alt="Lavatu" style="height:30px;filter:brightness(0) invert(1)"></a>
+      <nav aria-label="Điều hướng chính" style="display:flex;gap:var(--space-7);font:var(--type-body-md)">
+        <a href="#" aria-current="page" style="color:#fff;font-weight:600;text-decoration:none;padding:6px 0;border-bottom:2px solid var(--color-accent)">Trang chủ</a>
+        <a href="Nguon vat lieu - Ban chinh.dc.html" style="color:rgba(255,255,255,0.75);text-decoration:none;padding:6px 0" style-hover="color:#fff">Sản phẩm</a>
+        <a href="#" style="color:rgba(255,255,255,0.75);text-decoration:none;padding:6px 0" style-hover="color:#fff">Tin tức</a>
+        <a href="#" style="color:rgba(255,255,255,0.75);text-decoration:none;padding:6px 0" style-hover="color:#fff">Giải pháp</a>
+      </nav>
+    </div>
+    <div style="display:flex;align-items:center;gap:var(--space-5)">
+      <a href="#" style="font:var(--type-label-md);color:#fff;text-decoration:none;padding:8px 16px;border-radius:var(--radius-md);background:#0f6554;border:1px solid rgba(255,255,255,0.18)">Nâng cấp để đăng bán</a>
+      <div style="display:flex;align-items:center;gap:var(--space-4);color:#fff">
+        <a href="#" aria-label="Thông báo" style="color:#fff;display:flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path></svg></a>
+        <a href="#" aria-label="Tin nhắn" style="color:#fff;display:flex"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></a>
+      </div>
+      <a href="Trang chu ca nhan - Ban chinh.dc.html" aria-label="Tài khoản" style="display:flex;align-items:center;gap:var(--space-2);text-decoration:none;color:#fff">
+        <span style="width:36px;height:36px;border-radius:var(--radius-full);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font:var(--type-label-md)">TN</span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"></path></svg>
+        <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);padding:4px 8px;border-radius:var(--radius-sm);background:var(--color-accent);color:#003527">CÁ NHÂN</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<section aria-labelledby="h-hero" style="position:relative;overflow:hidden;background:linear-gradient(181deg,#003716 16%,#007254 63%);padding-bottom:var(--space-8)">
+  <sc-if value="{{ announce }}" hint-placeholder-val="{{ true }}">
+    <div style="padding:8px 32px 0">
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;gap:var(--space-3);padding:8px 40px;border-radius:var(--radius-md);background:rgba(0,62,47,0.95);border:1px solid #1b6957">
+        <p style="margin:0;font:var(--type-caption);color:rgba(255,255,255,0.9)">AI cho hệ sinh thái tuần hoàn — thông minh, cá nhân hóa và luôn trong tầm kiểm soát.</p>
+        <a href="#" style="font:var(--type-caption);font-weight:600;color:#fff;text-decoration:none;padding:4px 14px;border-radius:var(--radius-full);background:linear-gradient(90deg,#18b97b 0%,#29b8d6 48%,#f5258f 100%)">Khám phá Tura</a>
+        <button type="button" onClick="{{ closeAnnounce }}" aria-label="Đóng thông báo" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:0;color:rgba(255,255,255,0.6);cursor:pointer;display:flex;padding:4px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg></button>
+      </div>
+    </div>
+  </sc-if>
+  <div style="max-width:860px;margin:0 auto;padding:var(--space-12) 24px 0;text-align:center;display:flex;flex-direction:column;align-items:center;gap:var(--space-5)">
+    <h1 id="h-hero" style="margin:0;font:var(--type-display);letter-spacing:var(--tracking-heading);color:#fff;text-wrap:balance;animation:lv-rise 700ms ease-out both">Sàn giao dịch phế liệu &amp; vật liệu tái chế cho doanh nghiệp</h1>
+    <p style="margin:0;max-width:640px;font:var(--type-body-lg);color:rgba(255,255,255,0.9);text-wrap:pretty;animation:lv-rise 700ms ease-out 80ms both">Đăng bán, tìm mua phế liệu và kết nối đơn vị thu gom, tái chế trên một nền tảng. Giao dịch minh bạch, hỗ trợ báo cáo EPR và ESG.</p>
+    <div style="display:flex;gap:var(--space-4);animation:lv-rise 700ms ease-out 160ms both">
+      <a href="Nguon vat lieu - Ban chinh.dc.html" style="font:var(--type-label-md);color:#fff;background:#003527;text-decoration:none;padding:12px 22px;border-radius:var(--radius-md)" style-hover="transform:translateY(-1px)">Mua phế liệu</a>
+      <a href="Dang tin ban - Ban chinh.dc.html" style="font:var(--type-label-md);color:#003527;background:#edf2fc;text-decoration:none;padding:12px 22px;border-radius:var(--radius-md)" style-hover="transform:translateY(-1px)">Bán phế liệu</a>
+    </div>
+  </div>
+  <div ref="{{ trackRef }}" role="region" aria-label="Giới thiệu Lavatu" style="margin-top:var(--space-12);display:flex;gap:20px;overflow-x:auto;scrollbar-width:none;padding:8px 32px 24px;scroll-snap-type:x mandatory">
+    <sc-for list="{{ slides }}" as="sl" hint-placeholder-count="7">
+      <a href="#" style="position:relative;flex:0 0 188px;height:250px;border-radius:var(--radius-lg);overflow:hidden;background:linear-gradient(170deg,#f4f8f3 0%,#dfeee6 100%);box-shadow:var(--shadow-raised);text-decoration:none;scroll-snap-align:start;display:block" style-hover="transform:translateY(-2px)">
+        <sc-if value="{{ sl.img }}" hint-placeholder-val="{{ true }}">
+          <img src="{{ sl.img }}" alt="{{ sl.alt }}" style="position:absolute;left:0;right:0;bottom:0;width:100%;height:68%;object-fit:contain;object-position:center bottom">
+        </sc-if>
+        <sc-if value="{{ sl.isAi }}" hint-placeholder-val="{{ false }}">
+          <span aria-hidden="true" style="position:absolute;left:50%;bottom:40px;transform:translateX(-50%);width:96px;height:96px;border-radius:var(--radius-full);background:linear-gradient(135deg,#18b97b 0%,#29b8d6 50%,#f5258f 100%);display:flex;align-items:center;justify-content:center;color:#fff"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.94 14.06 8 21l-1.94-6.94L0 12l6.06-1.94L8 3l1.94 7.06L16 12z" transform="translate(4 0)"></path></svg></span>
+        </sc-if>
+        <div style="position:absolute;left:0;right:0;top:0;padding:14px 14px 28px;background:linear-gradient(180deg,rgba(0,53,39,0.9) 0%,rgba(0,53,39,0.55) 70%,rgba(0,53,39,0) 100%)">
+          <p style="margin:0;font:var(--type-label-md);color:#fff;text-wrap:balance">{{ sl.title }}</p>
+        </div>
+      </a>
+    </sc-for>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:space-between;max-width:900px;margin:0 auto;padding:0 24px">
+    <button type="button" onClick="{{ prev }}" aria-label="Thẻ trước" style="width:40px;height:40px;border-radius:var(--radius-full);border:1px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.85);color:#003527;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7M19 12H5"></path></svg></button>
+    <div aria-hidden="true" style="display:flex;gap:6px;padding:6px 10px;border-radius:var(--radius-full);background:rgba(255,255,255,0.25)">
+      <span style="width:18px;height:6px;border-radius:var(--radius-full);background:#003527"></span>
+      <span style="width:6px;height:6px;border-radius:var(--radius-full);background:rgba(255,255,255,0.7)"></span>
+      <span style="width:6px;height:6px;border-radius:var(--radius-full);background:rgba(255,255,255,0.7)"></span>
+      <span style="width:6px;height:6px;border-radius:var(--radius-full);background:rgba(255,255,255,0.7)"></span>
+      <span style="width:6px;height:6px;border-radius:var(--radius-full);background:rgba(255,255,255,0.7)"></span>
+      <span style="width:6px;height:6px;border-radius:var(--radius-full);background:rgba(255,255,255,0.7)"></span>
+      <span style="width:6px;height:6px;border-radius:var(--radius-full);background:rgba(255,255,255,0.7)"></span>
+    </div>
+    <button type="button" onClick="{{ next }}" aria-label="Thẻ tiếp theo" style="width:40px;height:40px;border-radius:var(--radius-full);border:1px solid rgba(255,255,255,0.4);background:rgba(255,255,255,0.85);color:#003527;cursor:pointer;display:flex;align-items:center;justify-content:center"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></button>
+  </div>
+</section>
+
+<section aria-labelledby="h-cat" style="padding:var(--space-14) 44px var(--space-12);background:var(--color-bg-page)">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-8)">
+    <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+      <h2 id="h-cat" style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">Danh mục phế liệu &amp; vật liệu tái chế</h2>
+      <p style="margin:0;font:var(--type-body-lg);color:var(--color-text-body)">Nguồn phế liệu và vật liệu tái chế đã phân loại, sẵn sàng giao dịch.</p>
+    </div>
+    <a href="Nguon vat lieu - Ban chinh.dc.html" style="display:flex;align-items:center;gap:var(--space-2);height:52px;padding:0 28px;border-radius:var(--radius-full);border:1px solid var(--color-border-default);font:var(--type-label-md);text-decoration:none">Xem tất cả<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-4)">
+    <sc-for list="{{ cats }}" as="c" hint-placeholder-count="6">
+      <article style="position:relative;display:flex;gap:var(--space-3);min-height:330px;padding:var(--space-6);box-sizing:border-box;background:#fff;border:1px solid var(--color-border-default);border-radius:var(--radius-xl);box-shadow:var(--shadow-card);overflow:hidden">
+        <div style="position:relative;z-index:1;flex:0 0 56%;display:flex;flex-direction:column;gap:var(--space-3)">
+          <span style="font:var(--type-caption);color:var(--color-text-heading)">{{ c.order }}</span>
+          <img src="{{ c.icon }}" alt="" aria-hidden="true" style="width:24px;height:24px">
+          <h3 style="margin:0;font:var(--type-h3);letter-spacing:var(--tracking-heading);color:{{ c.color }};text-wrap:balance">{{ c.title }}</h3>
+          <p style="margin:0;font:var(--type-body-sm);color:var(--color-text-body);text-wrap:pretty">{{ c.desc }}</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <sc-for list="{{ c.tags }}" as="t" hint-placeholder-count="3">
+              <span style="font:var(--type-caption);color:var(--color-text-body);padding:3px 10px;border-radius:var(--radius-full);background:var(--color-bg-subtle);border:1px solid var(--color-border-default)">{{ t }}</span>
+            </sc-for>
+          </div>
+          <a href="{{ c.href }}" style="margin-top:auto;align-self:flex-start;display:flex;align-items:center;gap:6px;font:var(--type-label-sm);color:{{ c.color }};text-decoration:none;padding:6px 12px;border-radius:var(--radius-full);border:1px solid var(--color-border-default);background:#fff" style-hover="transform:translateY(-1px)">{{ c.link }}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+        </div>
+        <img src="{{ c.img }}" alt="{{ c.alt }}" style="position:absolute;right:-8px;top:12px;width:48%;height:72%;object-fit:contain">
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<section aria-labelledby="h-need" style="padding:var(--space-10) 40px var(--space-16);background:var(--color-bg-page)">
+  <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:var(--space-3)">
+    <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-muted)">Bắt đầu hành trình tuần hoàn</span>
+    <h2 id="h-need" style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading);text-wrap:balance">Bạn cần mua, bán hay xử lý phế liệu?</h2>
+    <p style="margin:0;font:var(--type-body-md);color:var(--color-text-body)">Chọn nhu cầu của bạn để bắt đầu kết nối trên Lavatu.</p>
+  </div>
+  <div style="position:relative;width:1100px;height:600px;margin:var(--space-10) auto 0">
+    <svg aria-hidden="true" width="1100" height="600" viewBox="0 0 1100 600" fill="none" style="position:absolute;inset:0">
+      <g stroke="#0f6554" stroke-width="1.25" stroke-opacity="0.55">
+        <path d="M302 236 C 410 236, 420 300, 486 300"></path>
+        <path d="M550 212 L 550 236"></path>
+        <path d="M798 236 C 690 236, 680 300, 614 300"></path>
+        <path d="M392 440 C 450 440, 450 340, 492 334"></path>
+        <path d="M708 440 C 650 440, 650 340, 608 334"></path>
+      </g>
+      <g fill="#0f6554"><circle cx="302" cy="236" r="3"></circle><circle cx="798" cy="236" r="3"></circle><circle cx="392" cy="440" r="3"></circle><circle cx="708" cy="440" r="3"></circle></g>
+    </svg>
+    <div aria-hidden="true" style="position:absolute;left:470px;top:220px;width:160px;height:160px;border-radius:var(--radius-full);border:1px solid var(--color-border-default);background:rgba(15,101,84,0.04);display:flex;align-items:center;justify-content:center">
+      <div style="width:104px;height:104px;border-radius:var(--radius-full);background:#003527;box-shadow:var(--shadow-raised);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#fff">
+        <span style="font:var(--type-h4)">Lavatu</span>
+        <span style="font-size:8px;letter-spacing:0.08em;opacity:0.75;text-align:center;line-height:1.2">KẾT NỐI<br>GIÁ TRỊ</span>
+      </div>
+    </div>
+    <span aria-hidden="true" style="position:absolute;left:300px;top:282px;width:160px;text-align:right;font:var(--type-h4);letter-spacing:0.06em;color:var(--color-text-muted);line-height:1.2">VẬT LIỆU<br>TUẦN HOÀN</span>
+    <span aria-hidden="true" style="position:absolute;left:642px;top:282px;width:180px;font:var(--type-h4);letter-spacing:0.06em;color:var(--color-text-muted);line-height:1.2">DOANH NGHIỆP<br>BỀN VỮNG</span>
+    <sc-for list="{{ needs }}" as="n" hint-placeholder-count="5">
+      <article style="position:absolute;left:{{ n.x }}px;top:{{ n.y }}px;width:272px;box-sizing:border-box;padding:var(--space-6) var(--space-5) var(--space-5);background:#fff;border:1px solid var(--color-border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-card);display:flex;flex-direction:column;align-items:center;gap:var(--space-3);text-align:center">
+        <span aria-hidden="true" style="width:40px;height:40px;border-radius:var(--radius-md);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="{{ n.icon }}"></path></svg>
+        </span>
+        <h3 style="margin:0;font:var(--type-h4);color:var(--color-text-heading);text-wrap:balance">{{ n.title }}</h3>
+        <p style="margin:0;font:var(--type-caption);color:var(--color-text-body);text-wrap:pretty">{{ n.desc }}</p>
+        <sc-if value="{{ n.primary }}" hint-placeholder-val="{{ false }}">
+          <a href="{{ n.href }}" style="align-self:stretch;display:flex;align-items:center;justify-content:center;gap:6px;height:36px;border-radius:var(--radius-md);background:#003527;color:#fff;font:var(--type-label-sm);text-decoration:none">{{ n.cta }}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+        </sc-if>
+        <sc-if value="{{ n.secondary }}" hint-placeholder-val="{{ false }}">
+          <a href="{{ n.href }}" style="align-self:stretch;display:flex;align-items:center;justify-content:center;gap:6px;height:36px;border-radius:var(--radius-md);background:var(--color-bg-subtle);border:1px solid var(--color-border-default);color:var(--color-text-heading);font:var(--type-label-sm);text-decoration:none">{{ n.cta }}<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+        </sc-if>
+        <sc-if value="{{ n.soon }}" hint-placeholder-val="{{ false }}">
+          <span aria-disabled="true" style="align-self:stretch;display:flex;align-items:center;justify-content:center;height:36px;border-radius:var(--radius-md);background:var(--color-bg-subtle);color:var(--color-text-muted);font:var(--type-label-sm)">Sắp ra mắt</span>
+        </sc-if>
+      </article>
+    </sc-for>
+  </div>
+</section>
+
+<section aria-labelledby="h-news" style="padding:var(--space-16) 56px var(--space-10);background:var(--color-bg-subtle)">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:var(--space-4);margin-bottom:var(--space-8)">
+    <div style="display:flex;flex-direction:column;gap:var(--space-2)">
+      <h2 id="h-news" style="margin:0;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">Tin tức phế liệu, tái chế &amp; EPR</h2>
+      <p style="margin:0;font:var(--type-body-lg);color:var(--color-text-body)">Cập nhật thị trường phế liệu, quy định EPR và kiến thức kinh tế tuần hoàn.</p>
+    </div>
+    <a href="#" style="display:flex;align-items:center;gap:var(--space-3);height:44px;padding:0 22px;border-radius:var(--radius-full);border:1px solid var(--color-text-heading);background:#fff;font:var(--type-label-md);color:var(--color-text-heading);text-decoration:none">Tất cả bài viết<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--space-6)">
+    <sc-for list="{{ news }}" as="a" hint-placeholder-count="3">
+      <article style="background:#fff;border:1px solid var(--color-border-default);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-card);display:flex;flex-direction:column">
+        <div role="img" aria-label="{{ a.title }}" style="height:220px;background:linear-gradient(160deg,#e6efe8 0%,#d3e4da 100%);display:flex;align-items:center;justify-content:center;font:var(--type-caption);color:var(--color-text-muted)">Ảnh bài viết</div>
+        <div style="padding:var(--space-5);display:flex;flex-direction:column;gap:var(--space-2)">
+          <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-brand)">TIN TỨC</span>
+          <h3 style="margin:0;font:var(--type-h4);color:var(--color-text-heading);text-wrap:pretty"><a href="#" style="color:inherit;text-decoration:none" style-hover="text-decoration:underline">{{ a.title }}</a></h3>
+          <p style="margin:0;font:var(--type-body-sm);color:var(--color-text-body);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">{{ a.excerpt }}</p>
+        </div>
+      </article>
+    </sc-for>
+  </div>
+  <div aria-hidden="true" style="display:flex;justify-content:center;gap:6px;margin:var(--space-6) 0 var(--space-10)">
+    <span style="width:18px;height:4px;border-radius:var(--radius-full);background:#0f6554"></span>
+    <span style="width:12px;height:4px;border-radius:var(--radius-full);background:var(--color-border-strong)"></span>
+    <span style="width:12px;height:4px;border-radius:var(--radius-full);background:var(--color-border-strong)"></span>
+  </div>
+  <div style="display:flex;align-items:center;gap:var(--space-8);padding:var(--space-10);border-radius:var(--radius-xl);background:#e9efe8;border:1px solid #d9e5d8">
+    <span aria-hidden="true" style="width:52px;height:52px;flex-shrink:0;border-radius:var(--radius-full);background:#dbe8dc;border:1px solid #cbdecb;color:var(--color-text-heading);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2zM22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg></span>
+    <h3 style="margin:0;flex:0 0 260px;font:var(--type-h3);letter-spacing:var(--tracking-heading);color:var(--color-text-heading);padding-right:var(--space-8);border-right:1px solid #cbdecb">Kiến thức EPR &amp; kinh tế tuần hoàn</h3>
+    <p style="margin:0;flex:1;font:var(--type-body-md);color:var(--color-text-body);text-wrap:pretty">Cập nhật xu hướng, công nghệ và câu chuyện thực tế về tái sử dụng, tái chế và phát triển bền vững.</p>
+    <a href="#" style="display:flex;align-items:center;gap:var(--space-2);flex-shrink:0;height:44px;padding:0 20px;border-radius:var(--radius-md);background:#003527;color:#fff;font:var(--type-label-md);text-decoration:none">Khám phá thêm tại Blog Lavatu<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"></path></svg></a>
+  </div>
+</section>
+
+<section aria-labelledby="h-proc" style="padding:var(--space-20) 40px var(--space-16);background:#fff">
+  <h2 id="h-proc" style="margin:0;text-align:center;font:var(--type-h2);letter-spacing:var(--tracking-heading);color:var(--color-text-heading)">Quy trình mua bán phế liệu trên Lavatu</h2>
+  <ol style="position:relative;margin:var(--space-10) 0 0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(5,minmax(0,1fr))">
+    <span aria-hidden="true" style="position:absolute;left:10%;right:10%;top:30px;height:2px;background:var(--color-border-default)"></span>
+    <sc-for list="{{ steps }}" as="st" hint-placeholder-count="5">
+      <li style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--space-3);max-width:220px;margin:0 auto">
+        <span style="width:60px;height:60px;box-sizing:border-box;border-radius:var(--radius-full);border:4px solid #0f6554;background:#fff;display:flex;align-items:center;justify-content:center;font:var(--type-h4);color:var(--color-text-heading);box-shadow:var(--shadow-card)">{{ st.n }}</span>
+        <h3 style="margin:var(--space-2) 0 0;font:var(--type-h4);color:var(--color-text-heading)">{{ st.title }}</h3>
+        <p style="margin:0;font:var(--type-body-md);color:var(--color-text-body);text-wrap:pretty">{{ st.desc }}</p>
+      </li>
+    </sc-for>
+  </ol>
+</section>
+
+<section aria-label="Giá trị Lavatu" style="padding:var(--space-16) 88px;background:#003527">
+  <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-10)">
+    <sc-for list="{{ benefits }}" as="b" hint-placeholder-count="4">
+      <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+        <img src="{{ b.icon }}" alt="" aria-hidden="true" style="height:30px;width:30px">
+        <h3 style="margin:var(--space-2) 0 0;font:var(--type-h4);color:#fff">{{ b.title }}</h3>
+        <p style="margin:0;font:var(--type-body-sm);color:rgba(190,224,210,0.85);text-wrap:pretty">{{ b.desc }}</p>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<footer style="background:#fff;padding-top:var(--space-12)">
+  <div style="padding:0 40px var(--space-10);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-8)">
+    <div style="display:flex;flex-direction:column;gap:var(--space-3)">
+      <p style="margin:0;font:var(--type-h4);color:var(--color-text-heading)">Lavatu</p>
+      <p style="margin:0;font:var(--type-body-sm);color:var(--color-text-muted);max-width:300px;text-wrap:pretty">Sàn thương mại điện tử B2B về phế liệu và vật liệu tái chế, hướng tới kinh tế tuần hoàn.</p>
+      <div style="display:flex;gap:var(--space-2);color:var(--color-text-heading)">
+        <a href="#" aria-label="Website" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-full);border:1px solid var(--color-border-default);color:inherit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"></path></svg></a>
+        <a href="#" aria-label="Email" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-full);border:1px solid var(--color-border-default);color:inherit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="m22 7-10 6L2 7"></path></svg></a>
+        <a href="#" aria-label="Chia sẻ" style="width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-full);border:1px solid var(--color-border-default);color:inherit"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"></path></svg></a>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--space-3);font:var(--type-body-sm);color:var(--color-text-muted)">
+      <p style="margin:0;font:var(--type-label-md);color:var(--color-text-heading)">Liên hệ</p>
+      <span>29 Tiền Giang, Phường Tân Sơn Hòa, Thành phố Hồ Chí Minh, Việt Nam</span>
+      <span>Email: thienan@grac.vn</span>
+      <span>Hotline 1: 0898215221 – Mr. Thiên Ân</span>
+      <span>Hotline 2: 0356988320 – Ms. Ngọc Mai</span>
+    </div>
+    <nav aria-label="Hỗ trợ" style="display:flex;flex-direction:column;gap:var(--space-3);font:var(--type-body-sm)">
+      <p style="margin:0;font:var(--type-label-md);color:var(--color-text-heading)">Hỗ trợ</p>
+      <a href="#" style="text-decoration:none">Điều khoản sử dụng</a>
+      <a href="#" style="text-decoration:none">Chính sách bảo mật</a>
+      <a href="#" style="text-decoration:none">Liên hệ</a>
+      <a href="#" style="text-decoration:none">FAQ</a>
+    </nav>
+    <nav aria-label="Công ty" style="display:flex;flex-direction:column;gap:var(--space-3);font:var(--type-body-sm)">
+      <p style="margin:0;font:var(--type-label-md);color:var(--color-text-heading)">Công ty</p>
+      <a href="#" style="text-decoration:none">Về chúng tôi</a>
+      <a href="#" style="text-decoration:none">Quy trình</a>
+      <a href="#" style="text-decoration:none">Giải pháp ESG</a>
+      <a href="#" style="text-decoration:none">Báo cáo ESG</a>
+      <a href="Nguon vat lieu - Ban chinh.dc.html" style="text-decoration:none">Nguồn vật liệu</a>
+    </nav>
+  </div>
+  <div style="padding:var(--space-4) 40px;border-top:1px solid var(--color-border-default);display:flex;justify-content:space-between;gap:var(--space-3);font:var(--type-caption);color:var(--color-text-muted)">
+    <span>© 2026 Lavatu. Sàn giao dịch phế liệu &amp; vật liệu tái chế B2B.</span>
+    <span style="display:flex;gap:var(--space-6)"><a href="#" style="color:var(--color-text-heading);text-decoration:none">Facebook</a><a href="#" style="color:var(--color-text-heading);text-decoration:none">LinkedIn</a><a href="#" style="color:var(--color-text-heading);text-decoration:none">Youtube</a></span>
+  </div>
+</footer>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900}}">
+class Component extends DCLogic {
+  static STATES = [{ k: 'mac-dinh', l: 'Trang chủ – chuẩn SEO' }, { k: 'da-dong-thong-bao', l: 'Đã đóng banner Tura', s: { announce: false } }];
+  static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
+  get __P() { return this.__ov(this.props); }
+  __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
+  __boot = (() => { const s = Component.__st(); window.LV_STATES = { cur: s ? s.k : Component.STATES[0].k, list: Component.STATES }; try { window.dispatchEvent(new Event('lv-states')); } catch (e) {} if (s && s.s) setTimeout(() => this.setState(s.s), 0); return 1; })();
+  static IMG = (p) => (p ? (window.__lvImg ? window.__lvImg(p) : p) : null);
+  static TITLE = 'Lavatu – Sàn mua bán phế liệu & vật liệu tái chế B2B';
+  static DESC = 'Mua bán phế liệu nhựa, kim loại, giấy carton, điện tử, vải vụn. Kết nối doanh nghiệp với đơn vị thu gom và tái chế, có kiểm định chất lượng và hỗ trợ vận chuyển.';
+  static SLIDES = [
+    { title: 'Tura – trợ lý AI của Lavatu', isAi: true },
+    { title: 'Tuyên truyền và thúc đẩy tái chế', img: 'assets/textile.webp', alt: 'Vải vụn và phế liệu dệt may đã phân loại' },
+    { title: 'Khám phá vật liệu', img: 'assets/plastic.webp', alt: 'Phế liệu nhựa PET, HDPE đã phân loại' },
+    { title: 'Tìm hiểu giải pháp phần mềm', img: 'assets/paper.webp', alt: 'Giấy carton phế liệu đóng kiện' },
+    { title: 'Đa dạng vật liệu', img: 'assets/metal.webp', alt: 'Phế liệu kim loại đồng, nhôm, sắt' },
+    { title: 'Đăng ký tài khoản', img: 'assets/electronic.webp', alt: 'Phế liệu điện tử, bo mạch PCB' },
+    { title: 'ESG & Phát triển bền vững', img: 'assets/agri.webp', alt: 'Phụ phẩm nông nghiệp trấu, xơ dừa' },
+  ];
+  static CATS = [
+    { order: '01', title: 'Phế liệu điện tử', color: 'var(--color-material-e-waste)', icon: 'assets/landing/danhmuc-icon-electronic.svg', img: 'assets/electronic.webp', desc: 'Thu mua, bán phế liệu điện tử: bo mạch PCB, linh kiện, thiết bị điện cũ từ doanh nghiệp và đơn vị thu gom.', tags: ['Thiết bị linh kiện', 'PCB', 'Linh kiện', '+2'], link: 'Xem phế liệu điện tử' },
+    { order: '02', title: 'Vải vụn & phế liệu dệt may', color: 'var(--color-material-textile)', icon: 'assets/landing/danhmuc-icon-fabric.svg', img: 'assets/textile.webp', desc: 'Nguồn vải vụn, vải thừa, sợi và phế liệu dệt may từ xưởng may, sẵn sàng tái sử dụng, tái chế.', tags: ['Vải thừa', 'Vải vụn', 'Sợi'], link: 'Xem phế liệu dệt may' },
+    { order: '03', title: 'Phụ phẩm nông nghiệp', color: 'var(--color-material-agri)', icon: 'assets/landing/danhmuc-icon-agri.svg', img: 'assets/agri.webp', desc: 'Bã mía, xơ dừa, trấu, mo cau và phụ phẩm nông nghiệp có thể làm nguyên liệu thứ cấp.', tags: ['Bã mía', 'Xơ dừa', 'Trấu', 'Mo cau', '+5'], link: 'Xem phụ phẩm nông nghiệp' },
+    { order: '04', title: 'Phế liệu kim loại', color: 'var(--color-material-metal)', icon: 'assets/landing/danhmuc-icon-metal.svg', img: 'assets/metal.webp', desc: 'Thu mua, bán phế liệu sắt, đồng, nhôm, inox từ nhà máy và đơn vị thu gom.', tags: ['Nhôm', 'Sắt', 'Đồng', 'Inox', '+5'], link: 'Xem phế liệu kim loại' },
+    { order: '05', title: 'Phế liệu nhựa & hạt nhựa tái chế', color: 'var(--color-material-plastic)', icon: 'assets/landing/danhmuc-icon-plastic.svg', img: 'assets/plastic.webp', desc: 'Mua bán phế liệu nhựa PET, HDPE, PP, PS, LDPE và hạt nhựa tái chế cho nhà máy sản xuất.', tags: ['PET', 'HDPE', 'PP', 'PS', 'LDPE', '+5'], link: 'Xem phế liệu nhựa' },
+    { order: '06', title: 'Giấy carton phế liệu', color: 'var(--color-material-paper)', icon: 'assets/landing/danhmuc-icon-paper.svg', img: 'assets/paper.webp', desc: 'Thu mua giấy carton phế liệu, giấy văn phòng, giấy vụn đã phân loại để tái chế.', tags: ['Carton', 'Giấy phế liệu', 'Giấy văn phòng'], link: 'Xem giấy carton phế liệu' },
+  ];
+  static NEEDS = [
+    { x: 30, y: 60, title: 'Bán phế liệu', desc: 'Đăng nguồn vật liệu dư thừa để tìm bên có nhu cầu sử dụng hoặc xử lý phù hợp.', cta: 'Đăng bán phế liệu', href: 'Dang tin ban - Ban chinh.dc.html', secondary: true, icon: 'M12 3v12M7 8l5-5 5 5M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4' },
+    { x: 414, y: 0, title: 'Mua phế liệu, nguyên liệu tái chế', desc: 'Tìm kiếm nguồn vật liệu tái sử dụng, tái chế và nguyên liệu thứ cấp phù hợp.', cta: 'Tìm mua phế liệu', href: 'Nguon vat lieu - Ban chinh.dc.html', primary: true, icon: 'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM21 21l-4.3-4.3' },
+    { x: 798, y: 60, title: 'Tìm đơn vị thu gom phế liệu', desc: 'Tìm đơn vị thu gom phù hợp với loại vật liệu và khu vực của bạn.', soon: true, icon: 'M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2M15 18H9M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14M7 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4zM17 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4z' },
+    { x: 120, y: 360, title: 'Tìm nhà máy, đơn vị tái chế', desc: 'Kết nối với các đơn vị có khả năng xử lý và tái chế vật liệu phù hợp.', soon: true, icon: 'M7 19H4.8a1.8 1.8 0 0 1-1.6-2.7L7.2 9.5M11 19h8.2a1.8 1.8 0 0 0 1.6-2.7l-1.2-2.1M14 16l-3 3 3 3M8.3 13.6 7.2 9.5 3.1 10.6M9.3 5.6l1.1-1.9a1.8 1.8 0 0 1 3.1 0l3.9 6.8M13.4 9.6l3.9 1 1-4' },
+    { x: 708, y: 360, title: 'Đăng nhu cầu thu mua', desc: 'Cho biết loại vật liệu bạn đang cần để tìm nguồn cung phù hợp.', soon: true, icon: 'M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7zM14 2v5h5M12 18v-6M9 15h6' },
+  ];
+  static NEWS = [
+    { title: 'EPR 2026: 80% doanh nghiệp khó tìm đơn vị tái chế — Lavatu Blog', excerpt: 'Nghị định 110/2026/NĐ-CP đã có hiệu lực từ 25/5/2026. 80% doanh nghiệp gặp khó khi thực hiện trách nhiệm tái chế vì chưa tìm được đơn vị phù hợp.' },
+    { title: 'Thanh lý phế liệu công nghiệp: doanh nghiệp cần chuẩn bị gì để bán được giá cao', excerpt: 'Thanh lý phế liệu công nghiệp được giá cao không phải do may mắn mà do chuẩn bị: phân loại, hồ sơ, hình ảnh và thông số rõ ràng.' },
+    { title: 'Nguyên liệu thứ cấp là gì? Vì sao doanh nghiệp nên dùng nguyên liệu thứ cấp', excerpt: 'Nguyên liệu thứ cấp là vật liệu đã qua sử dụng được thu hồi, xử lý và đưa trở lại sản xuất thay cho nguyên liệu nguyên sinh.' },
+  ];
+  static STEPS = [
+    ['Đăng bán', 'Cập nhật thông tin vật liệu lên sàn.'],
+    ['Kiểm định', 'Lavatu xác thực chất lượng vật liệu.'],
+    ['Kết nối', 'Tìm kiếm & thương thảo với đối tác phù hợp.'],
+    ['Vận chuyển', 'Hỗ trợ logistics chuyên nghiệp, an toàn.'],
+    ['Tái sử dụng', 'Vật liệu bước vào vòng đời mới.'],
+  ];
+  static BENEFITS = [
+    ['assets/landing/benefit-transparency.svg', 'Minh bạch', 'Mọi giao dịch và quy trình đều được ghi nhận, đảm bảo tính xác thực cho báo cáo ESG.'],
+    ['assets/landing/benefit-network.svg', 'Kết nối doanh nghiệp', 'Mạng lưới B2B rộng khắp giúp tối ưu hóa việc tìm kiếm đối tác cung ứng vật liệu.'],
+    ['assets/landing/benefit-optimize.svg', 'Tối ưu tài nguyên', 'Giảm thiểu lãng phí, chuyển hóa chi phí xử lý rác thải thành doanh thu tiềm năng.'],
+    ['assets/landing/benefit-sustainable.svg', 'Phát triển bền vững', 'Đồng hành cùng mục tiêu Net Zero và cam kết bảo vệ môi trường toàn cầu.'],
+  ];
+  trackRef = React.createRef();
+  state = { announce: true };
+  componentDidMount() {
+    try {
+      document.documentElement.lang = 'vi';
+      document.title = Component.TITLE;
+      let m = document.querySelector('meta[name="description"]');
+      if (!m) { m = document.createElement('meta'); m.name = 'description'; document.head.appendChild(m); }
+      m.content = Component.DESC;
+    } catch (e) {}
+  }
+  scroll(d) { const el = this.trackRef.current; if (el) el.scrollBy({ left: d * 208, behavior: 'smooth' }); }
+  renderVals() {
+    const C = Component, I = C.IMG;
+    const toList = 'Nguon vat lieu - Ban chinh.dc.html';
+    return {
+      announce: this.state.announce,
+      closeAnnounce: () => this.setState({ announce: false }),
+      trackRef: this.trackRef,
+      prev: () => this.scroll(-1),
+      next: () => this.scroll(1),
+      slides: C.SLIDES.map((s) => ({ ...s, img: I(s.img) })),
+      cats: C.CATS.map((c) => ({ ...c, img: I(c.img), icon: I(c.icon), alt: c.title + ' trên sàn Lavatu', href: toList })),
+      needs: C.NEEDS,
+      news: C.NEWS,
+      steps: C.STEPS.map(([title, desc], i) => ({ n: i + 1, title, desc })),
+      benefits: C.BENEFITS.map(([icon, title, desc]) => ({ icon: I(icon), title, desc })),
+    };
+  }
+}
+</script>
+</body>
+</html>

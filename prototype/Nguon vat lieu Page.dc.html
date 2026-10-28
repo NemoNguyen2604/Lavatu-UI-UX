@@ -41,7 +41,6 @@
         <button type="button" aria-label="Chọn ngôn ngữ" style="display:flex;align-items:center;gap:6px;height:36px;padding:0 8px;border:none;background:transparent;color:rgba(255,255,255,0.86);cursor:pointer;font:var(--type-label-md)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>VI</button>
         <a href="#" style="color:rgba(255,255,255,0.72);text-decoration:none;white-space:nowrap">Hỗ trợ</a>
         <sc-if value="{{ guest }}" hint-placeholder-val="{{ true }}"><a href="#" style="color:rgba(255,255,255,0.86);text-decoration:none;white-space:nowrap">Đăng kí</a></sc-if>
-        <a href="Gio hang - Ban chinh.dc.html" aria-label="Giỏ hàng, 4 sản phẩm" style="position:relative;width:40px;height:40px;flex-shrink:0;border-radius:var(--radius-full);background:rgba(255,255,255,0.12);color:var(--color-text-inverse);display:flex;align-items:center;justify-content:center" style-hover="background:rgba(255,255,255,0.2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg><span style="position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;padding:0 4px;box-sizing:border-box;border-radius:var(--radius-full);background:var(--color-accent);color:var(--color-text-heading);font:var(--type-label-sm);font-size:11px;display:flex;align-items:center;justify-content:center">4</span></a>
         <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" hint-size="88px,40px">Tư vấn</x-import>
         <sc-if value="{{ guest }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="m" onClick="{{ goLogin }}" hint-size="104px,40px">Đăng nhập</x-import></sc-if>
         <sc-if value="{{ loggedIn }}" hint-placeholder-val="{{ false }}"><span style="display:flex;align-items:center;gap:var(--space-2);color:var(--color-text-inverse);font:var(--type-label-md)"><span style="width:36px;height:36px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center;font:var(--type-label-sm)">{{ userInitials }}</span>{{ userName }}</span></sc-if>
@@ -110,7 +109,12 @@
   </div>
 </section>
 
-<main style="background:var(--color-bg-subtle);padding:var(--space-6) max(16px,min(40px,2.8cqw)) var(--space-12);border-top:1px solid var(--color-border-default)">
+<main style="background:var(--color-bg-subtle);padding:0 max(16px,min(40px,2.8cqw)) var(--space-12);border-top:1px solid var(--color-border-default)">
+  <div role="tablist" aria-label="Loại tin" style="display:flex;gap:var(--space-6);margin-bottom:var(--space-6);border-bottom:1px solid var(--color-border-default)">
+    <sc-for list="{{ typeTabs }}" as="tt" hint-placeholder-count="2">
+      <button type="button" role="tab" aria-selected="{{ tt.on }}" onClick="{{ tt.pick }}" style="display:flex;align-items:center;gap:var(--space-2);height:52px;padding:0 var(--space-1);border:none;background:none;cursor:pointer;white-space:nowrap;font:var(--type-label-lg);color:{{ tt.color }};box-shadow:{{ tt.line }};transition:color 150ms" style-hover="color:var(--color-text-heading)">{{ tt.label }}<span style="font:var(--type-label-md);color:{{ tt.countColor }}">({{ tt.count }})</span></button>
+    </sc-for>
+  </div>
   <div style="display:flex;gap:var(--space-6);align-items:flex-start">
     <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
       <aside style="width:280px;flex-shrink:0;position:sticky;top:96px;display:flex;flex-direction:column;gap:var(--space-5);padding:var(--space-5);border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page);box-shadow:var(--shadow-card)">
@@ -139,7 +143,7 @@
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:var(--space-2)">
-          <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-muted)">KHU VỰC</span>
+          <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-muted)">{{ regionLabel }}</span>
           <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Select" options="{{ regionOptions }}" value="{{ regionD }}" onChange="{{ onRegion }}" hint-size="100%,44px"></x-import>
         </div>
         <div style="display:grid">
@@ -150,7 +154,7 @@
 
     <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--space-5)">
       <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--space-3)">
-        <span style="font:var(--type-body-md);color:var(--color-text-body)"><span style="font:var(--type-h4);color:var(--color-text-heading)">{{ countText }}</span> nguồn vật liệu</span>
+        <span style="font:var(--type-body-md);color:var(--color-text-body)"><span style="font:var(--type-h4);color:var(--color-text-heading)">{{ countText }}</span> {{ countNoun }}</span>
         <div style="display:flex;align-items:center;gap:var(--space-2);flex:0 1 auto">
           <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
             <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="l" onClick="{{ openSheet }}" hint-size="120px,48px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round"><line x1="21" x2="14" y1="4" y2="4"></line><line x1="10" x2="3" y1="4" y2="4"></line><line x1="21" x2="12" y1="12" y2="12"></line><line x1="8" x2="3" y1="12" y2="12"></line><line x1="21" x2="16" y1="20" y2="20"></line><line x1="12" x2="3" y1="20" y2="20"></line><line x1="14" x2="14" y1="2" y2="6"></line><line x1="8" x2="8" y1="10" y2="14"></line><line x1="16" x2="16" y1="18" y2="22"></line></svg>Bộ lọc<sc-if value="{{ hasFilters }}" hint-placeholder-val="{{ false }}"><span style="min-width:20px;height:20px;padding:0 6px;border-radius:var(--radius-full);background:var(--color-action-primary);color:var(--color-text-inverse);font:var(--type-label-sm);display:flex;align-items:center;justify-content:center">{{ filterCount }}</span></sc-if></x-import>
@@ -197,23 +201,27 @@
       <sc-if value="{{ isEmpty }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;flex-direction:column;align-items:center;gap:var(--space-3);padding:var(--space-16) var(--space-6);text-align:center;border-radius:var(--radius-lg);border:1px solid var(--color-border-default);background:var(--color-bg-page)">
           <span style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--color-bg-muted);color:var(--color-text-muted);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><path d="m13.5 8.5-5 5"></path><path d="m8.5 8.5 5 5"></path><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></span>
-          <span style="font:var(--type-h4);color:var(--color-text-heading)">Chưa có nguồn vật liệu phù hợp bộ lọc.</span>
-          <span style="font:var(--type-body-sm);color:var(--color-text-muted)">Bỏ bớt điều kiện lọc hoặc đổi từ khoá tìm kiếm.</span>
-          <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" onClick="{{ clearAll }}" hint-size="120px,40px">Xoá bộ lọc</x-import>
+          <span style="font:var(--type-h4);color:var(--color-text-heading)">{{ emptyTitle }}</span>
+          <sc-if value="{{ emptyHasFilter }}" hint-placeholder-val="{{ true }}"><span style="font:var(--type-body-sm);color:var(--color-text-muted)">Bỏ bớt điều kiện lọc hoặc đổi từ khoá tìm kiếm.</span></sc-if>
+          <sc-if value="{{ emptySell }}" hint-placeholder-val="{{ true }}"><span style="font:var(--type-body-sm);color:var(--color-text-body);max-width:420px;text-wrap:pretty">Không tìm thấy vật liệu bạn cần? Đăng nhu cầu để người bán liên hệ bạn.</span></sc-if>
+          <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:var(--space-3)">
+            <sc-if value="{{ emptyHasFilter }}" hint-placeholder-val="{{ true }}"><x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="secondary" size="m" onClick="{{ clearAll }}" hint-size="120px,40px">Xoá bộ lọc</x-import></sc-if>
+            <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="{{ postBuyVariant }}" size="m" onClick="{{ goPostBuy }}" hint-size="180px,40px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Đăng nhu cầu mua</x-import>
+          </div>
         </div>
       </sc-if>
 
       <sc-if value="{{ showGrid }}" hint-placeholder-val="{{ true }}">
         <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--space-4);align-items:stretch">
           <sc-for list="{{ rows }}" as="row" hint-placeholder-count="16">
-            <dc-import name="Product Card" index="{{ $index }}" item="{{ row.item }}" cstate="{{ row.cstate }}" variant="{{ variant }}" layout="grid" compact="{{ true }}" mobile="{{ isMobile }}" on-reveal="{{ reveal }}" on-copy="{{ copied }}" style="height:100%" hint-size="100%,460px"></dc-import>
+            <dc-import name="Product Card" index="{{ $index }}" item="{{ row.item }}" cstate="{{ row.cstate }}" saved="{{ row.saved }}" on-save="{{ toggleSave }}" variant="{{ variant }}" layout="grid" compact="{{ true }}" mobile="{{ isMobile }}" on-reveal="{{ reveal }}" on-copy="{{ copied }}" style="height:100%" hint-size="100%,460px"></dc-import>
           </sc-for>
         </div>
       </sc-if>
       <sc-if value="{{ showList }}" hint-placeholder-val="{{ false }}">
         <div style="display:flex;flex-direction:column;gap:var(--space-4)">
           <sc-for list="{{ rows }}" as="row" hint-placeholder-count="6">
-            <dc-import name="Product Card" index="{{ $index }}" item="{{ row.item }}" cstate="{{ row.cstate }}" variant="{{ variant }}" layout="{{ listLayout }}" mobile="{{ isMobile }}" on-reveal="{{ reveal }}" on-copy="{{ copied }}" hint-size="100%,220px"></dc-import>
+            <dc-import name="Product Card" index="{{ $index }}" item="{{ row.item }}" cstate="{{ row.cstate }}" saved="{{ row.saved }}" on-save="{{ toggleSave }}" variant="{{ variant }}" layout="{{ listLayout }}" mobile="{{ isMobile }}" on-reveal="{{ reveal }}" on-copy="{{ copied }}" hint-size="100%,220px"></dc-import>
           </sc-for>
         </div>
       </sc-if>
@@ -313,7 +321,7 @@
           </div>
         </div>
         <div style="display:flex;flex-direction:column;gap:var(--space-2)">
-          <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-muted)">KHU VỰC</span>
+          <span style="font:var(--type-overline);letter-spacing:var(--tracking-overline);color:var(--color-text-muted)">{{ regionLabel }}</span>
           <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Select" options="{{ regionOptions }}" value="{{ regionD }}" onChange="{{ onRegion }}" hint-size="100%,44px"></x-import>
         </div>
       </div>
@@ -332,8 +340,9 @@
       <button type="button" aria-label="Đóng" onClick="{{ closeLogin }}" style="position:absolute;top:8px;right:8px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border:none;background:none;cursor:pointer;color:var(--color-text-muted)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
       <span style="width:48px;height:48px;border-radius:var(--radius-full);background:var(--color-bg-brand-soft);color:var(--color-text-brand);display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
       <div style="display:flex;flex-direction:column;gap:var(--space-2)">
-        <span style="font:var(--type-h4);color:var(--color-text-heading)">Đăng nhập để xem số điện thoại</span>
-        <span style="font:var(--type-body-sm);color:var(--color-text-body);text-wrap:pretty">Số của người liên hệ <strong style="color:var(--color-text-heading)">{{ loginName }}</strong> chỉ hiển thị với tài khoản đã đăng nhập. Đăng nhập xong sẽ quay lại trang này và số tự hiện.</span>
+        <span style="font:var(--type-h4);color:var(--color-text-heading)">{{ loginTitle }}</span>
+        <sc-if value="{{ loginForSave }}" hint-placeholder-val="{{ false }}"><span style="font:var(--type-body-sm);color:var(--color-text-body);text-wrap:pretty">Tin đã lưu được giữ trong tài khoản của bạn. Đăng nhập xong tin sẽ tự được lưu.</span></sc-if>
+        <sc-if value="{{ loginForPhone }}" hint-placeholder-val="{{ true }}"><span style="font:var(--type-body-sm);color:var(--color-text-body);text-wrap:pretty">Số của người liên hệ <strong style="color:var(--color-text-heading)">{{ loginName }}</strong> chỉ hiển thị với tài khoản đã đăng nhập. Đăng nhập xong sẽ quay lại trang này và số tự hiện.</span></sc-if>
       </div>
       <div style="display:grid;gap:var(--space-2)">
         <x-import component-from-global-scope="LavatuDesignSystem_2cb126.Button" variant="primary" size="l" onClick="{{ doLogin }}" hint-size="100%,48px">Đăng nhập</x-import>
@@ -345,14 +354,14 @@
 
 <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
   <div role="status" style="position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;display:flex;align-items:center;gap:var(--space-2);padding:var(--space-3) var(--space-4);border-radius:var(--radius-md);background:var(--color-bg-brand);color:var(--color-text-inverse);font:var(--type-label-md);box-shadow:var(--shadow-raised);white-space:nowrap">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-accent)"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>Đã sao chép số
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--color-accent)"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>{{ toastText }}
   </div>
 </sc-if>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;device&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;desktop&quot;,&quot;mobile&quot;],&quot;default&quot;:&quot;desktop&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;A&quot;,&quot;B&quot;],&quot;default&quot;:&quot;A&quot;,&quot;tsType&quot;:&quot;'A'|'B'&quot;},&quot;loggedIn&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;pageState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;data&quot;,&quot;loading&quot;,&quot;empty&quot;,&quot;error&quot;],&quot;default&quot;:&quot;data&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;revealError&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;initView&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initSheet&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;},&quot;initLogin&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initRevealed&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initErrors&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initToast&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;boolean&quot;},&quot;initScroll&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;},&quot;initCats&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initLimit&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initOwn&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;me&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;string&quot;},&quot;initPage&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;},&quot;initCount&quot;:{&quot;editor&quot;:null,&quot;tsType&quot;:&quot;number&quot;}}">
 class Component extends DCLogic {
-  static STATES = [{"k":"dang-danh-sach","l":"Đang có danh sách","p":{}},{"k":"trang-2","l":"Trang 2","p":{"initPage":2}},{"k":"mot-trang","l":"Chỉ 1 trang","p":{"initCount":10}},{"k":"che-do-danh-sach","l":"Chế độ Danh sách","p":{"initView":"list"}},{"k":"da-dang-nhap","l":"Đã đăng nhập","p":{"loggedIn":true}},{"k":"popup-dang-nhap","l":"Popup đăng nhập","p":{"initLogin":"p1"}},{"k":"da-hien-so","l":"Đã hiện số","p":{"loggedIn":true,"initRevealed":"p1,p2,p3"}},{"k":"loi-hien-so","l":"Lỗi hiện số","p":{"loggedIn":true,"initErrors":"p1"}},{"k":"da-sao-chep","l":"Đã sao chép số","p":{"loggedIn":true,"initRevealed":"p1","initToast":true}},{"k":"dang-loc","l":"Đang lọc danh mục","p":{"initCats":"Nhựa,Kim loại"}},{"k":"vuot-gioi-han","l":"Vượt giới hạn hiện số","p":{"loggedIn":true,"initRevealed":"p1","initLimit":"p2"}},{"k":"tin-cua-minh","l":"Tin của mình","p":{"loggedIn":true,"me":"minh","initOwn":"p1,p12"}},{"k":"dang-tai","l":"Đang tải","p":{"pageState":"loading"}},{"k":"khong-co-ket-qua","l":"Không có kết quả","p":{"pageState":"empty"}},{"k":"loi-tai","l":"Lỗi tải trang","p":{"pageState":"error"}}];
+  static STATES = [{"k":"dang-danh-sach","l":"Đang có danh sách","p":{}},{"k":"trang-2","l":"Trang 2","p":{"initPage":2}},{"k":"mot-trang","l":"Chỉ 1 trang","p":{"initCount":10}},{"k":"che-do-danh-sach","l":"Chế độ Danh sách","p":{"initView":"list"}},{"k":"da-dang-nhap","l":"Đã đăng nhập","p":{"loggedIn":true}},{"k":"popup-dang-nhap","l":"Popup đăng nhập","p":{"initLogin":"p1"}},{"k":"da-hien-so","l":"Đã hiện số","p":{"loggedIn":true,"initRevealed":"p1,p2,p3"}},{"k":"loi-hien-so","l":"Lỗi hiện số","p":{"loggedIn":true,"initErrors":"p1"}},{"k":"da-sao-chep","l":"Đã sao chép số","p":{"loggedIn":true,"initRevealed":"p1","initToast":true}},{"k":"dang-loc","l":"Đang lọc danh mục","p":{"initCats":"Nhựa,Kim loại"}},{"k":"vuot-gioi-han","l":"Vượt giới hạn hiện số","p":{"loggedIn":true,"initRevealed":"p1","initLimit":"p2"}},{"k":"tin-cua-minh","l":"Tin của mình","p":{"loggedIn":true,"me":"minh","initOwn":"p1,p12"}},{"k":"dang-tai","l":"Đang tải","p":{"pageState":"loading"}},{"k":"khong-co-ket-qua","l":"Không có kết quả","p":{"pageState":"empty"}},{"k":"loi-tai","l":"Lỗi tải trang","p":{"pageState":"error"}},{"k":"tab-can-mua","l":"Tab Cần mua","g":"Tin mua & lưu tin","p":{"initType":"buy"}},{"k":"can-mua-trong","l":"Tab Cần mua · trống","g":"Tin mua & lưu tin","p":{"initType":"buy","buyEmpty":true}},{"k":"da-luu","l":"Đã lưu tin","g":"Tin mua & lưu tin","p":{"loggedIn":true,"initSaved":"p1,p3,p6","initToast":"save"}},{"k":"co-noi-bat","l":"Có tin nổi bật","g":"Tin mua & lưu tin","p":{"initFeatured":"p2,p5"}},{"k":"khong-ket-qua","l":"Không có kết quả · gợi ý đăng nhu cầu","g":"Tin mua & lưu tin","p":{"initQ":"kính cường lực cắt dư"}}];
   static __st() { try { const k = new URLSearchParams(window.location.search).get('state'); return Component.STATES.find((s) => s.k === k) || null; } catch (e) { return null; } }
   get __P() { return this.__ov(this.props); }
   __ov(p) { const s = Component.__st(); return s && s.p ? { ...p, ...s.p } : p; }
@@ -376,6 +385,20 @@ class Component extends DCLogic {
     { id: 'p16', title: 'Pin lithium thải từ thiết bị cầm tay', cat: 'Rác điện tử', catKey: 'e-waste', qty: 500, unit: 'kg', price: 42000, company: 'Công ty TNHH Linh Kiện Sông Công', region: 'Thái Nguyên', contact: 'Mai Xuân Đạt', phone: '0977480916', img: (window.__lvImg ? window.__lvImg('assets/electronic.webp') : 'assets/electronic.webp') },
     { id: 'p17', title: 'Vải denim tồn kho cắt dở', cat: 'Vải dệt may', catKey: 'textile', qty: 2, unit: 'tấn', price: 18000000, company: 'Công ty TNHH Dệt May Sa Đéc', region: 'Đồng Tháp', contact: 'Võ Ngọc Hân', phone: '0945261837', img: (window.__lvImg ? window.__lvImg('assets/textile.webp') : 'assets/textile.webp') },
   ];
+  static BUY = [
+    { id: 'b1', type: 'buy', title: 'Cần mua thuỷ tinh vụn trắng đã phân loại', cat: 'Thuỷ tinh', catKey: null, catColor: '#1d6f86', qty: 500, unit: 'tấn', priceMin: 1500000, priceMax: 2000000, price: 2000000, company: 'Công ty TNHH Tái chế Xanh Phương Nam', region: 'Bình Dương', contact: 'Trần Thị Mai', phone: '0918246357', img: null, icon: ["M8 22h8","M7 10h10","M12 15v7","M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5Z"], days: 63 },
+    { id: 'b2', type: 'buy', title: 'Cần mua nhựa PET vụn đã rửa sạch', cat: 'Nhựa', catKey: 'plastic', qty: 100, unit: 'tấn', priceMin: 14000000, priceMax: 16000000, price: 16000000, company: 'Công ty CP Bao Bì Minh Phát', region: 'TP. Hồ Chí Minh', contact: 'Hoàng Lan', phone: '0938456789', img: (window.__lvImg ? window.__lvImg('assets/plastic.webp') : 'assets/plastic.webp'), icon: ["M8 2h8","M9 2v2.789a4 4 0 0 1-.672 2.219l-.656.984A4 4 0 0 0 7 10.212V20a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9.789a4 4 0 0 0-.672-2.219l-.656-.984A4 4 0 0 1 15 4.788V2","M7 15a6.472 6.472 0 0 1 5 0 6.47 6.47 0 0 0 5 0",""], days: 40 },
+    { id: 'b3', type: 'buy', title: 'Cần mua giấy carton OCC ép kiện', cat: 'Giấy carton', catKey: 'paper', qty: 200, unit: 'tấn', priceMin: 0, priceMax: 0, price: 0, company: 'Công ty TNHH Giấy Đông Á', region: 'Đồng Nai', contact: 'Lê Văn Tâm', phone: '0913552810', img: null, icon: ["M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z","M12 22V12","m3.3 7 7.703 4.734a2 2 0 0 0 1.994 0L20.7 7","m7.5 4.27 9 5.15"], days: 21 },
+    { id: 'b4', type: 'buy', title: 'Cần mua nhôm lon phế liệu đã ép kiện', cat: 'Kim loại', catKey: 'metal', qty: 30, unit: 'tấn', priceMin: 26000000, priceMax: 29000000, price: 29000000, company: 'Công ty CP Kim Loại Phương Nam', region: 'Đồng Nai', contact: 'Trần Thị Hạnh', phone: '0912345678', img: (window.__lvImg ? window.__lvImg('assets/metal.webp') : 'assets/metal.webp'), icon: ["M7 10H6a4 4 0 0 1-4-4 1 1 0 0 1 1-1h4","M7 5a1 1 0 0 1 1-1h13a1 1 0 0 1 1 1 7 7 0 0 1-7 7H8a1 1 0 0 1-1-1z","M9 12v5M15 12v5","M5 20a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3 1 1 0 0 1-1 1H6a1 1 0 0 1-1-1"], days: 2 },
+    { id: 'b5', type: 'buy', title: 'Cần mua trấu ép viên làm nhiên liệu lò hơi', cat: 'Phụ phẩm nông nghiệp', catKey: 'agri', qty: 300, unit: 'tấn', priceMin: 1600000, priceMax: 1900000, price: 1900000, company: 'Công ty TNHH Năng Lượng Sinh Khối Miền Tây', region: 'TP. Cần Thơ', contact: 'Lý Văn Phước', phone: '0939284716', img: null, icon: ["M2 22 16 8","M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94ZM7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94ZM11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z","M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z","M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0ZM15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0ZM19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"], days: 55 },
+    { id: 'b6', type: 'buy', title: 'Cần mua vải vụn cotton trắng', cat: 'Vải dệt may', catKey: 'textile', qty: 20, unit: 'tấn', priceMin: 4000000, priceMax: 5000000, price: 5000000, company: 'Công ty May Mặc Thành Công', region: 'Tây Ninh', contact: 'Châu Thị Mỹ', phone: '0965172384', img: (window.__lvImg ? window.__lvImg('assets/textile.webp') : 'assets/textile.webp'), icon: ["M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z","","",""], days: 30 },
+    { id: 'b7', type: 'buy', title: 'Cần mua bo mạch điện tử thải số lượng lớn', cat: 'Rác điện tử', catKey: 'e-waste', qty: 5, unit: 'tấn', priceMin: 0, priceMax: 0, price: 0, company: 'Công ty CP Tái Chế Điện Tử Xanh', region: 'Bắc Ninh', contact: 'Đỗ Mạnh Hùng', phone: '0983112470', img: null, icon: ["M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z","M9 9h6v6H9z","M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2",""], days: 15 },
+    { id: 'b8', type: 'buy', title: 'Cần mua gạch vỡ, bê tông vụn để san lấp mặt bằng', cat: 'Vật liệu xây dựng', catKey: null, catColor: '#99573a', qty: 1000, unit: 'tấn', priceMin: 50000, priceMax: 80000, price: 80000, company: 'Công ty CP Xây Dựng Sông Hàn', region: 'TP. Đà Nẵng', contact: 'Ngô Thanh Tùng', phone: '0935667812', img: null, icon: ["M3 5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z","M12 9v6M16 15v6M16 3v6M8 15v6M8 3v6","M3 15h18M3 9h18",""], days: 1 },
+    { id: 'b9', type: 'buy', title: 'Cần mua sắt thép phế liệu công trình', cat: 'Kim loại', catKey: 'metal', qty: 150, unit: 'tấn', priceMin: 7500000, priceMax: 8000000, price: 8000000, company: 'Công ty TNHH Luyện Cán Thép Phố Nối', region: 'Hưng Yên', contact: 'Bùi Minh Khoa', phone: '0987321654', img: null, icon: ["M7 10H6a4 4 0 0 1-4-4 1 1 0 0 1 1-1h4","M7 5a1 1 0 0 1 1-1h13a1 1 0 0 1 1 1 7 7 0 0 1-7 7H8a1 1 0 0 1-1-1z","M9 12v5M15 12v5","M5 20a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3 1 1 0 0 1-1 1H6a1 1 0 0 1-1-1"], days: 45 },
+    { id: 'b10', type: 'buy', title: 'Cần mua hạt nhựa HDPE tái sinh màu tự nhiên', cat: 'Nhựa', catKey: 'plastic', qty: 50, unit: 'tấn', priceMin: 18000000, priceMax: 21000000, price: 21000000, company: 'Công ty TNHH Nhựa Tân Tiến', region: 'Long An', contact: 'Phạm Thu Trang', phone: '0976234517', img: null, icon: ["M8 2h8","M9 2v2.789a4 4 0 0 1-.672 2.219l-.656.984A4 4 0 0 0 7 10.212V20a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-9.789a4 4 0 0 0-.672-2.219l-.656-.984A4 4 0 0 1 15 4.788V2","M7 15a6.472 6.472 0 0 1 5 0 6.47 6.47 0 0 0 5 0",""], days: 28 },
+    { id: 'b11', type: 'buy', title: 'Cần mua bã mía khô làm bột giấy', cat: 'Phụ phẩm nông nghiệp', catKey: 'agri', qty: 400, unit: 'tấn', priceMin: 800000, priceMax: 1000000, price: 1000000, company: 'Công ty CP Giấy Sài Gòn Xanh', region: 'Tây Ninh', contact: 'Đinh Thị Hoa', phone: '0962418375', img: (window.__lvImg ? window.__lvImg('assets/agri.webp') : 'assets/agri.webp'), icon: ["M2 22 16 8","M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94ZM7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94ZM11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z","M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z","M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0ZM15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0ZM19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z"], days: 60 },
+    { id: 'b12', type: 'buy', title: 'Cần mua pallet gỗ cũ còn dùng được', cat: 'Vật liệu khác', catKey: null, qty: 3, unit: 'tấn', priceMin: 0, priceMax: 0, price: 0, company: 'Cá nhân', region: 'Khánh Hoà', contact: 'Lê Thị Thu', phone: '0971556203', img: null, icon: ["M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z","m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65","m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65",""], days: 9, personal: true },
+  ];
   static CATS = ['Nhựa', 'Kim loại', 'Giấy carton', 'Thuỷ tinh', 'Vật liệu xây dựng', 'Phụ phẩm nông nghiệp', 'Rác điện tử', 'Vải dệt may', 'Vật liệu khác'];
   static CAT_COLOR = { 'Nhựa': 'var(--color-material-plastic)', 'Kim loại': 'var(--color-material-metal)', 'Giấy carton': 'var(--color-material-paper)', 'Thuỷ tinh': '#1d6f86', 'Vật liệu xây dựng': '#99573a', 'Phụ phẩm nông nghiệp': 'var(--color-material-agri)', 'Rác điện tử': 'var(--color-material-e-waste)', 'Vải dệt may': 'var(--color-material-textile)', 'Vật liệu khác': 'var(--color-text-body)' };
   scrollRef = React.createRef();
@@ -390,7 +413,9 @@ class Component extends DCLogic {
     return {
       cats, qDraft: p.initQ || '', q: p.initQ || '', unitD: '', fromD: '', toD: '', regionD: R,
       applied: { unit: '', from: '', to: '', region: R }, sort: 'new', view: p.initView || 'grid', page: Number(p.initPage) || 1,
-      contact, loggedIn: b(p.loggedIn), loginFor: p.initLogin || null, toast: b(p.initToast), sheet: b(p.initSheet), ps: p.pageState || 'data',
+      contact, loggedIn: b(p.loggedIn), loginFor: p.initLogin || null, toast: p.initToast === 'save' ? 'Đã lưu tin' : b(p.initToast) ? 'Đã sao chép số' : '', sheet: b(p.initSheet), ps: p.pageState || 'data',
+      type: p.initType === 'buy' || (() => { try { return new URLSearchParams(window.location.search).get('type') === 'buy'; } catch (e) { return false; } })() ? 'buy' : 'sell',
+      saved: Object.fromEntries(String(p.initSaved || '').split(',').filter(Boolean).map((x) => [x.trim(), true])),
     };
   })();
   failed = {};
@@ -410,7 +435,10 @@ class Component extends DCLogic {
       this.setState((s) => ({ contact: { ...s.contact, [id]: err ? 'error' : 'revealed' } }));
     }, 900);
   };
-  copied = () => { clearTimeout(this.tt); this.setState({ toast: true }); this.tt = setTimeout(() => this.setState({ toast: false }), 2400); };
+  flash = (t) => { clearTimeout(this.tt); this.setState({ toast: t }); this.tt = setTimeout(() => this.setState({ toast: '' }), 2400); };
+  copied = () => this.flash('Đã sao chép số');
+  toggleSave = (id) => { if (!this.state.loggedIn) { this.setState({ loginFor: 'save:' + id }); return; } const on = !this.state.saved[id]; this.setState((s) => ({ saved: { ...s.saved, [id]: on } })); this.flash(on ? 'Đã lưu tin' : 'Đã bỏ lưu tin'); };
+  setType = (t) => { this.setState({ type: t, page: 1 }); try { const u = new URL(window.location.href); if (t === 'buy') u.searchParams.set('type', 'buy'); else u.searchParams.delete('type'); window.history.replaceState(null, '', u.toString()); } catch (e) {} if (this.scrollRef.current) this.scrollRef.current.scrollTop = Math.min(this.scrollRef.current.scrollTop, 420); };
   clearAll = () => this.setState({ cats: [], q: '', qDraft: '', unitD: '', fromD: '', toD: '', regionD: '', applied: { unit: '', from: '', to: '', region: '' }, page: 1, ps: 'data' });
   apply = () => this.setState((s) => ({ applied: { unit: s.unitD, from: s.fromD, to: s.toD, region: s.regionD }, page: 1 }));
   renderVals() {
@@ -418,8 +446,20 @@ class Component extends DCLogic {
     const mobile = p.device === 'mobile';
     const toKg = (q, u) => (u === 'tấn' ? q * 1000 : q);
     const perKg = (it) => (it.unit === 'tấn' ? it.price / 1000 : it.price);
+    const buy = s.type === 'buy', b = (v) => v === true || v === 'true';
+    const feat = String(p.initFeatured || '').split(',').map((x) => x.trim()).filter(Boolean);
     const a = s.applied, u = a.unit || 'kg';
-    const src = p.initCount ? C.ITEMS.slice(0, Number(p.initCount)) : C.ITEMS;
+    const sellSrc = (p.initCount ? C.ITEMS.slice(0, Number(p.initCount)) : C.ITEMS).map((it) => feat.includes(it.id) ? { ...it, featured: true } : it);
+    const buySrc = b(p.buyEmpty) ? [] : C.BUY;
+    const src = buy ? buySrc : sellSrc;
+    const match = (it) =>
+      (!s.cats.length || s.cats.includes(it.cat)) &&
+      (!s.q || (it.title + ' ' + it.cat).toLowerCase().includes(s.q.toLowerCase())) &&
+      (!a.unit || it.unit === a.unit) &&
+      (a.from === '' || toKg(it.qty, it.unit) >= toKg(Number(a.from), u)) &&
+      (a.to === '' || toKg(it.qty, it.unit) <= toKg(Number(a.to), u)) &&
+      (!a.region || it.region === a.region);
+    const nSell = sellSrc.filter(match).length, nBuy = buySrc.filter(match).length;
     let list = src.map((it, i) => ({ ...it, order: i })).filter((it) =>
       (!s.cats.length || s.cats.includes(it.cat)) &&
       (!s.q || (it.title + ' ' + it.cat).toLowerCase().includes(s.q.toLowerCase())) &&
@@ -431,13 +471,15 @@ class Component extends DCLogic {
     list.sort(sorters[s.sort] || sorters.new);
     const ownIds = String(p.initOwn || '').split(',').map((x) => x.trim()).filter(Boolean);
     const size = 16, totalPages = Math.max(1, Math.ceil(list.length / size)), page = Math.min(s.page, totalPages);
-    const rows = list.slice((page - 1) * size, page * size).map((it) => ({ item: it, cstate: (it.own || ownIds.includes(it.id)) && s.loggedIn ? 'own' : (s.contact[it.id] || 'masked') }));
+    const rows = list.slice((page - 1) * size, page * size).map((it) => ({ saved: !!s.saved[it.id], item: it, cstate: (it.own || ownIds.includes(it.id)) && s.loggedIn ? 'own' : (s.contact[it.id] || 'masked') }));
     const fc = (s.cats.length ? 1 : 0) + (a.unit ? 1 : 0) + (a.from !== '' || a.to !== '' ? 1 : 0) + (a.region ? 1 : 0);
     const toggleCat = (c) => this.setState((st) => ({ page: 1, cats: st.cats.includes(c) ? st.cats.filter((x) => x !== c) : [...st.cats, c] }));
     const ps = s.ps, data = ps === 'data';
     const empty = ps === 'empty' || (data && list.length === 0);
-    const regions = [...new Set(C.ITEMS.map((i) => i.region))];
-    const loginItem = C.ITEMS.find((i) => i.id === s.loginFor);
+    const regions = [...new Set([...C.ITEMS, ...C.BUY].map((i) => i.region))];
+    const loginSave = String(s.loginFor || '').startsWith('save:');
+    const loginItem = [...C.ITEMS, ...C.BUY].find((i) => i.id === s.loginFor);
+    const filtered = fc > 0 || !!s.q;
     return {
       isDesktop: !mobile, isMobile: mobile, userName: p.me === 'minh' ? 'Nguyễn Văn Minh' : 'Hoàng Lan', userInitials: p.me === 'minh' ? 'VM' : 'HL', guest: !s.loggedIn, loggedIn: s.loggedIn, variant: p.variant || 'A',
       scrollRef: this.scrollRef, qDraft: s.qDraft,
@@ -458,8 +500,14 @@ class Component extends DCLogic {
         { border: 'none', text: 'Góp phần vào kinh tế tuần hoàn', d1: 'M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z', d2: 'M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12' },
       ],
       hasFilters: fc > 0, filterCount: String(fc),
+      typeTabs: [['sell', 'Đang bán', nSell], ['buy', 'Cần mua', nBuy]].map(([k, label, n]) => { const on = s.type === k; return { label, count: n, on, pick: () => this.setType(k), color: on ? 'var(--color-text-brand)' : 'var(--color-text-muted)', countColor: on ? 'var(--color-text-brand)' : 'var(--color-text-subtle)', line: on ? 'inset 0 -2px 0 var(--color-action-primary)' : 'none' }; }),
+      regionLabel: buy ? 'NƠI NHẬN HÀNG' : 'KHU VỰC', countNoun: buy ? 'nhu cầu mua' : 'nguồn vật liệu',
+      emptyTitle: buy ? (filtered ? 'Chưa có nhu cầu mua phù hợp bộ lọc.' : 'Chưa có nhu cầu mua phù hợp') : 'Chưa có nguồn vật liệu phù hợp bộ lọc.',
+      emptyHasFilter: filtered || (!buy && ps === 'empty'), emptySell: !buy, postBuyVariant: buy && !filtered ? 'primary' : 'secondary',
+      goPostBuy: () => { window.location.href = 'Dang nhu cau mua - Ban chinh.dc.html'; }, toggleSave: this.toggleSave,
+      loginTitle: loginSave ? 'Đăng nhập để lưu tin' : 'Đăng nhập để xem số điện thoại', loginForSave: loginSave, loginForPhone: !loginSave, toastText: s.toast || '',
       unitOptions: [{ value: '', label: 'Tất cả đơn vị' }, { value: 'kg', label: 'kg' }, { value: 'tấn', label: 'tấn' }],
-      regionOptions: [{ value: '', label: 'Tất cả khu vực' }, ...regions.map((r) => ({ value: r, label: r }))],
+      regionOptions: [{ value: '', label: buy ? 'Tất cả nơi nhận hàng' : 'Tất cả khu vực' }, ...regions.map((r) => ({ value: r, label: r }))],
       sortOptions: [{ value: 'new', label: 'Mới nhất' }, { value: 'priceAsc', label: 'Giá thấp đến cao' }, { value: 'priceDesc', label: 'Giá cao đến thấp' }, { value: 'qtyDesc', label: 'Khối lượng lớn nhất' }],
       unitD: s.unitD, fromD: s.fromD, toD: s.toD, regionD: s.regionD, sort: s.sort, unitSuffix: s.unitD || 'kg',
       onUnit: (e) => this.setState({ unitD: e.target.value }), onFrom: (e) => this.setState({ fromD: e.target.value }),
@@ -477,9 +525,9 @@ class Component extends DCLogic {
       reveal: this.reveal, copied: this.copied,
       sheetOpen: s.sheet, openSheet: () => this.setState({ sheet: true }), closeSheet: () => this.setState({ sheet: false }),
       loginOpen: !!s.loginFor, loginName: loginItem ? loginItem.contact : '', closeLogin: () => this.setState({ loginFor: null }),
-      doLogin: () => { const id = this.state.loginFor; this.setState({ loggedIn: true, loginFor: null }, () => id && this.reveal(id)); },
+      doLogin: () => { const id = this.state.loginFor; this.setState({ loggedIn: true, loginFor: null }, () => { if (!id) return; if (String(id).startsWith('save:')) this.toggleSave(id.slice(5)); else this.reveal(id); }); },
       goLogin: () => this.setState({ loggedIn: true }),
-      toast: s.toast,
+      toast: !!s.toast,
     };
   }
 }
